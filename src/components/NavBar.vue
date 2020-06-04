@@ -2,7 +2,7 @@
     <div>
         <div class="navbar">
             <router-link to="/">
-                <img alt="Vue logo" src="../assets/logo.png" />
+                <img alt="NUSVocatio logo" src="../assets/logo.png" width="180px" />
             </router-link>
             <router-link to="/about">User</router-link>
             <router-link to="/">Notification</router-link>
