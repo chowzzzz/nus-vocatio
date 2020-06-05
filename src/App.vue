@@ -7,7 +7,7 @@
             <nav>
                 <ul>
                     <li>
-                        <router-link to="/about">
+                        <router-link to="/">
                             <img src="./assets/selfmade/user.svg" alt="User" />
                         </router-link>
                     </li>

@@ -15,6 +15,12 @@
                         />
                         <i class="fas fa-search"></i>
                     </div>
+                    <div class="btns">
+                        <button class="btn" id="searchBtn">Search</button>
+                        <router-link to="/search">
+                            <button class="btn" id="allBtn">Look at all jobs</button>
+                        </router-link>
+                    </div>
                 </form>
             </section>
             <img src="../assets/job.jpg" alt="searching for jobs" class="jobPic" />
@@ -79,6 +85,42 @@ input {
     top: 0;
     bottom: 0;
     margin: auto auto auto 0;
+}
+
+.btns {
+    margin-top: 0.8em;
+}
+
+.btn {
+    border: none;
+    padding: 0.8em 2em;
+    border-radius: 12px;
+    outline: none;
+}
+
+#searchBtn {
+    margin-right: 1em;
+    background: #f2dadd;
+    color: #af6675;
+    transition-duration: 0.4s;
+}
+
+#searchBtn:hover {
+    background-color: #d398a5;
+    color: #fff;
+}
+
+#allBtn {
+    background: #fff;
+    border: 2px solid #f2dadd;
+    color: #af6675;
+    transition-duration: 0.4s;
+}
+
+#allBtn:hover {
+    border: 2px solid #d398a5;
+    background-color: #d398a5;
+    color: #fff;
 }
 
 .jobPic {
