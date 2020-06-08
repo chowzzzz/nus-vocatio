@@ -13,9 +13,14 @@ const routes = [
         meta: { hideSearch: true }
     },
     {
-        path: "/search",
-        name: "search",
+        path: "/jobs",
+        name: "jobs",
         component: StudentSearch
+    },
+    {
+        path: "/jobs/:id",
+        name: "job-details",
+        component: () => import("../views/StudentJobListing.vue")
     }
 ];
 
