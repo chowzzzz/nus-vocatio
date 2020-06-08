@@ -1,36 +1,21 @@
 <template>
     <div id="app">
-        <div class="nav-container">
-            <router-link to="/">
-                <img id="navLogo" alt="NUSVocatio logo" src="./assets/logo2.svg" />
-            </router-link>
-            <nav>
-                <ul>
-                    <li>
-                        <router-link to="/">
-                            <img src="./assets/selfmade/user.svg" alt="User" />
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/">
-                            <img src="./assets/selfmade/noti.svg" alt="Notification" />
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/">
-                            <img src="./assets/selfmade/settings.svg" alt="Settings" />
-                        </router-link>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <router-view />
+        <navBar />
     </div>
 </template>
 
 <script>
+import NavBar from "./components/NavBar.vue";
 export default {
-    name: "NusVocatio"
+    name: "NusVocatio",
+    components: {
+        navBar: NavBar
+    },
+    data() {
+        this.$route.path === "/"
+            ? (this.showSearch = false)
+            : (this.showSearch = true);
+    }
 };
 </script>
 
@@ -46,6 +31,15 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+h1,
+h2,
+h3,
+h4,
+ul {
+    margin: 0;
+    padding: 0;
+}
+
 p {
     font-size: 0.9em;
     line-height: 1.6em;
@@ -55,38 +49,5 @@ p {
     font-family: "Montserrat", sans-serif;
     font-weight: bold;
     font-size: 1.8em;
-}
-
-.nav-container {
-    background: #eceff3;
-    display: flex;
-    justify-content: space-between;
-    padding: 0.1em 2.3em;
-}
-
-#navLogo {
-    float: left;
-    width: 130px;
-}
-
-nav {
-    display: flex;
-    float: right;
-    padding: 0.5em;
-}
-
-nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0.2em 0 0;
-}
-
-nav ul li {
-    display: inline-block;
-    margin: 0 0.3em;
-}
-
-nav img {
-    width: 30px;
 }
 </style>

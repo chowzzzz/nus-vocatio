@@ -1,20 +1,10 @@
 <template>
     <div>
-        <!-- <navbar /> -->
         <div class="search-container">
             <section id="search">
                 <h2 class="title">Find the best school job this summer!</h2>
                 <form method="get">
-                    <div class="search-box">
-                        <input
-                            type="text"
-                            name="searchBar"
-                            id="searchBar"
-                            placeholder="Search for a job"
-                            autocomplete="on"
-                        />
-                        <i class="fas fa-search"></i>
-                    </div>
+                    <search-bar />
                     <div class="btns">
                         <button class="btn" id="searchBtn">Search</button>
                         <router-link to="/search">
@@ -32,12 +22,14 @@
 <script>
 // import NavBar from "../components/NavBar.vue";
 import StudentAbout from "../components/StudentAbout.vue";
+import StudentSearchBar from "../components/StudentSearchBar.vue";
 
 export default {
     name: "StudentHome",
     components: {
         // navbar: NavBar
-        about: StudentAbout
+        about: StudentAbout,
+        searchBar: StudentSearchBar
     }
 };
 </script>
@@ -59,32 +51,6 @@ export default {
 h2 {
     margin: 0;
     padding-bottom: 0.5em;
-}
-
-.search-box {
-    position: relative;
-}
-
-input {
-    outline: none;
-    font-size: 1em;
-    width: 80%;
-    height: 2em;
-    background: #dce2e8;
-    padding: 0.3em;
-    text-indent: 2.5em;
-    border-radius: 25px;
-    border: 0;
-    cursor: text;
-}
-
-.fa-search {
-    position: absolute;
-    color: #9ecde9;
-    left: 3%;
-    top: 0;
-    bottom: 0;
-    margin: auto auto auto 0;
 }
 
 .btns {
