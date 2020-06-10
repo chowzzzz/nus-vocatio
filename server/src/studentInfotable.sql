@@ -2,7 +2,6 @@ DROP TABLE `studentinfo`;
 
 CREATE TABLE `studentinfo` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
-  `ID` mediumint,
   `Name` varchar(255) default NULL,
   `Mobile` varchar(100) default NULL,
   `Email` varchar(255) default NULL,
