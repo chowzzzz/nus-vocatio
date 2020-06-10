@@ -2,13 +2,13 @@
     <div class="search-box">
         <input
             type="text"
-            v-bind:class="{ 'custom-search' : $route.path == '/search' }"
+            v-bind:class="{ 'custom-search' : $route.path == '/jobs' }"
             name="searchBar"
             id="searchBar"
             placeholder="Search for a job"
             autocomplete="on"
         />
-        <span v-bind:class="{ 'custom-fa-search' : $route.path == '/search' }">
+        <span v-bind:class="{ 'custom-fa-search' : $route.path == '/jobs' }">
             <i class="fas fa-search"></i>
         </span>
     </div>

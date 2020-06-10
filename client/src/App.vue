@@ -10,11 +10,6 @@ export default {
     name: "NusVocatio",
     components: {
         navBar: NavBar
-    },
-    data() {
-        this.$route.path === "/"
-            ? (this.showSearch = false)
-            : (this.showSearch = true);
     }
 };
 </script>

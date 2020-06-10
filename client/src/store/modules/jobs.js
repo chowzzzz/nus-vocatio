@@ -94,7 +94,10 @@ const state = {
     ]
 };
 const getters = {
-    allJobs: (state) => state.jobs
+    allJobs: (state) => state.jobs,
+    getJobById: (state) => (id) => {
+        return state.jobs.find((job) => job.jobID == id);
+    }
 };
 const actions = {};
 const mutations = {};

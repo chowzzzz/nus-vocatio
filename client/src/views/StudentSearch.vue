@@ -5,7 +5,11 @@
             <div class="jobs">
                 <h4>Job Listings</h4>
                 <ul>
-                    <li v-for="job in allJobs" :key="job.id">
+                    <li
+                        v-for="job in allJobs"
+                        :key="job.jobID"
+                        @click="navigateTo({name: 'job-details', params: {jobId: job.jobID}})"
+                    >
                         {{ job.title }}
                         <br />
                         {{ job.employer }}
@@ -34,7 +38,12 @@ export default {
     components: {
         sideFilterMenu: SideFilterMenu
     },
-    computed: mapGetters(["allJobs"])
+    computed: mapGetters(["allJobs"]),
+    methods: {
+        navigateTo(route) {
+            this.$router.push(route);
+        }
+    }
 };
 </script>
 
@@ -50,5 +59,6 @@ li {
     margin-top: 2em;
     background: #fff;
     padding: 1em;
+    cursor: pointer;
 }
 </style>
