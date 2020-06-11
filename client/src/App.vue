@@ -29,13 +29,17 @@ body {
 h1,
 h2,
 h3,
-h4,
-ul {
+h4 {
     margin: 0;
     padding: 0;
+    font-family: "Montserrat", sans-serif;
 }
 
-p {
+ul,
+p,
+a {
+    margin: 0;
+    padding: 0;
     font-size: 0.9em;
     line-height: 1.6em;
 }

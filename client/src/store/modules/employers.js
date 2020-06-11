@@ -43,7 +43,10 @@ const state = {
     ]
 };
 const getters = {
-    allEmployers: (state) => state.employers
+    allEmployers: (state) => state.employers,
+    getEmpById: (state) => (id) => {
+        return state.employers.find((employer) => employer.empID == id);
+    }
 };
 const actions = {};
 const mutations = {};

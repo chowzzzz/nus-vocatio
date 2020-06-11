@@ -139,7 +139,7 @@ export default {
 
 <style scoped>
 .side-filter-menu {
-    position: fixed;
+    position: absolute;
     width: 20%;
     z-index: 1;
     overflow-x: hidden;
