@@ -7,7 +7,7 @@
                     <search-bar />
                     <div class="btns">
                         <button class="btn" id="searchBtn">Search</button>
-                        <router-link to="/search">
+                        <router-link to="/jobs">
                             <button class="btn" id="allBtn">Look at all jobs</button>
                         </router-link>
                     </div>

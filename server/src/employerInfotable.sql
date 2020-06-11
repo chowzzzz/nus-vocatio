@@ -1,4 +1,4 @@
-CREATE TABLE `employer`.`employer_info` (
+CREATE TABLE `employer_info` (
   `ID` INT NOT NULL,
   `Company` VARCHAR(45) NOT NULL,
   `Name` VARCHAR(100) NOT NULL,
