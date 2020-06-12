@@ -75,7 +75,7 @@ li {
     padding: 1.2em 1.8em;
     cursor: pointer;
     display: grid;
-    grid-template-columns: 15% 70% 15%;
+    grid-template-columns: 125px 70% auto;
     align-items: center;
 }
 
