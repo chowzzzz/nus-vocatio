@@ -11,7 +11,7 @@
                         @click="navigateTo({name: 'job-details', params: {jobId: job.jobID}})"
                     >
                         <div class="job-img">
-                            <img src="../assets/selfmade/picture.svg" alt="company logo" />
+                            <img src="../../assets/selfmade/picture.svg" alt="company logo" />
                         </div>
                         <div class="job-title">
                             <h4>{{ job.title }}</h4>
@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import SideFilterMenu from "../components/SideFilterMenu.vue";
+import SideFilterMenu from "../../components/SideFilterMenu.vue";
 import { mapGetters } from "vuex";
 
 export default {

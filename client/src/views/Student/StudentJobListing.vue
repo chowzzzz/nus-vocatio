@@ -1,11 +1,11 @@
 <template>
     <div>
         <button id="backBtn" @click="$router.go(-1)">
-            <img src="../assets/left.svg" alt="back button" /> Back to jobs
+            <img src="../../assets/left.svg" alt="back button" /> Back to jobs
         </button>
         <div class="job-container">
             <div class="img-box job-title">
-                <img :src="require(`../assets/selfmade/${employer.logo}`)" alt="company logo" />
+                <img :src="require(`../../assets/selfmade/${employer.logo}`)" alt="company logo" />
             </div>
             <div class="job-main-title-container job-title">
                 <h1>{{ job.title }}</h1>
@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import EmployerContact from "../components/EmployerContactSideMenu.vue";
+import EmployerContact from "../../components/EmployerContactSideMenu.vue";
 
 export default {
     name: "StudentJobListing",

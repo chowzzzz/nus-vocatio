@@ -13,7 +13,7 @@
                     </div>
                 </form>
             </section>
-            <img src="../assets/job.jpg" alt="searching for jobs" class="jobPic" />
+            <img src="../../assets/job.jpg" alt="searching for jobs" class="jobPic" />
         </div>
         <about />
     </div>
@@ -21,13 +21,12 @@
 
 <script>
 // import NavBar from "../components/NavBar.vue";
-import StudentAbout from "../components/StudentAbout.vue";
-import StudentSearchBar from "../components/StudentSearchBar.vue";
+import StudentAbout from "../../components/StudentAbout.vue";
+import StudentSearchBar from "../../components/StudentSearchBar.vue";
 
 export default {
     name: "StudentHome",
     components: {
-        // navbar: NavBar
         about: StudentAbout,
         searchBar: StudentSearchBar
     }

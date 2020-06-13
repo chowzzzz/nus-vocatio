@@ -1,8 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import StudentHome from "../views/StudentHome.vue";
-import StudentSearch from "../views/StudentSearch.vue";
-import StudentJobListing from "../views/StudentJobListing.vue";
+import StudentHome from "../views/Student/StudentHome.vue";
+import StudentSearch from "../views/Student/StudentSearch.vue";
+import StudentJobListing from "../views/Student/StudentJobListing.vue";
 import Signup from "../views/Signup.vue";
 
 Vue.use(VueRouter);
