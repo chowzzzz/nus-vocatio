@@ -4,13 +4,12 @@
             <img src="../assets/left.svg" alt="back button" /> Back to jobs
         </button>
         <div class="job-container">
-            <!-- <div class="job-title-container"> -->
             <div class="img-box job-title">
-                <img src="../assets/selfmade/picture.svg" alt="company logo" />
+                <img :src="require(`../assets/selfmade/${employer.logo}`)" alt="company logo" />
             </div>
             <div class="job-main-title-container job-title">
                 <h1>{{ job.title }}</h1>
-                <p>{{ job.employer }}</p>
+                <p>{{ employer.companyName }}</p>
                 <p>
                     <span class="type">{{ job.type }}</span>
                     <span class="faculty">{{ job.faculty }}</span>
@@ -21,7 +20,7 @@
                 <p id="salary" v-if="job.salary != null">Salary: {{ job.salary }}</p>
                 <a href="#">Contract Term</a>
             </div>
-            <!-- </div> -->
+
             <div class="job-description-container">
                 <h3>Job description</h3>
                 <p id="desc">{{ job.description }}</p>
@@ -33,14 +32,20 @@
                     >{{ requirement.req }}</li>
                 </ul>
             </div>
-            <p>{{employer.name}}</p>
+
+            <employerContact />
         </div>
     </div>
 </template>
 
 <script>
+import EmployerContact from "../components/EmployerContactSideMenu.vue";
+
 export default {
     name: "StudentJobListing",
+    components: {
+        employerContact: EmployerContact
+    },
     data() {
         const job = this.$store.getters.getJobById(this.$route.params.jobId);
         return {
@@ -88,11 +93,11 @@ li {
 
 .job-container {
     display: grid;
-    grid-template-columns: 110px 50% 150px;
+    grid-template-columns: 110px 45% 150px auto;
     grid-template-rows: 80px auto;
     grid-template-areas:
-        "img title side"
-        "desc desc desc";
+        "img title side contact"
+        "desc desc desc contact";
 }
 
 .job-title {
@@ -120,6 +125,7 @@ h1 {
     grid-area: side;
     text-align: right;
     justify-self: end;
+    margin: 0 1em 0 0;
 }
 
 #salary {
@@ -143,5 +149,101 @@ h3 {
 
 ul {
     margin-left: 1em;
+}
+
+@media screen and (max-width: 1150px) {
+    .job-container {
+        grid-template-columns: 110px 60% auto;
+        grid-template-rows: 80px auto auto;
+        grid-template-areas:
+            "img title side"
+            "desc desc desc"
+            "contact contact contact";
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .job-container {
+        grid-template-columns: 100px 55% auto;
+        grid-template-rows: 65px auto auto;
+    }
+
+    h1 {
+        font-size: 1.4em;
+    }
+
+    h3 {
+        font-size: 1em;
+    }
+
+    .img-box img {
+        width: 75%;
+    }
+
+    #salary {
+        font-size: 0.9em;
+    }
+
+    p,
+    li,
+    a {
+        font-size: 0.8em;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .job-container {
+        grid-template-columns: 80px auto;
+        grid-template-rows: 80px auto auto auto;
+        grid-template-areas:
+            "img title"
+            "side side"
+            "desc desc"
+            "contact contact";
+        margin: 1.5em 2em;
+    }
+
+    #backBtn {
+        display: none;
+    }
+
+    .job-side-title-container {
+        text-align: left;
+        justify-self: start;
+    }
+
+    .job-description-container {
+        margin: 1em 0 2em;
+    }
+
+    h1 {
+        font-size: 1.2em;
+    }
+
+    h3 {
+        font-size: 0.9em;
+    }
+
+    #salary {
+        font-size: 0.8em;
+    }
+
+    p,
+    li,
+    a {
+        font-size: 0.7em;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .job-container {
+        grid-template-columns: 80px auto;
+        grid-template-rows: 80px auto auto auto;
+        margin: 1.5em;
+    }
+
+    h1 {
+        font-size: 1em;
+    }
 }
 </style>

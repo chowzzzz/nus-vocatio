@@ -4,7 +4,8 @@ const state = {
             jobID: 1,
             title: "Web Developer Intern",
             empID: 1,
-            employer: "Company 1",
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
@@ -26,7 +27,8 @@ const state = {
             jobID: 2,
             title: "Mobile Developer Intern",
             empID: 1,
-            employer: "Company 1",
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
@@ -48,8 +50,9 @@ const state = {
             jobID: 3,
             title:
                 "Study on Impact of the Built Environment on Community Bonding",
-            employer: "NUS-SDE (Architecture)",
             empID: 2,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
@@ -70,8 +73,9 @@ const state = {
         {
             jobID: 4,
             title: "Survey on school environment satisfaction",
-            employer: "NUS",
             empID: 3,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
@@ -92,8 +96,9 @@ const state = {
         {
             jobID: 5,
             title: "A New History of Southeast Asia",
-            employer: "NUS-FASS (History)",
             empID: 4,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
@@ -114,8 +119,9 @@ const state = {
         {
             jobID: 6,
             title: "Analyst Intern",
-            employer: "Company 2",
             empID: 5,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
