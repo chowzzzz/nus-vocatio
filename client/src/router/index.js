@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import StudentHome from "../views/Student/StudentHome.vue";
 import StudentSearch from "../views/Student/StudentSearch.vue";
 import StudentJobListing from "../views/Student/StudentJobListing.vue";
+import StudentProfile from "../views/Student/StudentProfile.vue";
 import Signup from "../views/Signup.vue";
 
 Vue.use(VueRouter);
@@ -28,6 +29,11 @@ const routes = [
         path: "/jobs/:jobId",
         name: "job-details",
         component: StudentJobListing
+    },
+    {
+        path: "/profile",
+        name: "profile",
+        component: StudentProfile
     }
 ];
 

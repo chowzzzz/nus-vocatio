@@ -18,7 +18,7 @@
 
                 <ul class="mobile-hide">
                     <li class="mobile-nav">
-                        <router-link to="/">
+                        <router-link to="/profile">
                             <img src="../assets/selfmade/user.svg" alt="User" />
                         </router-link>
                     </li>
@@ -41,7 +41,7 @@
                         </span>
                     </li>
                     <li class="mobile-nav">
-                        <router-link to="/">
+                        <router-link to="/profile">
                             <span>User</span>
                         </router-link>
                     </li>
