@@ -10,9 +10,9 @@
             <div class="job-main-title-container job-title">
                 <h1>{{ job.title }}</h1>
                 <p>{{ employer.companyName }}</p>
-                <p>
-                    <span class="type">{{ job.type }}</span>
-                    <span class="faculty">{{ job.faculty }}</span>
+                <p class="filters">
+                    <span id="type">{{ job.type }}</span>
+                    <span id="faculty">{{ job.faculty }}</span>
                 </p>
             </div>
 
@@ -94,7 +94,7 @@ li {
 .job-container {
     display: grid;
     grid-template-columns: 110px 45% 150px auto;
-    grid-template-rows: 80px auto;
+    grid-template-rows: 90px auto;
     grid-template-areas:
         "img title side contact"
         "desc desc desc contact";
@@ -151,10 +151,35 @@ ul {
     margin-left: 1em;
 }
 
+.filters {
+    margin-top: 0.5em;
+}
+
+#type,
+#faculty {
+    margin-right: 0.8em;
+    border: none;
+    padding: 0.2em 1em;
+    border-radius: 25px;
+    outline: none;
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+#type {
+    background: #d6ead6;
+    color: #5a845a;
+}
+
+#faculty {
+    background: #d0e1eb;
+    color: #2b839e;
+}
+
 @media screen and (max-width: 1150px) {
     .job-container {
         grid-template-columns: 110px 60% auto;
-        grid-template-rows: 80px auto auto;
+        grid-template-rows: 90px auto auto;
         grid-template-areas:
             "img title side"
             "desc desc desc"
