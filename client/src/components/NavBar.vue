@@ -28,7 +28,7 @@
                         </router-link>
                     </li>
                     <li class="mobile-nav">
-                        <router-link to="/">
+                        <router-link to="/settings">
                             <img src="../assets/selfmade/settings.svg" alt="Settings" />
                         </router-link>
                     </li>
@@ -51,7 +51,7 @@
                         </router-link>
                     </li>
                     <li class="mobile-nav">
-                        <router-link to="/">
+                        <router-link to="/settings">
                             <span id="settings">Settings</span>
                         </router-link>
                     </li>

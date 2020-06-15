@@ -6,7 +6,7 @@
 
 <script>
 export default {
-    name: "Notification"
+    name: "StudentNotification"
 };
 </script>
 

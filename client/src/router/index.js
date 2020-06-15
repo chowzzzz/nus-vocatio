@@ -4,6 +4,7 @@ import StudentHome from "../views/Student/StudentHome.vue";
 import StudentSearch from "../views/Student/StudentSearch.vue";
 import StudentJobListing from "../views/Student/StudentJobListing.vue";
 import StudentProfile from "../views/Student/StudentProfile.vue";
+import StudentSettings from "../views/Student/StudentSettings.vue";
 import Signup from "../views/Signup.vue";
 
 Vue.use(VueRouter);
@@ -34,6 +35,11 @@ const routes = [
         path: "/profile",
         name: "profile",
         component: StudentProfile
+    },
+    {
+        path: "/settings",
+        name: "settings",
+        component: StudentSettings
     }
 ];
 
