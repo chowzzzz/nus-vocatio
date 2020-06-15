@@ -60,4 +60,39 @@ input {
     top: 70%;
     left: 5%;
 }
+
+@media screen and (max-width: 950px) {
+    input {
+        width: 90%;
+        font-size: 0.8em;
+    }
+
+    .fa-search {
+        font-size: 0.9em;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    input {
+        font-size: 0.7em;
+    }
+
+    .fa-search {
+        font-size: 0.8em;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    input {
+        width: 80%;
+        font-size: 0.7em;
+        display: block;
+        margin: 0 auto;
+    }
+
+    .fa-search {
+        font-size: 0.8em;
+        left: 12%;
+    }
+}
 </style>
