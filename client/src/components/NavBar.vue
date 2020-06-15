@@ -19,13 +19,13 @@
             </div>
 
             <nav>
-                <show-at breakpoint="mediumAndBelow">
+                <show-at :breakpoints="{small: 400, medium: 571}" breakpoint="mediumAndBelow">
                     <span @click="toggle">
                         <i class="fas fa-bars"></i>
                     </span>
                 </show-at>
 
-                <hide-at breakpoint="mediumAndBelow">
+                <hide-at :breakpoints="{small: 400, medium: 571}" breakpoint="mediumAndBelow">
                     <ul>
                         <li>
                             <router-link to="/profile">
@@ -45,7 +45,7 @@
                     </ul>
                 </hide-at>
 
-                <show-at breakpoint="mediumAndBelow">
+                <show-at :breakpoints="{small: 400, medium: 571}" breakpoint="mediumAndBelow">
                     <ul :style="{ display: toggleDisplay }">
                         <li>
                             <span class="close-btn" @click="toggle">
