@@ -17,7 +17,7 @@
         </div>
         <div class="filter-block">
             <h4 class="filter-content-title">
-                Type
+                Types
                 <img src="../assets/down.svg" alt="Down" class="down" />
             </h4>
             <ul class="filter-content">
@@ -179,5 +179,11 @@ li {
 
 #salarySlider {
     width: 90%;
+}
+
+@media screen and (max-width: 900px) {
+    .side-filter-menu {
+        width: 25%;
+    }
 }
 </style>
