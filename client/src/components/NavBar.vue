@@ -52,26 +52,26 @@
                                 <i class="fas fa-times"></i>
                             </span>
                         </li>
-                        <li class="mobile-nav">
-                            <router-link to="/">
+                        <router-link to="/">
+                            <li class="mobile-nav" @click="toggle">
                                 <span>Home</span>
-                            </router-link>
-                        </li>
-                        <li class="mobile-nav">
-                            <router-link to="/profile">
+                            </li>
+                        </router-link>
+                        <router-link to="/profile">
+                            <li class="mobile-nav" @click="toggle">
                                 <span>User</span>
-                            </router-link>
-                        </li>
-                        <li class="mobile-nav">
-                            <router-link to="/notification">
+                            </li>
+                        </router-link>
+                        <router-link to="/notification">
+                            <li class="mobile-nav" @click="toggle">
                                 <span>Notifications</span>
-                            </router-link>
-                        </li>
-                        <li class="mobile-nav">
-                            <router-link to="/settings">
+                            </li>
+                        </router-link>
+                        <router-link to="/settings">
+                            <li class="mobile-nav" @click="toggle">
                                 <span id="settings">Settings</span>
-                            </router-link>
-                        </li>
+                            </li>
+                        </router-link>
                     </ul>
                 </show-at>
             </nav>
