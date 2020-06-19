@@ -111,13 +111,13 @@ button:hover {
 
 @media screen and (max-width: 1150px) {
     .side {
-        width: 300px;
-        justify-self: start;
+        width: 90%;
     }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 800px) {
     .side {
+        width: 300px;
         justify-self: center;
     }
 }
