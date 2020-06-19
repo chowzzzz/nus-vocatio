@@ -89,7 +89,7 @@ const state = {
                 }
             ],
             type: "Survey",
-            faculty: null,
+            faculty: "All",
             salary: null,
             date: new Date()
         },
