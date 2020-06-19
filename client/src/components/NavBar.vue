@@ -53,6 +53,11 @@
                             </span>
                         </li>
                         <li class="mobile-nav">
+                            <router-link to="/">
+                                <span>Home</span>
+                            </router-link>
+                        </li>
+                        <li class="mobile-nav">
                             <router-link to="/profile">
                                 <span>User</span>
                             </router-link>
