@@ -37,11 +37,13 @@ h4 {
 
 ul,
 p,
-a {
+a,
+input {
     margin: 0;
     padding: 0;
     font-size: 0.9em;
     line-height: 1.6em;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .title {
