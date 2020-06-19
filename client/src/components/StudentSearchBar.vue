@@ -2,7 +2,7 @@
     <div class="search-box">
         <input
             type="text"
-            v-bind:class="{ 'custom-search' : $route.path == '/jobs' }"
+            v-bind:class="{ 'custom-search' : $route.path == '/jobs'}"
             name="searchBar"
             id="searchBar"
             placeholder="Search for a job"
@@ -79,6 +79,19 @@ input {
 
     .fa-search {
         font-size: 0.8em;
+    }
+
+    .custom-search {
+        background: #e6e6e6;
+        height: 20px;
+        font-size: 12px;
+        width: 200px;
+        margin-top: 0.5em;
+    }
+
+    .custom-fa-search {
+        font-size: 16px;
+        top: 60%;
     }
 }
 
