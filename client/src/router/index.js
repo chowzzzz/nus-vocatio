@@ -5,7 +5,8 @@ import StudentSearch from "../views/Student/StudentSearch.vue";
 import StudentJobListing from "../views/Student/StudentJobListing.vue";
 import StudentProfile from "../views/Student/StudentProfile.vue";
 import StudentSettings from "../views/Student/StudentSettings.vue";
-import Signup from "../views/Signup.vue";
+import StudentNotification from "../views/Student/StudentNotification.vue";
+import Signup from "../views/Employer/EmployerSignup.vue";
 
 Vue.use(VueRouter);
 
@@ -40,6 +41,11 @@ const routes = [
         path: "/settings",
         name: "settings",
         component: StudentSettings
+    },
+    {
+        path: "/notification",
+        name: "notification",
+        component: StudentNotification
     }
 ];
 
