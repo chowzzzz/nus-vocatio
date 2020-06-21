@@ -1,3 +1,5 @@
+import moment from "moment";
+
 const state = {
     jobs: [
         {
@@ -21,7 +23,11 @@ const state = {
             type: "Internship",
             faculty: "Computing",
             salary: "$1000",
-            date: new Date()
+            date: new Date(),
+            applicants: 21,
+            maxApplicants: 30,
+            status: "Accepting applications",
+            expiry: moment().add(1, "days")
         },
         {
             jobID: 2,
@@ -44,7 +50,11 @@ const state = {
             type: "Internship",
             faculty: "Computing",
             salary: "$1000",
-            date: new Date()
+            date: new Date(),
+            applicants: 15,
+            maxApplicants: 30,
+            status: "Accepting applications",
+            expiry: moment().add(1, "days")
         },
         {
             jobID: 3,
@@ -68,7 +78,11 @@ const state = {
             type: "Research Study",
             faculty: "Design and Environment",
             salary: "$400",
-            date: new Date()
+            date: new Date(),
+            applicants: 30,
+            maxApplicants: 30,
+            status: "Max applicants",
+            expiry: moment().add(1, "days")
         },
         {
             jobID: 4,
@@ -91,7 +105,11 @@ const state = {
             type: "Survey",
             faculty: "All",
             salary: null,
-            date: new Date()
+            date: new Date(),
+            applicants: 24,
+            maxApplicants: 30,
+            status: "Accepting applications",
+            expiry: moment().add(1, "days")
         },
         {
             jobID: 5,
@@ -114,7 +132,11 @@ const state = {
             type: "Research Study",
             faculty: "FASS",
             salary: "$100",
-            date: new Date()
+            date: new Date(),
+            applicants: 24,
+            maxApplicants: 30,
+            status: "Not accepting applications",
+            expiry: moment().subtract(1, "days")
         },
         {
             jobID: 6,
@@ -137,7 +159,92 @@ const state = {
             type: "Internship",
             faculty: "Business",
             salary: "$900",
-            date: new Date()
+            date: new Date(),
+            applicants: 24,
+            maxApplicants: 30,
+            status: "Accepting applications",
+            expiry: moment().add(1, "days")
+        },
+        {
+            jobID: 7,
+            title: "Software Developer Intern",
+            empID: 1,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
+            requirements: [
+                {
+                    req:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                },
+                {
+                    req:
+                        "Maecenas porta augue sed odio commodo, eu gravida elit"
+                }
+            ],
+            type: "Internship",
+            faculty: "Computing",
+            salary: "$1000",
+            date: new Date(),
+            applicants: 25,
+            maxApplicants: 25,
+            status: "Max applications",
+            expiry: moment().add(1, "days")
+        },
+        {
+            jobID: 8,
+            title: "Data Analyst Intern",
+            empID: 1,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
+            requirements: [
+                {
+                    req:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                },
+                {
+                    req:
+                        "Maecenas porta augue sed odio commodo, eu gravida elit"
+                }
+            ],
+            type: "Internship",
+            faculty: "Computing",
+            salary: "$1000",
+            date: new Date(),
+            applicants: 42,
+            maxApplicants: 50,
+            status: "Not accepting applications",
+            expiry: moment().subtract(1, "days")
+        },
+        {
+            jobID: 9,
+            title: "Accountant Intern",
+            empID: 1,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
+            description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
+            requirements: [
+                {
+                    req:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                },
+                {
+                    req:
+                        "Maecenas porta augue sed odio commodo, eu gravida elit"
+                }
+            ],
+            type: "Internship",
+            faculty: "Business",
+            salary: "$1000",
+            date: new Date(),
+            applicants: 23,
+            maxApplicants: 23,
+            status: "Removed",
+            expiry: moment().subtract(1, "days")
         }
     ]
 };
@@ -145,6 +252,9 @@ const getters = {
     allJobs: (state) => state.jobs,
     getJobById: (state) => (id) => {
         return state.jobs.find((job) => job.jobID == id);
+    },
+    getJobByEmpId: (state) => (empID) => {
+        return state.jobs.filter((job) => job.empID == empID);
     }
 };
 const actions = {};
