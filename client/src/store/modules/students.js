@@ -10,7 +10,15 @@ const state = {
             email: "andywoo@email.com",
             linkedIn: "linkedin.com/AndyWoo",
             resume: "resume.pdf",
-            faculty: "FASS"
+            faculty: "FASS",
+            settings: {
+                email: {
+                    statusChange: true,
+                    newJobs: true,
+                    newsletter: false
+                },
+                subscription: true
+            }
         },
         {
             stuID: 2,
@@ -22,7 +30,15 @@ const state = {
             email: "bentan@email.com",
             linkedIn: "linkedin.com/BenTan",
             resume: "resume.pdf",
-            faculty: "Computing"
+            faculty: "Computing",
+            settings: {
+                email: {
+                    statusChange: true,
+                    newJobs: true,
+                    newsletter: true
+                },
+                subscription: true
+            }
         },
         {
             stuID: 3,
@@ -34,7 +50,15 @@ const state = {
             email: "clairelee@email.com",
             linkedIn: "linkedin.com/ClaireLee",
             resume: "resume.pdf",
-            faculty: "Business"
+            faculty: "Business",
+            settings: {
+                email: {
+                    statusChange: true,
+                    newJobs: true,
+                    newsletter: false
+                },
+                subscription: false
+            }
         },
         {
             stuID: 4,
@@ -46,7 +70,15 @@ const state = {
             email: "davidho@email.com",
             linkedIn: "linkedin.com/DavidHo",
             resume: "resume.pdf",
-            faculty: "Medicine"
+            faculty: "Medicine",
+            settings: {
+                email: {
+                    statusChange: false,
+                    newJobs: true,
+                    newsletter: false
+                },
+                subscription: true
+            }
         },
         {
             stuID: 5,
@@ -58,7 +90,15 @@ const state = {
             email: "elainelow@email.com",
             linkedIn: "linkedin.com/ElaineLow",
             resume: "resume.pdf",
-            faculty: "Design and Environment"
+            faculty: "Design and Environment",
+            settings: {
+                email: {
+                    statusChange: true,
+                    newJobs: false,
+                    newsletter: true
+                },
+                subscription: true
+            }
         },
         {
             stuID: 6,
@@ -70,12 +110,23 @@ const state = {
             email: "nurul@email.com",
             linkedIn: "linkedin.com/NurulSyafiq",
             resume: "resume.pdf",
-            faculty: "FASS"
+            faculty: "FASS",
+            settings: {
+                email: {
+                    statusChange: true,
+                    newJobs: false,
+                    newsletter: false
+                },
+                subscription: false
+            }
         }
     ]
 };
 const getters = {
-    allStudents: (state) => state.students
+    allStudents: (state) => state.students,
+    getStuById: (state) => (id) => {
+        return state.student.find((student) => student.stuID == id);
+    }
 };
 const actions = {};
 const mutations = {};

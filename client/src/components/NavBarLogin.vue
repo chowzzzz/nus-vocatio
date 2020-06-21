@@ -1,13 +1,8 @@
 <template>
     <div>
         <div class="nav-container">
-            <show-at :breakpoints="{small: 400, medium: 570}" breakpoint="mediumAndBelow">
-                <div id="backBtn" @click="$router.go(-1)">
-                    <img src="../assets/left.svg" alt="back" />
-                </div>
-            </show-at>
-            <div id="logoSearch" v-bind:class="{ 'custom-logo-search' : $route.path != '/' }">
-                <hide-at breakpoint="small">
+            <div v-bind:class="{ 'custom-logo-search' : $route.path != '/' }">
+                <hide-at :breakpoints="{small: 400, medium: 570}" breakpoint="small">
                     <router-link to="/">
                         <img id="navLogo" alt="NUSVocatio logo" src="../assets/logo2.svg" />
                     </router-link>
@@ -28,18 +23,21 @@
                 <hide-at :breakpoints="{small: 400, medium: 571}" breakpoint="mediumAndBelow">
                     <ul>
                         <li>
-                            <router-link to="/profile">
-                                <img src="../assets/selfmade/user.svg" alt="User" />
+                            <router-link to="/student-login">
+                                <img src="../assets/selfmade/student.svg" alt="Student" />
+                                Student
                             </router-link>
                         </li>
                         <li>
-                            <router-link to="/notification">
-                                <img src="../assets/selfmade/noti.svg" alt="Notification" />
+                            <router-link to="/employer-login">
+                                <img src="../assets/selfmade/employer.svg" alt="Employer" />
+                                Employer
                             </router-link>
                         </li>
                         <li>
-                            <router-link to="/settings">
-                                <img src="../assets/selfmade/settings.svg" alt="Settings" />
+                            <router-link to="/admin-login">
+                                <img src="../assets/selfmade/user.svg" alt="Admin" />
+                                Admin
                             </router-link>
                         </li>
                     </ul>
@@ -52,24 +50,19 @@
                                 <i class="fas fa-times"></i>
                             </span>
                         </li>
-                        <router-link to="/">
+                        <router-link to="/student-login">
                             <li class="mobile-nav" @click="toggle">
-                                <span>Home</span>
+                                <span>Student Login</span>
                             </li>
                         </router-link>
-                        <router-link to="/profile">
+                        <router-link to="/employer-login">
                             <li class="mobile-nav" @click="toggle">
-                                <span>User</span>
+                                <span>Employer Login</span>
                             </li>
                         </router-link>
-                        <router-link to="/notification">
+                        <router-link to="/admin-login">
                             <li class="mobile-nav" @click="toggle">
-                                <span>Notifications</span>
-                            </li>
-                        </router-link>
-                        <router-link to="/settings">
-                            <li class="mobile-nav" @click="toggle">
-                                <span id="settings">Settings</span>
+                                <span id="admin">Admin Login</span>
                             </li>
                         </router-link>
                     </ul>
@@ -84,7 +77,7 @@
 import { showAt, hideAt } from "vue-breakpoints";
 
 export default {
-    name: "NavBar",
+    name: "NavBarLogin",
     components: {
         hideAt,
         showAt
@@ -148,11 +141,6 @@ nav img {
         justify-content: space-between;
         padding: 0 1.5em;
         align-items: center;
-    }
-
-    #backBtn img {
-        width: 15px;
-        height: 15px;
     }
 
     .fa-bars {

@@ -3,12 +3,20 @@ const state = {
         {
             jobID: 1,
             title: "Web Developer Intern",
-            employer: "Company 1",
+            empID: 1,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "Maecenas porta augue sed odio commodo, eu gravida elit"
+                {
+                    req:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                },
+                {
+                    req:
+                        "Maecenas porta augue sed odio commodo, eu gravida elit"
+                }
             ],
             type: "Internship",
             faculty: "Computing",
@@ -18,12 +26,20 @@ const state = {
         {
             jobID: 2,
             title: "Mobile Developer Intern",
-            employer: "Company 1",
+            empID: 1,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "Maecenas porta augue sed odio commodo, eu gravida elit"
+                {
+                    req:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                },
+                {
+                    req:
+                        "Maecenas porta augue sed odio commodo, eu gravida elit"
+                }
             ],
             type: "Internship",
             faculty: "Computing",
@@ -34,12 +50,20 @@ const state = {
             jobID: 3,
             title:
                 "Study on Impact of the Built Environment on Community Bonding",
-            employer: "NUS-SDE (Architecture)",
+            empID: 2,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "Maecenas porta augue sed odio commodo, eu gravida elit"
+                {
+                    req:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                },
+                {
+                    req:
+                        "Maecenas porta augue sed odio commodo, eu gravida elit"
+                }
             ],
             type: "Research Study",
             faculty: "Design and Environment",
@@ -49,27 +73,43 @@ const state = {
         {
             jobID: 4,
             title: "Survey on school environment satisfaction",
-            employer: "NUS",
+            empID: 3,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "Maecenas porta augue sed odio commodo, eu gravida elit"
+                {
+                    req:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                },
+                {
+                    req:
+                        "Maecenas porta augue sed odio commodo, eu gravida elit"
+                }
             ],
             type: "Survey",
-            faculty: null,
+            faculty: "All",
             salary: null,
             date: new Date()
         },
         {
             jobID: 5,
             title: "A New History of Southeast Asia",
-            employer: "NUS-FASS (History)",
+            empID: 4,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "Maecenas porta augue sed odio commodo, eu gravida elit"
+                {
+                    req:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                },
+                {
+                    req:
+                        "Maecenas porta augue sed odio commodo, eu gravida elit"
+                }
             ],
             type: "Research Study",
             faculty: "FASS",
@@ -79,12 +119,20 @@ const state = {
         {
             jobID: 6,
             title: "Analyst Intern",
-            employer: "Company 2",
+            empID: 5,
+            shortDescription:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             requirements: [
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
-                "Maecenas porta augue sed odio commodo, eu gravida elit"
+                {
+                    req:
+                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
+                },
+                {
+                    req:
+                        "Maecenas porta augue sed odio commodo, eu gravida elit"
+                }
             ],
             type: "Internship",
             faculty: "Business",
@@ -94,7 +142,10 @@ const state = {
     ]
 };
 const getters = {
-    allJobs: (state) => state.jobs
+    allJobs: (state) => state.jobs,
+    getJobById: (state) => (id) => {
+        return state.jobs.find((job) => job.jobID == id);
+    }
 };
 const actions = {};
 const mutations = {};

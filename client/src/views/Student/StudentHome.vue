@@ -13,7 +13,7 @@
                     </div>
                 </form>
             </section>
-            <img src="../assets/job.jpg" alt="searching for jobs" class="jobPic" />
+            <img src="../../assets/job.jpg" alt="searching for jobs" class="jobPic" />
         </div>
         <about />
     </div>
@@ -21,13 +21,12 @@
 
 <script>
 // import NavBar from "../components/NavBar.vue";
-import StudentAbout from "../components/StudentAbout.vue";
-import StudentSearchBar from "../components/StudentSearchBar.vue";
+import StudentAbout from "../../components/StudentAbout.vue";
+import StudentSearchBar from "../../components/StudentSearchBar.vue";
 
 export default {
     name: "StudentHome",
     components: {
-        // navbar: NavBar
         about: StudentAbout,
         searchBar: StudentSearchBar
     }
@@ -93,5 +92,62 @@ h2 {
     grid-column: 2 / 3;
     grid-row: 1 / 4;
     width: 100%;
+}
+
+@media screen and (max-width: 950px) {
+    .search-container {
+        margin: 3em 6em;
+    }
+
+    h2 {
+        font-size: 1.4em;
+    }
+
+    button {
+        font-size: 0.8em;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .search-container {
+        margin: 3em;
+    }
+
+    h2 {
+        font-size: 1.2em;
+    }
+
+    button {
+        font-size: 0.7em;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .search-container {
+        grid-template-rows: auto auto;
+        grid-template-columns: auto;
+        grid-template-areas:
+            "img"
+            "search";
+        justify-items: center;
+        margin: 1em 3em 2em;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    #search {
+        grid-area: search;
+    }
+
+    .jobPic {
+        grid-area: img;
+        width: 80%;
+    }
+
+    .btns {
+        text-align: center;
+    }
 }
 </style>

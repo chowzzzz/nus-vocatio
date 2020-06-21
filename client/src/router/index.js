@@ -1,7 +1,13 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import StudentHome from "../views/StudentHome.vue";
-import StudentSearch from "../views/StudentSearch.vue";
+import Home from "../views/Home.vue";
+import StudentHome from "../views/Student/StudentHome.vue";
+import StudentSearch from "../views/Student/StudentSearch.vue";
+import StudentJobListing from "../views/Student/StudentJobListing.vue";
+import StudentProfile from "../views/Student/StudentProfile.vue";
+import StudentSettings from "../views/Student/StudentSettings.vue";
+import StudentNotification from "../views/Student/StudentNotification.vue";
+import Signup from "../views/Employer/EmployerSignup.vue";
 
 Vue.use(VueRouter);
 
@@ -13,14 +19,39 @@ const routes = [
         meta: { hideSearch: true }
     },
     {
+        path: "/login",
+        name: "login",
+        component: Home
+    },
+    {
+        path: "/signup",
+        name: "Signup",
+        component: Signup
+    },
+    {
         path: "/jobs",
         name: "jobs",
         component: StudentSearch
     },
     {
-        path: "/jobs/:id",
+        path: "/jobs/:jobId",
         name: "job-details",
-        component: () => import("../views/StudentJobListing.vue")
+        component: StudentJobListing
+    },
+    {
+        path: "/profile",
+        name: "profile",
+        component: StudentProfile
+    },
+    {
+        path: "/settings",
+        name: "settings",
+        component: StudentSettings
+    },
+    {
+        path: "/notification",
+        name: "notification",
+        component: StudentNotification
     }
 ];
 

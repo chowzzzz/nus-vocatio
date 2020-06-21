@@ -10,11 +10,6 @@ export default {
     name: "NusVocatio",
     components: {
         navBar: NavBar
-    },
-    data() {
-        this.$route.path === "/"
-            ? (this.showSearch = false)
-            : (this.showSearch = true);
     }
 };
 </script>
@@ -34,15 +29,21 @@ body {
 h1,
 h2,
 h3,
-h4,
-ul {
+h4 {
     margin: 0;
     padding: 0;
+    font-family: "Montserrat", sans-serif;
 }
 
-p {
+ul,
+p,
+a,
+input {
+    margin: 0;
+    padding: 0;
     font-size: 0.9em;
     line-height: 1.6em;
+    font-family: "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .title {
