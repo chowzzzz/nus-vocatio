@@ -1,15 +1,15 @@
 <template>
     <div class="container">
-        <img src="../assets/selfmade/employer.svg" alt="Employer" />
+        <img src="../../assets/selfmade/employer.svg" alt="Employer" />
         <form>
             <h2>Create an account</h2>
             <div class="input-container">
-                <img src="../assets/mail.svg" alt="Email" />
+                <img src="../../assets/mail.svg" alt="Email" />
                 <input type="email" v-model="email" name="email" id="email" placeholder="Email" />
             </div>
 
             <div class="input-container">
-                <img src="../assets/user.svg" alt="User" />
+                <img src="../../assets/user.svg" alt="User" />
                 <input
                     type="text"
                     v-model="username"
@@ -20,7 +20,7 @@
             </div>
 
             <div class="input-container">
-                <img src="../assets/lock.svg" alt="Password" />
+                <img src="../../assets/lock.svg" alt="Password" />
                 <input
                     type="password"
                     v-model="password"
@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import AuthenticationService from "../services/AuthenticationService";
+import AuthenticationService from "../../services/AuthenticationService";
 export default {
     name: "Signup",
     data() {
