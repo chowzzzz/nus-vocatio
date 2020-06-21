@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="applyBtn">
-            <button>Apply now</button>
+            <button @click="apply">Apply now</button>
         </div>
     </div>
 </template>
@@ -42,6 +42,22 @@ export default {
             job: job,
             employer: this.$store.getters.getEmpById(job.empID)
         };
+    },
+    methods: {
+        apply() {
+            this.$swal({
+                title: "Confirmation",
+                text: "Are you sure you wish to apply?",
+                buttons: ["No", "Yes"]
+            }).then(confirm => {
+                if (confirm) {
+                    this.$swal({
+                        text: "Your application has been submitted!",
+                        icon: "success"
+                    });
+                }
+            });
+        }
     }
 };
 </script>

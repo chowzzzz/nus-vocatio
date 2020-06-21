@@ -6,6 +6,7 @@ import store from "./store";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import moment from "moment";
+import VueSwal from "vue-swal";
 
 Vue.config.productionTip = false;
 
@@ -17,6 +18,9 @@ Vue.filter("formatDate", function(value) {
 });
 
 // sync(store, router);
+
+// vue sweet alert
+Vue.use(VueSwal);
 
 new Vue({
     router,

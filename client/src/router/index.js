@@ -8,13 +8,14 @@ import StudentProfile from "../views/Student/StudentProfile.vue";
 import StudentSettings from "../views/Student/StudentSettings.vue";
 import StudentNotification from "../views/Student/StudentNotification.vue";
 import Signup from "../views/Employer/EmployerSignup.vue";
+import EmployerHome from "../views/Employer/EmployerHome.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
     {
         path: "/",
-        name: "home",
+        name: "student home",
         component: StudentHome,
         meta: { hideSearch: true }
     },
@@ -52,6 +53,11 @@ const routes = [
         path: "/notification",
         name: "notification",
         component: StudentNotification
+    },
+    {
+        path: "/employer-home",
+        name: "employer home",
+        component: EmployerHome
     }
 ];
 
