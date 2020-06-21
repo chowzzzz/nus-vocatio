@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
 import StudentHome from "../views/Student/StudentHome.vue";
 import StudentSearch from "../views/Student/StudentSearch.vue";
 import StudentJobListing from "../views/Student/StudentJobListing.vue";
@@ -16,6 +17,11 @@ const routes = [
         name: "home",
         component: StudentHome,
         meta: { hideSearch: true }
+    },
+    {
+        path: "/login",
+        name: "login",
+        component: Home
     },
     {
         path: "/signup",
