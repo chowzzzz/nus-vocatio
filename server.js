@@ -15,6 +15,13 @@ app.use(cors());
     });
 }); */
 
+const db = require("./app/models");
+//db.sequelize.sync();
+
+db.sequelize.sync({ force: true }).then(() => {
+    console.log("Drop and re-sync db.");
+});
+
 app.post("/register", (req, res) => {
     res.send({
         message: `Hello ${req.body.email}! You are now registered, have fun!`
