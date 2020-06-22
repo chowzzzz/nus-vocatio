@@ -3,17 +3,17 @@
         <div class="posting-title">
             <h2>Postings</h2>
             <div class="side">
-                <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
-                    <div class="select">
-                        <select id="sort">
-                            <option value="sortby">Sort by</option>
-                            <option value="apha">Alphabetical</option>
-                            <option value="high">Salary: High to Low</option>
-                            <option value="low">Salary: Low to High</option>
-                            <option value="recent">Most Recent</option>
-                        </select>
-                    </div>
-                </hide-at>
+                <!-- <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow"> -->
+                <div class="select">
+                    <select id="sort">
+                        <option value="sortby">Sort by</option>
+                        <option value="apha">Alphabetical</option>
+                        <option value="high">Salary: High to Low</option>
+                        <option value="low">Salary: Low to High</option>
+                        <option value="recent">Most Recent</option>
+                    </select>
+                </div>
+                <!-- </hide-at> -->
                 <a href="#">
                     <img src="../../assets/selfmade/add.svg" alt="add post" />
                 </a>
@@ -26,7 +26,7 @@
                         <img src="../../assets/selfmade/picture.svg" alt="company logo" />
                     </div>
                     <div class="post-title">
-                        <p id="tags">
+                        <div class="tags">
                             <span id="post-id">Posting ID#{{ post.jobID }}</span>
                             <span
                                 id="status"
@@ -36,7 +36,7 @@
                                 grey: post.status === 'Removed'
                             }"
                             >{{ post.status | upperCase }}</span>
-                        </p>
+                        </div>
                         <h3>{{ post.title }}</h3>
                     </div>
                     <div class="date">
@@ -48,12 +48,21 @@
                 </li>
             </ul>
         </div>
+        <ScrollToTopBtn />
     </div>
 </template>
 
 <script>
+// import { hideAt } from "vue-breakpoints";
+import ScrollToTopBtn from "../../components/ScrollToTopBtn.vue";
+
 export default {
     name: "EmployerHome",
+    components: {
+        // hideAt,
+        ScrollToTopBtn
+        // showAt
+    },
     data() {
         return {
             posts: this.$store.getters.getJobByEmpId(1)
@@ -63,13 +72,21 @@ export default {
         upperCase(value) {
             return value.toUpperCase();
         }
+    },
+    methods: {
+        // navigateTo(route) {
+        //     this.$router.push(route);
+        // },
+        scrollToTop() {
+            window.scrollTo(0, 0);
+        }
     }
 };
 </script>
 
 <style scoped>
 .posts {
-    padding: 2em 4em;
+    padding: 2em 4em 3em;
     background: #f8fbff;
 }
 
@@ -87,8 +104,7 @@ export default {
 
 .posting-title img,
 .posting-title a {
-    width: 30px;
-    margin-right: 10px;
+    height: 30px;
 }
 
 .select {
@@ -154,7 +170,7 @@ li {
     padding: 1.2em 1.8em;
     cursor: pointer;
     display: grid;
-    grid-template-columns: 90px auto 80px;
+    grid-template-columns: 90px auto 75px;
     grid-template-rows: 30px 50px;
     grid-template-areas:
         "img title date"
@@ -176,6 +192,11 @@ li {
 .post-title {
     margin-right: 0.5em;
     grid-area: title;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #post-id,
@@ -226,5 +247,86 @@ h3 {
     background: #c1e2f5;
     color: #2b839e;
     border-radius: 18px;
+}
+
+@media screen and (max-width: 700px) {
+    .posts {
+        padding: 2em 0 4em;
+    }
+
+    li {
+        grid-template-rows: 10px 70px;
+        grid-template-columns: 90px auto 55px;
+    }
+
+    .posting-title {
+        margin: 0 2em;
+    }
+
+    .tags,
+    .date {
+        font-size: 11px;
+    }
+
+    #post-id,
+    #status {
+        padding: 0.2em 0.9em;
+    }
+
+    .noOfApplicants {
+        font-size: 18px;
+        border-radius: 20px;
+    }
+}
+
+@media screen and (max-width: 570px) {
+    .post-img img {
+        width: 65px;
+        height: 65px;
+    }
+
+    li {
+        grid-template-columns: 80px auto 55px;
+    }
+}
+@media screen and (max-width: 450px) {
+    .select {
+        width: 130px;
+    }
+
+    .select select {
+        padding: 7px 15px;
+        font-size: 11px;
+    }
+
+    .post-img img {
+        width: 50px;
+        height: 50px;
+    }
+
+    li {
+        grid-template-rows: 10px 50px;
+        grid-template-columns: 65px auto 45px;
+    }
+
+    .tags,
+    .date {
+        font-size: 9px;
+    }
+
+    .post-title h3 {
+        font-size: 14px;
+    }
+
+    .noOfApplicants {
+        font-size: 14px;
+        border-radius: 20px;
+        padding: 5px;
+    }
+
+    #post-id,
+    #status {
+        padding: 0.1em 1em;
+    }
 }
 </style>

@@ -48,15 +48,14 @@
                 </ul>
             </div>
         </div>
-        <button class="scrollBtn" @click="scrollToTop">
-            <i class="fas fa-angle-up"></i> Top
-        </button>
+        <ScrollToTopBtn />
     </div>
 </template>
 
 <script>
 import SideFilterMenu from "../../components/SideFilterMenu.vue";
 import SideFilterMenuMobile from "../../components/SideFilterMenuMobile.vue";
+import ScrollToTopBtn from "../../components/ScrollToTopBtn.vue";
 import { mapGetters } from "vuex";
 import { showAt, hideAt } from "vue-breakpoints";
 
@@ -65,6 +64,7 @@ export default {
     components: {
         sideFilterMenu: SideFilterMenu,
         sideFilterMenuMobile: SideFilterMenuMobile,
+        ScrollToTopBtn,
         hideAt,
         showAt
     },
@@ -83,9 +83,6 @@ export default {
     methods: {
         navigateTo(route) {
             this.$router.push(route);
-        },
-        scrollToTop() {
-            window.scrollTo(0, 0);
         }
     }
 };
@@ -229,28 +226,6 @@ li {
     margin-top: 0.5em;
     display: flex;
     flex-wrap: wrap;
-}
-
-.scrollBtn {
-    position: fixed;
-    bottom: 20px;
-    right: 30px;
-    z-index: 2;
-    font-size: 15px;
-    border: 2px solid #f2dadd;
-    outline: none;
-    background-color: #f2dadd;
-    color: #af6675;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 4px;
-    transition-duration: 0.3s;
-}
-
-.scrollBtn:hover {
-    background-color: rgb(255, 247, 247);
-    color: #af6675;
-    border: 2px solid #f2dadd;
 }
 
 @media screen and (max-width: 900px) {
