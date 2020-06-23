@@ -21,13 +21,22 @@
         </div>
         <div class="postings">
             <ul>
-                <li v-for="post in posts" :key="post.jobID">
+                <li
+                    v-for="post in posts"
+                    :key="post.jobID"
+                    v-bind:class="{
+                                removed: post.status === 'Removed'}"
+                >
                     <div class="post-img">
                         <img src="../../assets/selfmade/picture.svg" alt="company logo" />
                     </div>
                     <div class="post-title">
                         <div class="tags">
-                            <span id="post-id">Posting ID#{{ post.jobID }}</span>
+                            <span
+                                id="post-id"
+                                v-bind:class="{
+                                grey: post.status === 'Removed'}"
+                            >Posting ID#{{ post.jobID }}</span>
                             <span
                                 id="status"
                                 v-bind:class="{
@@ -179,6 +188,11 @@ li {
     z-index: 1;
 }
 
+.removed {
+    background: #e6e6e6;
+    filter: grayscale(1);
+}
+
 .post-img {
     grid-area: img;
 }
@@ -211,10 +225,14 @@ li {
     cursor: pointer;
 }
 
-#post-id,
-.grey {
+#post-id {
     background: #f2f2f2;
     color: #a3a3a3;
+}
+
+.grey {
+    background: #a3a3a3;
+    color: #eceff3;
 }
 
 .green {
