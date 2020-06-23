@@ -290,6 +290,16 @@ h3 {
     }
 }
 @media screen and (max-width: 450px) {
+    ul {
+        margin-top: 1em;
+    }
+
+    li {
+        margin-top: 0;
+        border-top: 0.5px #e6e6e6 solid;
+        border-bottom: 0.5px #e6e6e6 solid;
+    }
+
     .select {
         width: 130px;
     }
@@ -309,13 +319,16 @@ h3 {
         grid-template-columns: 65px auto 45px;
     }
 
-    .tags,
+    .tags {
+        font-size: 8px;
+    }
+
     .date {
         font-size: 9px;
     }
 
     .post-title h3 {
-        font-size: 14px;
+        font-size: 13px;
     }
 
     .noOfApplicants {

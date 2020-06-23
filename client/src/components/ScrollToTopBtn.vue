@@ -39,4 +39,16 @@ export default {
     color: #af6675;
     border: 2px solid #f2dadd;
 }
+
+@media screen and (max-width: 570px) {
+    .scrollBtn {
+        font-size: 13px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .scrollBtn {
+        font-size: 11px;
+    }
+}
 </style>
