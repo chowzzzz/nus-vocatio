@@ -28,19 +28,12 @@
                 >{{ requirement.req }}</li>
             </ul>
         </div>
-
-        <employerContact />
     </div>
 </template>
 
 <script>
-import EmployerContact from "./EmployerContactSideMenu.vue";
-
 export default {
     name: "JobListing",
-    components: {
-        employerContact: EmployerContact
-    },
     data() {
         const job = this.$store.getters.getJobById(this.$route.params.jobId);
         return {
@@ -52,10 +45,6 @@ export default {
 </script>
 
 <style scoped>
-.job-container {
-    margin: 1.5em 3em;
-}
-
 p,
 li {
     margin: 0;
@@ -64,11 +53,11 @@ li {
 
 .job-container {
     display: grid;
-    grid-template-columns: 110px 45% 150px auto;
+    grid-template-columns: 110px auto 150px;
     grid-template-rows: 90px auto;
     grid-template-areas:
-        "img title side contact"
-        "desc desc desc contact";
+        "img title side"
+        "desc desc desc";
 }
 
 .job-title {
@@ -149,24 +138,20 @@ ul {
 
 @media screen and (max-width: 1150px) {
     .job-container {
-        grid-template-columns: 110px auto 150px 320px;
+        grid-template-columns: 110px auto 150px;
     }
 }
 
 @media screen and (max-width: 950px) {
     .job-container {
-        grid-template-columns: 110px auto 120px 300px;
+        grid-template-columns: 110px auto 120px;
     }
 }
 
 @media screen and (max-width: 800px) {
     .job-container {
         grid-template-columns: 100px 55% auto;
-        grid-template-rows: 65px auto auto;
-        grid-template-areas:
-            "img title side"
-            "desc desc desc"
-            "contact contact contact";
+        grid-template-rows: 65px auto;
     }
 
     h1 {
@@ -195,13 +180,11 @@ ul {
 @media screen and (max-width: 570px) {
     .job-container {
         grid-template-columns: 80px auto;
-        grid-template-rows: 80px auto auto auto;
+        grid-template-rows: 80px auto auto;
         grid-template-areas:
             "img title"
             "side side"
-            "desc desc"
-            "contact contact";
-        margin: 1.5em 2em;
+            "desc desc";
     }
 
     .job-side-title-container {
@@ -233,12 +216,6 @@ ul {
 }
 
 @media screen and (max-width: 400px) {
-    .job-container {
-        grid-template-columns: 80px auto;
-        grid-template-rows: 80px auto auto auto;
-        margin: 1.5em;
-    }
-
     h1 {
         font-size: 1em;
     }

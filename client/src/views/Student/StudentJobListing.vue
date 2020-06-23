@@ -3,17 +3,22 @@
         <button id="backBtn" @click="$router.go(-1)">
             <img src="../../assets/left.svg" alt="back button" /> Back to jobs
         </button>
-        <jobListing />
+        <div class="joblist-container">
+            <jobListing />
+            <employerContact />
+        </div>
     </div>
 </template>
 
 <script>
 import JobListing from "../../components/JobListing.vue";
+import EmployerContact from "../../components/EmployerContactSideMenu.vue";
 
 export default {
     name: "StudentJobListing",
     components: {
-        jobListing: JobListing
+        jobListing: JobListing,
+        employerContact: EmployerContact
     }
 };
 </script>
@@ -43,9 +48,48 @@ export default {
     border: none;
 }
 
+.joblist-container {
+    display: grid;
+    grid-template-columns: 70% auto;
+    grid-template-areas: "job contact";
+    margin: 1.5em 3em;
+}
+
+@media screen and (max-width: 1150px) {
+    .joblist-container {
+        grid-template-columns: auto 320px;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .joblist-container {
+        grid-template-columns: auto 300px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .joblist-container {
+        grid-template-columns: auto;
+        grid-template-rows: auto auto;
+        grid-template-areas:
+            "job"
+            "contact";
+    }
+}
+
 @media screen and (max-width: 570px) {
     #backBtn {
         display: none;
+    }
+
+    .joblist-container {
+        margin: 1.5em 2em;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .joblist-container {
+        margin: 1.5em;
     }
 }
 </style>
