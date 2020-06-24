@@ -9,6 +9,7 @@ import StudentSettings from "../views/Student/StudentSettings.vue";
 import StudentNotification from "../views/Student/StudentNotification.vue";
 import Signup from "../views/Employer/EmployerSignup.vue";
 import EmployerHome from "../views/Employer/EmployerHome.vue";
+import EmployerJobPosting from "../views/Employer/EmployerJobPosting.vue";
 
 Vue.use(VueRouter);
 
@@ -58,6 +59,11 @@ const routes = [
         path: "/employer-home",
         name: "employer home",
         component: EmployerHome
+    },
+    {
+        path: "/employer-home/:jobId",
+        name: "post-details",
+        component: EmployerJobPosting
     }
 ];
 

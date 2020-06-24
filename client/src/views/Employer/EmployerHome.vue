@@ -25,7 +25,9 @@
                     v-for="post in posts"
                     :key="post.jobID"
                     v-bind:class="{
-                                removed: post.status === 'Removed'}"
+                        removed: post.status === 'Removed'
+                    }"
+                    @click="navigateTo({name: 'post-details', params: {jobId: post.jobID}})"
                 >
                     <div class="post-img">
                         <img src="../../assets/selfmade/picture.svg" alt="company logo" />
@@ -83,9 +85,9 @@ export default {
         }
     },
     methods: {
-        // navigateTo(route) {
-        //     this.$router.push(route);
-        // },
+        navigateTo(route) {
+            this.$router.push(route);
+        },
         scrollToTop() {
             window.scrollTo(0, 0);
         }
