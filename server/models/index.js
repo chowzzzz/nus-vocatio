@@ -23,8 +23,7 @@ db.sequelize = sequelize;
 db.faculty = require("./faculty.js")(sequelize, Sequelize);
 db.students = require("../models/students.js")(sequelize, Sequelize);
 db.employers = require("../models/employers.js")(sequelize, Sequelize);
-
-
-
+db.adminAcc = require("../models/adminAcc.js")(sequelize, Sequelize);
+db.jobPost = require("../models/jobPosts.js")(sequelize, Sequelize);
 
 module.exports = db;
