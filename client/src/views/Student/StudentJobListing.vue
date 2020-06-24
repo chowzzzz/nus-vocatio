@@ -5,7 +5,7 @@
         </button>
         <div class="joblist-container">
             <jobListing />
-            <employerContact />
+            <employerContact user="student" />
         </div>
     </div>
 </template>

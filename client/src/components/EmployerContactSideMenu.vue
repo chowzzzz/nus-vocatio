@@ -26,8 +26,11 @@
                     </li>
                 </ul>
             </div>
+            <div class="editBtn" v-bind:class="{ 'employer-view' : currentUser === 'student' }">
+                <button>Edit contact details</button>
+            </div>
         </div>
-        <div class="applyBtn">
+        <div class="applyBtn" v-bind:class="{ 'student-view' : currentUser === 'employer' }">
             <button @click="apply">Apply now</button>
         </div>
     </div>
@@ -40,7 +43,8 @@ export default {
         const job = this.$store.getters.getJobById(this.$route.params.jobId);
         return {
             job: job,
-            employer: this.$store.getters.getEmpById(job.empID)
+            employer: this.$store.getters.getEmpById(job.empID),
+            currentUser: this.user
         };
     },
     methods: {
@@ -58,7 +62,8 @@ export default {
                 }
             });
         }
-    }
+    },
+    props: ["user"]
 };
 </script>
 
@@ -123,6 +128,21 @@ button {
 button:hover {
     background-color: #d398a5;
     color: #fff;
+}
+
+.editBtn {
+    width: 80%;
+    margin: -1em auto 0.5em;
+}
+
+.editBtn button {
+    background: #e6e6e6;
+    color: #7c7c7c;
+}
+
+.employer-view,
+.student-view {
+    display: none;
 }
 
 @media screen and (max-width: 1150px) {

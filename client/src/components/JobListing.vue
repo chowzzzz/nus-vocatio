@@ -95,7 +95,7 @@ h1 {
 
 .job-description-container {
     grid-area: desc;
-    margin: 2em 1em;
+    margin: 2em 1em 1em;
 }
 
 h3 {
@@ -175,6 +175,10 @@ ul {
     a {
         font-size: 0.8em;
     }
+
+    .side {
+        margin-top: 1em;
+    }
 }
 
 @media screen and (max-width: 570px) {
@@ -193,7 +197,7 @@ ul {
     }
 
     .job-description-container {
-        margin: 1em 0 2em;
+        margin: 1em 0 1em;
     }
 
     h1 {
