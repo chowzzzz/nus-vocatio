@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="applicants">
+        <div class="applicants" @click="navigateTo()">
             <h3 class="applicantNo">{{ post.applicants }} Applicants</h3>
             <div class="applicants-side">
                 <p>View Applicants</p>
