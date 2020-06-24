@@ -2,7 +2,7 @@ const { Sequelize, DataTypes } = require('sequelize');
 const { sequelize } = require('.');
 const sequlize = new Sequalize('sqlite::memory');
 
-    const Faculty = sequelize.define("Faculty", {
+    const Faculty = sequelize.define("faculty", {
       faculty_id: {
         type: DataTypes.INTEGER(16)
       },

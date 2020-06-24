@@ -2,50 +2,53 @@ const { Sequelize, DataTypes } = require('sequelize');
 const { sequelize } = require('.');
 const sequlize = new Sequalize('sqlite::memory');
 
-const Students = sequelize.define("students", {
-    stu_id: {
+const Employers = sequelize.define("employers", {
+    emp_id: {
       type: DataTypes.UUID,
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
       allowNull:false
     },
-    stu_name: {
+    emp_name: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    stu_mobile: {
+    emp_mobile: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    stu_email: {
+    emp_email: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    stu_linkedin: {
+    emp_company: {
       type: DataTypes.STRING,
+      allowNull: false
+    },
+    emp_logo: {
+      type: DataTypes.BLOB('medium'),
       allowNull: true
     },
-    stu_password: {
+    emp_password: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    stu_status_change: {
+    emp_new_applicants: {
       type: DataTypes.ENUM,
       values: ['t', 'f']
     },
-    stu_new_jobs: {
+    emp_max_applicants: {
       type: DataTypes.ENUM,
       values: ['t', 'f']
     },
-    stu_news_letter: {
+    emp_news_letter: {
       type: DataTypes.ENUM,
       values: ['t', 'f']
     },
-    stu_subscription: {
+    emp_subscription: {
       type: DataTypes.ENUM,
       values: ['t', 'f']
     },
   })
-  Student.hasOne(faculty);
-  console.log(Students == sequelize.models.Students)
-  return Students;
+  console.log(Employers == sequelize.models.Employers)
+  return Employers;
