@@ -26,7 +26,7 @@
                     <li
                         v-for="pair in pairs"
                         :key="pair.job.jobID"
-                        @click="navigateTo({name: 'job-details', params: {jobId: pair.job.jobID}})"
+                        @click="navigateTo({name: 'job-details', params: {id: pair.job.jobID}})"
                     >
                         <div class="job-img">
                             <img src="../../assets/selfmade/picture.svg" alt="company logo" />

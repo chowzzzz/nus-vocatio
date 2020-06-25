@@ -8,8 +8,10 @@ import StudentProfile from "../views/Student/StudentProfile.vue";
 import StudentSettings from "../views/Student/StudentSettings.vue";
 import StudentNotification from "../views/Student/StudentNotification.vue";
 import Signup from "../views/Employer/EmployerSignup.vue";
+
 import EmployerHome from "../views/Employer/EmployerHome.vue";
 import EmployerJobPosting from "../views/Employer/EmployerJobPosting.vue";
+import EmployerApp from "../views/Employer/EmployerApp.vue";
 
 Vue.use(VueRouter);
 
@@ -36,7 +38,7 @@ const routes = [
         component: StudentSearch
     },
     {
-        path: "/jobs/:jobId",
+        path: "/jobs/:id",
         name: "job-details",
         component: StudentJobListing
     },
@@ -61,9 +63,14 @@ const routes = [
         component: EmployerHome
     },
     {
-        path: "/employer-home/:jobId",
+        path: "/employer-home/:id",
         name: "post-details",
         component: EmployerJobPosting
+    },
+    {
+        path: "/applicants/:id",
+        name: "applicants",
+        component: EmployerApp
     }
 ];
 

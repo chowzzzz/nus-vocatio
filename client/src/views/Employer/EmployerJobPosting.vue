@@ -54,7 +54,7 @@ export default {
         employerContact: EmployerContact
     },
     data() {
-        const post = this.$store.getters.getJobById(this.$route.params.jobId);
+        const post = this.$store.getters.getJobById(this.$route.params.id);
         return {
             post: post
         };
