@@ -1,6 +1,11 @@
 <template>
     <div>
-        <employerListView v-bind:posts="posts" v-bind:name="name" v-bind:applicantNo="applicantNo"></employerListView>
+        <employerListView
+            title="Postings"
+            v-bind:posts="posts"
+            v-bind:name="name"
+            v-bind:applicantNo="applicantNo"
+        ></employerListView>
     </div>
 </template>
 
@@ -13,6 +18,8 @@ export default {
         EmployerListView
     },
     data() {
+        // for now it will show employer 1's posts
+        // after setting up authentication, change to search based on user
         const posts = this.$store.getters.getJobByEmpId(1);
         return {
             posts: posts,
