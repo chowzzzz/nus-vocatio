@@ -2,7 +2,7 @@
     <div>
         <div class="posts">
             <div class="posting-title">
-                <h2>Postings</h2>
+                <h2>{{ title }}</h2>
                 <div class="side">
                     <!-- <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow"> -->
                     <div class="select">
@@ -28,7 +28,7 @@
                         v-bind:class="{
                         removed: post.status === 'Removed' || post.status === 'REJECTED'
                     }"
-                        @click="navigateTo({name: name, params: {id: post.jobID}})"
+                        @click="navigateTo({path: `/${path}/${post.jobID || post.stuID}`})"
                     >
                         <div class="post-img">
                             <img src="../assets/selfmade/picture.svg" alt="company logo" />
@@ -37,28 +37,46 @@
                             <div class="tags">
                                 <span
                                     id="post-id"
+                                    v-if="home"
                                     v-bind:class="{
-                                grey: post.status === 'Removed' || post.status === 'REJECTED'} "
+                                        grey: post.status === 'Removed'} "
                                 >Posting ID#{{ post.jobID }}</span>
+                                <!-- <span
+                                    id="post-id"
+                                    v-else
+                                    v-bind:class="{
+                                        grey: post.applications.status === 'REJECTED'} "
+                                >Applicant ID#{{ post.stuID }}</span>-->
+
                                 <span
                                     id="status"
+                                    v-if="home"
                                     v-bind:class="{
                                 green: post.status === 'Accepting applications',
                                 red: post.status === 'Not accepting applications' || post.status === 'Max applications',
-                                grey: post.status === 'Removed' || post.status === 'REJECTED'
+                                grey: post.status === 'Removed'
                             }"
                                 >{{ post.status | upperCase }}</span>
+                                <!-- <span
+                                    id="status"
+                                    v-else
+                                    v-bind:class="{
+                                grey: post.applications.status === 'REJECTED'
+                            }"
+                                >{{ post.applications.status }}</span>-->
                             </div>
-                            <h3>{{ post.title }}</h3>
+                            <h3 v-if="home">{{ post.title }}</h3>
+                            <h3 v-else>{{ post.name }}</h3>
                         </div>
                         <div class="date">
-                            <p>{{ post.date | formatDate }}</p>
+                            <p v-if="home">{{ post.date | formatDate }}</p>
+                            <!-- <p v-else>{{ post.applyDate | formatDate }}</p> -->
                         </div>
                         <div class="number">
-                            <h2 v-if="applicantNo" class="noOfApplicants">{{ post.applicants }}</h2>
-                            <h2 v-else>
+                            <h2 v-if="home" class="noOfApplicants">{{ post.applicants }}</h2>
+                            <p v-else>
                                 <img src="../assets/left.svg" alt="click" />
-                            </h2>
+                            </p>
                         </div>
                     </li>
                 </ul>
@@ -76,7 +94,7 @@ export default {
     components: {
         ScrollToTopBtn
     },
-    props: ["posts", "name", "applicantNo"],
+    props: ["title", "posts", "path", "home"],
     filters: {
         upperCase(value) {
             return value.toUpperCase();
@@ -84,7 +102,6 @@ export default {
     },
     methods: {
         navigateTo(route) {
-            console.log(route);
             this.$router.push(route);
         }
     }
@@ -263,6 +280,15 @@ h3 {
     background: #c1e2f5;
     color: #2b839e;
     border-radius: 18px;
+}
+
+.number p {
+    text-align: right;
+}
+
+.number img {
+    width: 25px;
+    transform: rotate(180deg);
 }
 
 @media screen and (max-width: 700px) {

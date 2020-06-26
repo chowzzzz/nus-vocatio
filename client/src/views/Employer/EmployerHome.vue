@@ -3,8 +3,8 @@
         <employerListView
             title="Postings"
             v-bind:posts="posts"
-            v-bind:name="name"
-            v-bind:applicantNo="applicantNo"
+            v-bind:path="path"
+            v-bind:home="home"
         ></employerListView>
     </div>
 </template>
@@ -23,8 +23,8 @@ export default {
         const posts = this.$store.getters.getJobByEmpId(1);
         return {
             posts: posts,
-            name: "post-details",
-            applicantNo: true
+            path: "applicants",
+            home: true
         };
     }
 };
