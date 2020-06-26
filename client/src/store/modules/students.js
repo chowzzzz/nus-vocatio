@@ -23,16 +23,19 @@ const state = {
                 {
                     appID: 1,
                     jobID: 1,
+                    applyDate: new Date(),
                     status: "PENDING"
                 },
                 {
                     appID: 2,
                     jobID: 2,
+                    applyDate: new Date(),
                     status: "REJECTED"
                 },
                 {
                     appID: 3,
                     jobID: 5,
+                    applyDate: new Date(),
                     status: "ACCEPTED"
                 }
             ]
@@ -60,11 +63,13 @@ const state = {
                 {
                     appID: 4,
                     jobID: 3,
+                    applyDate: new Date(),
                     status: "PENDING"
                 },
                 {
                     appID: 5,
                     jobID: 4,
+                    applyDate: new Date(),
                     status: "REJECTED"
                 }
             ]
@@ -92,16 +97,19 @@ const state = {
                 {
                     appID: 6,
                     jobID: 2,
+                    applyDate: new Date(),
                     status: "PENDING"
                 },
                 {
                     appID: 7,
                     jobID: 3,
+                    applyDate: new Date(),
                     status: "ACCEPTED"
                 },
                 {
                     appID: 8,
                     jobID: 5,
+                    applyDate: new Date(),
                     status: "ACCEPTED"
                 }
             ]
@@ -129,16 +137,19 @@ const state = {
                 {
                     appID: 9,
                     jobID: 1,
+                    applyDate: new Date(),
                     status: "REJECTED"
                 },
                 {
                     appID: 10,
                     jobID: 2,
+                    applyDate: new Date(),
                     status: "REJECTED"
                 },
                 {
                     appID: 11,
                     jobID: 4,
+                    applyDate: new Date(),
                     status: "PENDING"
                 }
             ]
@@ -166,11 +177,13 @@ const state = {
                 {
                     appID: 12,
                     jobID: 3,
+                    applyDate: new Date(),
                     status: "PENDING"
                 },
                 {
                     appID: 13,
                     jobID: 6,
+                    applyDate: new Date(),
                     status: "PENDING"
                 }
             ]
@@ -198,16 +211,19 @@ const state = {
                 {
                     appID: 14,
                     jobID: 1,
+                    applyDate: new Date(),
                     status: "PENDING"
                 },
                 {
                     appID: 15,
                     jobID: 2,
+                    applyDate: new Date(),
                     status: "REJECTED"
                 },
                 {
                     appID: 16,
                     jobID: 6,
+                    applyDate: new Date(),
                     status: "PENDING"
                 }
             ]
@@ -217,11 +233,13 @@ const state = {
 const getters = {
     allStudents: (state) => state.students,
     getStuById: (state) => (id) => {
-        return state.student.find((student) => student.stuID == id);
+        return state.students.find((student) => student.stuID == id);
     },
     getAppByJobID: (state) => (jobID) => {
-        return state.student.filter(
-            (student) => student.applications.jobID == jobID
+        return state.students.filter((student) =>
+            student.applications.filter(
+                (application) => application.jobID == jobID
+            )
         );
     }
 };
