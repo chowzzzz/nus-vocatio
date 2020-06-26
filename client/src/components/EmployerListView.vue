@@ -28,7 +28,7 @@
                         v-bind:class="{
                         removed: post.status === 'Removed' || post.status === 'REJECTED'
                     }"
-                        @click="navigateTo({path: `/${path}/${post.jobID || post.stuID}`})"
+                        @click="navigateTo({path: `/${path}/${post.jobID || post.stuID}`, query: { appID: post.appID }})"
                     >
                         <div class="post-img">
                             <img src="../assets/selfmade/picture.svg" alt="company logo" />
@@ -46,7 +46,7 @@
                                     v-else
                                     v-bind:class="{
                                         grey: post.status === 'REJECTED'} "
-                                >Applicant ID#{{ post.stuID }}</span>
+                                >Student ID#{{ post.stuID }}</span>
 
                                 <span
                                     id="status"
