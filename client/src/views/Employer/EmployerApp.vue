@@ -1,6 +1,6 @@
 <template>
     <div>
-        <backBtn title="posts"></backBtn>
+        <backBtn title="post"></backBtn>
         <employerListView
             title="Applicants"
             v-bind:posts="posts"
@@ -28,6 +28,7 @@ export default {
             let student = this.$store.getters.getStuById(applicant.stuID);
             student.status = applicant.status;
             student.applyDate = applicant.applyDate;
+            student.appID = applicant.appID;
             students.push(student);
         });
         return {
