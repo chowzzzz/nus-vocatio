@@ -68,6 +68,11 @@
                     <img src="../../assets/left.svg" alt="next" />
                 </router-link>
             </div>
+
+            <div class="prevNextBtns">
+                <button id="prevBtn">Previous</button>
+                <button>Next</button>
+            </div>
         </div>
     </div>
 </template>
@@ -114,6 +119,10 @@ export default {
 
 #next img {
     transform: rotate(180deg);
+}
+
+.prevNextBtns {
+    display: none;
 }
 
 .stu-container {
@@ -192,11 +201,12 @@ export default {
 
 .stu-info {
     grid-area: info;
-    padding: 1em 0 1.5em;
+    padding: 1em 1em 1.5em 0;
 }
 
 .stu-contact {
     grid-area: contact;
+    padding: 0 1em 1.5em 0;
 }
 
 h4 {
@@ -205,6 +215,7 @@ h4 {
 
 .links {
     grid-area: links;
+    padding: 1em 1em 1.5em 0;
 }
 
 .btns {
@@ -215,7 +226,8 @@ h4 {
     align-self: center;
 }
 
-.btns button {
+.btns button,
+.prevNextBtns button {
     margin: 0.5em 0;
     border: none;
     padding: 1em;
@@ -227,7 +239,6 @@ h4 {
     cursor: pointer;
     font-weight: bold;
     width: 300px;
-    font-size: 80%;
 }
 
 .btns button:hover {
@@ -238,5 +249,100 @@ h4 {
 #acceptBtn:hover {
     background: #78aa78;
     color: #fff;
+}
+
+@media screen and (max-width: 800px) {
+    .prevNext {
+        display: none;
+    }
+
+    .container {
+        margin: 2em auto;
+        display: block;
+    }
+
+    .stu-container {
+        grid-template-columns: 50% 50%;
+    }
+
+    .prevNextBtns {
+        display: flex;
+        justify-content: space-between;
+        margin: 1em 2em;
+    }
+
+    .prevNextBtns button {
+        width: 150px;
+        background: #eceef1;
+        color: #a3a3a3;
+    }
+
+    .btns {
+        width: 100%;
+    }
+}
+@media screen and (max-width: 570px) {
+    .stu-container {
+        grid-template-columns: 100%;
+        grid-template-rows: auto auto auto auto auto;
+        grid-template-areas:
+            "title"
+            "info"
+            "contact"
+            "links"
+            "btns";
+    }
+
+    .stu-title {
+        grid-template-columns: auto;
+        grid-template-rows: 130px auto auto;
+        grid-template-areas:
+            "img"
+            "name"
+            "tags";
+        justify-self: center;
+        text-align: center;
+    }
+
+    .stu-name {
+        margin-bottom: 0.7em;
+    }
+
+    .stu-info,
+    .stu-contact,
+    .links {
+        padding-bottom: 0.5em;
+        padding-top: 1em;
+    }
+
+    .btns {
+        justify-content: center;
+        margin-top: 1em;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .stu-container {
+        margin: 0;
+        padding: 2em;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h4 {
+        font-size: 14px;
+    }
+
+    p,
+    button {
+        font-size: 12px;
+    }
+
+    .prevNextBtns button {
+        width: 100px;
+        font-size: 12px;
+    }
 }
 </style>
