@@ -23,7 +23,7 @@ export default {
         const posts = this.$store.getters.getJobByEmpId(1);
         return {
             posts: posts,
-            path: "applicants",
+            path: "employer-home",
             home: true
         };
     },
