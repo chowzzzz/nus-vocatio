@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="applicants" @click="navigateTo()">
+        <div class="applicants" @click="navigateTo({name: 'applicants', params: {id: post.jobID}})">
             <h3 class="applicantNo">{{ post.applicants }} Applicants</h3>
             <div class="applicants-side">
                 <p>View Applicants</p>
@@ -75,6 +75,10 @@ export default {
                 buttons: ["No", "Yes"],
                 icon: "warning"
             });
+        },
+        navigateTo(route) {
+            console.log(route);
+            this.$router.push(route);
         }
     }
 };
@@ -89,6 +93,7 @@ export default {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    cursor: pointer;
 }
 
 .applicantNo {
