@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const JobPost = db.define("jobPost", {
+const JobPost = db.define("jobpost", {
     post_id: {
       type: Sequelize.DataTypes.UUID,
       primaryKey: true,
@@ -25,4 +25,4 @@ const JobPost = db.define("jobPost", {
         allowNull: false
     },
   })
-  module.exports = JobPost;
+  module.exports = db;

@@ -17,4 +17,4 @@ const db = require('../config/database.js');
         tableName: 'faculty'
     });
 
-    module.exports = Faculty;
+    module.exports = db;

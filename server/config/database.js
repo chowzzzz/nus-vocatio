@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 
-const db = new Sequelize('Vocatio', 'root', 'Pass12345', {
+const db = new Sequelize('vocatio', 'root', 'Pass12345', {
     host: 'localhost',
     dialect: 'mysql',
 
@@ -12,7 +12,7 @@ const db = new Sequelize('Vocatio', 'root', 'Pass12345', {
     },
 });
 
-/*/Models
+/*Models
 db.faculty = require('../models/Faculty')(sequelize, Sequelize);
 db.students = require('../models/Students')(sequelize, Sequelize);
 db.employers = require('../models/Employers')(sequelize, Sequelize);

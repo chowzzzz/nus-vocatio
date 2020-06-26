@@ -18,4 +18,4 @@ const AdminAcc = db.define("adminAcc", {
     },
   })
   
-  module.exports = AdminAcc;
+  module.exports = db;

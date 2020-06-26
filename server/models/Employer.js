@@ -1,49 +1,52 @@
 const Sequelize = require('sequelize');
 const db = require('../config/database');
 
-const Students = db.define("students", {
-    stu_id: {
+const Employer = db.define("employer", {
+    emp_id: {
       type: Sequelize.DataTypes.UUID,
       primaryKey: true,
       defaultValue: Sequelize.DataTypes.UUIDV4,
       allowNull:false
     },
-    stu_name: {
+    emp_name: {
       type: Sequelize.DataTypes.STRING,
       allowNull: false
     },
-    stu_mobile: {
+    emp_mobile: {
       type: Sequelize.DataTypes.STRING,
       allowNull: false
     },
-    stu_email: {
+    emp_email: {
       type: Sequelize.DataTypes.STRING,
       allowNull: false
     },
-    stu_linkedin: {
+    emp_company: {
       type: Sequelize.DataTypes.STRING,
+      allowNull: false
+    },
+    emp_logo: {
+      type: Sequelize.DataTypes.BLOB('medium'),
       allowNull: true
     },
-    stu_password: {
+    emp_password: {
       type: Sequelize.DataTypes.STRING,
       allowNull: false
     },
-    stu_status_change: {
+    emp_new_applicants: {
       type: Sequelize.DataTypes.ENUM,
       values: ['t', 'f']
     },
-    stu_new_jobs: {
+    emp_max_applicants: {
       type: Sequelize.DataTypes.ENUM,
       values: ['t', 'f']
     },
-    stu_news_letter: {
+    emp_news_letter: {
       type: Sequelize.DataTypes.ENUM,
       values: ['t', 'f']
     },
-    stu_subscription: {
+    emp_subscription: {
       type: Sequelize.DataTypes.ENUM,
       values: ['t', 'f']
     },
   })
-
-  module.exports = Students;
+  module.exports = db;
