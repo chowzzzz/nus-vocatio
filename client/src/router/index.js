@@ -12,6 +12,7 @@ import Signup from "../views/Employer/EmployerSignup.vue";
 import EmployerHome from "../views/Employer/EmployerHome.vue";
 import EmployerJobPosting from "../views/Employer/EmployerJobPosting.vue";
 import EmployerApp from "../views/Employer/EmployerApp.vue";
+import EmployerIndivApp from "../views/Employer/EmployerIndivApp.vue";
 
 Vue.use(VueRouter);
 
@@ -38,7 +39,7 @@ const routes = [
         component: StudentSearch
     },
     {
-        path: "/jobs/:id",
+        path: "/jobs/:jobID",
         name: "job-details",
         component: StudentJobListing
     },
@@ -63,14 +64,19 @@ const routes = [
         component: EmployerHome
     },
     {
-        path: "/employer-home/:id",
+        path: "/employer-home/:jobID",
         name: "post-details",
         component: EmployerJobPosting
     },
     {
-        path: "/applicants/:id",
+        path: "/applicants/:jobID",
         name: "applicants",
         component: EmployerApp
+    },
+    {
+        path: "/application/:jobID/:stuID",
+        name: "indiv-applicant",
+        component: EmployerIndivApp
     }
 ];
 
