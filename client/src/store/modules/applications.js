@@ -116,6 +116,11 @@ const state = {
 };
 
 const getters = {
+    getAppById: (state) => (id) => {
+        return state.applications.find(
+            (application) => application.appID == id
+        );
+    },
     getAppByJobId: (state) => (jobID) => {
         return state.applications.filter(
             (application) => application.jobID == jobID
