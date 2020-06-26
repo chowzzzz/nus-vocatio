@@ -18,27 +18,7 @@ const state = {
                     newsletter: false
                 },
                 subscription: true
-            },
-            applications: [
-                {
-                    appID: 1,
-                    jobID: 1,
-                    applyDate: new Date(),
-                    status: "PENDING"
-                },
-                {
-                    appID: 2,
-                    jobID: 2,
-                    applyDate: new Date(),
-                    status: "REJECTED"
-                },
-                {
-                    appID: 3,
-                    jobID: 5,
-                    applyDate: new Date(),
-                    status: "ACCEPTED"
-                }
-            ]
+            }
         },
         {
             stuID: 2,
@@ -58,21 +38,7 @@ const state = {
                     newsletter: true
                 },
                 subscription: true
-            },
-            applications: [
-                {
-                    appID: 4,
-                    jobID: 3,
-                    applyDate: new Date(),
-                    status: "PENDING"
-                },
-                {
-                    appID: 5,
-                    jobID: 4,
-                    applyDate: new Date(),
-                    status: "REJECTED"
-                }
-            ]
+            }
         },
         {
             stuID: 3,
@@ -92,27 +58,7 @@ const state = {
                     newsletter: false
                 },
                 subscription: false
-            },
-            applications: [
-                {
-                    appID: 6,
-                    jobID: 2,
-                    applyDate: new Date(),
-                    status: "PENDING"
-                },
-                {
-                    appID: 7,
-                    jobID: 3,
-                    applyDate: new Date(),
-                    status: "ACCEPTED"
-                },
-                {
-                    appID: 8,
-                    jobID: 5,
-                    applyDate: new Date(),
-                    status: "ACCEPTED"
-                }
-            ]
+            }
         },
         {
             stuID: 4,
@@ -132,27 +78,7 @@ const state = {
                     newsletter: false
                 },
                 subscription: true
-            },
-            applications: [
-                {
-                    appID: 9,
-                    jobID: 1,
-                    applyDate: new Date(),
-                    status: "REJECTED"
-                },
-                {
-                    appID: 10,
-                    jobID: 2,
-                    applyDate: new Date(),
-                    status: "REJECTED"
-                },
-                {
-                    appID: 11,
-                    jobID: 4,
-                    applyDate: new Date(),
-                    status: "PENDING"
-                }
-            ]
+            }
         },
         {
             stuID: 5,
@@ -172,21 +98,7 @@ const state = {
                     newsletter: true
                 },
                 subscription: true
-            },
-            applications: [
-                {
-                    appID: 12,
-                    jobID: 3,
-                    applyDate: new Date(),
-                    status: "PENDING"
-                },
-                {
-                    appID: 13,
-                    jobID: 6,
-                    applyDate: new Date(),
-                    status: "PENDING"
-                }
-            ]
+            }
         },
         {
             stuID: 6,
@@ -206,27 +118,7 @@ const state = {
                     newsletter: false
                 },
                 subscription: false
-            },
-            applications: [
-                {
-                    appID: 14,
-                    jobID: 1,
-                    applyDate: new Date(),
-                    status: "PENDING"
-                },
-                {
-                    appID: 15,
-                    jobID: 2,
-                    applyDate: new Date(),
-                    status: "REJECTED"
-                },
-                {
-                    appID: 16,
-                    jobID: 6,
-                    applyDate: new Date(),
-                    status: "PENDING"
-                }
-            ]
+            }
         }
     ]
 };
