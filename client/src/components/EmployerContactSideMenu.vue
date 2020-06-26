@@ -40,7 +40,7 @@
 export default {
     name: "EmployerContact",
     data() {
-        const job = this.$store.getters.getJobById(this.$route.params.id);
+        const job = this.$store.getters.getJobById(this.$route.params.jobID);
         return {
             job: job,
             employer: this.$store.getters.getEmpById(job.empID),
