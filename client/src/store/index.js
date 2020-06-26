@@ -15,6 +15,7 @@ export default new Vuex.Store({
         jobs,
         employers,
         students,
-        admins
+        admins,
+        applications
     }
 });
