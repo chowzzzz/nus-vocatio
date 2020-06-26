@@ -41,29 +41,31 @@
                                     v-bind:class="{
                                         grey: post.status === 'Removed'} "
                                 >Posting ID#{{ post.jobID }}</span>
-                                <!-- <span
+                                <span
                                     id="post-id"
                                     v-else
                                     v-bind:class="{
-                                        grey: post.applications.status === 'REJECTED'} "
-                                >Applicant ID#{{ post.stuID }}</span>-->
+                                        grey: post.status === 'REJECTED'} "
+                                >Applicant ID#{{ post.stuID }}</span>
 
                                 <span
                                     id="status"
                                     v-if="home"
                                     v-bind:class="{
-                                green: post.status === 'Accepting applications',
-                                red: post.status === 'Not accepting applications' || post.status === 'Max applications',
-                                grey: post.status === 'Removed'
+                                        green: post.status === 'Accepting applications',
+                                        red: post.status === 'Not accepting applications' || post.status === 'Max applications',
+                                        grey: post.status === 'Removed'
                             }"
                                 >{{ post.status | upperCase }}</span>
-                                <!-- <span
+                                <span
                                     id="status"
                                     v-else
                                     v-bind:class="{
-                                grey: post.applications.status === 'REJECTED'
+                                        green: post.status === 'ACCEPTED',
+                                        blue: post.status === 'PENDING',
+                                        grey: post.status === 'REJECTED'
                             }"
-                                >{{ post.applications.status }}</span>-->
+                                >{{ post.status }}</span>
                             </div>
                             <h3 v-if="home">{{ post.title }}</h3>
                             <h3 v-else>{{ post.name }}</h3>
@@ -253,6 +255,11 @@ li {
 .green {
     background: #d6ead6;
     color: #5a845a;
+}
+
+.blue {
+    background: #c1e2f5;
+    color: #2b839e;
 }
 
 .red {

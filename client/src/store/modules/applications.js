@@ -1,5 +1,5 @@
 const state = {
-    applicatins: [
+    applications: [
         {
             appID: 1,
             jobID: 1,

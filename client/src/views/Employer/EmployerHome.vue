@@ -26,6 +26,9 @@ export default {
             path: "applicants",
             home: true
         };
+    },
+    beforeCreate() {
+        document.body.className = "bg";
     }
 };
 </script>

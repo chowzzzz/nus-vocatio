@@ -19,12 +19,21 @@ export default {
     },
     data() {
         const jobID = this.$route.params.jobID;
-        const applicants = this.$store.getters.getAppByJobID(jobID);
+        const applicants = this.$store.getters.getAppByJobId(jobID);
+        let students = [];
+        applicants.forEach(applicant => {
+            let student = this.$store.getters.getStuById(applicant.stuID);
+            student.status = applicant.status;
+            students.push(student);
+        });
         return {
-            posts: applicants,
+            posts: students,
             path: `application/${jobID}`,
             home: false
         };
+    },
+    beforeCreate() {
+        document.body.className = "bg";
     }
 };
 </script>

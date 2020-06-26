@@ -126,13 +126,6 @@ const getters = {
     allStudents: (state) => state.students,
     getStuById: (state) => (id) => {
         return state.students.find((student) => student.stuID == id);
-    },
-    getAppByJobID: (state) => (jobID) => {
-        return state.students.filter((student) =>
-            student.applications.filter(
-                (application) => application.jobID == jobID
-            )
-        );
     }
 };
 const actions = {};
