@@ -72,7 +72,7 @@
                         </div>
                         <div class="date">
                             <p v-if="home">{{ post.date | formatDate }}</p>
-                            <!-- <p v-else>{{ post.applyDate | formatDate }}</p> -->
+                            <p v-else>{{ post.applyDate | formatDate }}</p>
                         </div>
                         <div class="number">
                             <h2 v-if="home" class="noOfApplicants">{{ post.applicants }}</h2>
@@ -112,7 +112,7 @@ export default {
 
 <style scoped>
 .posts {
-    padding: 2em 4em 3em;
+    padding: 1.5em 4em 3em;
     background: #f8fbff;
 }
 
@@ -300,7 +300,7 @@ h3 {
 
 @media screen and (max-width: 700px) {
     .posts {
-        padding: 2em 0 4em;
+        padding: 1.5em 0 4em;
     }
 
     li {
@@ -329,6 +329,10 @@ h3 {
 }
 
 @media screen and (max-width: 570px) {
+    h2 {
+        font-size: 22px;
+    }
+
     .post-img img {
         width: 65px;
         height: 65px;
@@ -339,6 +343,10 @@ h3 {
     }
 }
 @media screen and (max-width: 450px) {
+    h2 {
+        font-size: 18px;
+    }
+
     ul {
         margin-top: 1em;
     }
