@@ -1,5 +1,6 @@
 <template>
     <div>
+        <backBtn title="posts"></backBtn>
         <employerListView
             title="Applicants"
             v-bind:posts="posts"
@@ -10,11 +11,13 @@
 </template>
 
 <script>
+import BackBtn from "../../components/BackBtn.vue";
 import EmployerListView from "../../components/EmployerListView.vue";
 
 export default {
     name: "EmployerApp",
     components: {
+        BackBtn,
         EmployerListView
     },
     data() {
@@ -24,6 +27,7 @@ export default {
         applicants.forEach(applicant => {
             let student = this.$store.getters.getStuById(applicant.stuID);
             student.status = applicant.status;
+            student.applyDate = applicant.applyDate;
             students.push(student);
         });
         return {
