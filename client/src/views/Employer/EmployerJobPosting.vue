@@ -12,7 +12,7 @@
             <jobListing />
 
             <div class="editBtns">
-                <span class="delete">
+                <span class="delete" @click="deletePost">
                     <img src="../../assets/selfmade/delete.svg" alt="delete" />
                     <span class="tooltip" id="delete">Delete</span>
                 </span>
@@ -20,7 +20,7 @@
                     <img src="../../assets/selfmade/edit.svg" alt="edit" />
                     <span class="tooltip" id="edit">Edit</span>
                 </span>
-                <span class="cancel">
+                <span class="cancel" @click="cancelPost">
                     <img src="../../assets/selfmade/cancel.svg" alt="stop receiving applications" />
                     <span class="tooltip" id="cancel">Stop receiving applications</span>
                 </span>
@@ -64,8 +64,23 @@ export default {
             this.$swal({
                 title: "Delete",
                 text: "Are you sure you want to delete?",
-                buttons: ["No", "Yes"],
+                buttons: {
+                    no: {
+                        value: "no",
+                        text: "No"
+                    },
+                    yes: {
+                        value: "yes",
+                        text: "Yes"
+                    }
+                },
                 icon: "warning"
+            }).then(value => {
+                switch (value) {
+                    case "yes":
+                        this.$router.go(-1);
+                        break;
+                }
             });
         },
         cancelPost() {
