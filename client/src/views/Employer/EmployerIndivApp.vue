@@ -94,9 +94,6 @@ export default {
             application: application,
             student: student
         };
-    },
-    beforeCreate() {
-        document.body.className = "bg";
     }
 };
 </script>
@@ -126,7 +123,7 @@ export default {
 }
 
 .stu-container {
-    background: white;
+    background: #f8fbff;
     padding: 2em 3em;
     margin: 0 2em;
     display: grid;

@@ -29,6 +29,9 @@ export default {
     },
     beforeCreate() {
         document.body.className = "bg";
+    },
+    destroyed() {
+        document.body.classList.remove("bg");
     }
 };
 </script>
