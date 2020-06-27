@@ -71,7 +71,7 @@
                 </li>
                 <li>
                     <input type="checkbox" name="duke" id="duke" />
-                    <label for="sde">Duke-NUS Medical School</label>
+                    <label for="duke">Duke-NUS Medical School</label>
                 </li>
                 <li>
                     <input type="checkbox" name="engin" id="engin" />
@@ -99,7 +99,7 @@
                 </li>
                 <li>
                     <input type="checkbox" name="scle" id="scle" />
-                    <label for="fos">School of Continuing and Lifelong Education</label>
+                    <label for="scle">School of Continuing and Lifelong Education</label>
                 </li>
                 <li>
                     <input type="checkbox" name="fos" id="fos" />
@@ -107,11 +107,11 @@
                 </li>
                 <li>
                     <input type="checkbox" name="usp" id="usp" />
-                    <label for="fos">University Scholars Programme</label>
+                    <label for="usp">University Scholars Programme</label>
                 </li>
                 <li>
                     <input type="checkbox" name="yale" id="yale" />
-                    <label for="fos">Yale-NUS</label>
+                    <label for="yale">Yale-NUS</label>
                 </li>
             </ul>
         </div>
