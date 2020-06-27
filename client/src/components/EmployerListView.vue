@@ -4,7 +4,6 @@
             <div class="posting-title">
                 <h2>{{ title }}</h2>
                 <div class="side">
-                    <!-- <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow"> -->
                     <div class="select">
                         <select id="sort">
                             <option value="sortby">Sort by</option>
@@ -14,10 +13,11 @@
                             <option value="recent">Most Recent</option>
                         </select>
                     </div>
-                    <!-- </hide-at> -->
-                    <a href="#">
-                        <img src="../assets/selfmade/add.svg" alt="add post" />
-                    </a>
+                    <div id="add">
+                        <router-link to="/add-post" v-if="home">
+                            <img src="../assets/selfmade/add.svg" alt="add post" />
+                        </router-link>
+                    </div>
                 </div>
             </div>
             <div class="postings">
@@ -133,10 +133,14 @@ export default {
     height: 30px;
 }
 
+#add {
+    margin-left: 10px;
+    align-self: center;
+}
+
 .select {
     overflow: hidden;
     width: 180px;
-    margin-right: 10px;
 }
 
 .select select {
