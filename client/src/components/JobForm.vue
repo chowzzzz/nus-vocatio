@@ -4,13 +4,13 @@
             <div class="left">
                 <label for="job-title">Job Designation</label>
                 <br />
-                <input type="text" name="job-title" id="job-title" />
+                <input v-model="post.title" type="text" name="job-title" id="job-title" />
                 <br />
 
                 <label for="industry">Industry</label>
                 <br />
                 <div class="select">
-                    <select name="industry" id="industry">
+                    <select v-model="post.industry" name="industry" id="industry">
                         <option value="default" selected></option>
                         <option value="aerospace">Aerospace</option>
                         <option value="consumerbiz">Consumer Business</option>
@@ -36,17 +36,32 @@
 
                 <label for="department">Division/Department</label>
                 <br />
-                <input type="text" name="department" id="department" />
+                <input v-model="post.department" type="text" name="department" id="department" />
                 <br />
 
                 <label for="salary">Salary amount</label>
                 <br />
-                <input type="number" name="salary" id="salary" min="0.00" step="1" max="10000.00" />
+                <input
+                    v-model.number="post.salary"
+                    type="number"
+                    name="salary"
+                    id="salary"
+                    min="0.00"
+                    step="1"
+                    max="10000.00"
+                />
                 <br />
 
                 <label for="max">Max. no. of applicants</label>
                 <br />
-                <input type="number" name="max" id="max" min="1" step="1" />
+                <input
+                    v-model="post.maxApplicants"
+                    type="number"
+                    name="max"
+                    id="max"
+                    min="1"
+                    step="1"
+                />
                 <br />
             </div>
 
@@ -54,7 +69,7 @@
                 <label for="type">Type of job</label>
                 <br />
                 <div class="select">
-                    <select name="type" id="type">
+                    <select v-model="post.type" name="type" id="type">
                         <option value="default" selected></option>
                         <option value="all">All types</option>
                         <option value="internship">Internship</option>
@@ -67,7 +82,7 @@
                 <label for="faculty">Faculty</label>
                 <br />
                 <div class="select">
-                    <select name="faculty" id="faculty">
+                    <select v-model="post.faculty" name="faculty" id="faculty">
                         <option value="default" selected></option>
                         <option value="fass">FASS</option>
                         <option value="ba">Business</option>
@@ -100,29 +115,46 @@
 
                 <label for="expiry">Apply by:</label>
                 <br />
-                <input type="date" name="expiry" id="expiry" />
+                <input v-model="post.date" type="`date`" name="expiry" id="expiry" />
                 <br />
             </div>
         </div>
 
         <label for="shortdesc">Short Job Description</label>
         <br />
-        <textarea name="shortdesc" id="shortdesc" rows="5"></textarea>
+        <textarea v-model="post.shortDescription" name="shortdesc" id="shortdesc" rows="5"></textarea>
         <br />
         <label for="desc">Job Description</label>
         <br />
-        <textarea name="desc" id="desc" cols="50" rows="10"></textarea>
+        <textarea v-model="post.description" name="desc" id="desc" cols="50" rows="10"></textarea>
         <br />
         <label for="requirements">Job Requirements</label>
         <br />
-        <textarea name="requirements" id="requirements" cols="50" rows="10"></textarea>
+        <textarea
+            v-model="post.requirements.req"
+            name="requirements"
+            id="requirements"
+            cols="50"
+            rows="10"
+        ></textarea>
         <br />
     </div>
 </template>
 
 <script>
 export default {
-    name: "JobForm"
+    name: "JobForm",
+    data() {
+        let post;
+        if (this.$route.params.jobID !== undefined) {
+            post = this.$store.getters.getJobById(this.$route.params.jobID);
+        } else {
+            post = "";
+        }
+        return {
+            post: post
+        };
+    }
 };
 </script>
 

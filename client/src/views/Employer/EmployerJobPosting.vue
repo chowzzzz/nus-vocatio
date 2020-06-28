@@ -16,7 +16,10 @@
                     <img src="../../assets/selfmade/delete.svg" alt="delete" />
                     <span class="tooltip" id="delete">Delete</span>
                 </span>
-                <span class="edit">
+                <span
+                    class="edit"
+                    @click="navigateTo({name: 'edit-post', params: {jobID: post.jobID}})"
+                >
                     <img src="../../assets/selfmade/edit.svg" alt="edit" />
                     <span class="tooltip" id="edit">Edit</span>
                 </span>
