@@ -77,6 +77,7 @@ export default {
 .employer-info {
     border: 1px solid #e6e6e6;
     border-radius: 12px;
+    margin-bottom: 2em;
 }
 
 .employer-title {
