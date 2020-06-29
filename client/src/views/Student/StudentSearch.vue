@@ -42,7 +42,7 @@
                         </div>
                         <div class="job-side-title">
                             <p id="date">{{ pair.job.date | formatDate }}</p>
-                            <p id="salary">{{ pair.job.salary }}</p>
+                            <p id="salary">${{ pair.job.salary }}</p>
                         </div>
                     </li>
                 </ul>

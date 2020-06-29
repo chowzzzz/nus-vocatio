@@ -13,7 +13,7 @@
         </div>
 
         <div class="job-side-title-container job-title">
-            <p id="salary" v-if="job.salary != null">Salary: {{ job.salary }}</p>
+            <p id="salary" v-if="job.salary != null">Salary: ${{ job.salary }}</p>
             <a href="#">Contract Term</a>
         </div>
 
@@ -95,7 +95,7 @@ h1 {
 
 .job-description-container {
     grid-area: desc;
-    margin: 2em 1em 1em;
+    margin: 2em 1em 4em;
 }
 
 h3 {
@@ -112,12 +112,15 @@ ul {
 }
 
 .filters {
+    display: flex;
+    flex-wrap: wrap;
     margin-top: 0.5em;
 }
 
 #type,
 #faculty {
     margin-right: 0.8em;
+    margin-bottom: 0.1em;
     border: none;
     padding: 0.2em 1em;
     border-radius: 25px;
