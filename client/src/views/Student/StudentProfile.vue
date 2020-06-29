@@ -1,7 +1,7 @@
 <template>
     <div class="profile">
         <div class="profile-info">
-            <h1>Hello, Name</h1>
+            <h1>Hello, {{ student.name }}</h1>
             <div class="profile-img">
                 <img src="../../assets/selfmade/avatar.svg" alt="student profile picture" />
                 <button class="uploadBtn mobile-hide">
@@ -18,38 +18,38 @@
                     <h4>Personal Information</h4>
                     <label for="name">Full name</label>
                     <br />
-                    <input type="text" name="name" id="name" />
+                    <input v-model="student.name" type="text" name="name" id="name" />
                     <br />
 
                     <label for="studID">Student ID</label>
                     <br />
-                    <input type="text" name="studID" id="studID" />
+                    <input v-model="student.studentID" type="text" name="studID" id="studID" />
                     <br />
 
                     <label for="dob">Date of birth</label>
                     <br />
-                    <input type="date" name="dob" id="dob" />
+                    <input v-model="dob" type="date" name="dob" id="dob" />
                     <br />
 
                     <label for="degree">Degree</label>
                     <br />
-                    <input type="text" name="degree" id="degree" />
+                    <input v-model="student.degree" type="text" name="degree" id="degree" />
                     <br />
 
                     <label for="year">Current Year</label>
                     <br />
-                    <input type="text" name="year" id="year" />
+                    <input v-model="student.year" type="text" name="year" id="year" />
                     <br />
 
                     <h4>Contact Information</h4>
                     <label for="email">Email</label>
                     <br />
-                    <input type="email" name="email" id="email" />
+                    <input v-model="student.email" type="email" name="email" id="email" />
                     <br />
 
                     <label for="contact">Contact number</label>
                     <br />
-                    <input type="text" name="contact" id="contact" />
+                    <input v-model="student.number" type="text" name="contact" id="contact" />
                     <br />
 
                     <h4>Resume and links</h4>
@@ -66,7 +66,7 @@
 
                     <label for="linkedin">Linkedin link</label>
                     <br />
-                    <input type="text" name="linkedin" id="linked" />
+                    <input v-model="student.linkedIn" type="text" name="linkedin" id="linked" />
                     <br />
 
                     <button type="submit" class="updateBtn">Update Information</button>
@@ -85,17 +85,28 @@
 
                     <button type="submit" class="updateBtn">Update Password</button>
                 </div>
-                <div class="status">
+                <!-- <div class="status">
                     <h4>Current status</h4>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
-    name: "StudentProfile"
+    name: "StudentProfile",
+    data() {
+        // for now use student 1
+        const student = this.$store.getters.getStuById(1);
+        const dob = moment(String(student.dob)).format("YYYY-MM-DD");
+        return {
+            student: student,
+            dob: dob
+        };
+    }
 };
 </script>
 
