@@ -128,8 +128,20 @@ const getters = {
     }
 };
 
-const actions = {};
-const mutations = {};
+const mutations = {
+    UPDATE_APPSTATUS: (state, payload) => {
+        const index = state.applications
+            .map((app) => app.appID)
+            .indexOf(payload.appID);
+        state.applications[index].status = payload.status;
+    }
+};
+
+const actions = {
+    updateAppStatus: ({ commit }, payload) => {
+        commit("UPDATE_APPSTATUS", payload);
+    }
+};
 
 export default {
     state,

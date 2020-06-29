@@ -58,8 +58,8 @@
                 </div>
 
                 <div class="btns">
-                    <button id="acceptBtn">Accept</button>
-                    <button>Reject</button>
+                    <button id="acceptBtn" @click="accept">Accept</button>
+                    <button @click="reject">Reject</button>
                 </div>
             </div>
 
@@ -79,6 +79,7 @@
 
 <script>
 import BackBtn from "../../components/BackBtn.vue";
+import { mapActions } from "vuex";
 export default {
     name: "EmployerIndivApp",
     components: {
@@ -91,9 +92,82 @@ export default {
         const stuID = this.$route.params.stuID;
         const student = this.$store.getters.getStuById(stuID);
         return {
+            appID: appID,
             application: application,
             student: student
         };
+    },
+    methods: {
+        ...mapActions(["updateAppStatus"]),
+        accept() {
+            let app = {
+                appID: this.appID,
+                status: "ACCEPTED"
+            };
+            this.$swal({
+                title: "Accept",
+                text: "Are you sure you want to accept?",
+                buttons: {
+                    no: {
+                        value: "no",
+                        text: "No"
+                    },
+                    yes: {
+                        value: "yes",
+                        text: "Yes"
+                    }
+                },
+                icon: "info"
+            }).then(value => {
+                switch (value) {
+                    case "yes":
+                        this.updateAppStatus(app)
+                            .then(
+                                this.$swal({
+                                    text: "Student accepted",
+                                    icon: "success"
+                                })
+                            )
+                            .then(this.$router.go(-1));
+                        break;
+                }
+            });
+        },
+        reject() {
+            let app = {
+                appID: this.appID,
+                status: "REJECTED"
+            };
+
+            this.$swal({
+                title: "Reject",
+                text: "Are you sure you want to reject?",
+                buttons: {
+                    no: {
+                        value: "no",
+                        text: "No"
+                    },
+                    yes: {
+                        value: "yes",
+                        text: "Yes"
+                    }
+                },
+                icon: "warning"
+            }).then(value => {
+                switch (value) {
+                    case "yes":
+                        this.updateAppStatus(app)
+                            .then(
+                                this.$swal({
+                                    text: "Student rejected",
+                                    icon: "info"
+                                })
+                            )
+                            .then(this.$router.go(-1));
+                        break;
+                }
+            });
+        }
     }
 };
 </script>
