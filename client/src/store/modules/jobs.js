@@ -26,7 +26,7 @@ const state = {
             department: "Business",
             salary: 1000,
             date: new Date(),
-            applicants: 21,
+            applicants: 3,
             maxApplicants: 30,
             status: "Accepting applications",
             expiry: moment().add(1, "days")
@@ -55,7 +55,7 @@ const state = {
             department: "Business",
             salary: 1000,
             date: new Date(),
-            applicants: 15,
+            applicants: 4,
             maxApplicants: 30,
             status: "Accepting applications",
             expiry: moment().add(1, "days")
@@ -201,8 +201,8 @@ const state = {
             department: "Business",
             salary: 1000,
             date: new Date(),
-            applicants: 25,
-            maxApplicants: 25,
+            applicants: 3,
+            maxApplicants: 2,
             status: "Max applications",
             expiry: moment().add(1, "days")
         },
@@ -230,8 +230,8 @@ const state = {
             department: "Business",
             salary: 1000,
             date: new Date(),
-            applicants: 42,
-            maxApplicants: 50,
+            applicants: 2,
+            maxApplicants: 4,
             status: "Not accepting applications",
             expiry: moment().subtract(1, "days")
         },
@@ -259,8 +259,8 @@ const state = {
             department: "Business",
             salary: 1000,
             date: new Date(),
-            applicants: 23,
-            maxApplicants: 23,
+            applicants: 2,
+            maxApplicants: 2,
             status: "Removed",
             expiry: moment().subtract(1, "days")
         }
@@ -275,8 +275,34 @@ const getters = {
         return state.jobs.filter((job) => job.empID == empID);
     }
 };
-const actions = {};
-const mutations = {};
+const mutations = {
+    ADD_JOBPOST: (state, payload) => {
+        payload.jobID = state.jobs.length + 1;
+        console.log(payload);
+        state.jobs.push(payload);
+    },
+    DELETE_JOBPOST: (state, jobID) => {
+        const index = state.jobs.findIndex((job) => job.jobID == jobID);
+        state.jobs.splice(index, 1);
+    },
+    UPDATE_JOBPOST: (state, payload) => {
+        console.log(payload);
+        const index = state.jobs.map((job) => job.jobID).indexOf(payload.jobID);
+        console.log(index);
+        state.jobs.splice(index, 1, payload);
+    }
+};
+const actions = {
+    addJobPost: ({ commit }, payload) => {
+        commit("ADD_JOBPOST", payload);
+    },
+    deleteJobPost: (context, jobID) => {
+        context.commit("DELETE_JOBPOST", jobID);
+    },
+    updateJobPost: ({ commit }, payload) => {
+        commit("UPDATE_JOBPOST", payload);
+    }
+};
 
 export default {
     state,

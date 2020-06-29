@@ -35,7 +35,10 @@
                 <div class="deleteBtn">
                     <button @click="deletePost">Delete</button>
                 </div>
-                <div class="editBtn">
+                <div
+                    class="editBtn"
+                    @click="navigateTo({name: 'edit-post', params: {jobID: post.jobID}})"
+                >
                     <button>Edit</button>
                 </div>
                 <div class="cancelBtn">
@@ -49,6 +52,7 @@
 <script>
 import JobListing from "../../components/JobListing.vue";
 import EmployerContact from "../../components/EmployerContactSideMenu.vue";
+import { mapMutations, mapActions } from "vuex";
 
 export default {
     name: "EmployerJobPosting",
@@ -57,12 +61,16 @@ export default {
         employerContact: EmployerContact
     },
     data() {
-        const post = this.$store.getters.getJobById(this.$route.params.jobID);
+        const jobID = this.$route.params.jobID;
+        const post = this.$store.getters.getJobById(jobID);
         return {
-            post: post
+            post: post,
+            jobID: jobID
         };
     },
     methods: {
+        ...mapMutations(["DELETE_JOBPOST"]),
+        ...mapActions(["deleteJobPost"]),
         deletePost() {
             this.$swal({
                 title: "Delete",
@@ -81,7 +89,8 @@ export default {
             }).then(value => {
                 switch (value) {
                     case "yes":
-                        this.$router.go(-1);
+                        this.deleteJobPost(this.jobID);
+                        this.$router.push("/employer-home");
                         break;
                 }
             });

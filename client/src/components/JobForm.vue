@@ -4,45 +4,55 @@
             <div class="left">
                 <label for="job-title">Job Designation</label>
                 <br />
-                <input v-model="post.title" type="text" name="job-title" id="job-title" />
+                <input v-model="title" type="text" name="job-title" id="job-title" />
                 <br />
 
                 <label for="industry">Industry</label>
                 <br />
                 <div class="select">
-                    <select v-model="post.industry" name="industry" id="industry">
+                    <select v-model="industry" name="industry" id="industry">
                         <option value="default" selected></option>
-                        <option value="aerospace">Aerospace</option>
-                        <option value="consumerbiz">Consumer Business</option>
-                        <option value="creative">Creative Industries</option>
-                        <option value="edu">Education</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="energy">Energy &amp; Chemicals</option>
-                        <option value="engin">Engineering</option>
-                        <option value="healthcare">Healthcare</option>
-                        <option value="IT">Information &amp; Communications Technology</option>
-                        <option value="law">Law</option>
-                        <option value="logistics">Logistics &amp; Supply Chain Management</option>
-                        <option value="oil">Oil &amp; Gas Equipment and Services</option>
-                        <option value="medicalTech">Medical Technology</option>
-                        <option value="naturalResources">Natural Resources</option>
-                        <option value="pharm">Pharmaceuticals and Biotechnology</option>
-                        <option value="services">Professional Services</option>
-                        <option value="transport">Transport</option>
-                        <option value="sustainability">Urban Solutions &amp; Sustainability</option>
-                        <option value="others">Others</option>
+                        <option value="Aerospace">Aerospace</option>
+                        <option value="Consumer Business">Consumer Business</option>
+                        <option value="Creative Industries">Creative Industries</option>
+                        <option value="Education">Education</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Energy &amp; Chemicals">Energy &amp; Chemicals</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option
+                            value="Information &amp; Communications Technology"
+                        >Information &amp; Communications Technology</option>
+                        <option value="Law">Law</option>
+                        <option
+                            value="Logistics &amp; Supply Chain Management"
+                        >Logistics &amp; Supply Chain Management</option>
+                        <option
+                            value="Oil &amp; Gas Equipment and Services"
+                        >Oil &amp; Gas Equipment and Services</option>
+                        <option value="Medical Technology">Medical Technology</option>
+                        <option value="Natural Resources">Natural Resources</option>
+                        <option
+                            value="Pharmaceuticals and Biotechnology"
+                        >Pharmaceuticals and Biotechnology</option>
+                        <option value="Professional Services">Professional Services</option>
+                        <option value="Transport">Transport</option>
+                        <option
+                            value="Urban Solutions &amp; Sustainability"
+                        >Urban Solutions &amp; Sustainability</option>
+                        <option value="Others">Others</option>
                     </select>
                 </div>
 
                 <label for="department">Division/Department</label>
                 <br />
-                <input v-model="post.department" type="text" name="department" id="department" />
+                <input v-model="department" type="text" name="department" id="department" />
                 <br />
 
                 <label for="salary">Salary amount</label>
                 <br />
                 <input
-                    v-model.number="post.salary"
+                    v-model.number="salary"
                     type="number"
                     name="salary"
                     id="salary"
@@ -54,14 +64,7 @@
 
                 <label for="max">Max. no. of applicants</label>
                 <br />
-                <input
-                    v-model="post.maxApplicants"
-                    type="number"
-                    name="max"
-                    id="max"
-                    min="1"
-                    step="1"
-                />
+                <input v-model="maxApplicants" type="number" name="max" id="max" min="1" step="1" />
                 <br />
             </div>
 
@@ -69,37 +72,39 @@
                 <label for="type">Type of job</label>
                 <br />
                 <div class="select">
-                    <select v-model="post.type" name="type" id="type">
+                    <select v-model="type" name="type" id="type">
                         <option value="default" selected></option>
-                        <option value="all">All types</option>
-                        <option value="internship">Internship</option>
-                        <option value="parttime">Part-time</option>
-                        <option value="research">Research studies</option>
-                        <option value="surveys">Surveys</option>
+                        <option value="All type">All types</option>
+                        <option value="Internship">Internship</option>
+                        <option value="Part-time">Part-time</option>
+                        <option value="Research studies">Research studies</option>
+                        <option value="Surveys">Surveys</option>
                     </select>
                 </div>
 
                 <label for="faculty">Faculty</label>
                 <br />
                 <div class="select">
-                    <select v-model="post.faculty" name="faculty" id="faculty">
+                    <select v-model="faculty" name="faculty" id="faculty">
                         <option value="default" selected></option>
-                        <option value="fass">FASS</option>
-                        <option value="ba">Business</option>
-                        <option value="soc">Computing</option>
-                        <option value="soc">Dentistry</option>
-                        <option value="sde">Design and Environment</option>
-                        <option value="sde">Duke-NUS Medical School</option>
-                        <option value="engin">Engineering</option>
-                        <option value="law">Law</option>
-                        <option value="med">Medicine</option>
-                        <option value="music">Music</option>
-                        <option value="publicHealth">Public Health</option>
-                        <option value="publicPolicy">Public Policy</option>
-                        <option value="scle">School of Continuing and Lifelong Education</option>
-                        <option value="fos">Science</option>
-                        <option value="usp">University Scholars Programme</option>
-                        <option value="yale">Yale-NUS</option>
+                        <option value="FASS">FASS</option>
+                        <option value="Business">Business</option>
+                        <option value="Computing">Computing</option>
+                        <option value="Dentistry">Dentistry</option>
+                        <option value="Design and Environment">Design and Environment</option>
+                        <option value="Duke-NUS Medical Schoo">Duke-NUS Medical School</option>
+                        <option value="Engineering">Engineering</option>
+                        <option value="Law">Law</option>
+                        <option value="Medicine">Medicine</option>
+                        <option value="Music">Music</option>
+                        <option value="Public Health">Public Health</option>
+                        <option value="Public Policy">Public Policy</option>
+                        <option
+                            value="School of Continuing and Lifelong Education"
+                        >School of Continuing and Lifelong Education</option>
+                        <option value="Science">Science</option>
+                        <option value="University Scholars Programme">University Scholars Programme</option>
+                        <option value="Yale-NU">Yale-NUS</option>
                     </select>
                 </div>
 
@@ -115,44 +120,74 @@
 
                 <label for="expiry">Apply by:</label>
                 <br />
-                <input v-model="post.date" type="`date`" name="expiry" id="expiry" />
+                <input v-model="date" type="date" name="expiry" id="expiry" />
                 <br />
             </div>
         </div>
 
         <label for="shortdesc">Short Job Description</label>
         <br />
-        <textarea v-model="post.shortDescription" name="shortdesc" id="shortdesc" rows="5"></textarea>
+        <textarea v-model="shortdesc" name="shortdesc" id="shortdesc" rows="5"></textarea>
         <br />
         <label for="desc">Job Description</label>
         <br />
-        <textarea v-model="post.description" name="desc" id="desc" cols="50" rows="10"></textarea>
+        <textarea v-model="desc" name="desc" id="desc" cols="50" rows="10"></textarea>
         <br />
         <label for="requirements">Job Requirements</label>
         <br />
-        <textarea
-            v-model="post.requirements.req"
-            name="requirements"
-            id="requirements"
-            cols="50"
-            rows="10"
-        ></textarea>
+        <textarea v-model="requirements" name="requirements" id="requirements" cols="50" rows="10"></textarea>
         <br />
     </div>
 </template>
 
 <script>
+import moment from "moment";
+
 export default {
     name: "JobForm",
     data() {
-        let post;
+        let jobID = "";
+        let title = "";
+        let industry = "";
+        let department = "";
+        let salary = "";
+        let maxApplicants = "";
+        let type = "";
+        let faculty = "";
+        let shortdesc = "";
+        let desc = "";
+
+        let date = "";
+        let requirements = "";
+
         if (this.$route.params.jobID !== undefined) {
-            post = this.$store.getters.getJobById(this.$route.params.jobID);
-        } else {
-            post = "";
+            jobID = this.$route.params.jobID;
+            const post = this.$store.getters.getJobById(jobID);
+            title = post.title;
+            industry = post.industry;
+            department = post.department;
+            salary = post.salary;
+            maxApplicants = post.maxApplicants;
+            type = post.type;
+            faculty = post.faculty;
+            shortdesc = post.shortDescription;
+            desc = post.description;
+            date = moment(String(post.date)).format("YYYY-MM-DD");
+            requirements = post.requirements.map(r => r.req).join("\n");
         }
         return {
-            post: post
+            jobID: jobID,
+            title: title,
+            industry: industry,
+            department: department,
+            salary: salary,
+            maxApplicants: maxApplicants,
+            type: type,
+            faculty: faculty,
+            shortdesc: shortdesc,
+            desc: desc,
+            date: date,
+            requirements: requirements
         };
     }
 };
@@ -233,6 +268,7 @@ input[type="file"] {
     width: 100%;
     cursor: pointer;
     padding: 0.6em 0.8em;
+    padding-right: 3em;
     margin: 0 0 0.5em;
     outline: 0;
     border: 0;
