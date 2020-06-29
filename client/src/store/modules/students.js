@@ -2,6 +2,7 @@ const state = {
     students: [
         {
             stuID: 1,
+            studentID: "A1234567B",
             name: "Andy Woo",
             password: "123",
             dob: new Date(1998, 1, 1),
@@ -25,6 +26,7 @@ const state = {
         },
         {
             stuID: 2,
+            studentID: "A1234567B",
             name: "Ben Tan",
             password: "123",
             dob: new Date(2000, 1, 1),
@@ -48,6 +50,7 @@ const state = {
         },
         {
             stuID: 3,
+            studentID: "A1234567B",
             name: "Claire Lee",
             password: "123",
             dob: new Date(1999, 1, 1),
@@ -71,6 +74,7 @@ const state = {
         },
         {
             stuID: 4,
+            studentID: "A1234567B",
             name: "David Ho",
             password: "123",
             dob: new Date(1997, 1, 1),
@@ -94,6 +98,7 @@ const state = {
         },
         {
             stuID: 5,
+            studentID: "A1234567B",
             name: "Elaine Low",
             password: "123",
             dob: new Date(2000, 1, 1),
@@ -117,6 +122,7 @@ const state = {
         },
         {
             stuID: 6,
+            studentID: "A1234567B",
             name: "Nurul Syafiq",
             password: "123",
             dob: new Date(1999, 1, 1),
