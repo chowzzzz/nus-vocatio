@@ -288,7 +288,7 @@ const mutations = {
     UPDATE_JOBPOST: (state, payload) => {
         console.log(payload);
         const index = state.jobs.map((job) => job.jobID).indexOf(payload.jobID);
-        console.log(index);
+        // console.log(index);
         state.jobs.splice(index, 1, payload);
     }
 };
