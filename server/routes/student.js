@@ -5,11 +5,25 @@ const Student = require('../models/Student');
 
 
 router.get('/',(req, res) =>
-    Student.findAll()
+
+
+db.query('SELECT * FROM vocatio.faculty',
+        function(err, results,fields) {
+            console.log(results);
+            console.log(fields);
+        }
+    ));    
+
+
+
+/*
+Student.findAll()
         .then(student => { 
             console.log(student);
             res.sendStatus(200);
         })
         .catch(err => console.log(err)));
+*/
+
 
     module.exports = router;
