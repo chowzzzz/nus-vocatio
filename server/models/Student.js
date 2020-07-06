@@ -46,4 +46,4 @@ const Student = db.define("student", {
     },
   })
 
-  module.exports = db;
+  module.exports = Student;
