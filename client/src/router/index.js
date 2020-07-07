@@ -16,6 +16,7 @@ import EmployerIndivApp from "../views/Employer/EmployerIndivApp.vue";
 import EmployerAddJob from "../views/Employer/EmployerAddJob.vue";
 import EmployerEditJob from "../views/Employer/EmployerEditJob.vue";
 import EmployerProfile from "../views/Employer/EmployerProfile.vue";
+import EmployerSettings from "../views/Employer/EmployerSettings.vue";
 
 Vue.use(VueRouter);
 
@@ -95,6 +96,11 @@ const routes = [
         path: "/employer-profile",
         name: "employer-profile",
         component: EmployerProfile
+    },
+    {
+        path: "/employer-settings",
+        name: "employer-settings",
+        component: EmployerSettings
     }
 ];
 
