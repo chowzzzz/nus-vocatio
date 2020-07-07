@@ -139,47 +139,6 @@ h1 {
     width: 100%;
 }
 
-.uploadBtn,
-.updateBtn {
-    width: 100%;
-    padding: 1em;
-    border: none;
-    outline: none;
-    transition-duration: 0.4s;
-    cursor: pointer;
-    font-family: "Montserrat", sans-serif;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.uploadBtn:hover {
-    background: #6b6b6b;
-    color: #fff;
-}
-
-.updateBtn {
-    background: #d6ead6;
-    color: #5a845a;
-    border-radius: 10px;
-    margin: 0.3em 0;
-}
-
-.updateBtn:hover {
-    background: #78aa78;
-    color: #fff;
-}
-
-.uploadBtn:hover .fa-camera {
-    color: #fff;
-}
-
-.fa-camera {
-    float: right;
-    color: #145468;
-    font-size: 15px;
-    transition-duration: 0.4s;
-}
-
 .personal-info,
 .pwd,
 .status {
@@ -257,10 +216,6 @@ input[type="file"] {
 #uploadFileBtn {
     float: right;
     cursor: pointer;
-}
-
-.mobile-show {
-    display: none;
 }
 
 @media screen and (max-width: 1150px) {
@@ -359,14 +314,6 @@ input[type="file"] {
 
     .fa-camera {
         color: #af6675;
-    }
-
-    .mobile-show {
-        display: inherit;
-    }
-
-    .mobile-hide {
-        display: none;
     }
 
     .personal-info,
