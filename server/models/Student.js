@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
-const db = require('../config/database');
+const { Sequelize } = require("sequelize");
 
-const Student = db.define("student", {
+module.exports = (sequelize, Sequelize) => {
+const Student = Sequelize.define("student", {
     stu_id: {
       type: Sequelize.DataTypes.UUID,
       primaryKey: true,
@@ -43,7 +43,8 @@ const Student = db.define("student", {
     stu_subscription: {
       type: Sequelize.DataTypes.ENUM,
       values: ['t', 'f']
-    },
-  })
+    }
+  });
 
-  module.exports = db;
+  return Student;
+};

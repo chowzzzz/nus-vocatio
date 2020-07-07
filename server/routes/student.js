@@ -7,7 +7,7 @@ const Student = require('../models/Student');
 router.get('/',(req, res) =>
 
 
-db.query('SELECT * FROM vocatio.faculty',
+db.query('SELECT * FROM vocatio.student',
         function(err, results,fields) {
             console.log(results);
             console.log(fields);

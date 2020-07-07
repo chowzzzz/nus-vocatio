@@ -14,12 +14,15 @@ db.authenticate()
 //Routes
 const app = express();
 app.get('/', (req, res) => res.send('INDEX'));
-app.use('/faculty', require('./routes/faculty'));
+
 app.use('/student', require('./routes/student'));
+/*
+app.use('/faculty', require('./routes/faculty'));
 app.use('/employer', require('./routes/employer'));
 app.use('/admin', require('./routes/adminAcc'));
 app.use('/jobPost', require('./routes/jobPost'));
 console.log('test');
+*/
 
 
 ////
