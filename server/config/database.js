@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 
-const db = new Sequelize('vocatio', 'root', 'Pass12345', {
-    host: 'localhost',
+const db = new Sequelize('sql12352722', 'sql12352722', 'YxZJk1M6Xf', {
+    host: 'sql12.freemysqlhosting.net',
     dialect: 'mysql',
 
     pool: {
@@ -12,11 +12,13 @@ const db = new Sequelize('vocatio', 'root', 'Pass12345', {
     },
 });
 
-/*Models
+//Models
+db.student = require('../models/Student')(sequelize, Sequelize);
+/*
 db.faculty = require('../models/Faculty')(sequelize, Sequelize);
-db.students = require('../models/Students')(sequelize, Sequelize);
-db.employers = require('../models/Employers')(sequelize, Sequelize);
+
+db.employers = require('../models/Employer')(sequelize, Sequelize);
 db.adminAcc = require('../models/AdminAcc')(sequelize, Sequelize);
-db.jobPosts = require('../models/JobPosts')(sequelize, Sequelize);
+db.jobPosts = require('../models/JobPost')(sequelize, Sequelize);
 */
 module.exports = db;
