@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <backBtn title="post"></backBtn>
         <employerListView
             title="Applicants"
@@ -36,12 +36,6 @@ export default {
             path: `application/${jobID}`,
             home: false
         };
-    },
-    beforeCreate() {
-        document.body.className = "bg";
-    },
-    destroyed() {
-        document.body.classList.remove("bg");
     }
 };
 </script>

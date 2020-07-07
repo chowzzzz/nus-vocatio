@@ -47,8 +47,6 @@ export default {
 <style scoped>
 .container {
     padding: 3em 11em;
-    background: #f8fbff;
-    height: 100%;
 }
 
 .title {

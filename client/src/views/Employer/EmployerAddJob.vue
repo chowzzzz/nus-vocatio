@@ -11,12 +11,6 @@ export default {
     name: "EmployerAddJob",
     components: {
         EmployerJobForm
-    },
-    beforeCreate() {
-        document.body.className = "bg";
-    },
-    destroyed() {
-        document.body.classList.remove("bg");
     }
 };
 </script>

@@ -24,13 +24,15 @@ body {
     font-family: "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-body.bg {
-    background: #f8fbff;
-}
-
 #app {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    background: #f8fbff;
+    height: 100%;
+    padding-bottom: 2em;
 }
 
 h1,

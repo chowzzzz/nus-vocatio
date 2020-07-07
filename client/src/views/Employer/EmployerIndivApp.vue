@@ -2,7 +2,7 @@
     <div>
         <back-btn title="applicants" />
 
-        <div class="container">
+        <div class="app-container">
             <div class="prevNext" id="prev">
                 <router-link to="/">
                     <img src="../../assets/left.svg" alt="previous" />
@@ -173,7 +173,7 @@ export default {
 </script>
 
 <style scoped>
-.container {
+.app-container {
     display: grid;
     grid-template-columns: auto auto auto;
     margin: 2em auto 3em;

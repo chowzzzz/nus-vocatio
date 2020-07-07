@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="container">
         <employerListView
             title="Postings"
             v-bind:posts="posts"
@@ -26,12 +26,6 @@ export default {
             path: "employer-home",
             home: true
         };
-    },
-    beforeCreate() {
-        document.body.className = "bg";
-    },
-    destroyed() {
-        document.body.classList.remove("bg");
     }
 };
 </script>
