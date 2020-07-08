@@ -1,9 +1,9 @@
 module.exports = (sequelize, Sequelize) => {
     const Faculty = sequelize.define("faculty", {
       faculty_id: {
-        type: Sequelize.DataTypes.UUIDV4,
+        type: Sequelize.DataTypes.UUID,
         primaryKey: true,
-        defaultValue: Sequelize.UUIDV4,
+        defaultValue: Sequelize.DataTypes.UUIDV4,
         allowNull:false
       },
       faculty_name: {
@@ -12,7 +12,6 @@ module.exports = (sequelize, Sequelize) => {
         'Music', 'Public Health', 'Public Policy', 'LifeLong Education', 
         'Science', 'University Scholars Programme', 'Yale-Nus'),
       },
-        tableName: 'faculty'
     });
     return Faculty;
   }

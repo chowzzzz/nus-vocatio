@@ -31,20 +31,16 @@ module.exports = (sequelize, Sequelize) => {
         allowNull: false
       },
       emp_new_applicants: {
-        type: Sequelize.DataTypes.ENUM,
-        values: ['t', 'f']
+        type: Sequelize.DataTypes.TINYINT,
       },
       emp_max_applicants: {
-        type: Sequelize.DataTypes.ENUM,
-        values: ['t', 'f']
+        type: Sequelize.DataTypes.TINYINT,
       },
       emp_news_letter: {
-        type: Sequelize.DataTypes.ENUM,
-        values: ['t', 'f']
+        type: Sequelize.DataTypes.TINYINT,
       },
       emp_subscription: {
-        type: Sequelize.DataTypes.ENUM,
-        values: ['t', 'f']
+        type: Sequelize.DataTypes.TINYINT,
       },
     })
     return Employer;

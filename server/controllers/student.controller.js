@@ -17,7 +17,7 @@ exports.create = (req, res) => {
 		stu_name: req.body.stu_name,
 		stu_mobile: req.body.stu_mobile,
 		stu_email: req.stu_email,
-		stu_linkedin: req.body.stu_email,
+		stu_linkedin: req.body.stu_linkedin,
 		stu_password: req.body.stu_password,
 		stu_status_change: req.body.stu_status_change,
 		stu_new_jobs: req.body.stu_new_jobs,
@@ -56,45 +56,100 @@ exports.findAll = (req, res) => {
 					err.message ||
 					"Some error occurred while retrieving Student.",
 			});
-        });
-    };
+		});
+};
 
-	// Find a single Student with an id
-	exports.findOne = (req, res) => {
-		const id = req.params.id;
+// Find a single Student with an id
+exports.findOne = (req, res) => {
+	const stu_id = req.params.stu_id;
 
-		Student.findByPk(id)
-			.then((data) => {
-				res.send(data);
-			})
-			.catch((err) => {
-				res.status(500).send({
-					message: "Error retrieving Student with id=" + id,
-				});
-			});
-	};
-
-	// Update a Student by the id in the request
-	exports.update = (req, res) => {
-		const stu_id = req.params.id;
-
-		Student.update(req.body, {
-			where: { stu_id: stu_id },
+	Student.findByPk(stu_id)
+		.then((data) => {
+			res.send(data);
 		})
-			.then((num) => {
-				if (num == 1) {
-					res.send({
-						message: "Student was updated successfully.",
-					});
-				} else {
-					res.send({
-						message: `Cannot update Student with id=${stu_id}. Maybe Student was not found or req.body is empty!`,
-					});
-				}
-			})
-			.catch((err) => {
-				res.status(500).send({
-					message: "Error updating Student with id=" + stu_id,
-				});
+		.catch((err) => {
+			res.status(500).send({
+				message: "Error retrieving Student with id=" + stu_id,
 			});
-	};
+		});
+};
+
+// Update a Student by the id in the request
+exports.update = (req, res) => {
+	const stu_id = req.params.id;
+
+	Student.update(req.body, {
+		where: { stu_id: stu_id },
+	})
+		.then((num) => {
+			if (num == 1) {
+				res.send({
+					message: "Student was updated successfully.",
+				});
+			} else {
+				res.send({
+					message: `Cannot update Student with id=${stu_id}. Maybe Student was not found or req.body is empty!`,
+				});
+			}
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: "Error updating Student with id=" + stu_id,
+			});
+		});
+};
+
+exports.delete = (req, res) => {
+	const stu_id = req.params.stu_id;
+
+	Student.destroy({
+		where: { stu_id: stu_id },
+	})
+		.then((num) => {
+			if (num == 1) {
+				res.send({
+					message: "Student was deleted successfully!",
+				});
+			} else {
+				res.send({
+					message: `Cannot delete Student with id=${stu_id}. Maybe Student was not found!`,
+				});
+			}
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message: "Could not delete Student with id=" + stu_id,
+			});
+		});
+};
+
+exports.deleteAll = (req, res) => {
+	Student.destroy({
+		where: {},
+		truncate: false,
+	})
+		.then((nums) => {
+			res.send({ message: `${nums} Student were deleted successfully!` });
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message:
+					err.message ||
+					"Some error occurred while removing all Student.",
+			});
+		});
+};
+
+exports.findAllPublished = (req, res) => {
+	Student.findAll({ where: { published: true } })
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message:
+					err.message ||
+					"Some error occurred while retrieving Student.",
+			});
+		});
+};
