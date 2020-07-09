@@ -74,7 +74,7 @@ textarea {
     width: 100%;
     box-sizing: border-box;
     padding: 0.5em 0.8em;
-    margin: 0 0 0.5em;
+    margin: 0.5em 0;
     border: 1px solid #b8b8b8;
     border-radius: 12px;
     font-size: 80%;
@@ -241,8 +241,10 @@ textarea {
         font-size: 10px;
     }
 
-    input {
+    input,
+    textarea {
         margin-bottom: 0.8em;
+        border-radius: 10px;
     }
 
     .mobile-show {
@@ -268,8 +270,10 @@ textarea {
         font-size: 8px;
     }
 
-    input {
+    input,
+    textarea {
         margin-bottom: 0.5em;
+        border-radius: 8px;
     }
 }
 </style>

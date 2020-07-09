@@ -21,6 +21,7 @@ import EmployerSettings from "../views/Employer/EmployerSettings.vue";
 import AdminHome from "../views/Admin/AdminHome.vue";
 import AdminStuAcc from "../views/Admin/AdminStuAcc.vue";
 import AdminEmpAcc from "../views/Admin/AdminEmpAcc.vue";
+import AdminProfile from "../views/Admin/AdminProfile.vue";
 
 Vue.use(VueRouter);
 
@@ -120,6 +121,11 @@ const routes = [
         path: "/admin-emp-acc",
         name: "/admin-emp-acc",
         component: AdminEmpAcc
+    },
+    {
+        path: "/admin-profile",
+        name: "/admin-profile",
+        component: AdminProfile
     }
 ];
 
