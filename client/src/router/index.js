@@ -21,6 +21,7 @@ import EmployerSettings from "../views/Employer/EmployerSettings.vue";
 import AdminHome from "../views/Admin/AdminHome.vue";
 import AdminStuAcc from "../views/Admin/AdminStuAcc.vue";
 import AdminEmpAcc from "../views/Admin/AdminEmpAcc.vue";
+import AdminEmpAccIndiv from "../views/Admin/AdminEmpAccIndiv.vue";
 import AdminProfile from "../views/Admin/AdminProfile.vue";
 
 Vue.use(VueRouter);
@@ -114,17 +115,22 @@ const routes = [
     },
     {
         path: "/admin-stu-acc",
-        name: "/admin-stu-acc",
+        name: "admin-stu-acc",
         component: AdminStuAcc
     },
     {
         path: "/admin-emp-acc",
-        name: "/admin-emp-acc",
+        name: "admin-emp-acc",
         component: AdminEmpAcc
     },
     {
+        path: "/admin-emp-acc/:id",
+        name: "admin-emp-acc-indiv",
+        component: AdminEmpAccIndiv
+    },
+    {
         path: "/admin-profile",
-        name: "/admin-profile",
+        name: "admin-profile",
         component: AdminProfile
     }
 ];

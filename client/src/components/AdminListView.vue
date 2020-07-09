@@ -1,8 +1,32 @@
 <template>
     <div>
         <div class="accounts">
-            <ul>
-                <li v-for="account in accounts" :key="account.id">
+            <ul v-if="student">
+                <li
+                    v-for="account in accounts"
+                    :key="account.stuID"
+                    @click="navigateTo({ name: 'admin-stu-acc-indiv', params: { id: account.stuID }})"
+                >
+                    <div class="account-img">
+                        <img src="../assets/selfmade/picture.svg" alt="account image" />
+                    </div>
+                    <div class="account-title">
+                        <h3>{{ account.name }}</h3>
+                        <p>{{ account.studentID }}</p>
+                    </div>
+                    <div class="click">
+                        <p>
+                            <img src="../assets/left.svg" alt="click" />
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <ul v-else>
+                <li
+                    v-for="account in accounts"
+                    :key="account.empID"
+                    @click="navigateTo({ name: 'admin-emp-acc-indiv', params: { id: account.empID }})"
+                >
                     <div class="account-img">
                         <img src="../assets/selfmade/picture.svg" alt="account image" />
                     </div>
