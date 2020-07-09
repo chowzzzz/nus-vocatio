@@ -1,5 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
-    const Admin = sequelize.define("admin", {
+    const Application = sequelize.define("application", {
         applyDate: {
           type: Sequelize.DataTypes.DATE,
           allowNull: false
@@ -8,5 +8,5 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.DataTypes.TINYINT,
         },
       });
-      return Admin;
+      return Application;
     }
