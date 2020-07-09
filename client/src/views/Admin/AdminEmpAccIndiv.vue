@@ -2,7 +2,7 @@
     <div class="container">
         <div class="profile-container">
             <div class="title">
-                <h4>Profile</h4>
+                <h4>{{ employer.name }}</h4>
                 <div class="btns">
                     <span class="delete" @click="deletePost">
                         <img src="../../assets/selfmade/delete.svg" alt="delete" />
@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <employer-profile-comp></employer-profile-comp>
+            <employer-profile-comp v-bind:employer="employer"></employer-profile-comp>
 
             <div class="mobile-btns">
                 <div class="deleteBtn">
@@ -43,17 +43,130 @@ import EmployerProfileComp from "../../components/EmployerProfileComp.vue";
 import ChangePassword from "../../components/ChangePassword.vue";
 
 export default {
-    name: "EmployerProfile",
+    name: "AdminEmpAccIndiv",
     components: {
         EmployerProfileComp,
         ChangePassword
+    },
+    data() {
+        const empID = this.$route.params.id;
+        return {
+            employer: this.$store.getters.getEmpById(empID)
+        };
+    },
+    methods: {
+        // ...mapActions(["addJobPost", "deleteJobPost", "updateJobPost"]),
+        deletePost() {
+            this.$swal({
+                title: "Delete",
+                text: "Are you sure you want to delete this post?",
+                buttons: {
+                    no: {
+                        value: "no",
+                        text: "No"
+                    },
+                    yes: {
+                        value: "yes",
+                        text: "Yes"
+                    }
+                },
+                icon: "warning"
+            }).then(value => {
+                switch (value) {
+                    case "yes":
+                        // this.deleteJobPost(this.jobID).then(
+                        // this.$router.push("/employer-home")
+                        // );
+                        this.$router.go(-1);
+
+                        break;
+                }
+            });
+        },
+        confirmEdit() {
+            /*let jobID = this
+                .$refs.newPost.$data.jobID;
+            let title = this.$refs.newPost.$data.title;
+            let industry = this.$refs.newPost.$data.industry;
+            let department = this.$refs.newPost.$data.department;
+            let salary = this.$refs.newPost.$data.salary;
+            let maxApplicants = this.$refs.newPost.$data.maxApplicants;
+            let type = this.$refs.newPost.$data.type;
+            let faculty = this.$refs.newPost.$data.faculty;
+            let shortdesc = this.$refs.newPost.$data.shortdesc;
+            let desc = this.$refs.newPost.$data.desc;
+            let date = this.$refs.newPost.$data.date;
+            let req = this.$refs.newPost.$data.requirements;
+            let temp = req.split("\n");
+            let requirements = [];
+            temp.forEach(requirement => {
+                requirements.push({ req: requirement });
+            });
+
+            const post = {
+                jobID: jobID,
+                title: title,
+                empID: 1, // change to current employer
+                shortDescription: shortdesc,
+                description: desc,
+                requirements: requirements,
+                type: type,
+                faculty: faculty,
+                industry: industry,
+                department: department,
+                salary: salary,
+                date: new Date(),
+                applicants: 0,
+                maxApplicants: maxApplicants,
+                status: "Accepting applications",
+                expiry: date
+            }; */
+
+            // this.updateJobPost(post).then(
+            this.$swal({
+                title: "Confirm",
+                text: "Job post edited",
+                buttons: {
+                    close: {
+                        value: "close",
+                        text: "Close"
+                    }
+                },
+                icon: "success"
+            }).then(value => {
+                if (value === "close") this.$router.go(-1);
+            });
+            // );
+        },
+        cancel() {
+            this.$swal({
+                text: "Are you sure you want to discard your changes?",
+                buttons: {
+                    no: {
+                        value: "no",
+                        text: "No"
+                    },
+                    yes: {
+                        value: "yes",
+                        text: "Yes"
+                    }
+                },
+                icon: "warning"
+            }).then(value => {
+                switch (value) {
+                    case "yes":
+                        this.$router.go(-1);
+                        break;
+                }
+            });
+        }
     }
 };
 </script>
 
 <style scoped>
 .container {
-    padding: 3em 11em;
+    padding: 2em 11em;
 }
 
 .title {
@@ -158,13 +271,7 @@ button {
 
 @media screen and (max-width: 1150px) {
     .container {
-        padding: 3em 9em;
-    }
-}
-
-@media screen and (max-width: 1150px) {
-    .container {
-        padding: 3em 5em;
+        padding: 2em 9em;
     }
 }
 
