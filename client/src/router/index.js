@@ -19,6 +19,8 @@ import EmployerProfile from "../views/Employer/EmployerProfile.vue";
 import EmployerSettings from "../views/Employer/EmployerSettings.vue";
 
 import AdminHome from "../views/Admin/AdminHome.vue";
+import AdminStuAcc from "../views/Admin/AdminStuAcc.vue";
+import AdminEmpAcc from "../views/Admin/AdminEmpAcc.vue";
 
 Vue.use(VueRouter);
 
@@ -108,6 +110,16 @@ const routes = [
         path: "/admin-home",
         name: "admin-home",
         component: AdminHome
+    },
+    {
+        path: "/admin-stu-acc",
+        name: "/admin-stu-acc",
+        component: AdminStuAcc
+    },
+    {
+        path: "/admin-emp-acc",
+        name: "/admin-emp-acc",
+        component: AdminEmpAcc
     }
 ];
 

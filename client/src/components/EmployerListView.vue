@@ -206,6 +206,7 @@ li {
         "img title date"
         "img title number";
     align-items: center;
+    border-radius: 12px;
     z-index: 1;
 }
 
