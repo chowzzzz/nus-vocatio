@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Student
 exports.create = (req, res) => {
 	// Validate request
-	if (!req.body.title) {
+	if (!req.body.stu_name) {
 		res.status(400).send({
 			message: "Content can not be empty!",
 		});
@@ -16,7 +16,7 @@ exports.create = (req, res) => {
 	const student = {
 		stu_name: req.body.stu_name,
 		stu_mobile: req.body.stu_mobile,
-		stu_email: req.stu_email,
+		stu_email: req.body.stu_email,
 		stu_linkedin: req.body.stu_linkedin,
 		stu_password: req.body.stu_password,
 		stu_status_change: req.body.stu_status_change,
@@ -61,25 +61,25 @@ exports.findAll = (req, res) => {
 
 // Find a single Student with an id
 exports.findOne = (req, res) => {
-	const stu_id = req.params.stu_id;
+	const id = req.params.id;
 
-	Student.findByPk(stu_id)
+	Student.findByPk(id)
 		.then((data) => {
 			res.send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Error retrieving Student with id=" + stu_id,
+				message: "Error retrieving Student with id=" + id,
 			});
 		});
 };
 
 // Update a Student by the id in the request
 exports.update = (req, res) => {
-	const stu_id = req.params.id;
+	const id = req.params.id;
 
 	Student.update(req.body, {
-		where: { stu_id: stu_id },
+		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
@@ -88,22 +88,22 @@ exports.update = (req, res) => {
 				});
 			} else {
 				res.send({
-					message: `Cannot update Student with id=${stu_id}. Maybe Student was not found or req.body is empty!`,
+					message: `Cannot update Student with id=${id}. Maybe Student was not found or req.body is empty!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Error updating Student with id=" + stu_id,
+				message: "Error updating Student with id=" + id,
 			});
 		});
 };
 
 exports.delete = (req, res) => {
-	const stu_id = req.params.stu_id;
+	const id = req.params.id;
 
 	Student.destroy({
-		where: { stu_id: stu_id },
+		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
@@ -112,13 +112,13 @@ exports.delete = (req, res) => {
 				});
 			} else {
 				res.send({
-					message: `Cannot delete Student with id=${stu_id}. Maybe Student was not found!`,
+					message: `Cannot delete Student with id=${id}. Maybe Student was not found!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Could not delete Student with id=" + stu_id,
+				message: "Could not delete Student with id=" + id,
 			});
 		});
 };

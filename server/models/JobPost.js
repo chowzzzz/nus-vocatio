@@ -1,18 +1,14 @@
-const Faculty = require("./Faculty")
-
 module.exports = (sequelize, Sequelize) => {
-  const JobPost = sequelize.define("jobpost", {
-      post_id: {
-        type: Sequelize.DataTypes.UUID,
-        primaryKey: true,
-        defaultValue: Sequelize.DataTypes.UUIDV4,
-        allowNull:false
-      },
+  const Jobpost = sequelize.define("jobpost", {
       post_title: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
       },
-      post_description: {
+      post_short_des: {
+        type: Sequelize.DataTypes.STRING(1234),
+        allowNull: false
+      },
+      post_long_des: {
         type: Sequelize.DataTypes.STRING(1234),
         allowNull: false
       },
@@ -25,5 +21,5 @@ module.exports = (sequelize, Sequelize) => {
           allowNull: false
       },
     });
-    return Faculty
+    return Jobpost;
   }

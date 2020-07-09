@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Faculty
 exports.create = (req, res) => {
 	// Validate request
-	if (!req.body.title) {
+	if (!req.body.faculty_name) {
 		res.status(400).send({
 			message: "Content can not be empty!",
 		});
@@ -33,9 +33,9 @@ exports.create = (req, res) => {
 
 // Retrieve all Facultys from the database.
 exports.findAll = (req, res) => {
-	const faculty_id = req.query.faculty_id;
-	var condition = faculty_id
-		? { faculty_id: { [Op.like]: `%${faculty_name}%` } }
+	const id = req.query.id;
+	var condition = id
+		? { id: { [Op.like]: `%${faculty_name}%` } }
 		: null;
 
 	Faculty.findAll({ where: condition })
@@ -53,25 +53,25 @@ exports.findAll = (req, res) => {
 
 // Find a single Faculty with an id
 exports.findOne = (req, res) => {
-	const faculty_id = req.params.faculty_id;
+	const id = req.params.id;
 
-	Faculty.findByPk(faculty_id)
+	Faculty.findByPk(id)
 		.then((data) => {
 			res.send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Error retrieving Faculty with id=" + faculty_id,
+				message: "Error retrieving Faculty with id=" + id,
 			});
 		});
 };
 
 // Update a Faculty by the id in the request
 exports.update = (req, res) => {
-	const faculty_id = req.params.faculty_id;
+	const id = req.params.id;
 
 	Faculty.update(req.body, {
-		where: { faculty_id: faculty_id },
+		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
@@ -80,22 +80,22 @@ exports.update = (req, res) => {
 				});
 			} else {
 				res.send({
-					message: `Cannot update Faculty with id=${faculty_id}. Maybe Faculty was not found or req.body is empty!`,
+					message: `Cannot update Faculty with id=${id}. Maybe Faculty was not found or req.body is empty!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Error updating Faculty with id=" + faculty_id,
+				message: "Error updating Faculty with id=" + id,
 			});
 		});
 };
 
 exports.delete = (req, res) => {
-	const faculty_id = req.params.faculty_id;
+	const id = req.params.id;
 
 	Faculty.destroy({
-		where: { faculty_id: faculty_id },
+		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
@@ -104,13 +104,13 @@ exports.delete = (req, res) => {
 				});
 			} else {
 				res.send({
-					message: `Cannot delete Faculty with id=${faculty_id}. Maybe Faculty was not found!`,
+					message: `Cannot delete Faculty with id=${id}. Maybe Faculty was not found!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Could not delete Faculty with id=" + faculty_id,
+				message: "Could not delete Faculty with id=" + id,
 			});
 		});
 };

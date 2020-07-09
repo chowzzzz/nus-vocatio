@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Employer
 exports.create = (req, res) => {
 	// Validate request
-	if (!req.body.title) {
+	if (!req.body.emp_name) {
 		res.status(400).send({
 			message: "Content can not be empty!",
 		});
@@ -16,7 +16,7 @@ exports.create = (req, res) => {
 	const employer = {
         emp_name: req.body.emp_name,
 		emp_mobile: req.body.emp_mobile,
-		emp_email: req.emp_email,
+		emp_email: req.body.emp_email,
 		emp_company: req.body.emp_company,
         emp_logo: req.body.emp_logo,
         emp_password: req.body.emp_password,
@@ -42,9 +42,9 @@ exports.create = (req, res) => {
 
 // Retrieve all Employers from the database.
 exports.findAll = (req, res) => {
-	const emp_id = req.query.emp_id;
-	var condition = emp_id
-		? { emp_id: { [Op.like]: `%${emp_name}%` } }
+	const id = req.query.id;
+	var condition = id
+		? { id: { [Op.like]: `%${emp_name}%` } }
 		: null;
 
 	Employer.findAll({ where: condition })
@@ -62,25 +62,25 @@ exports.findAll = (req, res) => {
 
 // Find a single Employer with an id
 exports.findOne = (req, res) => {
-	const emp_id = req.params.emp_id;
+	const id = req.params.id;
 
-	Employer.findByPk(emp_id)
+	Employer.findByPk(id)
 		.then((data) => {
 			res.send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Error retrieving Employer with id=" + emp_id,
+				message: "Error retrieving Employer with id=" + id,
 			});
 		});
 };
 
 // Update a Employer by the id in the request
 exports.update = (req, res) => {
-	const emp_id = req.params.emp_id;
+	const id = req.params.id;
 
 	Employer.update(req.body, {
-		where: { emp_id: emp_id },
+		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
@@ -89,22 +89,22 @@ exports.update = (req, res) => {
 				});
 			} else {
 				res.send({
-					message: `Cannot update Employer with id=${emp_id}. Maybe Employer was not found or req.body is empty!`,
+					message: `Cannot update Employer with id=${id}. Maybe Employer was not found or req.body is empty!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Error updating Employer with id=" + emp_id,
+				message: "Error updating Employer with id=" + id,
 			});
 		});
 };
 
 exports.delete = (req, res) => {
-	const emp_id = req.params.emp_id;
+	const id = req.params.id;
 
 	Employer.destroy({
-		where: { emp_id: emp_id },
+		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
@@ -113,13 +113,13 @@ exports.delete = (req, res) => {
 				});
 			} else {
 				res.send({
-					message: `Cannot delete Employer with id=${emp_id}. Maybe Employer was not found!`,
+					message: `Cannot delete Employer with id=${id}. Maybe Employer was not found!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Could not delete Employer with id=" + emp_id,
+				message: "Could not delete Employer with id=" + id,
 			});
 		});
 };

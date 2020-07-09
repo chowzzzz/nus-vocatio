@@ -1,11 +1,11 @@
 const db = require("../models");
-const JobPost = db.jobPost;
+const Jobpost = db.jobpost;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new JobPost
 exports.create = (req, res) => {
 	// Validate request
-	if (!req.body.title) {
+	if (!req.body.post_title) {
 		res.status(400).send({
 			message: "Content can not be postty!",
 		});
@@ -13,7 +13,7 @@ exports.create = (req, res) => {
 	}
 
 	// Create a jobPost
-	const jobPost = {
+	const jobpost = {
 		post_title: req.body.post_title,
 		post_description: req.body.post_description,
 		post_requirements: req.post_requirements,
@@ -21,7 +21,7 @@ exports.create = (req, res) => {
 	};
 
 	// Save JobPost in the database
-	JobPost.create(jobPost)
+	Jobpost.create(jobpost)
 		.then((data) => {
 			res.send(data);
 		})
@@ -36,12 +36,12 @@ exports.create = (req, res) => {
 
 // Retrieve all JobPosts from the database.
 exports.findAll = (req, res) => {
-	const post_id = req.query.post_id;
-	var condition = post_id
-		? { post_id: { [Op.like]: `%${post_title}%` } }
+	const id = req.query.id;
+	var condition = id
+		? { id: { [Op.like]: `%${post_title}%` } }
 		: null;
 
-	JobPost.findAll({ where: condition })
+	Jobpost.findAll({ where: condition })
 		.then((data) => {
 			res.send(data);
 		})
@@ -56,25 +56,25 @@ exports.findAll = (req, res) => {
 
 // Find a single JobPost with an id
 exports.findOne = (req, res) => {
-	const post_id = req.params.post_id;
+	const id = req.params.id;
 
-	JobPost.findByPk(post_id)
+	Jobpost.findByPk(id)
 		.then((data) => {
 			res.send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Error retrieving JobPost with id=" + post_id,
+				message: "Error retrieving JobPost with id=" + id,
 			});
 		});
 };
 
 // Update a JobPost by the id in the request
 exports.update = (req, res) => {
-	const post_id = req.params.post_id;
+	const id = req.params.id;
 
-	JobPost.update(req.body, {
-		where: { post_id: post_id },
+	Jobpost.update(req.body, {
+		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
@@ -83,22 +83,22 @@ exports.update = (req, res) => {
 				});
 			} else {
 				res.send({
-					message: `Cannot update JobPost with id=${post_id}. Maybe JobPost was not found or req.body is postty!`,
+					message: `Cannot update JobPost with id=${id}. Maybe JobPost was not found or req.body is postty!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Error updating JobPost with id=" + post_id,
+				message: "Error updating JobPost with id=" + id,
 			});
 		});
 };
 
 exports.delete = (req, res) => {
-	const post_id = req.params.post_id;
+	const id = req.params.id;
 
-	JobPost.destroy({
-		where: { post_id: post_id },
+	Jobpost.destroy({
+		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
@@ -107,19 +107,19 @@ exports.delete = (req, res) => {
 				});
 			} else {
 				res.send({
-					message: `Cannot delete JobPost with id=${post_id}. Maybe JobPost was not found!`,
+					message: `Cannot delete JobPost with id=${id}. Maybe JobPost was not found!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Could not delete JobPost with id=" + post_id,
+				message: "Could not delete JobPost with id=" + id,
 			});
 		});
 };
 
 exports.deleteAll = (req, res) => {
-	JobPost.destroy({
+	Jobpost.destroy({
 		where: {},
 		truncate: false,
 	})
@@ -138,7 +138,7 @@ exports.deleteAll = (req, res) => {
 };
 
 exports.findAllPublished = (req, res) => {
-	JobPost.findAll({ where: { published: true } })
+	Jobpost.findAll({ where: { published: true } })
 		.then((data) => {
 			res.send(data);
 		})

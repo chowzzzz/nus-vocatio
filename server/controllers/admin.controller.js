@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Admin
 exports.create = (req, res) => {
 	// Validate request
-	if (!req.body.title) {
+	if (!req.body.adm_user) {
 		res.status(400).send({
 			message: "Content can not be empty!",
 		});
@@ -15,7 +15,7 @@ exports.create = (req, res) => {
 	// Create a admin
 	const admin = {
 		adm_user: req.body.adm_user,
-		adm_password: req.adm_password,
+		adm_password: req.body.adm_password,
 	};
 
 	// Save Admin in the database
@@ -34,9 +34,9 @@ exports.create = (req, res) => {
 
 // Retrieve all Admins from the database.
 exports.findAll = (req, res) => {
-	const adm_id = req.query.adm_id;
-	var condition = admin_id
-		? { adm_id: { [Op.like]: `%${adm_user}%` } }
+	const id = req.query.id;
+	var condition = id
+		? { id: { [Op.like]: `%${adm_user}%` } }
 		: null;
 
 	Admin.findAll({ where: condition })
@@ -54,25 +54,25 @@ exports.findAll = (req, res) => {
 
 // Find a single Admin with an id
 exports.findOne = (req, res) => {
-	const adm_id = req.params.adm_id;
+	const id = req.params.id;
 
-	Admin.findByPk(adm_id)
+	Admin.findByPk(id)
 		.then((data) => {
 			res.send(data);
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Error retrieving Admin with id=" + adm_id,
+				message: "Error retrieving Admin with id=" + id,
 			});
 		});
 };
 
 // Update a Admin by the id in the request
 exports.update = (req, res) => {
-	const adm_id = req.params.adm_id;
+	const id = req.params.id;
 
 	Admin.update(req.body, {
-		where: { adm_id: adm_id },
+		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
@@ -81,22 +81,22 @@ exports.update = (req, res) => {
 				});
 			} else {
 				res.send({
-					message: `Cannot update Admin with id=${admin_id}. Maybe Admin was not found or req.body is empty!`,
+					message: `Cannot update Admin with id=${id}. Maybe Admin was not found or req.body is empty!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Error updating Admin with id=" + admin_id,
+				message: "Error updating Admin with id=" + id,
 			});
 		});
 };
 
 exports.delete = (req, res) => {
-	const admin_id = req.params.admin_id;
+	const id = req.params.id;
 
 	Admin.destroy({
-		where: { adm_id: adm_id },
+		where: { id: id },
 	})
 		.then((num) => {
 			if (num == 1) {
@@ -105,13 +105,13 @@ exports.delete = (req, res) => {
 				});
 			} else {
 				res.send({
-					message: `Cannot delete Admin with id=${adm_id}. Maybe Admin was not found!`,
+					message: `Cannot delete Admin with id=${id}. Maybe Admin was not found!`,
 				});
 			}
 		})
 		.catch((err) => {
 			res.status(500).send({
-				message: "Could not delete Admin with id=" + adm_id,
+				message: "Could not delete Admin with id=" + id,
 			});
 		});
 };

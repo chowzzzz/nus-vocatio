@@ -1,11 +1,5 @@
 module.exports = (sequelize, Sequelize) => {
   const Employer = sequelize.define("employer", {
-      emp_id: {
-        type: Sequelize.DataTypes.UUID,
-        primaryKey: true,
-        defaultValue: Sequelize.DataTypes.UUIDV4,
-        allowNull:false
-      },
       emp_name: {
         type: Sequelize.DataTypes.STRING,
         allowNull: false
