@@ -110,6 +110,7 @@ export default {
     display: flex;
     justify-content: space-between;
     padding: 0.1em 2.3em;
+    height: 50px;
 }
 
 #navLogo {
