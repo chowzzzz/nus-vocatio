@@ -24,5 +24,6 @@ db.admin = require("./Admin.js")(sequelize, Sequelize);
 db.employer = require("./Employer.js")(sequelize, Sequelize);
 db.jobpost = require("./Jobpost.js")(sequelize, Sequelize);
 db.faculty = require("./Faculty.js")(sequelize, Sequelize);
+db.application = require("./Applications.js")(sequelize, Sequelize);
 
 module.exports = db;
