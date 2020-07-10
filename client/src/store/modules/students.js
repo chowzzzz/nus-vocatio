@@ -6,8 +6,7 @@ const state = {
             name: "Andy Woo",
             password: "123",
             dob: new Date(1998, 1, 1),
-            image:
-                "file:///file:///C:/Users/MOK/Desktop/code/vocatio/src/assets/picture.svg",
+            image: "selfmade/avatar.svg",
             number: "+65-91234567",
             email: "andywoo@email.com",
             linkedIn: "linkedin.com/AndyWoo",
@@ -30,8 +29,7 @@ const state = {
             name: "Ben Tan",
             password: "123",
             dob: new Date(2000, 1, 1),
-            image:
-                "file:///file:///C:/Users/MOK/Desktop/code/vocatio/src/assets/picture.svg",
+            image: "selfmade/avatar.svg",
             number: "+65-91234567",
             email: "bentan@email.com",
             linkedIn: "linkedin.com/BenTan",
@@ -54,8 +52,7 @@ const state = {
             name: "Claire Lee",
             password: "123",
             dob: new Date(1999, 1, 1),
-            image:
-                "file:///file:///C:/Users/MOK/Desktop/code/vocatio/src/assets/picture.svg",
+            image: "selfmade/avatar.svg",
             number: "+65-91234567",
             email: "clairelee@email.com",
             linkedIn: "linkedin.com/ClaireLee",
@@ -78,8 +75,7 @@ const state = {
             name: "David Ho",
             password: "123",
             dob: new Date(1997, 1, 1),
-            image:
-                "file:///file:///C:/Users/MOK/Desktop/code/vocatio/src/assets/picture.svg",
+            image: "selfmade/avatar.svg",
             number: "+65-91234567",
             email: "davidho@email.com",
             linkedIn: "linkedin.com/DavidHo",
@@ -102,8 +98,7 @@ const state = {
             name: "Elaine Low",
             password: "123",
             dob: new Date(2000, 1, 1),
-            image:
-                "file:///file:///C:/Users/MOK/Desktop/code/vocatio/src/assets/picture.svg",
+            image: "selfmade/avatar.svg",
             number: "+65-91234567",
             email: "elainelow@email.com",
             linkedIn: "linkedin.com/ElaineLow",
@@ -126,8 +121,7 @@ const state = {
             name: "Nurul Syafiq",
             password: "123",
             dob: new Date(1999, 1, 1),
-            image:
-                "file:///file:///C:/Users/MOK/Desktop/code/vocatio/src/assets/picture.svg",
+            image: "selfmade/avatar.svg",
             number: "+65-91234567",
             email: "nurul@email.com",
             linkedIn: "linkedin.com/NurulSyafiq",

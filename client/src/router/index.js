@@ -20,6 +20,7 @@ import EmployerSettings from "../views/Employer/EmployerSettings.vue";
 
 import AdminHome from "../views/Admin/AdminHome.vue";
 import AdminStuAcc from "../views/Admin/AdminStuAcc.vue";
+import AdminStuAccIndiv from "../views/Admin/AdminStuAccIndiv.vue";
 import AdminEmpAcc from "../views/Admin/AdminEmpAcc.vue";
 import AdminEmpAccIndiv from "../views/Admin/AdminEmpAccIndiv.vue";
 import AdminProfile from "../views/Admin/AdminProfile.vue";
@@ -117,6 +118,11 @@ const routes = [
         path: "/admin-stu-acc",
         name: "admin-stu-acc",
         component: AdminStuAcc
+    },
+    {
+        path: "/admin-stu-acc/:id",
+        name: "admin-stu-acc-indiv",
+        component: AdminStuAccIndiv
     },
     {
         path: "/admin-emp-acc",
