@@ -2,13 +2,15 @@
     <div class="search-box">
         <input
             type="text"
-            v-bind:class="{ 'custom-search' : $route.path == '/jobs'}"
+            v-bind:class="{ 'custom-search' : $route.path == '/jobs' || $route.path == '/admin-posts'}"
             name="searchBar"
             id="searchBar"
             placeholder="Search for a job"
             autocomplete="on"
         />
-        <span v-bind:class="{ 'custom-fa-search' : $route.path == '/jobs' }">
+        <span
+            v-bind:class="{ 'custom-fa-search' : $route.path == '/jobs' || $route.path == '/admin-posts' }"
+        >
             <i class="fas fa-search"></i>
         </span>
     </div>
@@ -49,15 +51,15 @@ input {
 
 .custom-search {
     background: #f2f2f2;
-    height: 1.4em;
-    font-size: 0.4em;
+    height: 25px;
+    font-size: 13px;
     width: 100%;
 }
 
 .custom-fa-search {
-    font-size: 0.5em;
+    font-size: 15px;
     position: absolute;
-    top: 70%;
+    top: 55%;
     left: 5%;
 }
 
@@ -67,6 +69,18 @@ input {
         font-size: 0.8em;
     }
 
+    .custom-search {
+        height: 24px;
+        font-size: 12px;
+        padding-left: 0;
+    }
+
+    .custom-fa-search {
+        font-size: 14px;
+        position: absolute;
+        top: 55%;
+        left: 5%;
+    }
     .fa-search {
         font-size: 0.9em;
     }

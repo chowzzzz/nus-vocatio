@@ -23,6 +23,8 @@ import AdminStuAcc from "../views/Admin/AdminStuAcc.vue";
 import AdminStuAccIndiv from "../views/Admin/AdminStuAccIndiv.vue";
 import AdminEmpAcc from "../views/Admin/AdminEmpAcc.vue";
 import AdminEmpAccIndiv from "../views/Admin/AdminEmpAccIndiv.vue";
+import AdminPosts from "../views/Admin/AdminPosts.vue";
+import AdminPostEdit from "../views/Admin/AdminPostEdit.vue";
 import AdminProfile from "../views/Admin/AdminProfile.vue";
 
 Vue.use(VueRouter);
@@ -133,6 +135,16 @@ const routes = [
         path: "/admin-emp-acc/:id",
         name: "admin-emp-acc-indiv",
         component: AdminEmpAccIndiv
+    },
+    {
+        path: "/admin-posts",
+        name: "admin-posts",
+        component: AdminPosts
+    },
+    {
+        path: "/admin-posts/:jobID",
+        name: "admin-post-edit",
+        component: AdminPostEdit
     },
     {
         path: "/admin-profile",
