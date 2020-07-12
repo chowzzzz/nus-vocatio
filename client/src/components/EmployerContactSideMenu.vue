@@ -2,7 +2,7 @@
     <div class="side">
         <div class="employer-info">
             <div class="employer-title">
-                <img :src="require(`../assets/selfmade/${employer.avatar}`)" alt="employer avatar" />
+                <img :src="require(`../assets/${employer.avatar}`)" alt="employer avatar" />
                 <p>{{ employer.name }}</p>
                 <p>{{ employer.companyName }}</p>
             </div>
@@ -87,6 +87,7 @@ export default {
 
 .employer-title img {
     width: 30%;
+    border-radius: 50%;
 }
 
 .employer-contacts {
