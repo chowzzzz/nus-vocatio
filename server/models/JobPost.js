@@ -20,6 +20,9 @@ module.exports = (sequelize, Sequelize) => {
           type: Sequelize.DataTypes.STRING,
           allowNull: false
       },
+      post_status: {
+        type: Sequelize.DataTypes.STRING,
+      }
     });
     return Jobpost;
   }
