@@ -1,16 +1,14 @@
-const express = require('express');
-const exphbs = require('express-handlebars');
-const bodyParser = require('body-parser');
-const path = require('path');
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
-//Database
-const db = require('./config/database');
+const app = express();
 
-//Test db
-db.authenticate()
-    .then(()=> console.log('Database Connected...'))
-    .catch(err => console.log('Error: ' + err));
+var corsOptions = {
+  origin: "http://localhost:8081"
+};
 
+<<<<<<< HEAD
 //Routes
 const app = express();
 app.get('/', (req, res) => res.send('INDEX'));
@@ -23,9 +21,35 @@ app.use('/admin', require('./routes/adminAcc'));
 app.use('/jobPost', require('./routes/jobPost'));
 console.log('test');
 */
+=======
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
+app.use(bodyParser.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: true }));
+
+//sync db
+const db = require("./models");
+db.sequelize.sync();
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to vocatio application." });
+});
+>>>>>>> 62ab031009d2b7a4b82fb65303948d4721e9911c
+
+require("./routes/student.routes")(app);
+require("./routes/faculty.routes")(app);
+require("./routes/admin.routes")(app);
+require("./routes/employer.routes")(app);
+require("./routes/jobpost.routes")(app);
+require("./routes/application.routes")(app);
 
 
-////
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, console.log('Server started on port ${PORT}'));
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});

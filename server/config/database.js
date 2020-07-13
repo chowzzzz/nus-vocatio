@@ -1,7 +1,15 @@
+<<<<<<< HEAD
 const Sequelize = require('sequelize');
 
 const db = new Sequelize('sql12352722', 'sql12352722', 'YxZJk1M6Xf', {
     host: 'sql12.freemysqlhosting.net',
+=======
+module.exports = {
+    HOST: 'sql12.freemysqlhosting.net',
+    USER:'sql12352722',
+    PASSWORD: 'YxZJk1M6Xf',
+    DB: 'sql12352722',
+>>>>>>> 62ab031009d2b7a4b82fb65303948d4721e9911c
     dialect: 'mysql',
 
     pool: {
@@ -9,14 +17,5 @@ const db = new Sequelize('sql12352722', 'sql12352722', 'YxZJk1M6Xf', {
         min: 0,
         acquire: 30000,
         idle: 10000
-    },
-});
-
-/*Models
-db.faculty = require('../models/Faculty')(sequelize, Sequelize);
-db.students = require('../models/Students')(sequelize, Sequelize);
-db.employers = require('../models/Employers')(sequelize, Sequelize);
-db.adminAcc = require('../models/AdminAcc')(sequelize, Sequelize);
-db.jobPosts = require('../models/JobPosts')(sequelize, Sequelize);
-*/
-module.exports = db;
+    }
+};

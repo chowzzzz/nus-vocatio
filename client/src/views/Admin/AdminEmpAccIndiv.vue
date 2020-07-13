@@ -1,70 +1,61 @@
 <template>
     <div class="container">
-        <div class="title">
-            <h4>{{ title }} Job Posting</h4>
+        <div class="profile-container">
+            <div class="title">
+                <h4>{{ employer.name }}</h4>
+                <div class="btns">
+                    <span class="delete" @click="deletePost">
+                        <img src="../../assets/selfmade/delete.svg" alt="delete" />
+                        <span class="tooltip" id="delete">Delete</span>
+                    </span>
+                    <span class="confirm" @click="confirmEdit">
+                        <img src="../../assets/selfmade/confirm.svg" alt="confirm" />
+                        <span class="tooltip" id="confirm">Confirm</span>
+                    </span>
+                    <span class="cancel" @click="cancel">
+                        <img src="../../assets/selfmade/cancel.svg" alt="cancel" />
+                        <span class="tooltip" id="cancel">Cancel</span>
+                    </span>
+                </div>
+            </div>
 
-            <div class="btns">
-                <span v-if="edit" class="delete" @click="deletePost">
-                    <img src="../assets/selfmade/delete.svg" alt="delete" />
-                    <span class="tooltip" id="delete">Delete</span>
-                </span>
-                <span v-if="edit" class="confirm" @click="confirmEdit">
-                    <img src="../assets/selfmade/confirm.svg" alt="confirm" />
-                    <span class="tooltip" id="confirm">Confirm</span>
-                </span>
-                <span v-else class="confirm" @click="confirmAdd">
-                    <img src="../assets/selfmade/confirm.svg" alt="confirm" />
-                    <span class="tooltip" id="confirm">Confirm</span>
-                </span>
-                <span class="cancel" @click="cancel">
-                    <img src="../assets/selfmade/cancel.svg" alt="cancel" />
-                    <span class="tooltip" id="cancel">Cancel</span>
-                </span>
-            </div>
-        </div>
+            <employer-profile-comp v-bind:employer="employer"></employer-profile-comp>
 
-        <job-form ref="newPost" />
+            <div class="mobile-btns">
+                <div class="deleteBtn">
+                    <button @click="deletePost">Delete</button>
+                </div>
+                <div class="confirmBtn">
+                    <button @click="confirmEdit">Save</button>
+                </div>
+                <div class="cancelBtn">
+                    <button @click="cancel">Cancel</button>
+                </div>
+            </div>
 
-        <div class="mobile-btns">
-            <div v-if="edit" class="deleteBtn">
-                <button @click="deletePost">Delete</button>
-            </div>
-            <div v-if="edit" class="confirmBtn">
-                <button @click="confirmEdit">Save</button>
-            </div>
-            <div v-else class="confirmBtn">
-                <button @click="confirmAdd">Save</button>
-            </div>
-            <div class="cancelBtn">
-                <button @click="cancel">Cancel</button>
-            </div>
+            <change-password></change-password>
         </div>
     </div>
 </template>
 
 <script>
-import JobForm from "./JobForm.vue";
-import { mapActions } from "vuex";
+import EmployerProfileComp from "../../components/EmployerProfileComp.vue";
+import ChangePassword from "../../components/ChangePassword.vue";
 
 export default {
-    name: "EmployerJobForm",
+    name: "AdminEmpAccIndiv",
     components: {
-        JobForm
+        EmployerProfileComp,
+        ChangePassword
     },
-    props: ["title", "edit"],
     data() {
-        let jobID;
-        if (this.$route.params.jobID !== undefined) {
-            jobID = this.$route.params.jobID;
-        } else {
-            jobID = "";
-        }
+        const empID = this.$route.params.id;
         return {
-            jobID: jobID
+            employer: this.$store.getters.getEmpById(empID)
         };
     },
     methods: {
-        ...mapActions(["addJobPost", "deleteJobPost", "updateJobPost"]),
+        // ...mapActions(["addJobPost", "deleteJobPost", "updateJobPost"]),
         deletePost() {
             this.$swal({
                 title: "Delete",
@@ -83,16 +74,18 @@ export default {
             }).then(value => {
                 switch (value) {
                     case "yes":
-                        this.deleteJobPost(this.jobID).then(
-                            this.$router.push("/employer-home")
-                        );
+                        // this.deleteJobPost(this.jobID).then(
+                        // this.$router.push("/employer-home")
+                        // );
+                        this.$router.go(-1);
 
                         break;
                 }
             });
         },
         confirmEdit() {
-            let jobID = this.$refs.newPost.$data.jobID;
+            /*let jobID = this
+                .$refs.newPost.$data.jobID;
             let title = this.$refs.newPost.$data.title;
             let industry = this.$refs.newPost.$data.industry;
             let department = this.$refs.newPost.$data.department;
@@ -127,76 +120,23 @@ export default {
                 maxApplicants: maxApplicants,
                 status: "Accepting applications",
                 expiry: date
-            };
+            }; */
 
-            this.updateJobPost(post).then(
-                this.$swal({
-                    title: "Confirm",
-                    text: "Job post edited",
-                    buttons: {
-                        close: {
-                            value: "close",
-                            text: "Close"
-                        }
-                    },
-                    icon: "success"
-                }).then(value => {
-                    if (value === "close") this.$router.go(-1);
-                })
-            );
-        },
-        confirmAdd() {
-            let title = this.$refs.newPost.$data.title;
-            let industry = this.$refs.newPost.$data.industry;
-            let department = this.$refs.newPost.$data.department;
-            let salary = this.$refs.newPost.$data.salary;
-            let maxApplicants = this.$refs.newPost.$data.maxApplicants;
-            let type = this.$refs.newPost.$data.type;
-            let faculty = this.$refs.newPost.$data.faculty;
-            let shortdesc = this.$refs.newPost.$data.shortdesc;
-            let desc = this.$refs.newPost.$data.desc;
-            let date = this.$refs.newPost.$data.date;
-            let req = this.$refs.newPost.$data.requirements;
-            let temp = req.split("\n");
-            let requirements = [];
-            temp.forEach(requirement => {
-                requirements.push({ req: requirement });
+            // this.updateJobPost(post).then(
+            this.$swal({
+                title: "Confirm",
+                text: "Job post edited",
+                buttons: {
+                    close: {
+                        value: "close",
+                        text: "Close"
+                    }
+                },
+                icon: "success"
+            }).then(value => {
+                if (value === "close") this.$router.go(-1);
             });
-
-            const post = {
-                title: title,
-                empID: 1, // change to current employer
-                shortDescription: shortdesc,
-                description: desc,
-                requirements: requirements,
-                type: type,
-                faculty: faculty,
-                industry: industry,
-                department: department,
-                salary: salary,
-                date: new Date(),
-                applicants: 0,
-                maxApplicants: maxApplicants,
-                status: "Accepting applications",
-                expiry: date
-            };
-            // console.log(post);
-
-            this.addJobPost(post).then(
-                this.$swal({
-                    title: "Confirm",
-                    text: "New job created",
-                    buttons: {
-                        close: {
-                            value: "close",
-                            text: "Close"
-                        }
-                    },
-                    icon: "success"
-                }).then(value => {
-                    if (value === "close") this.$router.go(-1);
-                })
-            );
+            // );
         },
         cancel() {
             this.$swal({
@@ -226,8 +166,7 @@ export default {
 
 <style scoped>
 .container {
-    padding: 2em 6em 3em;
-    background: #f8fbff;
+    padding: 2em 11em;
 }
 
 .title {
@@ -295,7 +234,7 @@ export default {
 .deleteBtn,
 .confirmBtn,
 .cancelBtn {
-    width: 90%;
+    width: 80%;
 }
 
 button {
@@ -323,9 +262,28 @@ button {
     color: #7c7c7c;
 }
 
+.form-container {
+    margin: 1em 0;
+    padding: 1.5em 4em;
+    background: #fff;
+    border-radius: 25px;
+}
+
+@media screen and (max-width: 1150px) {
+    .container {
+        padding: 2em 9em;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .form-container {
+        padding: 1.5em 2em;
+    }
+}
+
 @media screen and (max-width: 800px) {
     .container {
-        padding: 2em 3em 3em;
+        padding: 1.5em 3em;
     }
     h4 {
         font-size: 22px;
@@ -333,8 +291,21 @@ button {
 }
 
 @media screen and (max-width: 700px) {
+    .container {
+        padding: 1.5em 0;
+    }
+
+    .title {
+        padding: 0 1em;
+    }
+
     h4 {
         font-size: 20px;
+    }
+
+    .form-container {
+        margin: 0.5em 0 1em;
+        border-radius: 0;
     }
 }
 
@@ -351,7 +322,11 @@ button {
     }
 
     .mobile-btns button {
-        font-size: 12px;
+        font-size: 11px;
+    }
+
+    .form-container {
+        padding: 1em 2.5em;
     }
 }
 @media screen and (max-width: 450px) {
@@ -362,6 +337,15 @@ button {
 
     .container {
         padding: 2em 0 3em;
+    }
+
+    .form-container {
+        padding: 1em 2em;
+        border-radius: 0;
+    }
+
+    .mobile-btns button {
+        font-size: 9px;
     }
 }
 </style>

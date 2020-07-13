@@ -16,6 +16,19 @@ import EmployerIndivApp from "../views/Employer/EmployerIndivApp.vue";
 import EmployerAddJob from "../views/Employer/EmployerAddJob.vue";
 import EmployerEditJob from "../views/Employer/EmployerEditJob.vue";
 import EmployerProfile from "../views/Employer/EmployerProfile.vue";
+import EmployerSettings from "../views/Employer/EmployerSettings.vue";
+
+import AdminHome from "../views/Admin/AdminHome.vue";
+import AdminStuAcc from "../views/Admin/AdminStuAcc.vue";
+import AdminStuAccIndiv from "../views/Admin/AdminStuAccIndiv.vue";
+import AdminEmpAcc from "../views/Admin/AdminEmpAcc.vue";
+import AdminEmpAccIndiv from "../views/Admin/AdminEmpAccIndiv.vue";
+import AdminPosts from "../views/Admin/AdminPosts.vue";
+import AdminPostEdit from "../views/Admin/AdminPostEdit.vue";
+import AdminPostsPending from "../views/Admin/AdminPostsPending.vue";
+import AdminPostsPendingIndiv from "../views/Admin/AdminPostsPendingIndiv.vue";
+import AdminPostsPendingEdit from "../views/Admin/AdminPostsPendingEdit.vue";
+import AdminProfile from "../views/Admin/AdminProfile.vue";
 
 Vue.use(VueRouter);
 
@@ -95,6 +108,66 @@ const routes = [
         path: "/employer-profile",
         name: "employer-profile",
         component: EmployerProfile
+    },
+    {
+        path: "/employer-settings",
+        name: "employer-settings",
+        component: EmployerSettings
+    },
+    {
+        path: "/admin-home",
+        name: "admin-home",
+        component: AdminHome
+    },
+    {
+        path: "/admin-stu-acc",
+        name: "admin-stu-acc",
+        component: AdminStuAcc
+    },
+    {
+        path: "/admin-stu-acc/:id",
+        name: "admin-stu-acc-indiv",
+        component: AdminStuAccIndiv
+    },
+    {
+        path: "/admin-emp-acc",
+        name: "admin-emp-acc",
+        component: AdminEmpAcc
+    },
+    {
+        path: "/admin-emp-acc/:id",
+        name: "admin-emp-acc-indiv",
+        component: AdminEmpAccIndiv
+    },
+    {
+        path: "/admin-posts",
+        name: "admin-posts",
+        component: AdminPosts
+    },
+    {
+        path: "/admin-posts/:jobID",
+        name: "admin-post-edit",
+        component: AdminPostEdit
+    },
+    {
+        path: "/admin-posts-pending",
+        name: "admin-posts-pending",
+        component: AdminPostsPending
+    },
+    {
+        path: "/admin-posts-pending/:jobID",
+        name: "admin-posts-pending-indiv",
+        component: AdminPostsPendingIndiv
+    },
+    {
+        path: "/admin-posts-pending-edit/:jobID",
+        name: "admin-posts-pending-edit",
+        component: AdminPostsPendingEdit
+    },
+    {
+        path: "/admin-profile",
+        name: "admin-profile",
+        component: AdminProfile
     }
 ];
 

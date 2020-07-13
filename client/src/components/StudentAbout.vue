@@ -1,6 +1,6 @@
 <template>
     <div class="blue-container">
-        <div class="container">
+        <div class="about-container">
             <img src="../assets/mountains.png" alt="mountains" />
             <section>
                 <h2 class="title">About NUSVocatio</h2>
@@ -35,7 +35,7 @@ export default {
     padding: 2em 0 0;
 }
 
-.container {
+.about-container {
     display: grid;
     grid-template-columns: auto 60%;
     justify-content: center;
@@ -60,7 +60,7 @@ section {
         padding: 3em 0 0;
     }
 
-    .container {
+    .about-container {
         grid-template-columns: auto 50%;
     }
 
@@ -78,7 +78,7 @@ section {
 }
 
 @media screen and (max-width: 850px) {
-    .container {
+    .about-container {
         grid-template-columns: auto;
         grid-template-areas: "about";
     }

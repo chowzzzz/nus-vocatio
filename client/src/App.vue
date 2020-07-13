@@ -24,13 +24,15 @@ body {
     font-family: "Open Sans", "Helvetica Neue", sans-serif;
 }
 
-body.bg {
-    background: #f8fbff;
-}
-
 #app {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    background: #f8fbff;
+    height: 100%;
+    padding-bottom: 2em;
 }
 
 h1,
@@ -46,7 +48,11 @@ h5 {
 ul,
 p,
 a,
-input {
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="date"] {
     margin: 0;
     padding: 0;
     font-size: 0.9em;
@@ -67,19 +73,27 @@ label {
     font-size: 14px;
 }
 
-input,
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
 textarea {
     width: 100%;
     box-sizing: border-box;
     padding: 0.5em 0.8em;
-    margin: 0 0 0.5em;
+    margin: 0.5em 0;
     border: 1px solid #b8b8b8;
     border-radius: 12px;
     font-size: 80%;
     font-family: "Open Sans", sans-serif;
 }
 
-input:focus,
+input[type="text"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
 textarea:focus {
     outline: none;
 }
@@ -216,7 +230,11 @@ textarea {
         font-size: 14px;
     }
 
-    input,
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
     textarea,
     select,
     .updateBtn,
@@ -231,7 +249,11 @@ textarea {
         font-size: 11px;
     }
 
-    input,
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
     textarea,
     select,
     .updateBtn,
@@ -239,8 +261,14 @@ textarea {
         font-size: 10px;
     }
 
-    input {
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    textarea {
         margin-bottom: 0.8em;
+        border-radius: 10px;
     }
 
     .mobile-show {
@@ -259,15 +287,25 @@ textarea {
         font-size: 9px;
     }
 
-    input,
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
     textarea,
     select,
     .updateBtn {
         font-size: 8px;
     }
 
-    input {
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    textarea {
         margin-bottom: 0.5em;
+        border-radius: 8px;
     }
 }
 </style>

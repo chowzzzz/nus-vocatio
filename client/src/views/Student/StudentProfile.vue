@@ -3,7 +3,7 @@
         <div class="profile-info">
             <h1>Hello, {{ student.name }}</h1>
             <div class="profile-img">
-                <img src="../../assets/selfmade/avatar.svg" alt="student profile picture" />
+                <img :src="require(`../../assets/${student.image}`)" alt="student profile picture" />
                 <button class="uploadBtn mobile-hide">
                     Upload
                     <i class="fas fa-camera"></i>

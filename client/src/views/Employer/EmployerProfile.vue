@@ -15,7 +15,7 @@
                 </div>
             </div>
 
-            <employer-profile-comp></employer-profile-comp>
+            <employer-profile-comp v-bind:employer="employer"></employer-profile-comp>
 
             <div class="mobile-btns">
                 <div class="confirmBtn">
@@ -40,15 +40,19 @@ export default {
     components: {
         EmployerProfileComp,
         ChangePassword
+    },
+    data() {
+        return {
+            // for now just put 1
+            employer: this.$store.getters.getEmpById(1)
+        };
     }
 };
 </script>
 
 <style scoped>
 .container {
-    padding: 3em 11em;
-    background: #f8fbff;
-    height: 100%;
+    padding: 2em 11em;
 }
 
 .title {
