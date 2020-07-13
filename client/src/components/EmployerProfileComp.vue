@@ -54,7 +54,7 @@
                     <div class="half">
                         <label for="coWeb">Company Website</label>
                         <br />
-                        <input v-model="employer.coDesc" type="text" name="coWeb" id="coWeb" />
+                        <input v-model="employer.website" type="text" name="coWeb" id="coWeb" />
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
             <div class="coDesc">
                 <label for="coDesc">Company Description</label>
                 <br />
-                <textarea v-model="employer.website" name="coDesc" id="coDesc" rows="10"></textarea>
+                <textarea v-model="employer.coDesc" name="coDesc" id="coDesc" rows="10"></textarea>
             </div>
         </div>
 

@@ -14,7 +14,7 @@
                         </select>
                     </div>
                     <div id="add">
-                        <router-link to="/add-post" v-if="home">
+                        <router-link to="/jobPosts-add" v-if="home">
                             <img src="../assets/selfmade/add.svg" alt="add post" />
                         </router-link>
                     </div>

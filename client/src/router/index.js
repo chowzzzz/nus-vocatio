@@ -1,42 +1,47 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import StudentHome from "../views/Student/StudentHome.vue";
-import StudentSearch from "../views/Student/StudentSearch.vue";
-import StudentJobListing from "../views/Student/StudentJobListing.vue";
-import StudentProfile from "../views/Student/StudentProfile.vue";
-import StudentSettings from "../views/Student/StudentSettings.vue";
+import store from "../store";
+
+// import StudentSearch from "../views/Student/StudentSearch.vue";
+// import StudentJobListing from "../views/Student/StudentJobListing.vue";
 import StudentNotification from "../views/Student/StudentNotification.vue";
 import Signup from "../views/Employer/EmployerSignup.vue";
 
-import EmployerHome from "../views/Employer/EmployerHome.vue";
-import EmployerJobPosting from "../views/Employer/EmployerJobPosting.vue";
+// import EmployerJobPosting from "../views/Employer/EmployerJobPosting.vue";
 import EmployerApp from "../views/Employer/EmployerApp.vue";
 import EmployerIndivApp from "../views/Employer/EmployerIndivApp.vue";
 import EmployerAddJob from "../views/Employer/EmployerAddJob.vue";
 import EmployerEditJob from "../views/Employer/EmployerEditJob.vue";
-import EmployerProfile from "../views/Employer/EmployerProfile.vue";
-import EmployerSettings from "../views/Employer/EmployerSettings.vue";
 
-import AdminHome from "../views/Admin/AdminHome.vue";
 import AdminStuAcc from "../views/Admin/AdminStuAcc.vue";
 import AdminStuAccIndiv from "../views/Admin/AdminStuAccIndiv.vue";
 import AdminEmpAcc from "../views/Admin/AdminEmpAcc.vue";
 import AdminEmpAccIndiv from "../views/Admin/AdminEmpAccIndiv.vue";
-import AdminPosts from "../views/Admin/AdminPosts.vue";
-import AdminPostEdit from "../views/Admin/AdminPostEdit.vue";
+// import AdminPosts from "../views/Admin/AdminPosts.vue";
+// import AdminPostEdit from "../views/Admin/AdminPostEdit.vue";
 import AdminPostsPending from "../views/Admin/AdminPostsPending.vue";
 import AdminPostsPendingIndiv from "../views/Admin/AdminPostsPendingIndiv.vue";
 import AdminPostsPendingEdit from "../views/Admin/AdminPostsPendingEdit.vue";
-import AdminProfile from "../views/Admin/AdminProfile.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
     {
         path: "/",
-        name: "student home",
-        component: StudentHome,
+        name: "home",
+        component: () => {
+            switch (store.state.user) {
+                case "admin":
+                    return import("../views/Admin/AdminHome.vue");
+                case "employer":
+                    return import("../views/Employer/EmployerHome.vue");
+                case "student":
+                    return import("../views/Student/StudentHome.vue");
+                default:
+                    return import("../views/Home.vue");
+            }
+        },
         meta: { hideSearch: true }
     },
     {
@@ -50,124 +55,131 @@ const routes = [
         component: Signup
     },
     {
-        path: "/jobs",
-        name: "jobs",
-        component: StudentSearch
+        path: "/jobPosts",
+        name: "jobPosts",
+        component: () => {
+            switch (store.state.user) {
+                case "admin":
+                    return import("../views/Admin/AdminPosts.vue");
+                case "student":
+                    return import("../views/Student/StudentSearch.vue");
+            }
+        }
     },
     {
-        path: "/jobs/:jobID",
+        path: "/jobPosts/:jobID",
         name: "job-details",
-        component: StudentJobListing
+        component: () => {
+            switch (store.state.user) {
+                case "admin":
+                    return import("../views/Admin/AdminPostEdit.vue");
+                case "employer":
+                    return import("../views/Employer/EmployerJobPosting.vue");
+                case "student":
+                    return import("../views/Student/StudentJobListing.vue");
+            }
+        }
     },
     {
         path: "/profile",
         name: "profile",
-        component: StudentProfile
+        component: () => {
+            switch (store.state.user) {
+                case "admin":
+                    return import("../views/Admin/AdminProfile.vue");
+                case "employer":
+                    return import("../views/Employer/EmployerProfile.vue");
+                case "student":
+                    return import("../views/Student/StudentProfile.vue");
+            }
+        }
     },
     {
         path: "/settings",
         name: "settings",
-        component: StudentSettings
+        component: () => {
+            switch (store.state.user) {
+                case "employer":
+                    return import("../views/Employer/EmployerSettings.vue");
+                case "student":
+                    return import("../views/Student/StudentSettings.vue");
+            }
+        }
     },
     {
         path: "/notification",
         name: "notification",
         component: StudentNotification
     },
-    {
-        path: "/employer-home",
-        name: "employer home",
-        component: EmployerHome
-    },
-    {
+    /* {
         path: "/employer-home/:jobID",
         name: "post-details",
         component: EmployerJobPosting
-    },
+    }, */
     {
         path: "/applicants/:jobID",
         name: "applicants",
         component: EmployerApp
     },
     {
-        path: "/application/:jobID/:stuID",
+        path: "/applicants/:jobID/:stuID",
         name: "indiv-applicant",
         component: EmployerIndivApp
     },
     {
-        path: "/add-post",
+        path: "/jobPosts-add",
         name: "add-post",
         component: EmployerAddJob
     },
     {
-        path: "/employer-home/:jobID/edit",
+        path: "/jobPosts/:jobID/edit",
         name: "edit-post",
         component: EmployerEditJob
     },
     {
-        path: "/employer-profile",
-        name: "employer-profile",
-        component: EmployerProfile
-    },
-    {
-        path: "/employer-settings",
-        name: "employer-settings",
-        component: EmployerSettings
-    },
-    {
-        path: "/admin-home",
-        name: "admin-home",
-        component: AdminHome
-    },
-    {
-        path: "/admin-stu-acc",
+        path: "/viewStudents",
         name: "admin-stu-acc",
         component: AdminStuAcc
     },
     {
-        path: "/admin-stu-acc/:id",
+        path: "/viewStudents/:id",
         name: "admin-stu-acc-indiv",
         component: AdminStuAccIndiv
     },
     {
-        path: "/admin-emp-acc",
+        path: "/viewEmployers",
         name: "admin-emp-acc",
         component: AdminEmpAcc
     },
     {
-        path: "/admin-emp-acc/:id",
+        path: "/viewEmployers/:id",
         name: "admin-emp-acc-indiv",
         component: AdminEmpAccIndiv
     },
-    {
+    /* {
         path: "/admin-posts",
         name: "admin-posts",
         component: AdminPosts
-    },
-    {
+    }, */
+    /* {
         path: "/admin-posts/:jobID",
         name: "admin-post-edit",
         component: AdminPostEdit
-    },
+    }, */
     {
-        path: "/admin-posts-pending",
+        path: "/jobPostsPending",
         name: "admin-posts-pending",
         component: AdminPostsPending
     },
     {
-        path: "/admin-posts-pending/:jobID",
+        path: "/jobPostsPending/:jobID",
         name: "admin-posts-pending-indiv",
         component: AdminPostsPendingIndiv
     },
     {
-        path: "/admin-posts-pending-edit/:jobID",
+        path: "/jobPostsPending/:jobID/edit",
         name: "admin-posts-pending-edit",
         component: AdminPostsPendingEdit
-    },
-    {
-        path: "/admin-profile",
-        name: "admin-profile",
-        component: AdminProfile
     }
 ];
 

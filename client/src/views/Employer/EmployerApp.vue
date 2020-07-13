@@ -33,7 +33,7 @@ export default {
         });
         return {
             posts: students,
-            path: `application/${jobID}`,
+            path: `applicants/${jobID}`,
             home: false
         };
     }

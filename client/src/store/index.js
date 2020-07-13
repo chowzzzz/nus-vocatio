@@ -9,7 +9,9 @@ import applications from "./modules/applications";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-    state: {},
+    state: {
+        user: "student"
+    },
     mutations: {},
     actions: {},
     modules: {

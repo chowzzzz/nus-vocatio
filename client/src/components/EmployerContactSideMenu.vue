@@ -26,7 +26,11 @@
                     </li>
                 </ul>
             </div>
-            <div class="editBtn" v-bind:class="{ 'employer-view' : currentUser === 'student' }">
+            <div
+                class="editBtn"
+                v-bind:class="{ 'employer-view' : currentUser === 'student' }"
+                @click="navigateTo({name: 'profile'})"
+            >
                 <button>Edit contact details</button>
             </div>
         </div>
@@ -61,6 +65,9 @@ export default {
                     });
                 }
             });
+        },
+        navigateTo(route) {
+            this.$router.push(route);
         }
     },
     props: ["user"]

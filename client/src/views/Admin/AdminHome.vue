@@ -1,28 +1,28 @@
 <template>
     <div class="container">
         <div class="links">
-            <router-link to="/admin-stu-acc">
+            <router-link to="/viewStudents">
                 <div class="link">
                     <img src="../../assets/id.svg" alt="accounts" />
                     <br />
                     <h4>Accounts</h4>
                 </div>
             </router-link>
-            <router-link to="/requests">
+            <router-link to="#">
                 <div class="link">
                     <img src="../../assets/alert.svg" alt="requests" />
                     <br />
                     <h4>Requests</h4>
                 </div>
             </router-link>
-            <router-link to="/admin-posts">
+            <router-link to="/jobPosts">
                 <div class="link">
                     <img src="../../assets/tasks.svg" alt="posts" />
                     <br />
                     <h4>Posts</h4>
                 </div>
             </router-link>
-            <router-link to="/admin-pending">
+            <router-link to="/jobPostsPending">
                 <div class="link">
                     <img src="../../assets/report.svg" alt="pending posts" />
                     <br />

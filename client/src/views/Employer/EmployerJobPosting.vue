@@ -90,7 +90,7 @@ export default {
                 switch (value) {
                     case "yes":
                         this.deleteJobPost(this.jobID);
-                        this.$router.push("/employer-home");
+                        this.$router.push("/");
                         break;
                 }
             });
@@ -104,7 +104,6 @@ export default {
             });
         },
         navigateTo(route) {
-            console.log(route);
             this.$router.push(route);
         }
     }

@@ -2,7 +2,7 @@
     <div class="container">
         <div class="title">
             <h2>Employer Accounts</h2>
-            <router-link to="/admin-stu-acc">
+            <router-link to="/viewStudents">
                 <button>Student Accounts</button>
             </router-link>
         </div>
