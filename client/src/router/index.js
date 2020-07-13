@@ -27,6 +27,7 @@ import AdminPosts from "../views/Admin/AdminPosts.vue";
 import AdminPostEdit from "../views/Admin/AdminPostEdit.vue";
 import AdminPostsPending from "../views/Admin/AdminPostsPending.vue";
 import AdminPostsPendingIndiv from "../views/Admin/AdminPostsPendingIndiv.vue";
+import AdminPostsPendingEdit from "../views/Admin/AdminPostsPendingEdit.vue";
 import AdminProfile from "../views/Admin/AdminProfile.vue";
 
 Vue.use(VueRouter);
@@ -157,6 +158,11 @@ const routes = [
         path: "/admin-posts-pending/:jobID",
         name: "admin-posts-pending-indiv",
         component: AdminPostsPendingIndiv
+    },
+    {
+        path: "/admin-posts-pending-edit/:jobID",
+        name: "admin-posts-pending-edit",
+        component: AdminPostsPendingEdit
     },
     {
         path: "/admin-profile",
