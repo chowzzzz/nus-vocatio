@@ -8,20 +8,6 @@ var corsOptions = {
   origin: "http://localhost:8081"
 };
 
-<<<<<<< HEAD
-//Routes
-const app = express();
-app.get('/', (req, res) => res.send('INDEX'));
-
-app.use('/student', require('./routes/student'));
-/*
-app.use('/faculty', require('./routes/faculty'));
-app.use('/employer', require('./routes/employer'));
-app.use('/admin', require('./routes/adminAcc'));
-app.use('/jobPost', require('./routes/jobPost'));
-console.log('test');
-*/
-=======
 app.use(cors(corsOptions));
 
 // parse requests of content-type - application/json
@@ -38,7 +24,6 @@ db.sequelize.sync();
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to vocatio application." });
 });
->>>>>>> 62ab031009d2b7a4b82fb65303948d4721e9911c
 
 require("./routes/student.routes")(app);
 require("./routes/faculty.routes")(app);
