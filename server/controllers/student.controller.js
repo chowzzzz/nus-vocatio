@@ -1,5 +1,6 @@
 const db = require("../models");
 const Student = db.student;
+const Application = db.application;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Student
@@ -153,3 +154,14 @@ exports.findAllPublished = (req, res) => {
 			});
 		});
 };
+
+//Get students by application ID
+exports.findStudentById = (studentId) => {
+	return Student.findByPk(studentId, { include: ["applications"] })
+	  .then((student) => {
+		return student;
+	  })
+	  .catch((err) => {
+		console.log(">> Error while finding Students: ", err);
+	  });
+  };

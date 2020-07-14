@@ -1,5 +1,6 @@
 const db = require("../models");
 const Jobpost = db.jobpost;
+const Application = db.application;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new JobPost
@@ -18,6 +19,7 @@ exports.create = (req, res) => {
 		post_description: req.body.post_description,
 		post_requirements: req.post_requirements,
 		post_pay: req.body.post_pay,
+		employerId: employerId,
 	};
 
 	// Save JobPost in the database
@@ -150,3 +152,26 @@ exports.findAllPublished = (req, res) => {
 			});
 		});
 };
+
+
+//Find jobpost by employer ID
+exports.findJobpostById = (id) => {
+	return Jobpost.findByPk(id, { include: ["employer"] })
+	  .then((jobpost) => {
+		return jobpost;
+	  })
+	  .catch((err) => {
+		console.log(">> Error while finding jobpost: ", err);
+	  });
+  };
+
+//Find jobpost by application ID
+exports.findJobpostById = (jobpostId) => {
+	return Jobpost.findByPk(jobpostId, { include: ["applications"] })
+	  .then((jobpost) => {
+		return jobpost;
+	  })
+	  .catch((err) => {
+		console.log(">> Error while finding Jobposts: ", err);
+	  });
+  };

@@ -15,6 +15,8 @@ exports.create = (req, res) => {
 	// Create a application
 	const Application = {
 		applyDate: req.body.applyDate,
+		studentId: studentId,
+		jobpostId: jobpostId,
 	};
 
 	// Save Application in the database
@@ -145,3 +147,25 @@ exports.findAllPublished = (req, res) => {
 			});
 		});
 };
+
+//Find all applications from Student ID
+exports.findApplicationByStuId = (id) => {
+	return Application.findByPk(id, { include: ["student"] })
+	  .then((application) => {
+		return application;
+	  })
+	  .catch((err) => {
+		console.log(">> Error while finding application: ", err);
+	  });
+  };
+
+//Find all applications from jobpost ID
+exports.findApplicationByJobId = (id) => {
+	return Application.findByPk(id, { include: ["jobpost"] })
+	  .then((application) => {
+		return application;
+	  })
+	  .catch((err) => {
+		console.log(">> Error while finding applications: ", err);
+	  });
+  };

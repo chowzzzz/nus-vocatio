@@ -1,5 +1,6 @@
 const db = require("../models");
 const Employer = db.employer;
+const Jobpost = db.jobpost;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Employer
@@ -156,3 +157,14 @@ exports.findAllPublished = (req, res) => {
 			});
 		});
 };
+
+//Get employer by jobpost ID
+exports.findEmployerById = (employerId) => {
+	return Employer.findByPk(employerId, { include: ["jobposts"] })
+	  .then((employer) => {
+		return employer;
+	  })
+	  .catch((err) => {
+		console.log(">> Error while finding Employers: ", err);
+	  });
+  };
