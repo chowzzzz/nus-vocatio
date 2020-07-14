@@ -4,13 +4,19 @@ module.exports = (app) => {
 	var router = require("express").Router();
 
 	// Create a new Employer
-	router.post("/", Employer.create);
+	router.post("/", Employer.createEmployer);
+
+	// Create a new JobPost
+	router.post("/jobpost/", Employer.createJobpost);
 
 	// Retrieve all Employer
 	router.get("/", Employer.findAll);
 
-	// Retrieve a single Stdeunt with id
-	router.get("/:id", Employer.findOne);
+	// Retrieve a single Employer from a jobpost
+	router.get("/:id", Employer.findEmployerById);
+
+	// Retrieve a all Jobpost from an Employer
+	router.get("/jobpost/:id", Employer.findJobpostById);
 
 	// Update a Employer with id
 	router.put("/:id", Employer.update);
@@ -18,7 +24,7 @@ module.exports = (app) => {
 	// Delete a Employer with id
 	router.delete("/:id", Employer.delete);
 
-	// Create a new Employer
+	// Delete all Employers
 	router.delete("/", Employer.deleteAll);
 
 	app.use("/api/employer", router);

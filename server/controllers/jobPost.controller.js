@@ -3,7 +3,7 @@ const Jobpost = db.jobpost;
 const Application = db.application;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new JobPost
+/*/ Create and Save a new JobPost
 exports.create = (req, res) => {
 	// Validate request
 	if (!req.body.post_title) {
@@ -34,14 +34,12 @@ exports.create = (req, res) => {
 					"Some error occurred while creating the JobPost.",
 			});
 		});
-};
+};*/
 
 // Retrieve all JobPosts from the database.
 exports.findAll = (req, res) => {
 	const id = req.query.id;
-	var condition = id
-		? { id: { [Op.like]: `%${post_title}%` } }
-		: null;
+	var condition = id ? { id: { [Op.like]: `%${post_title}%` } } : null;
 
 	Jobpost.findAll({ where: condition })
 		.then((data) => {
@@ -139,6 +137,7 @@ exports.deleteAll = (req, res) => {
 		});
 };
 
+/* Find based on condition
 exports.findAllPublished = (req, res) => {
 	Jobpost.findAll({ where: { published: true } })
 		.then((data) => {
@@ -151,27 +150,4 @@ exports.findAllPublished = (req, res) => {
 					"Some error occurred while retrieving JobPost.",
 			});
 		});
-};
-
-
-//Find jobpost by employer ID
-exports.findJobpostById = (id) => {
-	return Jobpost.findByPk(id, { include: ["employer"] })
-	  .then((jobpost) => {
-		return jobpost;
-	  })
-	  .catch((err) => {
-		console.log(">> Error while finding jobpost: ", err);
-	  });
-  };
-
-//Find jobpost by application ID
-exports.findJobpostById = (jobpostId) => {
-	return Jobpost.findByPk(jobpostId, { include: ["applications"] })
-	  .then((jobpost) => {
-		return jobpost;
-	  })
-	  .catch((err) => {
-		console.log(">> Error while finding Jobposts: ", err);
-	  });
-  };
+};*/

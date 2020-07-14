@@ -29,7 +29,7 @@ require("./routes/student.routes")(app);
 require("./routes/faculty.routes")(app);
 require("./routes/admin.routes")(app);
 require("./routes/employer.routes")(app);
-require("./routes/jobpost.routes")(app);
+//require("./routes/jobpost.routes")(app);
 require("./routes/application.routes")(app);
 
 // set port, listen for requests

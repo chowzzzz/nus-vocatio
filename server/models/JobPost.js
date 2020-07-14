@@ -22,6 +22,15 @@ module.exports = (sequelize, Sequelize) => {
       },
       post_status: {
         type: Sequelize.DataTypes.STRING,
+      },
+      post_expiry: {
+        type: Sequelize.DataTypes.DATE,
+      },
+      post_industry: {
+        type: Sequelize.DataTypes.STRING,
+      },
+      post_faculty: {
+        type: Sequelize.DataTypes.STRING,
       }
     });
     return Jobpost;
