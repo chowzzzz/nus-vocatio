@@ -32,6 +32,9 @@ module.exports = (sequelize, Sequelize) => {
       post_faculty: {
         type: Sequelize.DataTypes.STRING,
       }
+      post_max_applicants: {
+        type: Sequelize.DataTypes.INT,
+      }
     });
     return Jobpost;
   }

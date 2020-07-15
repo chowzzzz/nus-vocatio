@@ -61,6 +61,7 @@ exports.createJobpost = (req, res) => {
 		post_expiry: req.body.post_expiry,
 		post_industry: req.body.post_industry,
 		post_faculty: req.body.post_faculty,
+		post_max_applicants: post_max_applicants,
 		employerId: employerId,
 	};
 
