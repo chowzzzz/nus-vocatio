@@ -137,6 +137,20 @@ exports.deleteAll = (req, res) => {
 		});
 };
 
+//Find all applications from jobpost ID
+exports.findApplicationByJobId = (id) => {
+	return Application.findByPk(id, { include: ["jobpost"] })
+	  .then((application) => {
+		return application;
+	  })
+	  .catch((err) => {
+		console.log(">> Error while finding applications: ", err);
+	  });
+  };
+
+
+
+
 /* Find based on condition
 exports.findAllPublished = (req, res) => {
 	Jobpost.findAll({ where: { published: true } })

@@ -3,9 +3,10 @@ module.exports = (app) => {
 
 	var router = require("express").Router();
 
-	// Create a new JobPost
+	/* Create a new JobPost
 	router.post("/", Jobpost.create);
-
+	*/
+	
 	// Retrieve all JobPost
 	router.get("/", Jobpost.findAll);
 
@@ -20,6 +21,9 @@ module.exports = (app) => {
 
 	// Create a new JobPost
 	router.delete("/", Jobpost.deleteAll);
+
+	//Find all applications from jobpost ID
+	router.get("/application/:id",Jobpost.findApplicationByJobId);
 
 	app.use("/api/jobpost", router);
 };

@@ -2,7 +2,7 @@ const db = require("../models");
 const Application = db.application;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Application
+/*/ Create and Save a new Application
 exports.create = (req, res) => {
 	// Validate request
 	if (!req.body.adm_user) {
@@ -49,7 +49,7 @@ exports.findAll = (req, res) => {
 					"Some error occurred while retrieving Application.",
 			});
 		});
-};
+};*/
 
 // Find a single Application with an id
 exports.findOne = (req, res) => {
@@ -134,6 +134,7 @@ exports.deleteAll = (req, res) => {
 		});
 };
 
+/*
 exports.findAllPublished = (req, res) => {
 	Application.findAll({ where: { published: true } })
 		.then((data) => {
@@ -168,4 +169,4 @@ exports.findApplicationByJobId = (id) => {
 	  .catch((err) => {
 		console.log(">> Error while finding applications: ", err);
 	  });
-  };
+  };*/
