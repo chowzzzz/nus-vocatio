@@ -155,7 +155,7 @@ const state = {
 const getters = {
     allEmployers: (state) => state.employers,
     getEmpById: (state) => (id) => {
-        console.log(id);
+        // console.log(id);
         return state.employers.find((employer) => employer.id == id);
     }
 };

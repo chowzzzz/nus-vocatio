@@ -76,11 +76,11 @@ export default {
     },
     computed: {
         ...mapGetters(["allJobs"]),
-        ...mapState(["jobposts"]),
+        ...mapState(["jobposts", "employers"]),
         pairs() {
             return this.allJobs.map(job => {
                 console.log(job);
-                // console.log(this.$store.getters.getEmpById(job.employerId));
+                console.log(this.$store.getters.getEmpById(job.employerId));
                 return {
                     job: job,
                     companyName: this.$store.getters.getEmpById(job.employerId)
@@ -89,9 +89,9 @@ export default {
             });
         }
     },
-    created() {
-        this.fetchJobPosts();
+    async created() {
         this.fetchEmployers();
+        this.fetchJobPosts();
     }
 };
 </script>
