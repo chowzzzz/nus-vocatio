@@ -7,7 +7,7 @@ module.exports = (app) => {
 	router.post("/", Student.createStudent);
 
 	//Create a new application
-	router.post("/application/", Student.createApplication);
+	router.post("/application", Student.createApplication);
 
 	// Retrieve all student
 	router.get("/", Student.findAll);

@@ -58,6 +58,7 @@ exports.createJobpost = (req, res) => {
 		post_requirements: req.post_requirements,
 		post_pay: req.body.post_pay,
 		post_status: req.body.post_status,
+		post_type: req.body.post_type,
 		post_expiry: req.body.post_expiry,
 		post_industry: req.body.post_industry,
 		post_faculty: req.body.post_faculty,
