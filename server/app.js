@@ -26,7 +26,6 @@ app.get("/", (req, res) => {
 });
 
 require("./routes/student.routes")(app);
-require("./routes/faculty.routes")(app);
 require("./routes/admin.routes")(app);
 require("./routes/employer.routes")(app);
 require("./routes/jobpost.routes")(app);

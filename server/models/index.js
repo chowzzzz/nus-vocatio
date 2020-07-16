@@ -24,7 +24,6 @@ db.student = require("./Student.js")(sequelize, Sequelize);
 db.admin = require("./Admin.js")(sequelize, Sequelize);
 db.employer = require("./Employer.js")(sequelize, Sequelize);
 db.jobpost = require("./Jobpost.js")(sequelize, Sequelize);
-db.faculty = require("./Faculty.js")(sequelize, Sequelize);
 db.application = require("./Applications.js")(sequelize, Sequelize);
 
 //Relations
@@ -46,19 +45,5 @@ db.application.belongsTo(db.jobpost, {
   foreignKey: "jobpostId",
   as: "jobpost",
 });
-
-/*Many - to - many
-db.jobpost.belongsToMany(db.faculty, {
-  through: "faculty_jobpost",
-  as: "faculties",
-  foreignKey: "faculty_id",
-});
-db.faculty.belongsToMany(db.jobpost, {
-  through: "faculty_jobpost",
-  as: "jobposts",
-  foreignKey: "jobpost_id",
-});
-*/
-
 
 module.exports = db;

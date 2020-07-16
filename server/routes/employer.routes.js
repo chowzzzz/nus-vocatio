@@ -7,7 +7,7 @@ module.exports = (app) => {
 	router.post("/", Employer.createEmployer);
 
 	// Create a new JobPost
-	router.post("/jobpost/", Employer.createJobpost);
+	router.post("/jobpost", Employer.createJobpost);
 
 	// Retrieve all Employer
 	router.get("/", Employer.findAll);
