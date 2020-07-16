@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import jobs from "./modules/jobs";
+import jobposts from "./modules/jobposts";
 import employers from "./modules/employers";
 import students from "./modules/students";
 import admins from "./modules/admins";
@@ -15,7 +15,7 @@ export default new Vuex.Store({
     mutations: {},
     actions: {},
     modules: {
-        jobs,
+        jobposts,
         employers,
         students,
         admins,

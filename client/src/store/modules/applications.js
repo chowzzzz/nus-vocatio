@@ -1,125 +1,127 @@
+import axios from "axios";
+
+const url = "http://localhost:8081/api/application/";
+
 const state = {
     applications: [
-        {
-            appID: 1,
+        /* {
+            id: 1,
             jobID: 1,
             stuID: 1,
             applyDate: new Date(),
             status: "PENDING"
         },
         {
-            appID: 2,
+            id: 2,
             jobID: 2,
             stuID: 1,
             applyDate: new Date(),
             status: "REJECTED"
         },
         {
-            appID: 3,
+            id: 3,
             jobID: 9,
             stuID: 1,
             applyDate: new Date(),
             status: "ACCEPTED"
         },
         {
-            appID: 4,
+            id: 4,
             jobID: 7,
             stuID: 2,
             applyDate: new Date(),
             status: "PENDING"
         },
         {
-            appID: 5,
+            id: 5,
             jobID: 8,
             stuID: 2,
             applyDate: new Date(),
             status: "REJECTED"
         },
         {
-            appID: 6,
+            id: 6,
             jobID: 2,
             stuID: 3,
             applyDate: new Date(),
             status: "PENDING"
         },
         {
-            appID: 7,
+            id: 7,
             jobID: 7,
             stuID: 3,
             applyDate: new Date(),
             status: "ACCEPTED"
         },
         {
-            appID: 8,
+            id: 8,
             jobID: 9,
             stuID: 3,
             applyDate: new Date(),
             status: "PENDING"
         },
         {
-            appID: 9,
+            id: 9,
             jobID: 1,
             stuID: 4,
             applyDate: new Date(),
             status: "REJECTED"
         },
         {
-            appID: 10,
+            id: 10,
             jobID: 2,
             stuID: 4,
             applyDate: new Date(),
             status: "REJECTED"
         },
         {
-            appID: 11,
+            id: 11,
             jobID: 8,
             stuID: 4,
             applyDate: new Date(),
             status: "PENDING"
         },
         {
-            appID: 12,
+            id: 12,
             jobID: 7,
             stuID: 5,
             applyDate: new Date(),
             status: "PENDING"
         },
         {
-            appID: 13,
+            id: 13,
             jobID: 6,
             stuID: 5,
             applyDate: new Date(),
             status: "PENDING"
         },
         {
-            appID: 14,
+            id: 14,
             jobID: 1,
             stuID: 6,
             applyDate: new Date(),
             status: "ACCEPTED"
         },
         {
-            appID: 15,
+            id: 15,
             jobID: 2,
             stuID: 6,
             applyDate: new Date(),
             status: "ACCEPTED"
         },
         {
-            appID: 16,
+            id: 16,
             jobID: 6,
             stuID: 6,
             applyDate: new Date(),
             status: "PENDING"
-        }
+        } */
     ]
 };
 
 const getters = {
     getAppById: (state) => (id) => {
-        return state.applications.find(
-            (application) => application.appID == id
-        );
+        return state.applications.find((application) => application.id == id);
     },
     getAppByJobId: (state) => (jobID) => {
         return state.applications.filter(
@@ -128,18 +130,45 @@ const getters = {
     }
 };
 
-const mutations = {
-    UPDATE_APPSTATUS: (state, payload) => {
-        const index = state.applications
-            .map((app) => app.appID)
-            .indexOf(payload.appID);
-        state.applications[index].status = payload.status;
+const actions = {
+    async fetchApplications({ commit }) {
+        const response = await axios.get(url);
+        commit("SET_APPLICATIONS", response.data);
+    },
+    async addApplication({ commit }, application) {
+        const response = await axios.post(url, application);
+        commit("ADD_APPLICATION", response.data);
+    },
+    async deleteApplication(context, id) {
+        await axios.delete(`${url}${id}`);
+        context.commit("DELETE_APPLICATION", id);
+    },
+    async updateApplication({ commit }, updApp) {
+        const response = await axios.put(`${url}${updApp.id}`, updApp);
+        commit("UPDATE_APPLICATION", response.data);
     }
 };
 
-const actions = {
-    updateAppStatus: ({ commit }, payload) => {
-        commit("UPDATE_APPSTATUS", payload);
+const mutations = {
+    SET_APPLICATION: (state, applications) =>
+        (state.applications = applications),
+
+    ADD_APPLICATION: (state, application) => {
+        state.applications.unshift(application);
+    },
+    DELETE_APPLICATION: (state, id) => {
+        state.applications = state.applications.filter(
+            (application) => application.id !== id
+        );
+    },
+    UPDATE_APPLICATION: (state, updApp) => {
+        const index = state.applications.findIndex(
+            (application) => application.id === updApp.id
+        );
+        if (index !== -1) {
+            state.applications.splice(index, 1, updApp);
+            // state.applications[index].status = payload.status;
+        }
     }
 };
 

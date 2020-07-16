@@ -1,25 +1,19 @@
-import moment from "moment";
+// import moment from "moment";
+import axios from "axios";
+
+const url = "http://localhost:8081/api/jobpost/";
 
 const state = {
-    jobs: [
-        {
-            jobID: 1,
+    jobposts: [
+        /* {
+            id: 1,
             title: "Web Developer Intern",
             empID: 1,
             shortDescription:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
             description:
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus maximus dictum nulla, quis consequat tellus convallis sed.",
-            requirements: [
-                {
-                    req:
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit"
-                },
-                {
-                    req:
-                        "Maecenas porta augue sed odio commodo, eu gravida elit"
-                }
-            ],
+            requirements: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\nIn a odio in ex tincidunt rhoncus.\nAliquam venenatis est sed sem iaculis fermentum sit amet luctus est.\nMauris finibus ipsum a nibh posuere, consequat mattis odio consectetur.\n",
             type: "Internship",
             faculty: "Computing",
             industry: "Consumer Business",
@@ -32,7 +26,7 @@ const state = {
             expiry: moment().add(1, "days")
         },
         {
-            jobID: 2,
+            id: 2,
             title: "Mobile Developer Intern",
             empID: 1,
             shortDescription:
@@ -61,7 +55,7 @@ const state = {
             expiry: moment().add(1, "days")
         },
         {
-            jobID: 3,
+            id: 3,
             title:
                 "Study on Impact of the Built Environment on Community Bonding",
             empID: 2,
@@ -91,7 +85,7 @@ const state = {
             expiry: moment().add(1, "days")
         },
         {
-            jobID: 4,
+            id: 4,
             title: "Survey on school environment satisfaction",
             empID: 3,
             shortDescription:
@@ -120,7 +114,7 @@ const state = {
             expiry: moment().add(1, "days")
         },
         {
-            jobID: 5,
+            id: 5,
             title: "A New History of Southeast Asia",
             empID: 4,
             shortDescription:
@@ -149,7 +143,7 @@ const state = {
             expiry: moment().subtract(1, "days")
         },
         {
-            jobID: 6,
+            id: 6,
             title: "Analyst Intern",
             empID: 5,
             shortDescription:
@@ -178,7 +172,7 @@ const state = {
             expiry: moment().add(1, "days")
         },
         {
-            jobID: 7,
+            id: 7,
             title: "Software Developer Intern",
             empID: 1,
             shortDescription:
@@ -207,7 +201,7 @@ const state = {
             expiry: moment().add(1, "days")
         },
         {
-            jobID: 8,
+            id: 8,
             title: "Data Analyst Intern",
             empID: 1,
             shortDescription:
@@ -236,7 +230,7 @@ const state = {
             expiry: moment().subtract(1, "days")
         },
         {
-            jobID: 9,
+            id: 9,
             title: "Accountant Intern",
             empID: 1,
             shortDescription:
@@ -263,47 +257,67 @@ const state = {
             maxApplicants: 2,
             status: "Removed",
             expiry: moment().subtract(1, "days")
-        }
+        } */
     ]
 };
 const getters = {
-    allJobs: (state) => state.jobs,
+    allJobs: (state) => state.jobposts,
     getJobById: (state) => (id) => {
-        return state.jobs.find((job) => job.jobID == id);
+        return state.jobposts.find((jobpost) => jobpost.id == id);
     },
     getJobByEmpId: (state) => (empID) => {
-        return state.jobs.filter((job) => job.empID == empID);
-    }
-};
-const mutations = {
-    ADD_JOBPOST: (state, payload) => {
-        payload.jobID = state.jobs.length + 1;
-        console.log(payload);
-        state.jobs.push(payload);
-    },
-    DELETE_JOBPOST: (state, jobID) => {
-        const index = state.jobs.findIndex((job) => job.jobID == jobID);
-        state.jobs.splice(index, 1);
-    },
-    UPDATE_JOBPOST: (state, payload) => {
-        console.log(payload);
-        const index = state.jobs.map((job) => job.jobID).indexOf(payload.jobID);
-        // console.log(index);
-        state.jobs.splice(index, 1, payload);
+        return state.jobposts.filter((jobpost) => jobpost.empID == empID);
     }
 };
 const actions = {
-    addJobPost: ({ commit }, payload) => {
-        commit("ADD_JOBPOST", payload);
+    async fetchJobPosts({ commit }) {
+        const response = await axios.get(url);
+        commit("SET_JOBPOST", response.data);
     },
-    deleteJobPost: (context, jobID) => {
-        context.commit("DELETE_JOBPOST", jobID);
+    async addJobPost({ commit }, jobpost) {
+        const response = await axios.post(url, jobpost);
+        commit("ADD_JOBPOST", response.data);
     },
-    updateJobPost: ({ commit }, payload) => {
-        commit("UPDATE_JOBPOST", payload);
+    async deleteJobPost(context, id) {
+        await axios.delete(`${url}${id}`);
+        context.commit("DELETE_JOBPOST", id);
+    },
+    async updateJobPost({ commit }, updJobpost) {
+        const response = await axios.put(`${url}${updJobpost.id}`, updJobpost);
+        commit("UPDATE_JOBPOST", response.data);
     }
 };
 
+const mutations = {
+    SET_JOBPOST: (state, jobposts) => (state.jobposts = jobposts),
+
+    ADD_JOBPOST: (state, jobpost) => {
+        // jobpost.id = state.jobposts.length + 1;
+        // console.log(jobpost);
+        state.jobposts.unshift(jobpost);
+    },
+    DELETE_JOBPOST: (state, id) => {
+        /* const index = state.jobposts.findIndex(
+            (jobpost) => jobpost.id == id
+        );
+        state.jobposts.splice(index, 1); */
+        state.jobposts = state.jobposts.filter((jobpost) => jobpost.id !== id);
+    },
+    UPDATE_JOBPOST: (state, updJobpost) => {
+        /*  console.log(updJobpost);
+        const index = state.jobposts
+            .map((updJobpost) => updJobpost.id)
+            .indexOf(updJobpost.id);
+        // console.log(index);
+        state.jobposts.splice(index, 1, updJobpost); */
+        const index = state.jobposts.findIndex(
+            (jobpost) => jobpost.id === updJobpost.id
+        );
+        if (index !== -1) {
+            state.jobposts.splice(index, 1, updJobpost);
+        }
+    }
+};
 export default {
     state,
     getters,

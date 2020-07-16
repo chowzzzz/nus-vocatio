@@ -32,17 +32,17 @@
                             <img src="../../assets/selfmade/picture.svg" alt="company logo" />
                         </div>
                         <div class="job-title">
-                            <h4>{{ pair.job.title }}</h4>
+                            <h4>{{ pair.job.post_title }}</h4>
                             <p>{{ pair.companyName }}</p>
-                            <p id="desc">{{ pair.job.description }}</p>
+                            <p id="desc">{{ pair.job.post_short_des }}</p>
                             <p id="filters">
-                                <span id="type">{{ pair.job.type }}</span>
-                                <span id="faculty">{{ pair.job.faculty }}</span>
+                                <!-- <span id="type">{{ pair.job.type }}</span> -->
+                                <!-- <span id="faculty">{{ pair.job.faculty }}</span> -->
                             </p>
                         </div>
                         <div class="job-side-title">
-                            <p id="date">{{ pair.job.date | formatDate }}</p>
-                            <p id="salary">${{ pair.job.salary }}</p>
+                            <p id="date">{{ pair.job.createdAt | formatDate }}</p>
+                            <p id="salary">${{ pair.job.post_pay }}</p>
                         </div>
                     </li>
                 </ul>
@@ -56,7 +56,7 @@
 import SideFilterMenu from "../../components/SideFilterMenu.vue";
 import SideFilterMenuMobile from "../../components/SideFilterMenuMobile.vue";
 import ScrollToTopBtn from "../../components/ScrollToTopBtn.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 import { showAt, hideAt } from "vue-breakpoints";
 
 export default {
@@ -68,22 +68,28 @@ export default {
         hideAt,
         showAt
     },
+    methods: {
+        ...mapActions(["fetchJobPosts"]),
+        navigateTo(route) {
+            this.$router.push(route);
+        }
+    },
     computed: {
         ...mapGetters(["allJobs"]),
+        ...mapState(["jobposts"]),
         pairs() {
             return this.allJobs.map(job => {
+                console.log(job);
                 return {
                     job: job,
-                    companyName: this.$store.getters.getEmpById(job.empID)
-                        .companyName
+                    companyName: this.$store.getters.getEmpById(job.employerId)
+                        .emp_company
                 };
             });
         }
     },
-    methods: {
-        navigateTo(route) {
-            this.$router.push(route);
-        }
+    created() {
+        this.fetchJobPosts();
     }
 };
 </script>
@@ -160,6 +166,7 @@ export default {
     margin-left: 20%;
     padding: 2em 2em 4.5em;
     background: #f2f2f2;
+    height: calc(100vh + 5em);
 }
 
 .job-title {
@@ -246,10 +253,15 @@ li {
 @media screen and (max-width: 700px) {
     .jobListings {
         margin-left: 0;
+        height: 100vh;
     }
 
     .job-header {
         align-items: start;
+        display: grid;
+        grid-template-rows: auto;
+        grid-template-columns: auto auto;
+        justify-content: inherit;
     }
 }
 

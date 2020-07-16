@@ -1,7 +1,11 @@
+import axios from "axios";
+
+const url = "http://localhost:8081/api/student/";
+
 const state = {
     students: [
-        {
-            stuID: 1,
+        /* {
+            id: 1,
             studentID: "A1234567B",
             name: "Andy Woo",
             password: "123",
@@ -24,7 +28,7 @@ const state = {
             }
         },
         {
-            stuID: 2,
+            id: 2,
             studentID: "A1234567B",
             name: "Ben Tan",
             password: "123",
@@ -47,7 +51,7 @@ const state = {
             }
         },
         {
-            stuID: 3,
+            id: 3,
             studentID: "A1234567B",
             name: "Claire Lee",
             password: "123",
@@ -70,7 +74,7 @@ const state = {
             }
         },
         {
-            stuID: 4,
+            id: 4,
             studentID: "A1234567B",
             name: "David Ho",
             password: "123",
@@ -93,7 +97,7 @@ const state = {
             }
         },
         {
-            stuID: 5,
+            id: 5,
             studentID: "A1234567B",
             name: "Elaine Low",
             password: "123",
@@ -116,7 +120,7 @@ const state = {
             }
         },
         {
-            stuID: 6,
+            id: 6,
             studentID: "A1234567B",
             name: "Nurul Syafiq",
             password: "123",
@@ -137,17 +141,52 @@ const state = {
                 },
                 subscription: false
             }
-        }
+        } */
     ]
 };
 const getters = {
     allStudents: (state) => state.students,
     getStuById: (state) => (id) => {
-        return state.students.find((student) => student.stuID == id);
+        return state.students.find((student) => student.id == id);
     }
 };
-const actions = {};
-const mutations = {};
+const actions = {
+    async fetchStudents({ commit }) {
+        const response = await axios.get(url);
+        commit("SET_EMPLOYERS", response.data);
+    },
+    async addStudent({ commit }, student) {
+        const response = await axios.post(url, student);
+        commit("ADD_EMPLOYER", response.data);
+    },
+    async deleteStudent(context, id) {
+        await axios.delete(`${url}${id}`);
+        context.commit("DELETE_EMPLOYER", id);
+    },
+    async updateStudent({ commit }, updStu) {
+        const response = await axios.put(`${url}${updStu.id}`, updStu);
+        commit("UPDATE_EMPLOYER", response.data);
+    }
+};
+
+const mutations = {
+    SET_EMPLOYER: (state, students) => (state.students = students),
+
+    ADD_EMPLOYER: (state, student) => {
+        state.students.unshift(student);
+    },
+    DELETE_EMPLOYER: (state, id) => {
+        state.students = state.students.filter((student) => student.id !== id);
+    },
+    UPDATE_EMPLOYER: (state, updStu) => {
+        const index = state.students.findIndex(
+            (student) => student.id === updStu.id
+        );
+        if (index !== -1) {
+            state.students.splice(index, 1, updStu);
+        }
+    }
+};
 
 export default {
     state,

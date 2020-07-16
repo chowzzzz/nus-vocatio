@@ -46,7 +46,7 @@ input {
     color: #9ecde9;
 }
 
-.custom-search {
+/* .custom-search {
     background: #dce2e8;
     height: 2em;
     font-size: 1em;
@@ -59,65 +59,81 @@ input {
     top: -3%;
     bottom: 0;
     margin: auto auto auto 0;
-}
+} */
 
 @media screen and (max-width: 950px) {
     input {
-        width: 90%;
-        font-size: 0.8em;
-    }
-
-    .custom-search {
         height: 24px;
         font-size: 12px;
         padding-left: 0;
     }
 
-    .custom-fa-search {
+    .fa-search {
         font-size: 14px;
         position: absolute;
-        top: 55%;
+        top: 40%;
         left: 5%;
     }
-    .fa-search {
-        font-size: 0.9em;
+
+    /* .custom-search {
+        width: 90%;
+        font-size: 0.8em;
     }
+
+    .custom-fa-search {
+        font-size: 0.9em;
+        top: -13%;
+    } */
 }
 
 @media screen and (max-width: 700px) {
     input {
-        font-size: 0.7em;
-    }
-
-    .fa-search {
-        font-size: 0.8em;
-    }
-
-    .custom-search {
         background: #e6e6e6;
-        height: 20px;
+        height: 28px;
         font-size: 12px;
-        width: 200px;
         margin-top: 0.5em;
     }
 
-    .custom-fa-search {
-        font-size: 16px;
-        top: 60%;
+    .fa-search {
+        font-size: 13px;
+        top: 36%;
+        left: 4%;
     }
+
+    /* .custom-search {
+        font-size: 0.7em;
+    }
+
+    .custom-fa-search {
+        font-size: 0.8em;
+    }
+
+    .custom-fa-search .fa-search {
+        font-size: 11px;
+        top: 42%;
+    } */
 }
 
+@media screen and (max-width: 570px) {
+    .fa-search {
+        top: 32%;
+    }
+}
 @media screen and (max-width: 500px) {
-    input {
+    .fa-search {
+        left: 6%;
+        top: 35%;
+    }
+    /* .custom-search input {
         width: 80%;
         font-size: 0.7em;
         display: block;
         margin: 0 auto;
     }
 
-    .fa-search {
+    .custom-fa-search .fa-search {
         font-size: 0.8em;
         left: 12%;
-    }
+    } */
 }
 </style>

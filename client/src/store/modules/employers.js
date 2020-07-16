@@ -1,7 +1,11 @@
+import axios from "axios";
+
+const url = "http://localhost:8081/api/employer/";
+
 const state = {
     employers: [
-        {
-            empID: 1,
+        /* {
+            id: 1,
             companyName: "ABC Co",
             coRegNo: 1,
             coNo: 61234567,
@@ -31,7 +35,7 @@ const state = {
             }
         },
         {
-            empID: 2,
+            id: 2,
             companyName: "NUS (Architecture)",
             coRegNo: 1,
             coNo: 61234567,
@@ -61,7 +65,7 @@ const state = {
             }
         },
         {
-            empID: 3,
+            id: 3,
             companyName: "NUS",
             coRegNo: 1,
             coNo: 61234567,
@@ -90,7 +94,7 @@ const state = {
             }
         },
         {
-            empID: 4,
+            id: 4,
             companyName: "NUS-FASS (History)",
             coRegNo: 1,
             coNo: 61234567,
@@ -119,7 +123,7 @@ const state = {
             }
         },
         {
-            empID: 5,
+            id: 5,
             companyName: "XYZ Co",
             coRegNo: 1,
             coNo: 61234567,
@@ -145,17 +149,55 @@ const state = {
                 },
                 subscription: true
             }
-        }
+        } */
     ]
 };
 const getters = {
     allEmployers: (state) => state.employers,
     getEmpById: (state) => (id) => {
-        return state.employers.find((employer) => employer.empID == id);
+        return state.employers.find((employer) => employer.id == id);
     }
 };
-const actions = {};
-const mutations = {};
+
+const actions = {
+    async fetchEmployers({ commit }) {
+        const response = await axios.get(url);
+        commit("SET_EMPLOYERS", response.data);
+    },
+    async addEmployer({ commit }, employer) {
+        const response = await axios.post(url, employer);
+        commit("ADD_EMPLOYER", response.data);
+    },
+    async deleteEmployer(context, id) {
+        await axios.delete(`${url}${id}`);
+        context.commit("DELETE_EMPLOYER", id);
+    },
+    async updateEmployer({ commit }, updEmp) {
+        const response = await axios.put(`${url}${updEmp.id}`, updEmp);
+        commit("UPDATE_EMPLOYER", response.data);
+    }
+};
+
+const mutations = {
+    SET_EMPLOYER: (state, employers) => (state.employers = employers),
+
+    ADD_EMPLOYER: (state, employer) => {
+        state.employers.unshift(employer);
+    },
+    DELETE_EMPLOYER: (state, id) => {
+        state.employers = state.employers.filter(
+            (employer) => employer.id !== id
+        );
+    },
+    UPDATE_EMPLOYER: (state, updEmp) => {
+        const index = state.employers.findIndex(
+            (employer) => employer.id === updEmp.id
+        );
+        if (index !== -1) {
+            state.employers.splice(index, 1, updEmp);
+        }
+    }
+};
 
 export default {
     state,
