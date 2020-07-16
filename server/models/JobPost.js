@@ -16,6 +16,9 @@ module.exports = (sequelize, Sequelize) => {
           type: Sequelize.DataTypes.STRING(1234),
           allowNull: false
       },
+      post_type: {
+        type: Sequelize.DataTypes.STRING(100),
+      },
       post_pay: {
           type: Sequelize.DataTypes.STRING,
           allowNull: false
