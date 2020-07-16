@@ -1,29 +1,29 @@
 <template>
     <div class="job-container">
         <div class="img-box job-title">
-            <img :src="require(`../assets/selfmade/${employer.logo}`)" alt="company logo" />
+            <img :src="require(`../assets/selfmade/${employer.emp_logo}`)" alt="company logo" />
         </div>
         <div class="job-main-title-container job-title">
             <h1>{{ job.title }}</h1>
-            <p>{{ employer.companyName }}</p>
+            <p>{{ employer.emp_company }}</p>
             <p class="filters">
-                <span id="type">{{ job.type }}</span>
-                <span id="faculty">{{ job.faculty }}</span>
+                <span id="type">{{ job.post_type }}</span>
+                <span id="faculty">{{ job.post_faculty }}</span>
             </p>
         </div>
 
         <div class="job-side-title-container job-title">
-            <p id="salary" v-if="job.salary != null">Salary: ${{ job.salary }}</p>
+            <p id="salary" v-if="job.post_pay != null">Salary: ${{ job.post_pay }}</p>
             <a href="#">Contract Term</a>
         </div>
 
         <div class="job-description-container">
             <h3>Job description</h3>
-            <p id="desc">{{ job.description }}</p>
+            <p id="desc">{{ job.post_longdesc }}</p>
             <h3>Requirements</h3>
             <ul>
                 <li
-                    v-for="requirement in job.requirements"
+                    v-for="requirement in job.post_requirements"
                     :key="requirement.req"
                 >{{ requirement.req }}</li>
             </ul>
@@ -38,7 +38,7 @@ export default {
         const job = this.$store.getters.getJobById(this.$route.params.jobID);
         return {
             job: job,
-            employer: this.$store.getters.getEmpById(job.empID)
+            employer: this.$store.getters.getEmpById(job.employerId)
         };
     }
 };

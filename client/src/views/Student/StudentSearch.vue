@@ -26,7 +26,7 @@
                     <li
                         v-for="pair in pairs"
                         :key="pair.job.jobID"
-                        @click="navigateTo({name: 'job-details', params: {jobID: pair.job.jobID}})"
+                        @click="navigateTo({name: 'job-details', params: {jobID: pair.job.id}})"
                     >
                         <div class="job-img">
                             <img src="../../assets/selfmade/picture.svg" alt="company logo" />
@@ -71,6 +71,7 @@ export default {
     methods: {
         ...mapActions(["fetchJobPosts", "fetchEmployers"]),
         navigateTo(route) {
+            console.log(route);
             this.$router.push(route);
         }
     },
@@ -79,8 +80,6 @@ export default {
         ...mapState(["jobposts", "employers"]),
         pairs() {
             return this.allJobs.map(job => {
-                console.log(job);
-                console.log(this.$store.getters.getEmpById(job.employerId));
                 return {
                     job: job,
                     companyName: this.$store.getters.getEmpById(job.employerId)
