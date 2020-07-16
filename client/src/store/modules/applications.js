@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const url = "http://localhost:8081/api/application/";
+const create_url = "http://localhost:8081/api/student/application/";
 
 const state = {
     applications: [
@@ -136,7 +137,7 @@ const actions = {
         commit("SET_APPLICATIONS", response.data);
     },
     async addApplication({ commit }, application) {
-        const response = await axios.post(url, application);
+        const response = await axios.post(create_url, application);
         commit("ADD_APPLICATION", response.data);
     },
     async deleteApplication(context, id) {

@@ -36,8 +36,8 @@
                             <p>{{ pair.companyName }}</p>
                             <p id="desc">{{ pair.job.post_short_des }}</p>
                             <p id="filters">
-                                <!-- <span id="type">{{ pair.job.type }}</span> -->
-                                <!-- <span id="faculty">{{ pair.job.faculty }}</span> -->
+                                <span id="type">{{ pair.job.post_type }}</span>
+                                <span id="faculty">{{ pair.job.post_faculty }}</span>
                             </p>
                         </div>
                         <div class="job-side-title">
@@ -69,7 +69,7 @@ export default {
         showAt
     },
     methods: {
-        ...mapActions(["fetchJobPosts"]),
+        ...mapActions(["fetchJobPosts", "fetchEmployers"]),
         navigateTo(route) {
             this.$router.push(route);
         }
@@ -80,6 +80,7 @@ export default {
         pairs() {
             return this.allJobs.map(job => {
                 console.log(job);
+                // console.log(this.$store.getters.getEmpById(job.employerId));
                 return {
                     job: job,
                     companyName: this.$store.getters.getEmpById(job.employerId)
@@ -90,6 +91,7 @@ export default {
     },
     created() {
         this.fetchJobPosts();
+        this.fetchEmployers();
     }
 };
 </script>

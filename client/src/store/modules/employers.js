@@ -155,6 +155,7 @@ const state = {
 const getters = {
     allEmployers: (state) => state.employers,
     getEmpById: (state) => (id) => {
+        console.log(id);
         return state.employers.find((employer) => employer.id == id);
     }
 };
@@ -168,9 +169,9 @@ const actions = {
         const response = await axios.post(url, employer);
         commit("ADD_EMPLOYER", response.data);
     },
-    async deleteEmployer(context, id) {
+    async deleteEmployer({ commit }, id) {
         await axios.delete(`${url}${id}`);
-        context.commit("DELETE_EMPLOYER", id);
+        commit("DELETE_EMPLOYER", id);
     },
     async updateEmployer({ commit }, updEmp) {
         const response = await axios.put(`${url}${updEmp.id}`, updEmp);
@@ -179,7 +180,9 @@ const actions = {
 };
 
 const mutations = {
-    SET_EMPLOYER: (state, employers) => (state.employers = employers),
+    SET_EMPLOYERS: (state, employers) => {
+        state.employers = employers;
+    },
 
     ADD_EMPLOYER: (state, employer) => {
         state.employers.unshift(employer);

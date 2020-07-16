@@ -2,6 +2,7 @@
 import axios from "axios";
 
 const url = "http://localhost:8081/api/jobpost/";
+const create_url = "http://localhost:8081/api/employer/jobpost";
 
 const state = {
     jobposts: [
@@ -275,7 +276,7 @@ const actions = {
         commit("SET_JOBPOST", response.data);
     },
     async addJobPost({ commit }, jobpost) {
-        const response = await axios.post(url, jobpost);
+        const response = await axios.post(create_url, jobpost);
         commit("ADD_JOBPOST", response.data);
     },
     async deleteJobPost(context, id) {
