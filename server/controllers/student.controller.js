@@ -1,9 +1,10 @@
 const db = require("../models");
 const Student = db.student;
+const Application = db.application;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Student
-exports.create = (req, res) => {
+exports.createStudent = (req, res) => {
 	// Validate request
 	if (!req.body.stu_name) {
 		res.status(400).send({
@@ -55,6 +56,37 @@ exports.findAll = (req, res) => {
 				message:
 					err.message ||
 					"Some error occurred while retrieving Student.",
+			});
+		});
+};
+
+//Create an application
+exports.createApplication = (req, res) => {
+	// Validate request
+	if (!req.body.adm_user) {
+		res.status(400).send({
+			message: "Content can not be empty!",
+		});
+		return;
+	}
+
+	// Create a application
+	const Application = {
+		applyDate: req.body.applyDate,
+		studentId: studentId,
+		jobpostId: jobpostId,
+	};
+
+	// Save Application in the database
+	Application.create(application)
+		.then((data) => {
+			res.send(data);
+		})
+		.catch((err) => {
+			res.status(500).send({
+				message:
+					err.message ||
+					"Some error occurred while creating the Application.",
 			});
 		});
 };
@@ -151,5 +183,27 @@ exports.findAllPublished = (req, res) => {
 					err.message ||
 					"Some error occurred while retrieving Student.",
 			});
+		});
+};
+
+//Get students by application ID
+exports.findStudentById = (studentId) => {
+	return Student.findByPk(studentId, { include: ["applications"] })
+		.then((student) => {
+			return student;
+		})
+		.catch((err) => {
+			console.log(">> Error while finding Students: ", err);
+		});
+};
+
+//Find all applications from Student ID
+exports.findApplicationByStuId = (id) => {
+	return Application.findByPk(id, { include: ["student"] })
+		.then((application) => {
+			return application;
+		})
+		.catch((err) => {
+			console.log(">> Error while finding application: ", err);
 		});
 };

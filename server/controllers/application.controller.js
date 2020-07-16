@@ -2,7 +2,7 @@ const db = require("../models");
 const Application = db.application;
 const Op = db.Sequelize.Op;
 
-// Create and Save a new Application
+/*/ Create and Save a new Application
 exports.create = (req, res) => {
 	// Validate request
 	if (!req.body.adm_user) {
@@ -15,6 +15,8 @@ exports.create = (req, res) => {
 	// Create a application
 	const Application = {
 		applyDate: req.body.applyDate,
+		studentId: studentId,
+		jobpostId: jobpostId,
 	};
 
 	// Save Application in the database
@@ -47,7 +49,7 @@ exports.findAll = (req, res) => {
 					"Some error occurred while retrieving Application.",
 			});
 		});
-};
+};*/
 
 // Find a single Application with an id
 exports.findOne = (req, res) => {
@@ -132,6 +134,7 @@ exports.deleteAll = (req, res) => {
 		});
 };
 
+/*
 exports.findAllPublished = (req, res) => {
 	Application.findAll({ where: { published: true } })
 		.then((data) => {
@@ -145,3 +148,25 @@ exports.findAllPublished = (req, res) => {
 			});
 		});
 };
+
+//Find all applications from Student ID
+exports.findApplicationByStuId = (id) => {
+	return Application.findByPk(id, { include: ["student"] })
+	  .then((application) => {
+		return application;
+	  })
+	  .catch((err) => {
+		console.log(">> Error while finding application: ", err);
+	  });
+  };
+
+//Find all applications from jobpost ID
+exports.findApplicationByJobId = (id) => {
+	return Application.findByPk(id, { include: ["jobpost"] })
+	  .then((application) => {
+		return application;
+	  })
+	  .catch((err) => {
+		console.log(">> Error while finding applications: ", err);
+	  });
+  };*/

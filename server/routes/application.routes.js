@@ -4,10 +4,10 @@ module.exports = (app) => {
 	var router = require("express").Router();
 
 	// Create a new Application
-	router.post("/", Application.create);
+	//router.post("/", Application.create);
 
 	// Retrieve all Application
-	router.get("/", Application.findAll);
+	//router.get("/", Application.findAll);
 
 	// Retrieve a single Application
 	router.get("/:id", Application.findOne);
