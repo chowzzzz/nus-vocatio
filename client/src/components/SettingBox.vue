@@ -1,8 +1,8 @@
 <template>
     <div class="indiv-setting" id="status">
-        <span>{{ title }}</span>
+        <span>{{ info.title }}</span>
         <label class="switch">
-            <input type="checkbox" />
+            <input type="checkbox" v-model="info.checked" />
             <span class="slider"></span>
         </label>
     </div>
@@ -11,7 +11,7 @@
 <script>
 export default {
     name: "SettingBox",
-    props: ["title"]
+    props: ["info"]
 };
 </script>
 

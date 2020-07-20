@@ -5,13 +5,13 @@
             <h2>Settings</h2>
         </div>
 
-        <div class="settings-container">
+        <div v-if="student" class="settings-container">
             <p>Send me an email when:</p>
             <div class="settings">
-                <setting-box id="status" title="there is a status change in my application"></setting-box>
-                <setting-box id="jobs" title="there are new jobs"></setting-box>
-                <setting-box id="news" title="there is newsletter"></setting-box>
-                <setting-box id="sub" title="Subscribe me to NUSVocatio newsletter"></setting-box>
+                <setting-box id="status" :info="status_change"></setting-box>
+                <setting-box id="jobs" :info="new_jobs"></setting-box>
+                <setting-box id="news" :info="newsletter"></setting-box>
+                <setting-box id="sub" :info="subscription"></setting-box>
             </div>
         </div>
     </div>
@@ -19,11 +19,44 @@
 
 <script>
 import SettingBox from "../../components/SettingBox.vue";
+import { mapGetters } from "vuex";
 
 export default {
     name: "Settings",
     components: {
         SettingBox
+    },
+    computed: {
+        ...mapGetters({
+            getStuById: "getStuById"
+        }),
+        student() {
+            return this.getStuById(1);
+        },
+        status_change() {
+            return {
+                checked: this.student.stu_status_change,
+                title: "there is a status change in my application"
+            };
+        },
+        new_jobs() {
+            return {
+                checked: this.student.stu_new_jobs,
+                title: "there are new jobs"
+            };
+        },
+        newsletter() {
+            return {
+                checked: this.student.stu_news_letter,
+                title: "there is newsletter"
+            };
+        },
+        subscription() {
+            return {
+                checked: this.student.stu_subscription,
+                title: "Subscribe me to NUSVocatio newsletter"
+            };
+        }
     }
 };
 </script>
