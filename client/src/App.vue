@@ -6,10 +6,20 @@
 
 <script>
 import NavBar from "./components/NavBar.vue";
+import { mapActions } from "vuex";
+
 export default {
     name: "NusVocatio",
     components: {
         navBar: NavBar
+    },
+    methods: {
+        ...mapActions(["fetchStudents", "fetchEmployers", "fetchJobPosts"])
+    },
+    created() {
+        this.fetchStudents();
+        this.fetchEmployers();
+        this.fetchJobPosts();
     }
 };
 </script>

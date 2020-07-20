@@ -98,13 +98,10 @@
 
 <script>
 import moment from "moment";
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
     name: "StudentProfile",
-    methods: {
-        ...mapActions(["fetchStudents"])
-    },
     computed: {
         ...mapGetters({
             getStuById: "getStuById"
@@ -115,9 +112,6 @@ export default {
         dob() {
             return moment(String(this.student.stu_dob)).format("YYY-MM-DD");
         }
-    },
-    async created() {
-        this.fetchStudents();
     }
 };
 </script>

@@ -59,7 +59,7 @@
 import SideFilterMenu from "../../components/SideFilterMenu.vue";
 import SideFilterMenuMobile from "../../components/SideFilterMenuMobile.vue";
 import ScrollToTopBtn from "../../components/ScrollToTopBtn.vue";
-import { mapGetters, mapState, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import { showAt, hideAt } from "vue-breakpoints";
 
 export default {
@@ -72,7 +72,6 @@ export default {
         showAt
     },
     methods: {
-        ...mapActions(["fetchJobPosts", "fetchEmployers"]),
         navigateTo(route) {
             // console.log(route);
             this.$router.push(route);
@@ -80,11 +79,9 @@ export default {
     },
     computed: {
         ...mapGetters(["allJobs"]),
-        ...mapState(["jobposts", "employers"]),
         pairs() {
             return this.allJobs.map(job => {
                 const employer = this.$store.getters.getEmpById(job.employerId);
-                // console.log(employer);
                 return {
                     job: job,
                     company: employer.emp_company,
@@ -92,10 +89,6 @@ export default {
                 };
             });
         }
-    },
-    async created() {
-        this.fetchEmployers();
-        this.fetchJobPosts();
     }
 };
 </script>
