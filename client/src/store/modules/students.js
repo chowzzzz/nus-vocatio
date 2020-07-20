@@ -147,38 +147,40 @@ const state = {
 const getters = {
     allStudents: (state) => state.students,
     getStuById: (state) => (id) => {
-        return state.students.find((student) => student.id == id);
+        return state.students.find((student) => student.id === id);
     }
 };
 const actions = {
     async fetchStudents({ commit }) {
         const response = await axios.get(url);
-        commit("SET_EMPLOYERS", response.data);
+        commit("SET_STUDENTS", response.data);
     },
     async addStudent({ commit }, student) {
         const response = await axios.post(url, student);
-        commit("ADD_EMPLOYER", response.data);
+        commit("ADD_STUDENT", response.data);
     },
     async deleteStudent(context, id) {
         await axios.delete(`${url}${id}`);
-        context.commit("DELETE_EMPLOYER", id);
+        context.commit("DELETE_STUDENT", id);
     },
     async updateStudent({ commit }, updStu) {
         const response = await axios.put(`${url}${updStu.id}`, updStu);
-        commit("UPDATE_EMPLOYER", response.data);
+        commit("UPDATE_STUDENT", response.data);
     }
 };
 
 const mutations = {
-    SET_EMPLOYER: (state, students) => (state.students = students),
+    SET_STUDENTS: (state, students) => {
+        state.students = students;
+    },
 
-    ADD_EMPLOYER: (state, student) => {
+    ADD_STUDENT: (state, student) => {
         state.students.unshift(student);
     },
-    DELETE_EMPLOYER: (state, id) => {
+    DELETE_STUDENT: (state, id) => {
         state.students = state.students.filter((student) => student.id !== id);
     },
-    UPDATE_EMPLOYER: (state, updStu) => {
+    UPDATE_STUDENT: (state, updStu) => {
         const index = state.students.findIndex(
             (student) => student.id === updStu.id
         );

@@ -19,13 +19,10 @@
 
         <div class="job-description-container">
             <h3>Job description</h3>
-            <p id="desc">{{ job.post_longdesc }}</p>
+            <p id="desc">{{ job.post_long_des }}</p>
             <h3>Requirements</h3>
             <ul>
-                <li
-                    v-for="requirement in job.post_requirements"
-                    :key="requirement.req"
-                >{{ requirement.req }}</li>
+                <li v-for="(r, i) in requirements" :key="i">{{ r }}</li>
             </ul>
         </div>
     </div>
@@ -36,9 +33,14 @@ export default {
     name: "JobListing",
     data() {
         const job = this.$store.getters.getJobById(this.$route.params.jobID);
+        console.log(this.$route.params.jobID);
+        let requirements = job.post_requirements;
+        requirements = requirements.split("\\n");
+        requirements.pop();
         return {
             job: job,
-            employer: this.$store.getters.getEmpById(job.employerId)
+            employer: this.$store.getters.getEmpById(job.employerId),
+            requirements: requirements
         };
     }
 };

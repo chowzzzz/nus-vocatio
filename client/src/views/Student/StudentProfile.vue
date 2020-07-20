@@ -1,9 +1,12 @@
 <template>
     <div class="profile">
-        <div class="profile-info">
-            <h1>Hello, {{ student.name }}</h1>
+        <div v-if="student" class="profile-info">
+            <h1>Hello, {{ student.stu_name }}</h1>
             <div class="profile-img">
-                <img :src="require(`../../assets/${student.image}`)" alt="student profile picture" />
+                <img
+                    :src="require(`../../assets/selfmade/${student.stu_picture}`)"
+                    alt="student profile picture"
+                />
                 <button class="uploadBtn mobile-hide">
                     Upload
                     <i class="fas fa-camera"></i>
@@ -18,12 +21,12 @@
                     <h4>Personal Information</h4>
                     <label for="name">Full name</label>
                     <br />
-                    <input v-model="student.name" type="text" name="name" id="name" />
+                    <input v-model="student.stu_name" type="text" name="name" id="name" />
                     <br />
 
                     <label for="studID">Student ID</label>
                     <br />
-                    <input v-model="student.studentID" type="text" name="studID" id="studID" />
+                    <input v-model="student.stu_id" type="text" name="studID" id="studID" />
                     <br />
 
                     <label for="dob">Date of birth</label>
@@ -33,23 +36,23 @@
 
                     <label for="degree">Degree</label>
                     <br />
-                    <input v-model="student.degree" type="text" name="degree" id="degree" />
+                    <input v-model="student.stu_degree" type="text" name="degree" id="degree" />
                     <br />
 
                     <label for="year">Current Year</label>
                     <br />
-                    <input v-model="student.year" type="text" name="year" id="year" />
+                    <input v-model="student.stu_year" type="text" name="year" id="year" />
                     <br />
 
                     <h4>Contact Information</h4>
                     <label for="email">Email</label>
                     <br />
-                    <input v-model="student.email" type="email" name="email" id="email" />
+                    <input v-model="student.stu_email" type="email" name="email" id="email" />
                     <br />
 
                     <label for="contact">Contact number</label>
                     <br />
-                    <input v-model="student.number" type="text" name="contact" id="contact" />
+                    <input v-model="student.stu_mobile" type="text" name="contact" id="contact" />
                     <br />
 
                     <h4>Resume and links</h4>
@@ -66,7 +69,7 @@
 
                     <label for="linkedin">Linkedin link</label>
                     <br />
-                    <input v-model="student.linkedIn" type="text" name="linkedin" id="linked" />
+                    <input v-model="student.stu_linkedIn" type="text" name="linkedin" id="linked" />
                     <br />
 
                     <button type="submit" class="updateBtn">Update Information</button>
@@ -95,17 +98,26 @@
 
 <script>
 import moment from "moment";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
     name: "StudentProfile",
-    data() {
-        // for now use student 1
-        const student = this.$store.getters.getStuById(1);
-        const dob = moment(String(student.dob)).format("YYYY-MM-DD");
-        return {
-            student: student,
-            dob: dob
-        };
+    methods: {
+        ...mapActions(["fetchStudents"])
+    },
+    computed: {
+        ...mapGetters({
+            getStuById: "getStuById"
+        }),
+        student() {
+            return this.getStuById(1);
+        },
+        dob() {
+            return moment(String(this.student.stu_dob)).format("YYY-MM-DD");
+        }
+    },
+    async created() {
+        this.fetchStudents();
     }
 };
 </script>

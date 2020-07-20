@@ -7,13 +7,18 @@
                     <div class="half">
                         <label for="coName">Company Name</label>
                         <br />
-                        <input v-model="employer.companyName" type="text" name="coName" id="coName" />
+                        <input v-model="employer.emp_company" type="text" name="coName" id="coName" />
                         <br />
                     </div>
                     <div class="half">
                         <label for="coRegNo">Company Reg. No.</label>
                         <br />
-                        <input v-model="employer.coRegNo" type="text" name="coRegNo" id="coRegNo" />
+                        <input
+                            v-model="employer.emp_coRegNo"
+                            type="text"
+                            name="coRegNo"
+                            id="coRegNo"
+                        />
                         <br />
                     </div>
                 </div>
@@ -21,13 +26,18 @@
                     <div class="half">
                         <label for="coNo">Company No.</label>
                         <br />
-                        <input v-model="employer.coNo" type="text" name="coNo" id="coNo" />
+                        <input v-model="employer.emp_coContact" type="text" name="coNo" id="coNo" />
                         <br />
                     </div>
                     <div class="half">
                         <label for="coEmail">Company Email</label>
                         <br />
-                        <input v-model="employer.coEmail" type="email" name="coEmail" id="coEmail" />
+                        <input
+                            v-model="employer.emp_coEmail"
+                            type="email"
+                            name="coEmail"
+                            id="coEmail"
+                        />
                         <br />
                     </div>
                 </div>
@@ -35,7 +45,7 @@
                     <div class="full">
                         <label for="coAdd">Company Address</label>
                         <br />
-                        <input v-model="employer.coAdd" type="text" name="coAdd" id="coAdd" />
+                        <input v-model="employer.emp_coAddress" type="text" name="coAdd" id="coAdd" />
                         <br />
                     </div>
                 </div>
@@ -44,7 +54,7 @@
                         <label for="coCountry">Country</label>
                         <br />
                         <input
-                            v-model="employer.coCountry"
+                            v-model="employer.emp_coCountry"
                             type="text"
                             name="coCountry"
                             id="coCountry"
@@ -54,14 +64,14 @@
                     <div class="half">
                         <label for="coWeb">Company Website</label>
                         <br />
-                        <input v-model="employer.website" type="text" name="coWeb" id="coWeb" />
+                        <input v-model="employer.emp_website" type="text" name="coWeb" id="coWeb" />
                     </div>
                 </div>
             </div>
 
             <div class="coLogo">
                 <h5>Company Logo</h5>
-                <img :src="require(`../assets/${employer.coLogo}`)" alt="company logo" />
+                <img :src="require(`../assets/${employer.emp_logo}`)" alt="company logo" />
                 <button class="uploadBtn">
                     Upload
                     <i class="fas fa-camera"></i>
@@ -71,7 +81,7 @@
             <div class="coDesc">
                 <label for="coDesc">Company Description</label>
                 <br />
-                <textarea v-model="employer.coDesc" name="coDesc" id="coDesc" rows="10"></textarea>
+                <textarea v-model="employer.emp_coDesc" name="coDesc" id="coDesc" rows="10"></textarea>
             </div>
         </div>
 
@@ -82,14 +92,18 @@
                     <div class="half">
                         <label for="empName">Name</label>
                         <br />
-                        <input v-model="employer.name" type="text" name="empName" id="empName" />
+                        <input v-model="employer.emp_name" type="text" name="empName" id="empName" />
                         <br />
                     </div>
                     <div class="half">
                         <label for="salutation">Title/Salutation</label>
                         <br />
                         <div class="select">
-                            <select v-model="employer.salutation" name="salutation" id="salutation">
+                            <select
+                                v-model="employer.emp_salutation"
+                                name="salutation"
+                                id="salutation"
+                            >
                                 <option value="default" selected></option>
                                 <option value="Mr.">Mr.</option>
                                 <option value="Mrs.">Mrs.</option>
@@ -106,7 +120,7 @@
                         <label for="empContactNo">Contact No.</label>
                         <br />
                         <input
-                            v-model="employer.contactNo"
+                            v-model="employer.emp_mobile"
                             type="text"
                             name="empContactNo"
                             id="empContactNo"
@@ -116,7 +130,12 @@
                     <div class="half">
                         <label for="empEmail">Email</label>
                         <br />
-                        <input v-model="employer.email" type="email" name="empEmail" id="empEmail" />
+                        <input
+                            v-model="employer.emp_email"
+                            type="email"
+                            name="empEmail"
+                            id="empEmail"
+                        />
                         <br />
                     </div>
                 </div>
@@ -125,7 +144,7 @@
                         <label for="empLinkedIn">LinkedIn Link</label>
                         <br />
                         <input
-                            v-model="employer.linkedin"
+                            v-model="employer.emp_linkedin"
                             type="text"
                             name="empLinkedIn"
                             id="empLinkedIn"
@@ -137,7 +156,7 @@
 
             <div class="empLogo">
                 <h5>Profile Photo</h5>
-                <img :src="require(`../assets/${employer.avatar}`)" alt="profile photo" />
+                <img :src="require(`../assets/${employer.emp_picture}`)" alt="profile photo" />
                 <button class="uploadBtn">
                     Upload
                     <i class="fas fa-camera"></i>

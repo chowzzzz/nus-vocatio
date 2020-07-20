@@ -29,11 +29,14 @@
                         @click="navigateTo({name: 'job-details', params: {jobID: pair.job.id}})"
                     >
                         <div class="job-img">
-                            <img src="../../assets/selfmade/picture.svg" alt="company logo" />
+                            <img
+                                :src="require(`../../assets/selfmade/${pair.coLogo}`)"
+                                alt="company logo"
+                            />
                         </div>
                         <div class="job-title">
                             <h4>{{ pair.job.post_title }}</h4>
-                            <p>{{ pair.companyName }}</p>
+                            <p>{{ pair.company }}</p>
                             <p id="desc">{{ pair.job.post_short_des }}</p>
                             <p id="filters">
                                 <span id="type">{{ pair.job.post_type }}</span>
@@ -71,7 +74,7 @@ export default {
     methods: {
         ...mapActions(["fetchJobPosts", "fetchEmployers"]),
         navigateTo(route) {
-            console.log(route);
+            // console.log(route);
             this.$router.push(route);
         }
     },
@@ -80,10 +83,12 @@ export default {
         ...mapState(["jobposts", "employers"]),
         pairs() {
             return this.allJobs.map(job => {
+                const employer = this.$store.getters.getEmpById(job.employerId);
+                // console.log(employer);
                 return {
                     job: job,
-                    companyName: this.$store.getters.getEmpById(job.employerId)
-                        .emp_company
+                    company: employer.emp_company,
+                    coLogo: employer.emp_logo
                 };
             });
         }

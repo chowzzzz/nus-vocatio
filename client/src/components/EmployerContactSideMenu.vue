@@ -2,27 +2,30 @@
     <div class="side">
         <div class="employer-info">
             <div class="employer-title">
-                <img :src="require(`../assets/${employer.avatar}`)" alt="employer avatar" />
-                <p>{{ employer.name }}</p>
-                <p>{{ employer.companyName }}</p>
+                <img
+                    :src="require(`../assets/selfmade/${employer.emp_picture}`)"
+                    alt="employer avatar"
+                />
+                <p>{{ employer.emp_name }}</p>
+                <p>{{ employer.emp_company }}</p>
             </div>
             <div class="employer-contacts">
                 <ul>
                     <li>
                         <img src="../assets/selfmade/email.svg" alt="email" />
-                        <span>{{ employer.email }}</span>
+                        <span>{{ employer.emp_email }}</span>
                     </li>
                     <li>
                         <img src="../assets/selfmade/phone.svg" alt="contactNo" />
-                        <span>{{ employer.contactNo }}</span>
+                        <span>{{ employer.emp_mobile }}</span>
                     </li>
-                    <li>
+                    <li v-if="employer.emp_website !== null">
                         <img src="../assets/selfmade/web.svg" alt="website" />
-                        <span>{{ employer.website }}</span>
+                        <span>{{ employer.emp_website }}</span>
                     </li>
-                    <li>
+                    <li v-if="employer.emp_linkedin !== null">
                         <img src="../assets/linkedin.svg" alt="linkedin" />
-                        <span>{{ employer.linkedin }}</span>
+                        <span>{{ employer.emp_linkedin }}</span>
                     </li>
                 </ul>
             </div>
@@ -47,7 +50,7 @@ export default {
         const job = this.$store.getters.getJobById(this.$route.params.jobID);
         return {
             job: job,
-            employer: this.$store.getters.getEmpById(job.empID),
+            employer: this.$store.getters.getEmpById(job.id),
             currentUser: this.user
         };
     },
