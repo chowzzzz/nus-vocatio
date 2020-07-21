@@ -25,7 +25,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         emp_email: {
             type: Sequelize.DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         emp_linkedin: {
             type: Sequelize.DataTypes.STRING,

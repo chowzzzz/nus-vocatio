@@ -1,8 +1,8 @@
 <template>
     <div class="parent-container">
-        <div class="login-container">
-            <img src="../../assets/selfmade/student.svg" alt="Student Login" id="stu-img" />
-            <h2>Student Login</h2>
+        <div class="register-container">
+            <img src="../../assets/selfmade/student.svg" alt="Student Register" id="stu-img" />
+            <h2>Student Register</h2>
             <div class="input-container">
                 <img src="../../assets/user.svg" alt="Email" />
                 <input
@@ -24,10 +24,10 @@
                 />
             </div>
             <button>Login</button>
-            <div class="register">
-                <p>Don't have an account yet?</p>
-                <router-link to="/register/student">
-                    <p>Create an account</p>
+            <div class="login">
+                <p>Already have an account?</p>
+                <router-link to="/login/student">
+                    <p>Login here</p>
                 </router-link>
             </div>
         </div>
@@ -36,7 +36,7 @@
 
 <script>
 export default {
-    name: "StudentLogin",
+    name: "StudentRegister",
     data() {
         return {
             email: "",
@@ -53,7 +53,7 @@ export default {
     height: calc(100vh - 220px);
 }
 
-.login-container {
+.register-container {
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -104,7 +104,7 @@ button:hover {
     color: #fff;
 }
 
-.register {
+.login {
     text-align: center;
 }
 

@@ -22,22 +22,22 @@
 
                 <hide-at :breakpoints="{small: 400, medium: 571}" breakpoint="mediumAndBelow">
                     <ul>
-                        <li>
-                            <router-link to="/student-login">
+                        <li class="redirect-buttons" v-if="studentShow">
+                            <router-link to="/login/student">
                                 <img src="../assets/selfmade/student.svg" alt="Student" />
-                                Student
+                                <p>Student</p>
                             </router-link>
                         </li>
-                        <li>
-                            <router-link to="/employer-login">
+                        <li class="redirect-buttons" v-if="employerShow">
+                            <router-link to="/login/employer">
                                 <img src="../assets/selfmade/employer.svg" alt="Employer" />
-                                Employer
+                                <p>Employer</p>
                             </router-link>
                         </li>
-                        <li>
-                            <router-link to="/admin-login">
+                        <li class="redirect-buttons" v-if="adminShow">
+                            <router-link to="/login/admin">
                                 <img src="../assets/selfmade/user.svg" alt="Admin" />
-                                Admin
+                                <p>Admin</p>
                             </router-link>
                         </li>
                     </ul>
@@ -51,17 +51,17 @@
                             </span>
                         </li>
                         <router-link to="/student-login">
-                            <li class="mobile-nav" @click="toggle">
+                            <li class="mobile-nav" @click="toggle" v-if="studentShow">
                                 <span>Student Login</span>
                             </li>
                         </router-link>
                         <router-link to="/employer-login">
-                            <li class="mobile-nav" @click="toggle">
+                            <li class="mobile-nav" @click="toggle" v-if="employerShow">
                                 <span>Employer Login</span>
                             </li>
                         </router-link>
                         <router-link to="/admin-login">
-                            <li class="mobile-nav" @click="toggle">
+                            <li class="mobile-nav" @click="toggle" v-if="adminShow">
                                 <span id="admin">Admin Login</span>
                             </li>
                         </router-link>
@@ -84,7 +84,10 @@ export default {
     },
     data() {
         return {
-            toggleDisplay: "none"
+            toggleDisplay: "none",
+            studentShow: false,
+            employerShow: false,
+            adminShow: false
         };
     },
     methods: {
@@ -93,16 +96,42 @@ export default {
                 ? (this.toggleDisplay = "block")
                 : (this.toggleDisplay = "none");
         }
+    },
+    watch: {
+        $route: function() {
+            if (
+                this.$route.path === "/login/student" ||
+                this.$route.path === "/register/student"
+            ) {
+                this.studentShow = false;
+                this.employerShow = true;
+                this.adminShow = true;
+            } else if (
+                this.$route.path === "/login/employer" ||
+                this.$route.path === "/register/employer"
+            ) {
+                this.studentShow = true;
+                this.employerShow = false;
+                this.adminShow = true;
+            } else if (this.$route.path === "/login/admin") {
+                this.studentShow = true;
+                this.employerShow = true;
+                this.adminShow = false;
+            } else {
+                this.studentShow = false;
+                this.employerShow = false;
+                this.adminShow = true;
+            }
+        }
     }
 };
 </script>
 
 <style scoped>
 .nav-container {
-    background: #eceff3;
     display: flex;
     justify-content: space-between;
-    padding: 0.1em 2.3em;
+    padding: 2em 4em;
 }
 
 #navLogo {
@@ -128,18 +157,28 @@ nav ul {
 
 nav ul li {
     display: inline-block;
-    margin: 0 0.3em;
+    margin: 0 0.5em;
 }
 
 nav img {
     width: 30px;
 }
 
+.redirect-buttons {
+    text-align: center;
+}
+
+a {
+    color: #000;
+    font-weight: 600;
+    text-decoration: none;
+}
+
 @media screen and (max-width: 570px) {
     .nav-container {
         display: flex;
         justify-content: space-between;
-        padding: 0 1.5em;
+        padding: 1em 2em;
         align-items: center;
     }
 

@@ -1,24 +1,18 @@
 <template>
-    <div class="container">
-        <img src="../../assets/selfmade/employer.svg" alt="Employer" />
-        <form>
-            <h2>Create an account</h2>
+    <div class="parent-container">
+        <div class="login-container">
+            <img src="../../assets/selfmade/user.svg" alt="Admin Login" id="admin-img" />
+            <h2>Admin Login</h2>
             <div class="input-container">
-                <img src="../../assets/mail.svg" alt="Email" />
-                <input type="email" v-model="email" name="email" id="email" placeholder="Email" />
-            </div>
-
-            <div class="input-container">
-                <img src="../../assets/user.svg" alt="User" />
+                <img src="../../assets/user.svg" alt="username" />
                 <input
-                    type="text"
+                    type="username"
                     v-model="username"
                     name="username"
                     id="username"
                     placeholder="Username"
                 />
             </div>
-
             <div class="input-container">
                 <img src="../../assets/lock.svg" alt="Password" />
                 <input
@@ -29,48 +23,40 @@
                     placeholder="Password"
                 />
             </div>
-            <button @click="signup">Sign up</button>
-        </form>
+            <button>Login</button>
+        </div>
     </div>
 </template>
 
 <script>
-import AuthenticationService from "../../services/AuthenticationService";
 export default {
-    name: "Signup",
+    name: "AdminLogin",
     data() {
         return {
             email: "",
-            username: "",
             password: ""
         };
     },
-    methods: {
-        async signup() {
-            const response = await AuthenticationService.signup({
-                email: this.email,
-                username: this.username,
-                password: this.password
-            });
-            console.log(response.data);
-        }
-    }
+    methods: {}
 };
 </script>
 
 <style scoped>
-.container {
-    text-align: center;
-    margin: 2em;
+.parent-container {
+    display: grid;
+    height: calc(100vh - 220px);
 }
 
-h2 {
-    font-weight: bold;
-    padding: 0.5em;
+.login-container {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-img {
-    width: 200px;
+#admin-img {
+    width: 80%;
+    margin-bottom: 1.5em;
 }
 
 .input-container {
@@ -88,6 +74,8 @@ input {
     border: none;
     border-bottom: 1px solid #e6e6e6;
     padding: 5px 0;
+    border-radius: 0;
+    width: 200px;
 }
 
 input:focus {
@@ -108,5 +96,38 @@ button {
 button:hover {
     background: #b8b8b8;
     color: #fff;
+}
+
+.register {
+    text-align: center;
+}
+
+a {
+    color: #5a845a;
+}
+
+@media screen and (max-width: 570px) {
+    .parent-container {
+        height: calc(100vh - 160px);
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    input {
+        width: 150px;
+    }
+
+    button,
+    p {
+        font-size: 11px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .parent-container {
+        height: calc(100vh - 175px);
+    }
 }
 </style>

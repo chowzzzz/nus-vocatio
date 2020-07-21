@@ -2,7 +2,8 @@ module.exports = (sequelize, Sequelize) => {
     const Student = sequelize.define("student", {
         stu_id: {
             type: Sequelize.DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         stu_name: {
             type: Sequelize.DataTypes.STRING,
@@ -22,7 +23,8 @@ module.exports = (sequelize, Sequelize) => {
         },
         stu_email: {
             type: Sequelize.DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            unique: true
         },
         stu_faculty: {
             type: Sequelize.DataTypes.ENUM(

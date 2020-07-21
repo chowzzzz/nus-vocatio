@@ -1,12 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
 import store from "../store";
 
 // import StudentSearch from "../views/Student/StudentSearch.vue";
 // import StudentJobListing from "../views/Student/StudentJobListing.vue";
 import StudentNotification from "../views/Student/StudentNotification.vue";
-import Signup from "../views/Employer/EmployerSignup.vue";
 
 // import EmployerJobPosting from "../views/Employer/EmployerJobPosting.vue";
 import EmployerApp from "../views/Employer/EmployerApp.vue";
@@ -38,21 +36,43 @@ const routes = [
                     return import("../views/Employer/EmployerHome.vue");
                 case "student":
                     return import("../views/Student/StudentHome.vue");
-                default:
-                    return import("../views/Home.vue");
             }
+        },
+        beforeEnter: (to, from, next) => {
+            if (!store.state.isAuthenticated) next("/login");
+            else next();
         },
         meta: { hideSearch: true }
     },
     {
         path: "/login",
         name: "login",
-        component: Home
+        component: () => import("../views/Home.vue")
     },
     {
-        path: "/signup",
-        name: "Signup",
-        component: Signup
+        path: "/login/student",
+        name: "login-student",
+        component: () => import("../views/Student/StudentLogin.vue")
+    },
+    {
+        path: "/login/employer",
+        name: "login-employer",
+        component: () => import("../views/Employer/EmployerLogin.vue")
+    },
+    {
+        path: "/login/admin",
+        name: "login-admin",
+        component: () => import("../views/Admin/AdminLogin.vue")
+    },
+    {
+        path: "/register/student",
+        name: "register-student",
+        component: () => import("../views/Student/StudentRegister.vue")
+    },
+    {
+        path: "/register/employer",
+        name: "register-employer",
+        component: () => import("../views/Employer/EmployerRegister.vue")
     },
     {
         path: "/jobPosts",

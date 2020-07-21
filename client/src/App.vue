@@ -1,20 +1,26 @@
 <template>
     <div id="app">
-        <navBar />
+        <nav-bar v-if="isAuthenticated"></nav-bar>
+        <nav-bar-login v-else></nav-bar-login>
     </div>
 </template>
 
 <script>
 import NavBar from "./components/NavBar.vue";
-import { mapActions } from "vuex";
+import NavBarLogin from "./components/NavBarLogin.vue";
+import { mapActions, mapState } from "vuex";
 
 export default {
     name: "NusVocatio",
     components: {
-        navBar: NavBar
+        NavBar,
+        NavBarLogin
     },
     methods: {
         ...mapActions(["fetchStudents", "fetchEmployers", "fetchJobPosts"])
+    },
+    computed: {
+        ...mapState(["isAuthenticated"])
     },
     created() {
         this.fetchStudents();
