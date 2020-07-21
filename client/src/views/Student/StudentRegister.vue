@@ -130,7 +130,6 @@
 </template>
 
 <script>
-const { required, maxLength, helpers } = window.validators;
 
 export default {
     name: "StudentRegister",
@@ -150,30 +149,6 @@ export default {
             selectedPicture: null,
             url: null
         };
-    },
-    validations: {
-        stu_name: {
-            required
-        },
-        stu_id: {
-            required,
-            maxLength: maxLength(9)
-        },
-        stu_dob: {
-            required
-        },
-        stu_degree: {
-            required
-        },
-        stu_year: {
-            required
-        },
-        stu_email: {
-            required,
-            email
-        },
-        stu_number: "",
-        stu_linkedin: ""
     },
     methods: {
         selectFile() {

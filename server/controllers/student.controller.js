@@ -30,7 +30,8 @@ exports.createStudent = (req, res) => {
         stu_status_change: req.body.stu_status_change,
         stu_new_jobs: req.body.stu_new_jobs,
         stu_news_letter: req.body.stu_news_letter,
-        stu_subscription: req.body.stu_subscription
+        stu_subscription: req.body.stu_subscription,
+        TEST_PICTURE: req.body.TEST_PICTURE
     };
 
     // Save Student in the database

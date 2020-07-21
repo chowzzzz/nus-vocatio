@@ -82,6 +82,10 @@ module.exports = (sequelize, Sequelize) => {
         stu_subscription: {
             type: Sequelize.DataTypes.TINYINT,
             allowNull: true
+        },
+        TEST_PICTURE: {
+            type: Sequelize.DataTypes.BLOB('medium'),
+            allowNull: true
         }
     });
     return Student;
