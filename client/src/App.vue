@@ -227,6 +227,11 @@ textarea {
     transition-duration: 0.4s;
 }
 
+.error {
+    color: red;
+    font-size: 11px;
+}
+
 @media screen and (max-width: 1150px) {
     h3 {
         font-size: 16px;
