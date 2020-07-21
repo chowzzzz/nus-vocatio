@@ -23,7 +23,7 @@
                     placeholder="Password"
                 />
             </div>
-            <button>Login</button>
+            <button @click="login()">Login</button>
             <div class="register">
                 <p>Don't have an account yet?</p>
                 <router-link to="/register/student">
@@ -35,6 +35,9 @@
 </template>
 
 <script>
+import { required, minLength } from "vuelidate/lib/validators";
+import { mapActions } from "vuex";
+
 export default {
     name: "StudentLogin",
     data() {
@@ -43,7 +46,19 @@ export default {
             password: ""
         };
     },
-    methods: {}
+    validations: {
+        email: {
+            required
+        },
+        password: {
+            required,
+            minLength: minLength(8)
+        }
+    },
+    methods: {
+        ...mapActions(["addStudent"]),
+        login() {}
+    }
 };
 </script>
 

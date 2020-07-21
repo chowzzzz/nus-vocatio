@@ -148,6 +148,9 @@ const getters = {
     allStudents: (state) => state.students,
     getStuById: (state) => (id) => {
         return state.students.find((student) => student.id === id);
+    },
+    getStuByEmail: (state) => (email) => {
+        return state.students.find((student) => student.stu_email === email);
     }
 };
 const actions = {

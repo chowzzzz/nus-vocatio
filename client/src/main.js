@@ -7,6 +7,7 @@ import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import moment from "moment";
 import VueSwal from "vue-swal";
+import Vuelidate from "vuelidate";
 
 Vue.config.productionTip = false;
 
@@ -21,6 +22,9 @@ Vue.filter("formatDate", function(value) {
 
 // vue sweet alert
 Vue.use(VueSwal);
+
+// vuelidate
+Vue.use(Vuelidate);
 
 new Vue({
     router,

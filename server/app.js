@@ -4,11 +4,14 @@ const cors = require("cors");
 
 const app = express();
 
-var corsOptions = {
-    origin: "http://localhost:8080"
+const allowCrossDomain = function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", "*");
+    res.header("Access-Control-Allow-Headers", "*");
+    next();
 };
 
-app.use(cors(corsOptions));
+app.use(allowCrossDomain);
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());

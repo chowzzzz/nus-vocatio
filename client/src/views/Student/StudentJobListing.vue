@@ -12,7 +12,6 @@
 import BackBtn from "../../components/BackBtn.vue";
 import JobListing from "../../components/JobListing.vue";
 import EmployerContact from "../../components/EmployerContactSideMenu.vue";
-import { mapGetters, mapState, mapActions } from "vuex";
 
 export default {
     name: "StudentJobListing",
