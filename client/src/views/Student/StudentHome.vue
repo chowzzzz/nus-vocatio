@@ -13,7 +13,7 @@
                     </div>
                 </form>
             </section>
-            <img src="../../assets/job.jpg" alt="searching for jobs" class="jobPic" />
+            <!-- <img src="../../assets/job.jpg" alt="searching for jobs" class="jobPic" /> -->
         </div>
         <about />
     </div>
