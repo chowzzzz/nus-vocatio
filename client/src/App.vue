@@ -125,7 +125,7 @@ textarea:focus {
     cursor: pointer;
     padding: 0.6em 0.8em;
     padding-right: 3em;
-    margin: 0 0 0.5em;
+    margin: 0.5em 0 0.5em;
     outline: 0;
     border: 0;
     border-radius: 12px;
@@ -229,6 +229,10 @@ textarea {
 
 .error {
     color: red;
+    font-size: 11px;
+}
+
+.statusMsg {
     font-size: 11px;
 }
 

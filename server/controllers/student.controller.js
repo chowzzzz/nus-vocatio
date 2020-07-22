@@ -1,4 +1,5 @@
 const db = require("../models");
+const fs = require("fs");
 const Student = db.student;
 const Application = db.application;
 const Op = db.Sequelize.Op;
@@ -13,29 +14,52 @@ exports.createStudent = (req, res) => {
         return;
     }
 
+    let stu_resume, stu_resume_name, stu_picture, stu_picture_name;
+    req.files.forEach((object) => {
+        if (object.fieldname == "stu_resume") {
+            stu_resume_name = object.originalname;
+            stu_resume = fs.readFileSync(
+                __basedir + "/assets/uploads/" + object.filename
+            );
+        } else if (object.fieldname == "stu_picture") {
+            stu_picture_name = object.originalname;
+            stu_picture = fs.readFileSync(
+                __basedir + "/assets/uploads/" + object.filename
+            );
+        }
+    });
+
     // Create a student
     const student = {
         stu_id: req.body.stu_id,
         stu_name: req.body.stu_name,
         stu_dob: req.body.stu_dob,
-        stu_picture: req.body.stu_picture,
+        stu_picture: stu_picture,
         stu_mobile: req.body.stu_mobile,
         stu_email: req.body.stu_email,
         stu_faculty: req.body.stu_faculty,
         stu_degree: req.body.stu_degree,
         stu_year: req.body.stu_year,
         stu_linkedin: req.body.stu_linkedin,
-        stu_resume: req.body.stu_resume,
+        stu_resume: stu_resume,
         stu_password: req.body.stu_password,
-        stu_status_change: req.body.stu_status_change,
-        stu_new_jobs: req.body.stu_new_jobs,
-        stu_news_letter: req.body.stu_news_letter,
-        stu_subscription: req.body.stu_subscription
+        stu_status_change: 1,
+        stu_new_jobs: 1,
+        stu_news_letter: 1,
+        stu_subscription: 1
     };
 
     // Save Student in the database
     Student.create(student)
         .then((data) => {
+            fs.writeFileSync(
+                __basedir + "/assets/tmp/" + stu_resume_name,
+                stu_resume
+            );
+            fs.writeFileSync(
+                __basedir + "/assets/tmp/" + stu_picture_name,
+                stu_picture
+            );
             res.send(data);
         })
         .catch((err) => {

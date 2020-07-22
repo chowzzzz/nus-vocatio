@@ -1,17 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+global.__basedir = __dirname;
 
 const app = express();
 
-const allowCrossDomain = function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "*");
-    res.header("Access-Control-Allow-Headers", "*");
-    next();
-};
-
-app.use(allowCrossDomain);
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());

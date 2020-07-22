@@ -14,8 +14,8 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         stu_picture: {
-            type: Sequelize.DataTypes.STRING,
-            allowNull: false
+            type: Sequelize.DataTypes.BLOB("medium"),
+            allowNull: true
         },
         stu_mobile: {
             type: Sequelize.DataTypes.STRING,
@@ -52,7 +52,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         stu_year: {
-            type: Sequelize.DataTypes.TINYINT,
+            type: Sequelize.DataTypes.TINYINT(1),
             allowNull: false
         },
         stu_linkedin: {
@@ -68,20 +68,20 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         stu_status_change: {
-            type: Sequelize.DataTypes.TINYINT,
-            allowNull: true
+            type: Sequelize.DataTypes.BOOLEAN,
+            allowNull: false
         },
         stu_new_jobs: {
-            type: Sequelize.DataTypes.TINYINT,
-            allowNull: true
+            type: Sequelize.DataTypes.BOOLEAN,
+            allowNull: false
         },
         stu_news_letter: {
-            type: Sequelize.DataTypes.TINYINT,
-            allowNull: true
+            type: Sequelize.DataTypes.BOOLEAN,
+            allowNull: false
         },
         stu_subscription: {
-            type: Sequelize.DataTypes.TINYINT,
-            allowNull: true
+            type: Sequelize.DataTypes.BOOLEAN,
+            allowNull: false
         }
     });
     return Student;

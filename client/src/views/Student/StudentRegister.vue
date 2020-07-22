@@ -8,7 +8,7 @@
                         <label for="email">NUS Email ID</label>
                         <br />
                         <input
-                            v-model.lazy="$v.stu_email.$model"
+                            v-model.lazy="$v.student.stu_email.$model"
                             type="text"
                             name="email"
                             id="email"
@@ -16,18 +16,18 @@
 
                         <div
                             class="error"
-                            v-if="!$v.stu_email.required && $v.stu_email.$dirty"
+                            v-if="!$v.student.stu_email.required && $v.student.stu_email.$dirty"
                         >*Field is required</div>
                         <div
                             class="error"
-                            v-if="!$v.stu_email.email && $v.stu_email.$dirty"
+                            v-if="!$v.student.stu_email.email && $v.student.stu_email.$dirty"
                         >*Invalid email</div>
                     </div>
                     <div class="half">
                         <label for="studID">Student ID</label>
                         <br />
                         <input
-                            v-model.lazy="$v.stu_id.$model"
+                            v-model.lazy="$v.student.stu_id.$model"
                             type="text"
                             name="studID"
                             id="studID"
@@ -35,15 +35,11 @@
 
                         <div
                             class="error"
-                            v-if="!$v.stu_id.required && $v.stu_id.$dirty"
+                            v-if="!$v.student.stu_id.required && $v.student.stu_id.$dirty"
                         >*Field is required</div>
                         <div
                             class="error"
-                            v-if="!$v.stu_id.maxLength && $v.stu_id.$dirty"
-                        >*Please enter valid student ID</div>
-                        <div
-                            class="error"
-                            v-if="!$v.stu_id.verifyId && $v.stu_id.$dirty"
+                            v-if="(!$v.student.stu_id.maxLength || !$v.student.stu_id.verifyId) && $v.student.stu_id.$dirty"
                         >*Please enter valid student ID</div>
                     </div>
                 </div>
@@ -52,36 +48,36 @@
                         <label for="password">Password</label>
                         <br />
                         <input
-                            v-model.lazy="$v.stu_password.$model"
+                            v-model.lazy="$v.student.stu_password.$model"
                             type="password"
                             name="password"
                             id="password"
                         />
                         <div
                             class="error"
-                            v-if="!$v.stu_password.required && $v.stu_password.$dirty"
+                            v-if="!$v.student.stu_password.required && $v.student.stu_password.$dirty"
                         >*Field is required</div>
                         <div
                             class="error"
-                            v-if="!$v.stu_password.minLength && $v.stu_password.$dirty"
+                            v-if="!$v.student.stu_password.minLength && $v.student.stu_password.$dirty"
                         >*Password must be at least 8 characters</div>
                     </div>
                     <div class="half">
                         <label for="confirmPwd">Confirm Password</label>
                         <br />
                         <input
-                            v-model.lazy="$v.confirmPwd.$model"
+                            v-model.lazy="$v.student.confirmPwd.$model"
                             type="password"
                             name="confirmPwd"
                             id="confirmPwd"
                         />
                         <div
                             class="error"
-                            v-if="!$v.confirmPwd.required && $v.confirmPwd.$dirty"
+                            v-if="!$v.student.confirmPwd.required && $v.student.confirmPwd.$dirty"
                         >*Field is required</div>
                         <div
                             class="error"
-                            v-if="!$v.confirmPwd.sameAsPassword && $v.confirmPwd.$dirty"
+                            v-if="!$v.student.confirmPwd.sameAsPassword && $v.student.confirmPwd.$dirty"
                         >*Password needs to be the same</div>
                     </div>
                 </div>
@@ -89,11 +85,16 @@
                     <div class="half">
                         <label for="name">Full Name</label>
                         <br />
-                        <input v-model.lazy="$v.stu_name.$model" type="text" name="name" id="name" />
+                        <input
+                            v-model.lazy="$v.student.stu_name.$model"
+                            type="text"
+                            name="name"
+                            id="name"
+                        />
 
                         <div
                             class="error"
-                            v-if="!$v.stu_name.required && $v.stu_name.$dirty"
+                            v-if="!$v.student.stu_name.required && $v.student.stu_name.$dirty"
                         >*Field is required</div>
                     </div>
 
@@ -101,7 +102,7 @@
                         <label for="contact">Contact number</label>
                         <br />
                         <input
-                            v-model.lazy="$v.stu_mobile.$model"
+                            v-model.lazy="$v.student.stu_mobile.$model"
                             type="text"
                             name="contact"
                             id="contact"
@@ -109,37 +110,81 @@
 
                         <div
                             class="error"
-                            v-if="!$v.stu_mobile.required && $v.stu_mobile.$dirty"
+                            v-if="!$v.student.stu_mobile.required && $v.student.stu_mobile.$dirty"
                         >*Field is required</div>
                         <div
                             class="error"
-                            v-if="!$v.stu_mobile.numeric && $v.stu_mobile.$dirty"
+                            v-if="!$v.student.stu_mobile.numeric && $v.student.stu_mobile.$dirty"
                         >*Invalid number</div>
                     </div>
                 </div>
                 <div class="inputText">
-                    <div class="half">
+                    <div class="half singleHalf">
                         <label for="dob">Date of birth</label>
                         <br />
-                        <input v-model.lazy="$v.stu_dob.$model" type="date" name="dob" id="dob" />
+                        <input
+                            v-model.lazy="$v.student.stu_dob.$model"
+                            type="date"
+                            name="dob"
+                            id="dob"
+                        />
 
                         <div
                             class="error"
-                            v-if="!$v.stu_dob.required && $v.stu_dob.$dirty"
+                            v-if="!$v.student.stu_dob.required && $v.student.stu_dob.$dirty"
+                        >*Field is required</div>
+                    </div>
+                </div>
+                <div class="inputText">
+                    <div class="half">
+                        <label for="faculty">Faculty</label>
+                        <br />
+                        <div class="select">
+                            <select
+                                v-model="student.stu_faculty"
+                                name="stu_faculty"
+                                id="stu_faculty"
+                            >
+                                <option value selected></option>
+                                <option value="FASS">FASS</option>
+                                <option value="Business">Business</option>
+                                <option value="Computing">Computing</option>
+                                <option value="Dentistry">Dentistry</option>
+                                <option value="Design and Environment">Design and Environment</option>
+                                <option value="Duke-NUS Medical Schoo">Duke-NUS Medical School</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Law">Law</option>
+                                <option value="Medicine">Medicine</option>
+                                <option value="Music">Music</option>
+                                <option value="Public Health">Public Health</option>
+                                <option value="Public Policy">Public Policy</option>
+                                <option
+                                    value="School of Continuing and Lifelong Education"
+                                >School of Continuing and Lifelong Education</option>
+                                <option value="Science">Science</option>
+                                <option
+                                    value="University Scholars Programme"
+                                >University Scholars Programme</option>
+                                <option value="Yale-NU">Yale-NUS</option>
+                            </select>
+                        </div>
+                        <div
+                            class="error"
+                            v-if="!$v.student.stu_faculty.required && $v.student.stu_faculty.$dirty"
                         >*Field is required</div>
                     </div>
                     <div class="half">
                         <label for="degree">Degree</label>
                         <br />
                         <input
-                            v-model.lazy="$v.stu_degree.$model"
+                            v-model.lazy="$v.student.stu_degree.$model"
                             type="text"
                             name="degree"
                             id="degree"
                         />
                         <div
                             class="error"
-                            v-if="!$v.stu_degree.required && $v.stu_degree.$dirty"
+                            v-if="!$v.student.stu_degree.required && $v.student.stu_degree.$dirty"
                         >*Field is required</div>
                     </div>
                 </div>
@@ -147,14 +192,14 @@
                     <div class="half year">
                         <label for="year">Current Year</label>
                         <br />
-                        <input v-model.lazy="$v.stu_year.$model" type="text" name="year" />
+                        <input v-model.lazy="$v.student.stu_year.$model" type="text" name="year" />
                         <div
                             class="error"
-                            v-if="!$v.stu_year.required && $v.stu_year.$dirty"
+                            v-if="!$v.student.stu_year.required && $v.student.stu_year.$dirty"
                         >*Field is required</div>
                         <div
                             class="error"
-                            v-if="!$v.stu_year.maxLength && $v.stu_year.$dirty"
+                            v-if="(!$v.student.stu_year.maxLength || !$v.student.stu_year.numeric) && $v.student.stu_year.$dirty"
                         >*Invalid year of study</div>
                     </div>
 
@@ -162,14 +207,14 @@
                         <label for="linkedin">Linkedin link</label>
                         <br />
                         <input
-                            v-model.lazy="$v.stu_linkedin.$model"
+                            v-model.lazy="$v.student.stu_linkedin.$model"
                             type="text"
                             name="linkedin"
                             id="linked"
                         />
                         <div
                             class="error"
-                            v-if="!$v.stu_linkedin.required && $v.stu_linkedin.$dirty"
+                            v-if="!$v.student.stu_linkedin.required && $v.student.stu_linkedin.$dirty"
                         >*Field is required</div>
                     </div>
                 </div>
@@ -198,7 +243,7 @@
 
             <div class="profile-img">
                 <h5>Profile photo</h5>
-                <img v-if="selectedPicture" :src="url" alt="profile pic" />
+                <img v-if="student.stu_picture" :src="url" alt="profile pic" />
                 <img v-else :src="require('../../assets/selfmade/picture.svg')" alt="profile pic" />
 
                 <button class="uploadBtn" type="button">
@@ -217,6 +262,12 @@
 
             <div class="submit">
                 <button type="submit" id="submitBtn">Register</button>
+                <p class="statusMsg" v-if="submitStatus === 'OK'">Thanks for your submission!</p>
+                <p
+                    class="statusMsg error"
+                    v-if="submitStatus === 'ERROR'"
+                >Please fill the form correctly.</p>
+                <p class="statusMsg" v-if="submitStatus === 'PENDING'">Sending...</p>
             </div>
         </form>
     </div>
@@ -231,75 +282,88 @@ import {
     sameAs,
     numeric
 } from "vuelidate/lib/validators";
+import { mapActions } from "vuex";
 
 export default {
     name: "StudentRegister",
     data() {
         return {
-            stu_name: "",
-            stu_id: "",
-            stu_password: "",
-            confirmPwd: "",
-            stu_dob: "",
-            stu_degree: "",
-            stu_year: "",
-            stu_email: "",
-            stu_mobile: "",
-            stu_linkedin: "",
-            selectedFile: null,
+            student: {
+                stu_name: "",
+                stu_id: "",
+                stu_password: "",
+                confirmPwd: "",
+                stu_dob: "",
+                stu_faculty: "",
+                stu_degree: "",
+                stu_year: "",
+                stu_email: "",
+                stu_mobile: "",
+                stu_linkedin: "",
+                stu_resume: null,
+                stu_picture: null
+            },
             fileName: "",
             errorColor: "#000",
-            selectedPicture: null,
-            url: null
+            url: null,
+            submitStatus: null
         };
     },
     validations: {
-        stu_name: {
-            required
-        },
-        stu_id: {
-            required,
-            maxLength: maxLength(9),
-            verifyId(id) {
-                return /^[A-Z]\d{7}[A-Z]$/.test(id);
+        student: {
+            stu_name: {
+                required
+            },
+            stu_id: {
+                required,
+                maxLength: maxLength(9),
+                verifyId(id) {
+                    return /^[A-Z]\d{7}[A-Z]$/.test(id);
+                }
+            },
+            stu_password: {
+                required,
+                minLength: minLength(8)
+            },
+            confirmPwd: {
+                required,
+                sameAsPassword: sameAs("stu_password")
+            },
+            stu_dob: {
+                required
+            },
+            stu_faculty: {
+                required
+            },
+            stu_degree: {
+                required
+            },
+            stu_year: {
+                required,
+                maxLength: maxLength(1),
+                numeric
+            },
+            stu_email: {
+                required,
+                email
+            },
+            stu_mobile: {
+                required,
+                numeric
+            },
+            stu_linkedin: {
+                required
             }
-        },
-        stu_password: {
-            required,
-            minLength: minLength(8)
-        },
-        confirmPwd: {
-            required,
-            sameAsPassword: sameAs("stu_password")
-        },
-        stu_dob: {
-            required
-        },
-        stu_degree: {
-            required
-        },
-        stu_year: {
-            required,
-            maxLength: maxLength(1)
-        },
-        stu_email: {
-            required,
-            email
-        },
-        stu_mobile: {
-            required,
-            numeric
-        },
-        stu_linkedin: {
-            required
         }
     },
     methods: {
+        ...mapActions(["addStudent"]),
         selectFile() {
             if (this.$refs.file.files[0].type.match("application.*")) {
                 this.errorColor = "#000";
-                this.selectedFile = this.$refs.file.files[0];
-                this.fileName = this.selectedFile.name;
+                this.student.stu_resume = this.$refs.file.files.item(0);
+                console.log(this.student.stu_resume);
+                this.fileName = this.student.stu_resume.name;
             } else {
                 this.errorColor = "red";
                 this.fileName =
@@ -307,7 +371,7 @@ export default {
             }
         },
         selectPicture() {
-            this.selectedPicture = this.$refs.picture.files[0];
+            this.student.stu_picture = this.$refs.picture.files[0];
             const reader = new FileReader();
             reader.onload = e => {
                 this.url = e.target.result;
@@ -316,7 +380,36 @@ export default {
             reader.readAsDataURL(this.$refs.picture.files[0]);
         },
         register() {
-            console.log("hi");
+            console.log("submit");
+            this.$v.$touch();
+            if (this.$v.$invalid) {
+                this.submitStatus = "ERROR";
+            } else {
+                // do your submit logic here
+                this.submitStatus = "PENDING";
+
+                const stu = new FormData();
+                stu.append("stu_name", this.student.stu_name);
+                stu.append("stu_id", this.student.stu_id);
+                stu.append("stu_password", this.student.stu_password);
+                stu.append("confirmPwd", this.student.confirmPwd);
+                stu.append("stu_dob", this.student.stu_dob);
+                stu.append("stu_faculty", this.student.stu_faculty);
+                stu.append("stu_degree", this.student.stu_degree);
+                stu.append("stu_year", this.student.stu_year);
+                stu.append("stu_email", this.student.stu_email);
+                stu.append("stu_mobile", this.student.stu_mobile);
+                stu.append("stu_linkedin", this.student.stu_linkedin);
+                stu.append("stu_resume", this.student.stu_resume);
+                stu.append("stu_picture", this.student.stu_picture);
+
+                this.addStudent(stu)
+                    .then(() => {
+                        console.log("success");
+                        this.submitStatus = "OK";
+                    })
+                    .catch(err => console.log(err));
+            }
         }
     }
 };
@@ -328,7 +421,7 @@ h2 {
 }
 
 .parent-container {
-    margin: 1em 4em 3em;
+    margin: 1em 13em 3em;
 }
 .input-container {
     display: grid;
@@ -395,9 +488,8 @@ input[type="file"] {
     border: 1px solid #b8b8b8;
     border-radius: 12px;
     text-align: left;
-    width: 100%;
     box-sizing: border-box;
-    font-size: 12x;
+    font-size: 12px;
 }
 
 span {
@@ -435,13 +527,24 @@ h5 {
     text-decoration: underline;
 }
 
+.singleHalf {
+    width: 47%;
+}
+
 @media screen and (max-width: 1150px) {
+    .parent-container {
+        margin: 1em 8em 3em;
+    }
+
     .profile-img {
         margin: 0;
     }
 }
 
 @media screen and (max-width: 900px) {
+    .parent-container {
+        margin: 1em 4em 3em;
+    }
 }
 
 @media screen and (max-width: 700px) {
