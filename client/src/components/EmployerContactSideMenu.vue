@@ -2,7 +2,7 @@
     <div class="side">
         <div class="employer-info">
             <div class="employer-title">
-                <img :src="image" alt="employer avatar" />
+                <img v-if="image" :src="image" alt="employer avatar" />
                 <p>{{ employer.emp_name }}</p>
                 <p>{{ employer.emp_company }}</p>
             </div>
@@ -44,10 +44,7 @@
 export default {
     name: "EmployerContactSideMenu",
     data() {
-        const job = this.$store.getters.getJobById(this.$route.params.jobID);
         return {
-            job: job,
-            employer: this.$store.getters.getEmpById(job.id),
             currentUser: this.user,
         };
     },
@@ -72,6 +69,18 @@ export default {
     },
     props: ["user"],
     computed: {
+        job() {
+            const job = this.$store.getters.getJobById(
+                this.$route.params.jobID
+            );
+            return job;
+        },
+        employer() {
+            const employer = this.$store.getters.getEmpById(
+                this.job.employerId
+            );
+            return employer;
+        },
         image() {
             return (
                 "data:image/jpg;base64," +

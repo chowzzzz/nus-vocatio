@@ -33,25 +33,16 @@ import { mapActions, mapState } from "vuex";
 
 export default {
     name: "JobListing",
-    /* data() {
-        const job = this.$store.getters.getJobById(this.$route.params.jobID);
-        console.log(job);
-        let requirements = job.post_requirements;
-        requirements = requirements.split("\\n");
-        requirements.pop();
-        return {
-            job: job,
-            employer: this.$store.getters.getEmpById(job.employerId),
-            requirements: requirements,
-        };
-    }, */
     methods: {
         ...mapActions(["fetchJobPosts"]),
     },
     computed: {
         ...mapState(["jobposts"]),
         job() {
-            return this.$store.getters.getJobById(this.$route.params.jobID);
+            const job = this.$store.getters.getJobById(
+                this.$route.params.jobID
+            );
+            return job;
         },
         requirements() {
             let requirements = this.job.post_requirements.split("\\n");
@@ -59,7 +50,10 @@ export default {
             return requirements;
         },
         employer() {
-            return this.$store.getters.getEmpById(this.job.employerId);
+            const employer = this.$store.getters.getEmpById(
+                this.job.employerId
+            );
+            return employer;
         },
     },
     created() {

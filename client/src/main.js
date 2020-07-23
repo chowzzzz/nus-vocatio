@@ -14,7 +14,7 @@ Vue.config.productionTip = false;
 // format date using moment
 Vue.filter("formatDate", function(value) {
     if (value) {
-        return moment(String(value)).format("DD MMM YYYY");
+        return moment(String(value)).format("YYYY-MM-DD");
     }
 });
 

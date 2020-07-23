@@ -42,7 +42,6 @@ export default {
                 student.appID = applicant.id;
                 students.push(student);
             });
-            console.log(students);
             return students;
         },
     },

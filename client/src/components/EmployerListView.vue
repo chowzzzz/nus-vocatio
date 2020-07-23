@@ -52,11 +52,11 @@
                                     id="status"
                                     v-if="home"
                                     v-bind:class="{
-                                        green: post.post_status === 'Accepting applications',
-                                        red: post.post_status === 'Not accepting applications' || post.post_status === 'Max applications',
-                                        grey: post.post_status === 'Removed'
+                                        green: post.post_status === 1,
+                                        red: post.post_status === 2 || post.post_status === 3,
+                                        grey: post.post_status === 4
                             }"
-                                >{{ post.post_status | upperCase }}</span>
+                                >{{ post.post_status | postStatus }}</span>
                                 <span
                                     id="status"
                                     v-else
@@ -98,8 +98,26 @@ export default {
     },
     props: ["title", "posts", "path", "home"],
     filters: {
-        upperCase(value) {
-            return value.toUpperCase();
+        postStatus(value) {
+            let status;
+            switch (value) {
+                case 1:
+                    status = "ACCEPTING APPLICATIONS";
+                    break;
+                case 2:
+                    status = "NOT ACCEPTING APPLICATIONS";
+                    break;
+                case 3:
+                    status = "MAX APPLICATIONS";
+                    break;
+                case 4:
+                    status = "REMOVED";
+                    break;
+                default:
+                    status = "";
+                    break;
+            }
+            return status;
         },
         appStatus(value) {
             let status;

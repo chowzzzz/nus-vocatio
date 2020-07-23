@@ -1,16 +1,16 @@
 <template>
-    <div class="form-container">
+    <div v-if="post" class="form-container">
         <div class="input-container">
             <div class="left">
                 <label for="job-title">Job Designation</label>
                 <br />
-                <input v-model="title" type="text" name="job-title" id="job-title" />
+                <input v-model="post.post_title" type="text" name="job-title" id="job-title" />
                 <br />
 
                 <label for="industry">Industry</label>
                 <br />
                 <div class="select">
-                    <select v-model="industry" name="industry" id="industry">
+                    <select v-model="post.post_industry" name="industry" id="industry">
                         <option value="default" selected></option>
                         <option value="Aerospace">Aerospace</option>
                         <option value="Consumer Business">Consumer Business</option>
@@ -44,15 +44,10 @@
                     </select>
                 </div>
 
-                <label for="department">Division/Department</label>
-                <br />
-                <input v-model="department" type="text" name="department" id="department" />
-                <br />
-
                 <label for="salary">Salary amount</label>
                 <br />
                 <input
-                    v-model.number="salary"
+                    v-model.number="post.post_pay"
                     type="number"
                     name="salary"
                     id="salary"
@@ -64,7 +59,14 @@
 
                 <label for="max">Max. no. of applicants</label>
                 <br />
-                <input v-model="maxApplicants" type="number" name="max" id="max" min="1" step="1" />
+                <input
+                    v-model="post.post_max_applicants"
+                    type="number"
+                    name="max"
+                    id="max"
+                    min="1"
+                    step="1"
+                />
                 <br />
             </div>
 
@@ -72,9 +74,8 @@
                 <label for="type">Type of job</label>
                 <br />
                 <div class="select">
-                    <select v-model="type" name="type" id="type">
+                    <select v-model="post.post_type" name="type" id="type">
                         <option value="default" selected></option>
-                        <option value="All type">All types</option>
                         <option value="Internship">Internship</option>
                         <option value="Part-time">Part-time</option>
                         <option value="Research studies">Research studies</option>
@@ -85,14 +86,14 @@
                 <label for="faculty">Faculty</label>
                 <br />
                 <div class="select">
-                    <select v-model="faculty" name="faculty" id="faculty">
+                    <select v-model="post.post_faculty" name="faculty" id="faculty">
                         <option value="default" selected></option>
                         <option value="FASS">FASS</option>
                         <option value="Business">Business</option>
                         <option value="Computing">Computing</option>
                         <option value="Dentistry">Dentistry</option>
                         <option value="Design and Environment">Design and Environment</option>
-                        <option value="Duke-NUS Medical Schoo">Duke-NUS Medical School</option>
+                        <option value="Duke-NUS Medical School">Duke-NUS Medical School</option>
                         <option value="Engineering">Engineering</option>
                         <option value="Law">Law</option>
                         <option value="Medicine">Medicine</option>
@@ -104,7 +105,7 @@
                         >School of Continuing and Lifelong Education</option>
                         <option value="Science">Science</option>
                         <option value="University Scholars Programme">University Scholars Programme</option>
-                        <option value="Yale-NU">Yale-NUS</option>
+                        <option value="Yale-NUS">Yale-NUS</option>
                     </select>
                 </div>
 
@@ -120,22 +121,28 @@
 
                 <label for="expiry">Apply by:</label>
                 <br />
-                <input v-model="date" type="date" name="expiry" id="expiry" />
+                <input v-model="post.post_expiry" type="date" name="expiry" id="expiry" />
                 <br />
             </div>
         </div>
 
         <label for="shortdesc">Short Job Description</label>
         <br />
-        <textarea v-model="shortdesc" name="shortdesc" id="shortdesc" rows="5"></textarea>
+        <textarea v-model="post.post_short_des" name="shortdesc" id="shortdesc" rows="5"></textarea>
         <br />
         <label for="desc">Job Description</label>
         <br />
-        <textarea v-model="desc" name="desc" id="desc" cols="50" rows="10"></textarea>
+        <textarea v-model="post.post_long_des" name="desc" id="desc" cols="50" rows="10"></textarea>
         <br />
         <label for="requirements">Job Requirements</label>
         <br />
-        <textarea v-model="requirements" name="requirements" id="requirements" cols="50" rows="10"></textarea>
+        <textarea
+            v-model="post.post_requirements"
+            name="requirements"
+            id="requirements"
+            cols="50"
+            rows="10"
+        ></textarea>
         <br />
     </div>
 </template>
@@ -147,49 +154,53 @@ export default {
     name: "JobForm",
     data() {
         let jobID = "";
-        let title = "";
-        let industry = "";
-        let department = "";
-        let salary = "";
-        let maxApplicants = "";
-        let type = "";
-        let faculty = "";
-        let shortdesc = "";
-        let desc = "";
-
-        let date = "";
-        let requirements = "";
 
         if (this.$route.params.jobID !== undefined) {
             jobID = this.$route.params.jobID;
-            const post = this.$store.getters.getJobById(jobID);
-            title = post.title;
-            industry = post.industry;
-            department = post.department;
-            salary = post.salary;
-            maxApplicants = post.maxApplicants;
-            type = post.type;
-            faculty = post.faculty;
-            shortdesc = post.shortDescription;
-            desc = post.description;
-            date = moment(String(post.date)).format("YYYY-MM-DD");
-            requirements = post.requirements.map(r => r.req).join("\n");
         }
         return {
             jobID: jobID,
-            title: title,
-            industry: industry,
-            department: department,
-            salary: salary,
-            maxApplicants: maxApplicants,
-            type: type,
-            faculty: faculty,
-            shortdesc: shortdesc,
-            desc: desc,
-            date: date,
-            requirements: requirements
         };
-    }
+    },
+    computed: {
+        post() {
+            let post = {
+                post_title: "",
+                post_industry: "",
+                post_pay: "",
+                post_max_applicants: "",
+                post_type: "",
+                post_faculty: "",
+                post_short_des: "",
+                post_long_des: "",
+                post_expiry: "",
+                post_requirements: "",
+            };
+
+            if (this.$route.params.jobID !== undefined) {
+                const jobpost = this.$store.getters.getJobById(
+                    this.$route.params.jobID
+                );
+                console.log(jobpost);
+                post.post_title = jobpost.post_title;
+                post.post_industry = jobpost.post_industry;
+                post.post_pay = jobpost.post_pay;
+                post.post_max_applicants = jobpost.post_max_applicants;
+                post.post_type = jobpost.post_type;
+                post.post_faculty = jobpost.post_faculty;
+                post.post_short_des = jobpost.post_short_des;
+                post.post_long_des = jobpost.post_long_des;
+                post.post_expiry = moment(String(jobpost.post_expiry)).format(
+                    "YYYY-MM-DD"
+                );
+                post.post_requirements = jobpost.post_requirements.split("\\n");
+                post.post_requirements.pop();
+                console.log(post.post_expiry);
+            }
+
+            return post;
+        },
+    },
 };
 </script>
 

@@ -5,6 +5,7 @@
             v-bind:posts="posts"
             v-bind:path="path"
             v-bind:home="home"
+            v-if="posts"
         ></employerListView>
     </div>
 </template>
