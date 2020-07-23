@@ -22,7 +22,10 @@ const state = {
     ]
 };
 const getters = {
-    allAdmins: (state) => state.admins
+    allAdmins: (state) => state.admins,
+    getAdminById: (state) => (id) => {
+        return state.admins.find((admin) => admin.id == id);
+    }
 };
 const actions = {
     async fetchAdmins({ commit }) {

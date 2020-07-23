@@ -3,7 +3,7 @@
         <div v-if="student" class="profile-info">
             <h1>Hello, {{ student.stu_name }}</h1>
             <div class="profile-img">
-                <img :src="image" alt="student profile picture" />
+                <img v-if="image" :src="image" alt="student profile picture" />
                 <button class="uploadBtn mobile-hide">
                     Upload
                     <i class="fas fa-camera"></i>

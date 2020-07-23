@@ -13,18 +13,18 @@
                 </span>
             </div>
         </div>
-        <div class="profile-container">
+        <div class="profile-container" v-if="admin">
             <div class="info">
                 <div class="inputs">
                     <label for="usr">Username</label>
                     <br />
-                    <input type="text" name="usr" id="usr" />
+                    <input v-model="admin.adm_user" type="text" name="usr" id="usr" />
                 </div>
 
                 <div class="inputs">
                     <label for="email">Email</label>
                     <br />
-                    <input type="text" name="email" id="email" />
+                    <input v-model="admin.adm_email" type="email" name="email" id="email" />
                 </div>
             </div>
 
@@ -53,7 +53,84 @@
 </template>
 
 <script>
-export default {};
+export default {
+    name: "AdminProfile",
+    computed: {
+        admin() {
+            const admin = this.$store.getters.getAdminById(1);
+            return admin;
+        },
+    },
+    methods: {
+        // ...mapActions(["addJobPost", "deleteJobPost", "updateJobPost"]),
+        confirmEdit() {
+            /* let date = this.$refs.newPost.$data.date;
+            let req = this.$refs.newPost.$data.requirements;
+            let temp = req.split("\n");
+            let requirements = [];
+            temp.forEach(requirement => {
+                requirements.push({ req: requirement });
+            });
+
+            const admin = {
+                jobID: jobID,
+                title: title,
+                empID: 1, // change to current employer
+                shortDescription: shortdesc,
+                description: desc,
+                requirements: requirements,
+                type: type,
+                faculty: faculty,
+                industry: industry,
+                department: department,
+                salary: salary,
+                date: new Date(),
+                applicants: 0,
+                maxApplicants: maxApplicants,
+                status: "Accepting applications",
+                expiry: date
+            };
+
+            this.updateJobPost(post).then( */
+            this.$swal({
+                title: "Confirm",
+                text: "Job post edited",
+                buttons: {
+                    close: {
+                        value: "close",
+                        text: "Close",
+                    },
+                },
+                icon: "success",
+            }).then((value) => {
+                if (value === "close") this.$router.go(-1);
+            });
+            // );
+        },
+        cancel() {
+            this.$swal({
+                text: "Are you sure you want to discard your changes?",
+                buttons: {
+                    no: {
+                        value: "no",
+                        text: "No",
+                    },
+                    yes: {
+                        value: "yes",
+                        text: "Yes",
+                    },
+                },
+                icon: "warning",
+            }).then((value) => {
+                switch (value) {
+                    case "yes":
+                        this.$router.go(-1);
+                        break;
+                }
+            });
+        },
+    },
+};
 </script>
 
 <style scoped>

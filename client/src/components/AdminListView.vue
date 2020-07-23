@@ -4,15 +4,15 @@
             <ul v-if="student">
                 <li
                     v-for="account in accounts"
-                    :key="account.stuID"
-                    @click="navigateTo({ name: 'admin-stu-acc-indiv', params: { id: account.stuID }})"
+                    :key="account.id"
+                    @click="navigateTo({ name: 'admin-stu-acc-indiv', params: { id: account.id }})"
                 >
                     <div class="account-img">
                         <img src="../assets/selfmade/picture.svg" alt="account image" />
                     </div>
                     <div class="account-title">
-                        <h3>{{ account.name }}</h3>
-                        <p>{{ account.studentID }}</p>
+                        <h3>{{ account.stu_name }}</h3>
+                        <p>{{ account.stu_id }}</p>
                     </div>
                     <div class="click">
                         <p>
@@ -24,16 +24,15 @@
             <ul v-else>
                 <li
                     v-for="account in accounts"
-                    :key="account.empID"
-                    @click="navigateTo({ name: 'admin-emp-acc-indiv', params: { id: account.empID }})"
+                    :key="account.id"
+                    @click="navigateTo({ name: 'admin-emp-acc-indiv', params: { id: account.id }})"
                 >
                     <div class="account-img">
                         <img src="../assets/selfmade/picture.svg" alt="account image" />
                     </div>
                     <div class="account-title">
-                        <h3>{{ account.name }}</h3>
-                        <p v-if="student">{{ account.studentID }}</p>
-                        <p v-else>{{ account.companyName }}</p>
+                        <h3>{{ account.emp_name }}</h3>
+                        <p>{{ account.emp_company }}</p>
                     </div>
                     <div class="click">
                         <p>
@@ -53,14 +52,14 @@ import ScrollToTopBtn from "./ScrollToTopBtn.vue";
 export default {
     name: "AdminListView",
     components: {
-        ScrollToTopBtn
+        ScrollToTopBtn,
     },
     props: ["accounts", "student"],
     methods: {
         navigateTo(route) {
             this.$router.push(route);
-        }
-    }
+        },
+    },
 };
 </script>
 

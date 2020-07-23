@@ -25,24 +25,27 @@
                 <ul>
                     <li
                         v-for="pair in pairs"
-                        :key="pair.job.jobID"
-                        @click="navigateTo({name: 'job-details', params: {jobID: pair.job.jobID}})"
+                        :key="pair.job.id"
+                        @click="navigateTo({name: 'job-details', params: {jobID: pair.job.id}})"
                     >
                         <div class="job-img">
-                            <img src="../../assets/selfmade/picture.svg" alt="company logo" />
+                            <img
+                                :src="require(`../../assets/selfmade/${pair.coLogo}`)"
+                                alt="company logo"
+                            />
                         </div>
                         <div class="job-title">
-                            <h4>{{ pair.job.title }}</h4>
+                            <h4>{{ pair.job.post_title }}</h4>
                             <p>{{ pair.companyName }}</p>
-                            <p id="desc">{{ pair.job.description }}</p>
+                            <p id="desc">{{ pair.job.post_short_des }}</p>
                             <p id="filters">
-                                <span id="type">{{ pair.job.type }}</span>
-                                <span id="faculty">{{ pair.job.faculty }}</span>
+                                <span id="type">{{ pair.job.post_type }}</span>
+                                <span id="faculty">{{ pair.job.post_faculty }}</span>
                             </p>
                         </div>
                         <div class="job-side-title">
-                            <p id="date">{{ pair.job.date | formatDate }}</p>
-                            <p id="salary">${{ pair.job.salary }}</p>
+                            <p id="date">{{ pair.job.post_createdAt | formatDate }}</p>
+                            <p id="salary">${{ pair.job.post_pay }}</p>
                         </div>
                     </li>
                 </ul>
@@ -66,25 +69,27 @@ export default {
         sideFilterMenuMobile: SideFilterMenuMobile,
         ScrollToTopBtn,
         hideAt,
-        showAt
+        showAt,
     },
     computed: {
         ...mapGetters(["allJobs"]),
         pairs() {
-            return this.allJobs.map(job => {
+            return this.allJobs.map((job) => {
+                const employer = this.$store.getters.getEmpById(job.employerId);
                 return {
                     job: job,
-                    companyName: this.$store.getters.getEmpById(job.empID)
-                        .companyName
+                    company: this.$store.getters.getEmpById(job.employerId)
+                        .emp_company,
+                    coLogo: employer.emp_logo,
                 };
             });
-        }
+        },
     },
     methods: {
         navigateTo(route) {
             this.$router.push(route);
-        }
-    }
+        },
+    },
 };
 </script>
 

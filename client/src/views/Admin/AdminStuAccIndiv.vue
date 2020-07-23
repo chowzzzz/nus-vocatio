@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <admin-stu-profile v-bind:student="student"></admin-stu-profile>
+            <admin-stu-profile v-if="student" v-bind:student="student"></admin-stu-profile>
 
             <div class="mobile-btns">
                 <div class="deleteBtn">
@@ -46,13 +46,15 @@ export default {
     name: "AdminStuAccIndiv",
     components: {
         AdminStuProfile,
-        ChangePassword
+        ChangePassword,
     },
-    data() {
-        const stuID = this.$route.params.id;
-        return {
-            student: this.$store.getters.getStuById(stuID)
-        };
+    computed: {
+        student() {
+            const student = this.$store.getters.getStuById(
+                this.$route.params.id
+            );
+            return student;
+        },
     },
     methods: {
         // ...mapActions(["addJobPost", "deleteJobPost", "updateJobPost"]),
@@ -63,15 +65,15 @@ export default {
                 buttons: {
                     no: {
                         value: "no",
-                        text: "No"
+                        text: "No",
                     },
                     yes: {
                         value: "yes",
-                        text: "Yes"
-                    }
+                        text: "Yes",
+                    },
                 },
-                icon: "warning"
-            }).then(value => {
+                icon: "warning",
+            }).then((value) => {
                 switch (value) {
                     case "yes":
                         // this.deleteJobPost(this.jobID).then(
@@ -129,11 +131,11 @@ export default {
                 buttons: {
                     close: {
                         value: "close",
-                        text: "Close"
-                    }
+                        text: "Close",
+                    },
                 },
-                icon: "success"
-            }).then(value => {
+                icon: "success",
+            }).then((value) => {
                 if (value === "close") this.$router.go(-1);
             });
             // );
@@ -144,23 +146,23 @@ export default {
                 buttons: {
                     no: {
                         value: "no",
-                        text: "No"
+                        text: "No",
                     },
                     yes: {
                         value: "yes",
-                        text: "Yes"
-                    }
+                        text: "Yes",
+                    },
                 },
-                icon: "warning"
-            }).then(value => {
+                icon: "warning",
+            }).then((value) => {
                 switch (value) {
                     case "yes":
                         this.$router.go(-1);
                         break;
                 }
             });
-        }
-    }
+        },
+    },
 };
 </script>
 

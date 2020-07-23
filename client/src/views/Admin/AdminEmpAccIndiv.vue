@@ -19,7 +19,7 @@
                 </div>
             </div>
 
-            <employer-profile-comp v-bind:employer="employer"></employer-profile-comp>
+            <employer-profile-comp v-if="employer" v-bind:employer="employer"></employer-profile-comp>
 
             <div class="mobile-btns">
                 <div class="deleteBtn">
@@ -46,13 +46,15 @@ export default {
     name: "AdminEmpAccIndiv",
     components: {
         EmployerProfileComp,
-        ChangePassword
+        ChangePassword,
     },
-    data() {
-        const empID = this.$route.params.id;
-        return {
-            employer: this.$store.getters.getEmpById(empID)
-        };
+    computed: {
+        employer() {
+            const employer = this.$store.getters.getEmpById(
+                this.$route.params.id
+            );
+            return employer;
+        },
     },
     methods: {
         // ...mapActions(["addJobPost", "deleteJobPost", "updateJobPost"]),
@@ -63,15 +65,15 @@ export default {
                 buttons: {
                     no: {
                         value: "no",
-                        text: "No"
+                        text: "No",
                     },
                     yes: {
                         value: "yes",
-                        text: "Yes"
-                    }
+                        text: "Yes",
+                    },
                 },
-                icon: "warning"
-            }).then(value => {
+                icon: "warning",
+            }).then((value) => {
                 switch (value) {
                     case "yes":
                         // this.deleteJobPost(this.jobID).then(
@@ -129,11 +131,11 @@ export default {
                 buttons: {
                     close: {
                         value: "close",
-                        text: "Close"
-                    }
+                        text: "Close",
+                    },
                 },
-                icon: "success"
-            }).then(value => {
+                icon: "success",
+            }).then((value) => {
                 if (value === "close") this.$router.go(-1);
             });
             // );
@@ -144,23 +146,23 @@ export default {
                 buttons: {
                     no: {
                         value: "no",
-                        text: "No"
+                        text: "No",
                     },
                     yes: {
                         value: "yes",
-                        text: "Yes"
-                    }
+                        text: "Yes",
+                    },
                 },
-                icon: "warning"
-            }).then(value => {
+                icon: "warning",
+            }).then((value) => {
                 switch (value) {
                     case "yes":
                         this.$router.go(-1);
                         break;
                 }
             });
-        }
-    }
+        },
+    },
 };
 </script>
 

@@ -7,7 +7,7 @@
             </router-link>
         </div>
 
-        <admin-list-view v-bind:accounts="employers" v-bind:employer="student"></admin-list-view>
+        <admin-list-view v-if="employers" v-bind:accounts="employers" v-bind:employer="student"></admin-list-view>
     </div>
 </template>
 
@@ -17,15 +17,19 @@ import AdminListView from "../../components/AdminListView.vue";
 export default {
     name: "AdminEmpAcc",
     components: {
-        AdminListView
+        AdminListView,
     },
     data() {
-        const employers = this.$store.getters.allEmployers;
         return {
-            employers: employers,
-            student: false
+            student: false,
         };
-    }
+    },
+    computed: {
+        employers() {
+            const employers = this.$store.getters.allEmployers;
+            return employers;
+        },
+    },
 };
 </script>
 

@@ -25,7 +25,7 @@
                 <ul>
                     <li
                         v-for="pair in pairs"
-                        :key="pair.job.jobID"
+                        :key="pair.job.id"
                         @click="navigateTo({name: 'job-details', params: {jobID: pair.job.id}})"
                     >
                         <div class="job-img">

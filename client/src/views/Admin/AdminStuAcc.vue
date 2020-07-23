@@ -7,7 +7,7 @@
             </router-link>
         </div>
 
-        <admin-list-view v-bind:accounts="students" v-bind:student="student"></admin-list-view>
+        <admin-list-view v-if="students" v-bind:accounts="students" v-bind:student="student"></admin-list-view>
     </div>
 </template>
 
@@ -17,15 +17,19 @@ import AdminListView from "../../components/AdminListView.vue";
 export default {
     name: "AdminStuAcc",
     components: {
-        AdminListView
+        AdminListView,
     },
     data() {
-        const students = this.$store.getters.allStudents;
         return {
-            students: students,
-            student: true
+            student: true,
         };
-    }
+    },
+    computed: {
+        students() {
+            const students = this.$store.getters.allStudents;
+            return students;
+        },
+    },
 };
 </script>
 

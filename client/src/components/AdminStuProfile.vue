@@ -7,12 +7,12 @@
                     <div class="half">
                         <label for="name">Full Name</label>
                         <br />
-                        <input v-model="student.name" type="text" name="name" id="name" />
+                        <input v-model="student.stu_name" type="text" name="name" id="name" />
                     </div>
                     <div class="half">
                         <label for="studID">Student ID</label>
                         <br />
-                        <input v-model="student.studentID" type="text" name="studID" id="studID" />
+                        <input v-model="student.stu_id" type="text" name="studID" id="studID" />
                     </div>
                 </div>
                 <div class="inputText">
@@ -24,14 +24,14 @@
                     <div class="half">
                         <label for="degree">Degree</label>
                         <br />
-                        <input v-model="student.degree" type="text" name="degree" id="degree" />
+                        <input v-model="student.stu_degree" type="text" name="degree" id="degree" />
                     </div>
                 </div>
                 <div class="inputText">
                     <div class="half year">
                         <label for="year">Current Year</label>
                         <br />
-                        <input v-model="student.year" type="text" name="year" id="year" />
+                        <input v-model="student.stu_year" type="text" name="year" id="year" />
                     </div>
                 </div>
             </div>
@@ -42,12 +42,12 @@
                     <div class="half">
                         <label for="email">Email</label>
                         <br />
-                        <input v-model="student.email" type="email" name="email" id="email" />
+                        <input v-model="student.stu_email" type="email" name="email" id="email" />
                     </div>
                     <div class="half">
                         <label for="contact">Contact number</label>
                         <br />
-                        <input v-model="student.number" type="text" name="contact" id="contact" />
+                        <input v-model="student.stu_mobile" type="text" name="contact" id="contact" />
                     </div>
                 </div>
                 <div class="inputText">
@@ -65,14 +65,19 @@
                     <div class="half link">
                         <label for="linkedin">Linkedin link</label>
                         <br />
-                        <input v-model="student.linkedIn" type="text" name="linkedin" id="linked" />
+                        <input
+                            v-model="student.stu_linkedin"
+                            type="text"
+                            name="linkedin"
+                            id="linked"
+                        />
                     </div>
                 </div>
             </div>
 
             <div class="profile-img">
                 <h5>Profile photo</h5>
-                <img :src="require(`../assets/${student.image}`)" alt="profile pic" />
+                <img v-if="image" :src="image" alt="profile pic" />
 
                 <button class="uploadBtn">
                     Upload
@@ -84,9 +89,26 @@
 </template>
 
 <script>
+import moment from "moment";
 export default {
     name: "AdminStuProfile",
-    props: ["student"]
+    props: ["student"],
+    computed: {
+        dob() {
+            return moment(String(this.student.stu_dob)).format("YYYY-MM-DD");
+        },
+        image() {
+            console.log(this.student.stu_picture);
+            return (
+                "data:image/jpeg;base64," +
+                btoa(
+                    this.student.stu_picture.data
+                        .map((b) => String.fromCharCode(b))
+                        .join("")
+                )
+            );
+        },
+    },
 };
 </script>
 
@@ -127,11 +149,6 @@ h3 {
 .year {
     width: 47%;
 }
-
-.link {
-    margin-top: 22px;
-}
-
 .profile-img {
     margin: 0 0 0 1em;
     grid-area: img;
@@ -141,6 +158,34 @@ h3 {
     width: 100%;
     /* border: 1px solid #b8b8b8; */
     margin-top: 0.5em;
+}
+
+input[type="file"] {
+    display: none;
+    position: absolute;
+}
+
+.uploadBtn {
+    position: relative;
+}
+#uploadFileInput {
+    padding: 0.6em 1em;
+    margin: 0.5em 1em 0.5em 0;
+    border: 1px solid #b8b8b8;
+    border-radius: 12px;
+    text-align: left;
+    box-sizing: border-box;
+    font-size: 12px;
+    position: absolute;
+}
+
+span {
+    font-size: 12px;
+    display: inline-block;
+}
+
+#uploadFileBtn {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 1150px) {
