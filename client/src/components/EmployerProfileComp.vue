@@ -156,7 +156,7 @@
 
             <div class="empLogo">
                 <h5>Profile Photo</h5>
-                <img :src="require(`../assets/${employer.emp_picture}`)" alt="profile photo" />
+                <img :src="image" alt="profile photo" />
                 <button class="uploadBtn">
                     Upload
                     <i class="fas fa-camera"></i>
@@ -169,7 +169,19 @@
 <script>
 export default {
     name: "EmployerProfileComp",
-    props: ["employer"]
+    props: ["employer"],
+    computed: {
+        image() {
+            return (
+                "data:image/jpg;base64," +
+                btoa(
+                    this.employer.emp_picture.data
+                        .map((b) => String.fromCharCode(b))
+                        .join("")
+                )
+            );
+        },
+    },
 };
 </script>
 

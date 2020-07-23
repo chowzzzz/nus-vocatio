@@ -2,10 +2,7 @@
     <div class="side">
         <div class="employer-info">
             <div class="employer-title">
-                <img
-                    :src="require(`../assets/selfmade/${employer.emp_picture}`)"
-                    alt="employer avatar"
-                />
+                <img :src="image" alt="employer avatar" />
                 <p>{{ employer.emp_name }}</p>
                 <p>{{ employer.emp_company }}</p>
             </div>
@@ -74,6 +71,18 @@ export default {
         },
     },
     props: ["user"],
+    computed: {
+        iimage() {
+            return (
+                "data:image/jpg;base64," +
+                btoa(
+                    this.employer.emp_picture.data
+                        .map((b) => String.fromCharCode(b))
+                        .join("")
+                )
+            );
+        },
+    },
 };
 </script>
 
