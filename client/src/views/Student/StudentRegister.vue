@@ -262,12 +262,10 @@
 
             <div class="submit">
                 <button type="submit" id="submitBtn">Register</button>
-                <p class="statusMsg" v-if="submitStatus === 'OK'">Thanks for your submission!</p>
                 <p
                     class="statusMsg error"
                     v-if="submitStatus === 'ERROR'"
                 >Please fill the form correctly.</p>
-                <p class="statusMsg" v-if="submitStatus === 'PENDING'">Sending...</p>
             </div>
         </form>
     </div>
@@ -280,7 +278,7 @@ import {
     minLength,
     email,
     sameAs,
-    numeric
+    numeric,
 } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 
@@ -301,60 +299,60 @@ export default {
                 stu_mobile: "",
                 stu_linkedin: "",
                 stu_resume: null,
-                stu_picture: null
+                stu_picture: null,
             },
             fileName: "",
             errorColor: "#000",
             url: null,
-            submitStatus: null
+            submitStatus: null,
         };
     },
     validations: {
         student: {
             stu_name: {
-                required
+                required,
             },
             stu_id: {
                 required,
                 maxLength: maxLength(9),
                 verifyId(id) {
                     return /^[A-Z]\d{7}[A-Z]$/.test(id);
-                }
+                },
             },
             stu_password: {
                 required,
-                minLength: minLength(8)
+                minLength: minLength(8),
             },
             confirmPwd: {
                 required,
-                sameAsPassword: sameAs("stu_password")
+                sameAsPassword: sameAs("stu_password"),
             },
             stu_dob: {
-                required
+                required,
             },
             stu_faculty: {
-                required
+                required,
             },
             stu_degree: {
-                required
+                required,
             },
             stu_year: {
                 required,
                 maxLength: maxLength(1),
-                numeric
+                numeric,
             },
             stu_email: {
                 required,
-                email
+                email,
             },
             stu_mobile: {
                 required,
-                numeric
+                numeric,
             },
             stu_linkedin: {
-                required
-            }
-        }
+                required,
+            },
+        },
     },
     methods: {
         ...mapActions(["addStudent"]),
@@ -373,21 +371,17 @@ export default {
         selectPicture() {
             this.student.stu_picture = this.$refs.picture.files[0];
             const reader = new FileReader();
-            reader.onload = e => {
+            reader.onload = (e) => {
                 this.url = e.target.result;
             };
 
             reader.readAsDataURL(this.$refs.picture.files[0]);
         },
         register() {
-            console.log("submit");
             this.$v.$touch();
             if (this.$v.$invalid) {
                 this.submitStatus = "ERROR";
             } else {
-                // do your submit logic here
-                this.submitStatus = "PENDING";
-
                 const stu = new FormData();
                 stu.append("stu_name", this.student.stu_name);
                 stu.append("stu_id", this.student.stu_id);
@@ -404,14 +398,11 @@ export default {
                 stu.append("stu_picture", this.student.stu_picture);
 
                 this.addStudent(stu)
-                    .then(() => {
-                        console.log("success");
-                        this.submitStatus = "OK";
-                    })
-                    .catch(err => console.log(err));
+                    .then(() => this.$router.push("/"))
+                    .catch((err) => console.log(err));
             }
-        }
-    }
+        },
+    },
 };
 </script>
 

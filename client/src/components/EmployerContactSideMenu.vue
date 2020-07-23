@@ -45,13 +45,13 @@
 
 <script>
 export default {
-    name: "EmployerContact",
+    name: "EmployerContactSideMenu",
     data() {
         const job = this.$store.getters.getJobById(this.$route.params.jobID);
         return {
             job: job,
             employer: this.$store.getters.getEmpById(job.id),
-            currentUser: this.user
+            currentUser: this.user,
         };
     },
     methods: {
@@ -59,21 +59,21 @@ export default {
             this.$swal({
                 title: "Confirmation",
                 text: "Are you sure you wish to apply?",
-                buttons: ["No", "Yes"]
-            }).then(confirm => {
+                buttons: ["No", "Yes"],
+            }).then((confirm) => {
                 if (confirm) {
                     this.$swal({
                         text: "Your application has been submitted!",
-                        icon: "success"
+                        icon: "success",
                     });
                 }
             });
         },
         navigateTo(route) {
             this.$router.push(route);
-        }
+        },
     },
-    props: ["user"]
+    props: ["user"],
 };
 </script>
 

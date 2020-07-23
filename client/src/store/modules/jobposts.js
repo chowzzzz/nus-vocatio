@@ -264,7 +264,8 @@ const state = {
 const getters = {
     allJobs: (state) => state.jobposts,
     getJobById: (state) => (id) => {
-        return state.jobposts.find((jobpost) => jobpost.id == id);
+        console.log(state.jobposts.find((jobpost) => jobpost.id === id));
+        return state.jobposts.find((jobpost) => jobpost.id === id);
     },
     getJobByEmpId: (state) => (empID) => {
         return state.jobposts.filter((jobpost) => jobpost.empID == empID);

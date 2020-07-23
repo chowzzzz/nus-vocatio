@@ -1,5 +1,6 @@
 const db = require("../models");
 const fs = require("fs");
+const bcrypt = require("bcrypt");
 const Student = db.student;
 const Application = db.application;
 const Op = db.Sequelize.Op;
@@ -42,12 +43,14 @@ exports.createStudent = (req, res) => {
         stu_year: req.body.stu_year,
         stu_linkedin: req.body.stu_linkedin,
         stu_resume: stu_resume,
-        stu_password: req.body.stu_password,
+        stu_password: bcrypt.hashSync(req.body.stu_password, 8),
         stu_status_change: 1,
         stu_new_jobs: 1,
         stu_news_letter: 1,
         stu_subscription: 1
     };
+
+    console.log(student);
 
     // Save Student in the database
     Student.create(student)
@@ -61,12 +64,31 @@ exports.createStudent = (req, res) => {
                 stu_picture
             );
             res.send(data);
+
+            console.log(data.toJSON());
+            const id = data.toJSON().id;
+            Student.findByPk(id)
+                .then((user) => {
+                    let token = jwt.sign({ id: user.id }, config.secret, {
+                        expiresIn: 86400
+                    });
+                    res.status(200).send({
+                        auth: true,
+                        token: token,
+                        user: user
+                    });
+                })
+                .catch((err) => {
+                    res.status(500).send({
+                        message: "Error retrieving Student with id=" + id
+                    });
+                });
         })
         .catch((err) => {
+            console.log("error");
             res.status(500).send({
                 message:
-                    err.message ||
-                    "Some error occurred while creating the Student."
+                    err.message || "There was a problem registering the user."
             });
         });
 };

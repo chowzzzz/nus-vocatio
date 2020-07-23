@@ -1,5 +1,5 @@
 <template>
-    <div class="job-container">
+    <div class="job-container" v-if="job">
         <div class="img-box job-title">
             <img :src="require(`../assets/selfmade/${employer.emp_logo}`)" alt="company logo" />
         </div>
@@ -29,20 +29,43 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
+
 export default {
     name: "JobListing",
-    data() {
+    /* data() {
         const job = this.$store.getters.getJobById(this.$route.params.jobID);
-        console.log(this.$route.params.jobID);
+        console.log(job);
         let requirements = job.post_requirements;
         requirements = requirements.split("\\n");
         requirements.pop();
         return {
             job: job,
             employer: this.$store.getters.getEmpById(job.employerId),
-            requirements: requirements
+            requirements: requirements,
         };
-    }
+    }, */
+    methods: {
+        ...mapActions(["fetchJobPosts"]),
+    },
+    computed: {
+        ...mapState(["jobposts"]),
+        job() {
+            return this.$store.getters.getJobById(this.$route.params.jobID);
+        },
+        requirements() {
+            let requirements = this.job.post_requirements.split("\\n");
+            requirements.pop();
+            return requirements;
+        },
+        employer() {
+            return this.$store.getters.getEmpById(this.job.employerId);
+        },
+    },
+    created() {
+        this.fetchJobPosts();
+        console.log(this.jobposts);
+    },
 };
 </script>
 

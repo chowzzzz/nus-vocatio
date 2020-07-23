@@ -1,9 +1,9 @@
 <template>
     <div>
-        <backBtn title="jobs"></backBtn>
+        <back-btn title="jobs"></back-btn>
         <div class="joblist-container">
-            <jobListing />
-            <employerContact user="student" />
+            <job-listing />
+            <employer-contact-side-menu user="student" />
         </div>
     </div>
 </template>
@@ -11,15 +11,15 @@
 <script>
 import BackBtn from "../../components/BackBtn.vue";
 import JobListing from "../../components/JobListing.vue";
-import EmployerContact from "../../components/EmployerContactSideMenu.vue";
+import EmployerContactSideMenu from "../../components/EmployerContactSideMenu.vue";
 
 export default {
     name: "StudentJobListing",
     components: {
-        backBtn: BackBtn,
-        jobListing: JobListing,
-        employerContact: EmployerContact
-    }
+        BackBtn,
+        JobListing,
+        EmployerContactSideMenu,
+    },
 };
 </script>
 

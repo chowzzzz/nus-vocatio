@@ -159,14 +159,12 @@ const actions = {
         commit("SET_STUDENTS", response.data);
     },
     async addStudent({ commit }, student) {
-        const response = await axios
-            .post(url, student, {
-                headers: {
-                    "Content-Type": "multipart/form-data"
-                }
-            })
-            .then(() => console.log("success"))
-            .catch((err) => console.log(err));
+        const response = await axios.post(url, student, {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        });
+
         commit("ADD_STUDENT", response.data);
     },
     async deleteStudent(context, id) {
