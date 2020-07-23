@@ -46,6 +46,10 @@ export default {
             // for now just put 1
             employer: this.$store.getters.getEmpById(1)
         };
+    },
+    image() {
+      console.log(this.student.TEST_PICTURE);
+      return "data:image/jpg;base64," + btoa(this.student.TEST_PICTURE.data.map(b => String.fromCharCode(b)).join(''))
     }
 };
 </script>

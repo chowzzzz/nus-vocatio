@@ -16,7 +16,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         emp_picture: {
-            type: Sequelize.DataTypes.STRING,
+            type: Sequelize.DataTypes.BLOB("medium"),
             allowNull: false
         },
         emp_mobile: {
