@@ -8,8 +8,8 @@
         <div v-if="student" class="settings-container">
             <p>Send me an email when:</p>
             <div class="settings">
-                <setting-box id="status" :info="status_change"></setting-box>
-                <setting-box id="jobs" :info="new_jobs"></setting-box>
+                <setting-box id="status" :info="statusChange"></setting-box>
+                <setting-box id="jobs" :info="newJobs"></setting-box>
                 <setting-box id="news" :info="newsletter"></setting-box>
                 <setting-box id="sub" :info="subscription"></setting-box>
             </div>
@@ -24,40 +24,40 @@ import { mapGetters } from "vuex";
 export default {
     name: "Settings",
     components: {
-        SettingBox
+        SettingBox,
     },
     computed: {
         ...mapGetters({
-            getStuById: "getStuById"
+            getStuById: "getStuById",
         }),
         student() {
-            return this.getStuById(1);
+            return this.getStuById(30);
         },
-        status_change() {
+        statusChange() {
             return {
                 checked: this.student.stu_status_change,
-                title: "there is a status change in my application"
+                title: "there is a status change in my application",
             };
         },
-        new_jobs() {
+        newJobs() {
             return {
                 checked: this.student.stu_new_jobs,
-                title: "there are new jobs"
+                title: "there are new jobs",
             };
         },
         newsletter() {
             return {
                 checked: this.student.stu_news_letter,
-                title: "there is newsletter"
+                title: "there is newsletter",
             };
         },
         subscription() {
             return {
                 checked: this.student.stu_subscription,
-                title: "Subscribe me to NUSVocatio newsletter"
+                title: "Subscribe me to NUSVocatio newsletter",
             };
-        }
-    }
+        },
+    },
 };
 </script>
 

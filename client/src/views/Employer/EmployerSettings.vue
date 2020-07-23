@@ -5,13 +5,13 @@
             <h2>Settings</h2>
         </div>
 
-        <div class="settings-container">
+        <div v-if="employer" class="settings-container">
             <p>Send me an email when:</p>
             <div class="settings">
-                <setting-box id="status" title="a new student has applied"></setting-box>
-                <setting-box id="jobs" title="my posting has reached maximum applicants"></setting-box>
-                <setting-box id="news" title="there is newsletter"></setting-box>
-                <setting-box id="sub" title="Subscribe me to NUSVocatio newsletter"></setting-box>
+                <setting-box id="status" :info="newApplicants"></setting-box>
+                <setting-box id="jobs" :info="maxApplicants"></setting-box>
+                <setting-box id="news" :info="newsletter"></setting-box>
+                <setting-box id="sub" :info="subscription"></setting-box>
             </div>
         </div>
     </div>
@@ -23,8 +23,38 @@ import SettingBox from "../../components/SettingBox.vue";
 export default {
     name: "EmployerSettings",
     components: {
-        SettingBox
-    }
+        SettingBox,
+    },
+    computed: {
+        employer() {
+            const employer = this.$store.getters.getEmpById(1);
+            return employer;
+        },
+        newApplicants() {
+            return {
+                checked: this.employer.emp_new_applicants,
+                title: "a new student has applied",
+            };
+        },
+        maxApplicants() {
+            return {
+                checked: this.employer.emp_max_applicants,
+                title: "my posting has reached maximum applicants",
+            };
+        },
+        newsletter() {
+            return {
+                checked: this.employer.emp_news_letter,
+                title: "there is newsletter",
+            };
+        },
+        subscription() {
+            return {
+                checked: this.employer.emp_subscription,
+                title: "Subscribe me to NUSVocatio newsletter",
+            };
+        },
+    },
 };
 </script>
 

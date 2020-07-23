@@ -72,7 +72,7 @@ export default {
     },
     props: ["user"],
     computed: {
-        iimage() {
+        image() {
             return (
                 "data:image/jpg;base64," +
                 btoa(
@@ -106,7 +106,6 @@ export default {
 
 .employer-title img {
     width: 30%;
-    border-radius: 50%;
 }
 
 .employer-contacts {

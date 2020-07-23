@@ -14,19 +14,27 @@ export default {
     name: "NusVocatio",
     components: {
         NavBar,
-        NavBarLogin
+        NavBarLogin,
     },
     methods: {
-        ...mapActions(["fetchStudents", "fetchEmployers", "fetchJobPosts"])
+        ...mapActions([
+            "fetchStudents",
+            "fetchEmployers",
+            "fetchJobPosts",
+            "fetchApplications",
+            "fetchAdmins",
+        ]),
     },
     computed: {
-        ...mapState(["isAuthenticated"])
+        ...mapState(["isAuthenticated"]),
     },
-    created() {
+    async created() {
         this.fetchStudents();
         this.fetchEmployers();
         this.fetchJobPosts();
-    }
+        this.fetchApplications();
+        this.fetchAdmins();
+    },
 };
 </script>
 
@@ -47,6 +55,7 @@ body {
 
 .container {
     background: #f8fbff;
+    /* height: calc(100vh - 53px); */
     height: 100%;
     padding-bottom: 2em;
 }

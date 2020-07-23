@@ -264,11 +264,12 @@ const state = {
 const getters = {
     allJobs: (state) => state.jobposts,
     getJobById: (state) => (id) => {
-        console.log(state.jobposts.find((jobpost) => jobpost.id === id));
-        return state.jobposts.find((jobpost) => jobpost.id === id);
+        return state.jobposts.find((jobpost) => jobpost.id == id);
     },
-    getJobByEmpId: (state) => (empID) => {
-        return state.jobposts.filter((jobpost) => jobpost.empID == empID);
+    getJobByEmpId: (state) => (employerId) => {
+        return state.jobposts.filter(
+            (jobpost) => jobpost.employerId == employerId
+        );
     }
 };
 const actions = {

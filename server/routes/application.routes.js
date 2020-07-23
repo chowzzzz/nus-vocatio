@@ -1,25 +1,25 @@
 module.exports = (app) => {
-	const Application = require("../controllers/application.controller.js");
+    const Application = require("../controllers/application.controller.js");
 
-	var router = require("express").Router();
+    var router = require("express").Router();
 
-	// Create a new Application
-	//router.post("/", Application.create);
+    // Create a new Application
+    router.post("/", Application.create);
 
-	// Retrieve all Application
-	//router.get("/", Application.findAll);
+    // Retrieve all Application
+    router.get("/", Application.findAll);
 
-	// Retrieve a single Application
-	router.get("/:id", Application.findOne);
+    // Retrieve a single Application
+    router.get("/:id", Application.findOne);
 
-	// Update aApplication with id
-	router.put("/:id", Application.update);
+    // Update aApplication with id
+    router.put("/:id", Application.update);
 
-	// Delete a Application with id
-	router.delete("/:id", Application.delete);
+    // Delete a Application with id
+    router.delete("/:id", Application.delete);
 
-	// Create a new Application
-	router.delete("/", Application.deleteAll);
+    // Create a new Application
+    router.delete("/", Application.deleteAll);
 
-	app.use("/api/application", router);
+    app.use("/api/application", router);
 };

@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="pairs">
         <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
             <sideFilterMenu />
         </hide-at>
@@ -69,27 +69,27 @@ export default {
         sideFilterMenuMobile: SideFilterMenuMobile,
         ScrollToTopBtn,
         hideAt,
-        showAt
+        showAt,
     },
     methods: {
         navigateTo(route) {
             // console.log(route);
             this.$router.push(route);
-        }
+        },
     },
     computed: {
         ...mapGetters(["allJobs"]),
         pairs() {
-            return this.allJobs.map(job => {
+            return this.allJobs.map((job) => {
                 const employer = this.$store.getters.getEmpById(job.employerId);
                 return {
                     job: job,
                     company: employer.emp_company,
-                    coLogo: employer.emp_logo
+                    coLogo: employer.emp_logo,
                 };
             });
-        }
-    }
+        },
+    },
 };
 </script>
 

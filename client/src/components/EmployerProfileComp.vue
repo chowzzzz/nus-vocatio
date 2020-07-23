@@ -81,7 +81,7 @@
             <div class="coDesc">
                 <label for="coDesc">Company Description</label>
                 <br />
-                <textarea v-model="employer.emp_coDesc" name="coDesc" id="coDesc" rows="10"></textarea>
+                <textarea v-model="employer.emp_coDes" name="coDesc" id="coDesc" rows="10"></textarea>
             </div>
         </div>
 

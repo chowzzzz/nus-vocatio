@@ -65,7 +65,7 @@ exports.createStudent = (req, res) => {
             );
             res.send(data);
 
-            console.log(data.toJSON());
+            /*  console.log(data.toJSON());
             const id = data.toJSON().id;
             Student.findByPk(id)
                 .then((user) => {
@@ -82,7 +82,7 @@ exports.createStudent = (req, res) => {
                     res.status(500).send({
                         message: "Error retrieving Student with id=" + id
                     });
-                });
+                }); */
         })
         .catch((err) => {
             console.log("error");

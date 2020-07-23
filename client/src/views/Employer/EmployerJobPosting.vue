@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <div class="applicants" @click="navigateTo({name: 'applicants', params: {id: post.jobID}})">
-            <h3 class="applicantNo">{{ post.applicants }} Applicants</h3>
+    <div v-if="post">
+        <div class="applicants" @click="navigateTo({name: 'applicants', params: {id: post.id}})">
+            <h3 class="applicantNo">{{ applicants }} Applicants</h3>
             <div class="applicants-side">
                 <p>View Applicants</p>
                 <img src="../../assets/left.svg" alt="click" />
@@ -18,7 +18,7 @@
                 </span>
                 <span
                     class="edit"
-                    @click="navigateTo({name: 'edit-post', params: {jobID: post.jobID}})"
+                    @click="navigateTo({name: 'edit-post', params: {jobID: post.id}})"
                 >
                     <img src="../../assets/selfmade/edit.svg" alt="edit" />
                     <span class="tooltip" id="edit">Edit</span>
@@ -37,7 +37,7 @@
                 </div>
                 <div
                     class="editBtn"
-                    @click="navigateTo({name: 'edit-post', params: {jobID: post.jobID}})"
+                    @click="navigateTo({name: 'edit-post', params: {jobID: post.id}})"
                 >
                     <button>Edit</button>
                 </div>
@@ -58,15 +58,22 @@ export default {
     name: "EmployerJobPosting",
     components: {
         jobListing: JobListing,
-        employerContact: EmployerContact
+        employerContact: EmployerContact,
     },
     data() {
         const jobID = this.$route.params.jobID;
-        const post = this.$store.getters.getJobById(jobID);
         return {
-            post: post,
-            jobID: jobID
+            jobID: jobID,
         };
+    },
+    computed: {
+        post() {
+            let post = this.$store.getters.getJobById(this.jobID);
+            return post;
+        },
+        applicants() {
+            return this.$store.getters.getNoOfAppByJobId(this.post.id);
+        },
     },
     methods: {
         ...mapMutations(["DELETE_JOBPOST"]),
@@ -78,15 +85,15 @@ export default {
                 buttons: {
                     no: {
                         value: "no",
-                        text: "No"
+                        text: "No",
                     },
                     yes: {
                         value: "yes",
-                        text: "Yes"
-                    }
+                        text: "Yes",
+                    },
                 },
-                icon: "warning"
-            }).then(value => {
+                icon: "warning",
+            }).then((value) => {
                 switch (value) {
                     case "yes":
                         this.deleteJobPost(this.jobID);
@@ -100,13 +107,13 @@ export default {
                 text:
                     "Are you sure you want to stop receiving applications for this job post?",
                 buttons: ["No", "Yes"],
-                icon: "warning"
+                icon: "warning",
             });
         },
         navigateTo(route) {
             this.$router.push(route);
-        }
-    }
+        },
+    },
 };
 </script>
 

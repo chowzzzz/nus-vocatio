@@ -6,6 +6,7 @@
             v-bind:posts="posts"
             v-bind:path="path"
             v-bind:home="home"
+            v-if="posts"
         ></employerListView>
     </div>
 </template>
@@ -18,25 +19,33 @@ export default {
     name: "EmployerApp",
     components: {
         BackBtn,
-        EmployerListView
+        EmployerListView,
     },
     data() {
         const jobID = this.$route.params.jobID;
-        const applicants = this.$store.getters.getAppByJobId(jobID);
-        let students = [];
-        applicants.forEach(applicant => {
-            let student = this.$store.getters.getStuById(applicant.stuID);
-            student.status = applicant.status;
-            student.applyDate = applicant.applyDate;
-            student.appID = applicant.appID;
-            students.push(student);
-        });
         return {
-            posts: students,
+            jobID: jobID,
             path: `applicants/${jobID}`,
-            home: false
+            home: false,
         };
-    }
+    },
+    computed: {
+        posts() {
+            const applicants = this.$store.getters.getAppByJobId(this.jobID);
+            let students = [];
+            applicants.forEach((applicant) => {
+                let student = this.$store.getters.getStuById(
+                    applicant.studentId
+                );
+                student.status = applicant.status;
+                student.applyDate = applicant.applyDate;
+                student.appID = applicant.id;
+                students.push(student);
+            });
+            console.log(students);
+            return students;
+        },
+    },
 };
 </script>
 

@@ -66,7 +66,7 @@
 
                     <label for="linkedin">Linkedin link</label>
                     <br />
-                    <input v-model="student.stu_linkedIn" type="text" name="linkedin" id="linked" />
+                    <input v-model="student.stu_linkedin" type="text" name="linkedin" id="linked" />
                     <br />
 
                     <button type="submit" class="updateBtn">Update Information</button>
@@ -104,7 +104,7 @@ export default {
             getStuById: "getStuById",
         }),
         student() {
-            return this.getStuById(1);
+            return this.getStuById(30);
         },
         dob() {
             return moment(String(this.student.stu_dob)).format("YYYY-MM-DD");
@@ -112,7 +112,7 @@ export default {
         image() {
             console.log(this.student.stu_picture);
             return (
-                "data:image/svg;base64," +
+                "data:image/jpeg;base64," +
                 btoa(
                     this.student.stu_picture.data
                         .map((b) => String.fromCharCode(b))

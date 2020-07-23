@@ -64,7 +64,6 @@ export default {
     },
     created() {
         this.fetchJobPosts();
-        console.log(this.jobposts);
     },
 };
 </script>

@@ -24,11 +24,11 @@
                 <ul>
                     <li
                         v-for="post in posts"
-                        :key="post.jobID"
+                        :key="post.id"
                         v-bind:class="{
-                        removed: post.status === 'Removed' || post.status === 'REJECTED'
+                        removed: post.post_status === 'Removed' || post.post_status === 'REJECTED'
                     }"
-                        @click="navigateTo({path: `/${path}/${post.jobID || post.stuID}`, query: { appID: post.appID }})"
+                        @click="navigateTo({path: `/${path}/${post.id}`, query: { appID: post.appID }})"
                     >
                         <div class="post-img">
                             <img src="../assets/selfmade/picture.svg" alt="company logo" />
@@ -39,43 +39,43 @@
                                     id="post-id"
                                     v-if="home"
                                     v-bind:class="{
-                                        grey: post.status === 'Removed'} "
-                                >Posting ID#{{ post.jobID }}</span>
+                                        grey: post.post_status === 'Removed'} "
+                                >Posting ID#{{ post.id }}</span>
                                 <span
                                     id="post-id"
                                     v-else
                                     v-bind:class="{
                                         grey: post.status === 'REJECTED'} "
-                                >Student ID#{{ post.stuID }}</span>
+                                >Student ID#{{ post.id }}</span>
 
                                 <span
                                     id="status"
                                     v-if="home"
                                     v-bind:class="{
-                                        green: post.status === 'Accepting applications',
-                                        red: post.status === 'Not accepting applications' || post.status === 'Max applications',
-                                        grey: post.status === 'Removed'
+                                        green: post.post_status === 'Accepting applications',
+                                        red: post.post_status === 'Not accepting applications' || post.post_status === 'Max applications',
+                                        grey: post.post_status === 'Removed'
                             }"
-                                >{{ post.status | upperCase }}</span>
+                                >{{ post.post_status | upperCase }}</span>
                                 <span
                                     id="status"
                                     v-else
                                     v-bind:class="{
-                                        green: post.status === 'ACCEPTED',
-                                        blue: post.status === 'PENDING',
-                                        grey: post.status === 'REJECTED'
+                                        green: post.status === 1,
+                                        blue: post.status === 2,
+                                        grey: post.status === 3
                             }"
-                                >{{ post.status }}</span>
+                                >{{ post.status | appStatus }}</span>
                             </div>
-                            <h3 v-if="home">{{ post.title }}</h3>
-                            <h3 v-else>{{ post.name }}</h3>
+                            <h3 v-if="home">{{ post.post_title }}</h3>
+                            <h3 v-else>{{ post.stu_name }}</h3>
                         </div>
                         <div class="date">
-                            <p v-if="home">{{ post.date | formatDate }}</p>
+                            <p v-if="home">{{ post.createdAt | formatDate }}</p>
                             <p v-else>{{ post.applyDate | formatDate }}</p>
                         </div>
                         <div class="number">
-                            <h2 v-if="home" class="noOfApplicants">{{ post.applicants }}</h2>
+                            <h2 v-if="home" class="noOfApplicants">{{ post.post_applicants }}</h2>
                             <p v-else>
                                 <img src="../assets/left.svg" alt="click" />
                             </p>
@@ -94,19 +94,37 @@ import ScrollToTopBtn from "./ScrollToTopBtn.vue";
 export default {
     name: "EmployerListView",
     components: {
-        ScrollToTopBtn
+        ScrollToTopBtn,
     },
     props: ["title", "posts", "path", "home"],
     filters: {
         upperCase(value) {
             return value.toUpperCase();
-        }
+        },
+        appStatus(value) {
+            let status;
+            switch (value) {
+                case 1:
+                    status = "ACCEPTED";
+                    break;
+                case 2:
+                    status = "PENDING";
+                    break;
+                case 3:
+                    status = "REJECTED";
+                    break;
+                default:
+                    status = "";
+                    break;
+            }
+            return status;
+        },
     },
     methods: {
         navigateTo(route) {
             this.$router.push(route);
-        }
-    }
+        },
+    },
 };
 </script>
 

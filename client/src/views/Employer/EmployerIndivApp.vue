@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="student && application">
         <back-btn title="applicants" />
 
         <div class="app-container">
@@ -15,32 +15,32 @@
                         <img src="../../assets/selfmade/avatar.svg" alt="avatar" />
                     </div>
                     <div class="stu-tags">
-                        <p id="app-id">Application ID#{{ application.appID }}</p>
+                        <p id="app-id">Application ID#{{ application.id }}</p>
                         <p
                             id="status"
                             v-bind:class="{
-                            green: application.status === 'ACCEPTED',
-                            blue: application.status === 'PENDING',
-                            grey: application.status === 'REJECTED'}"
-                        >{{ application.status }}</p>
+                            green: application.status === 1,
+                            blue: application.status === 2,
+                            grey: application.status === 3}"
+                        >{{ application.status | appStatus }}</p>
                     </div>
                     <div class="stu-name">
-                        <h2>{{ student.name }}</h2>
-                        <p>Student ID: {{ student.stuID }}</p>
+                        <h2>{{ student.stu_name }}</h2>
+                        <p>Student ID: {{ student.stu_id }}</p>
                     </div>
                 </div>
 
                 <div class="stu-info">
                     <h4>Personal Information</h4>
-                    <p>D.O.B.: {{ student.dob | formatDate }}</p>
-                    <p>Degree: {{ student.degree }}</p>
-                    <p>Current year: {{ student.year }}</p>
+                    <p>D.O.B.: {{ student.stu_dob | formatDate }}</p>
+                    <p>Degree: {{ student.stu_degree }}</p>
+                    <p>Current year: {{ student.stu_year }}</p>
                 </div>
 
                 <div class="stu-contact">
                     <h4>Contact Information</h4>
-                    <p>Phone no.: {{ student.number }}</p>
-                    <p>Email: {{ student.email }}</p>
+                    <p>Phone no.: {{ student.stu_mobile }}</p>
+                    <p>Email: {{ student.stu_email }}</p>
                 </div>
 
                 <div class="links">
@@ -53,7 +53,7 @@
                     </p>
                     <p>
                         LinkedIn Link:
-                        <a href="www.linkedin.com">{{ student.linkedIn }}</a>
+                        <a href="www.linkedin.com">{{ student.stu_linkedIn }}</a>
                     </p>
                 </div>
 
@@ -83,26 +83,51 @@ import { mapActions } from "vuex";
 export default {
     name: "EmployerIndivApp",
     components: {
-        BackBtn
+        BackBtn,
     },
     data() {
         const appID = this.$route.query.appID;
-        const application = this.$store.getters.getAppById(appID);
-
-        const stuID = this.$route.params.stuID;
-        const student = this.$store.getters.getStuById(stuID);
         return {
             appID: appID,
-            application: application,
-            student: student
         };
+    },
+    computed: {
+        application() {
+            const application = this.$store.getters.getAppById(this.appID);
+            return application;
+        },
+        student() {
+            const stuID = this.$route.params.stuID;
+            const student = this.$store.getters.getStuById(stuID);
+            return student;
+        },
+    },
+    filters: {
+        appStatus(value) {
+            let status;
+            switch (value) {
+                case 1:
+                    status = "ACCEPTED";
+                    break;
+                case 2:
+                    status = "PENDING";
+                    break;
+                case 3:
+                    status = "REJECTED";
+                    break;
+                default:
+                    status = "";
+                    break;
+            }
+            return status;
+        },
     },
     methods: {
         ...mapActions(["updateAppStatus"]),
         accept() {
             let app = {
                 appID: this.appID,
-                status: "ACCEPTED"
+                status: "ACCEPTED",
             };
             this.$swal({
                 title: "Accept",
@@ -110,22 +135,22 @@ export default {
                 buttons: {
                     no: {
                         value: "no",
-                        text: "No"
+                        text: "No",
                     },
                     yes: {
                         value: "yes",
-                        text: "Yes"
-                    }
+                        text: "Yes",
+                    },
                 },
-                icon: "info"
-            }).then(value => {
+                icon: "info",
+            }).then((value) => {
                 switch (value) {
                     case "yes":
                         this.updateAppStatus(app)
                             .then(
                                 this.$swal({
                                     text: "Student accepted",
-                                    icon: "success"
+                                    icon: "success",
                                 })
                             )
                             .then(this.$router.go(-1));
@@ -136,7 +161,7 @@ export default {
         reject() {
             let app = {
                 appID: this.appID,
-                status: "REJECTED"
+                status: "REJECTED",
             };
 
             this.$swal({
@@ -145,30 +170,30 @@ export default {
                 buttons: {
                     no: {
                         value: "no",
-                        text: "No"
+                        text: "No",
                     },
                     yes: {
                         value: "yes",
-                        text: "Yes"
-                    }
+                        text: "Yes",
+                    },
                 },
-                icon: "warning"
-            }).then(value => {
+                icon: "warning",
+            }).then((value) => {
                 switch (value) {
                     case "yes":
                         this.updateAppStatus(app)
                             .then(
                                 this.$swal({
                                     text: "Student rejected",
-                                    icon: "info"
+                                    icon: "info",
                                 })
                             )
                             .then(this.$router.go(-1));
                         break;
                 }
             });
-        }
-    }
+        },
+    },
 };
 </script>
 

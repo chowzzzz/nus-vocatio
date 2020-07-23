@@ -60,7 +60,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: true
         },
         stu_resume: {
-            type: Sequelize.DataTypes.STRING,
+            type: Sequelize.DataTypes.BLOB("long"),
             allowNull: true
         },
         stu_password: {

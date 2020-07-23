@@ -44,7 +44,7 @@ const actions = {
 };
 
 const mutations = {
-    SET_ADMIN: (state, admins) => (state.admins = admins),
+    SET_ADMINS: (state, admins) => (state.admins = admins),
 
     ADD_ADMIN: (state, admin) => {
         state.admins.unshift(admin);

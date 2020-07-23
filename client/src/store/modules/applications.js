@@ -124,10 +124,15 @@ const getters = {
     getAppById: (state) => (id) => {
         return state.applications.find((application) => application.id == id);
     },
-    getAppByJobId: (state) => (jobID) => {
+    getAppByJobId: (state) => (jobpostId) => {
         return state.applications.filter(
-            (application) => application.jobID == jobID
+            (application) => application.jobpostId == jobpostId
         );
+    },
+    getNoOfAppByJobId: (state) => (jobpostId) => {
+        return state.applications.filter(
+            (application) => application.jobpostId == jobpostId
+        ).length;
     }
 };
 
@@ -151,7 +156,7 @@ const actions = {
 };
 
 const mutations = {
-    SET_APPLICATION: (state, applications) =>
+    SET_APPLICATIONS: (state, applications) =>
         (state.applications = applications),
 
     ADD_APPLICATION: (state, application) => {
