@@ -85,7 +85,7 @@ export default {
             searchKeyword: searchKeyword,
             checkedTypes: [],
             checkedFac: [],
-            salary: "",
+            salary: [],
             sort: 1,
         };
     },
@@ -113,13 +113,16 @@ export default {
             if (
                 this.searchKeyword.length > 0 ||
                 this.checkedTypes.length > 0 ||
-                this.checkedFac.length > 0
+                this.checkedFac.length > 0 ||
+                this.salary.length > 0
             ) {
                 jobs = this.getJobsBySearch(
                     this.searchKeyword,
                     this.checkedTypes,
-                    this.checkedFac
+                    this.checkedFac,
+                    this.salary
                 );
+                console.log(jobs);
             }
 
             if (this.sort == 2) {
@@ -135,7 +138,6 @@ export default {
 
                     return 0;
                 });
-                console.log(jobs);
             } else if (this.sort == 3) {
                 jobs.sort((a, b) => b.post_pay - a.post_pay);
             } else if (this.sort == 4) {

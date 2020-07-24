@@ -271,16 +271,27 @@ const getters = {
             (jobpost) => jobpost.employerId == employerId
         );
     },
-    getJobsBySearch: (state) => (search, checkedTypes, checkedFac) => {
+    getJobsBySearch: (state) => (search, checkedTypes, checkedFac, salary) => {
         let jobposts = state.jobposts.filter((jobpost) =>
             jobpost.post_title.toLowerCase().includes(search.toLowerCase())
         );
 
-        jobposts = jobposts.filter(
-            (jobpost) =>
-                checkedTypes.includes(jobpost.post_type) ||
-                checkedFac.includes(jobpost.post_faculty)
-        );
+        console.log(jobposts);
+
+        if (checkedTypes.length > 0 || checkedFac.length > 0)
+            jobposts = jobposts.filter(
+                (jobpost) =>
+                    checkedTypes.includes(jobpost.post_type) ||
+                    checkedFac.includes(jobpost.post_faculty)
+            );
+        console.log(salary[0]);
+        if (salary.length > 0)
+            jobposts = jobposts.filter((jobpost) => {
+                return (
+                    parseInt(jobpost.post_pay) >= salary[0] &&
+                    parseInt(jobpost.post_pay) <= salary[1]
+                );
+            });
 
         return jobposts;
     }

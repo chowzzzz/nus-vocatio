@@ -312,7 +312,7 @@ export default {
             this.$emit("filteredFac", this.checkedFac);
         },
         filterSalary(value) {
-            console.log(value);
+            this.salary = value;
             this.$emit("filteredSalary", this.salary);
         },
     },
