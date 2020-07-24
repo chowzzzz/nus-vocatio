@@ -9,7 +9,7 @@
             </span>
         </div>
         <div class="search">
-            <searchBar :style="{ display: searchBar }" />
+            <student-search-bar @searching="search" :style="{ display: searchBar }" />
         </div>
 
         <div class="filterPopup" :style="{ display: popup }">
@@ -26,29 +26,52 @@
 
                     <div class="filter-one">
                         <div class="filter">
-                            <input type="checkbox" name="allTypes" id="allTypes" />
-                            <label for="allTypes">All types</label>
-                        </div>
-
-                        <div class="filter">
-                            <input type="checkbox" name="intern" id="intern" />
+                            <input
+                                type="checkbox"
+                                v-model="checkedTypes"
+                                @change="checkTypes"
+                                value="Internship"
+                                name="intern"
+                                id="intern"
+                            />
                             <label for="intern">Internship</label>
                         </div>
 
                         <div class="filter">
-                            <input type="checkbox" name="part-time" id="part-time" />
+                            <input
+                                type="checkbox"
+                                v-model="checkedTypes"
+                                @change="checkTypes"
+                                value="Part-time"
+                                name="part-time"
+                                id="part-time"
+                            />
                             <label for="part-time">Part-time</label>
                         </div>
                     </div>
 
                     <div class="filter-two">
                         <div class="filter">
-                            <input type="checkbox" name="research" id="research" />
+                            <input
+                                type="checkbox"
+                                v-model="checkedTypes"
+                                @change="checkTypes"
+                                value="Research studies"
+                                name="research"
+                                id="research"
+                            />
                             <label for="research">Research studies</label>
                         </div>
 
                         <div class="filter">
-                            <input type="checkbox" name="surveys" id="surveys" />
+                            <input
+                                type="checkbox"
+                                v-model="checkedTypes"
+                                @change="checkTypes"
+                                value="Surveys"
+                                name="surveys"
+                                id="surveys"
+                            />
                             <label for="surveys">Surveys</label>
                         </div>
                     </div>
@@ -149,17 +172,19 @@
 </template>
 
 <script>
-import StudentSearchBarVue from "./StudentSearchBar.vue";
+import StudentSearchBar from "./StudentSearchBar.vue";
 export default {
     name: "SideFilterMenuMobile",
     components: {
-        searchBar: StudentSearchBarVue
+        StudentSearchBar,
     },
     data() {
         return {
             searchBar: "none",
             popup: "none",
-            align: "center"
+            align: "center",
+            checkedTypes: [],
+            checkedFac: [],
         };
     },
     methods: {
@@ -172,8 +197,21 @@ export default {
             this.popup == "none"
                 ? (this.popup = "block")
                 : (this.popup = "none");
-        }
-    }
+        },
+        search(searchKeyword) {
+            this.$emit("searching", searchKeyword);
+        },
+        checkTypes() {
+            this.$emit("filteredTypes", this.checkedTypes);
+        },
+        checkFac() {
+            this.$emit("filteredFac", this.checkedFac);
+        },
+        filterSalary(value) {
+            console.log(value);
+            this.$emit();
+        },
+    },
 };
 </script>
 

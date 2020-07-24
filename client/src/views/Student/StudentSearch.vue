@@ -1,23 +1,28 @@
 <template>
-    <div v-if="pairs">
+    <div v-if="jobs && pairs">
         <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
-            <sideFilterMenu />
+            <sideFilterMenu
+                @searching="search"
+                @filteredTypes="filterTypes"
+                @filteredFac="filterFac"
+                @filteredSalary="filterSalary"
+                :searchKey="searchKeyword"
+            />
         </hide-at>
         <div class="jobListings">
             <div class="jobs">
                 <div class="job-header">
                     <h2>Job Listings</h2>
                     <show-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
-                        <sideFilterMenuMobile />
+                        <sideFilterMenuMobile @searching="search" />
                     </show-at>
                     <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
                         <div class="select">
-                            <select id="sort">
-                                <option value="sortby">Sort by</option>
-                                <option value="apha">Alphabetical</option>
-                                <option value="high">Salary: High to Low</option>
-                                <option value="low">Salary: Low to High</option>
-                                <option value="recent">Most Recent</option>
+                            <select v-model="sort" id="sort">
+                                <option value="1">Most Recent</option>
+                                <option value="2">Title</option>
+                                <option value="3">Salary: High to Low</option>
+                                <option value="4">Salary: Low to High</option>
                             </select>
                         </div>
                     </hide-at>
@@ -71,16 +76,80 @@ export default {
         hideAt,
         showAt,
     },
+    data() {
+        let searchKeyword = "";
+        if (this.$route.query.search !== undefined) {
+            searchKeyword = this.$route.query.search;
+        }
+        return {
+            searchKeyword: searchKeyword,
+            checkedTypes: [],
+            checkedFac: [],
+            salary: "",
+            sort: 1,
+        };
+    },
     methods: {
         navigateTo(route) {
-            // console.log(route);
             this.$router.push(route);
+        },
+        search(searchKeyword) {
+            this.searchKeyword = searchKeyword;
+        },
+        filterTypes(checkedTypes) {
+            this.checkedTypes = checkedTypes;
+        },
+        filterFac(checkedFac) {
+            this.checkedFac = checkedFac;
+        },
+        filterSalary(salary) {
+            this.salary = salary;
         },
     },
     computed: {
-        ...mapGetters(["allJobs"]),
+        ...mapGetters(["allJobs", "getJobsBySearch"]),
+        jobs() {
+            let jobs = this.allJobs;
+            if (
+                this.searchKeyword.length > 0 ||
+                this.checkedTypes.length > 0 ||
+                this.checkedFac.length > 0
+            ) {
+                jobs = this.getJobsBySearch(
+                    this.searchKeyword,
+                    this.checkedTypes,
+                    this.checkedFac
+                );
+            }
+
+            if (this.sort == 2) {
+                jobs.sort((a, b) => {
+                    const post1 = a.post_title.toUpperCase();
+                    const post2 = b.post_title.toUpperCase();
+                    if (post1 < post2) {
+                        return -1;
+                    }
+                    if (post1 > post2) {
+                        return 1;
+                    }
+
+                    return 0;
+                });
+                console.log(jobs);
+            } else if (this.sort == 3) {
+                jobs.sort((a, b) => b.post_pay - a.post_pay);
+            } else if (this.sort == 4) {
+                jobs.sort((a, b) => a.post_pay - b.post_pay);
+            } else {
+                jobs.sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                );
+            }
+
+            return jobs;
+        },
         pairs() {
-            return this.allJobs.map((job) => {
+            return this.jobs.map((job) => {
                 const employer = this.$store.getters.getEmpById(job.employerId);
                 return {
                     job: job,

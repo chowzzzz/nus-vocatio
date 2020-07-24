@@ -7,6 +7,8 @@
             id="searchBar"
             placeholder="Search for a job"
             autocomplete="on"
+            v-model="searchKeyword"
+            @keyup.enter="search"
         />
         <span v-bind:class="{ 'custom-fa-search' : $route.path == '/' }">
             <i class="fas fa-search"></i>
@@ -16,7 +18,19 @@
 
 <script>
 export default {
-    name: "StudentSearchBar"
+    name: "StudentSearchBar",
+    props: ["searchKey"],
+    data() {
+        return {
+            searchKeyword: this.searchKey,
+        };
+    },
+    methods: {
+        search() {
+            console.log(this.searchKeyword);
+            this.$emit("searching", this.searchKeyword);
+        },
+    },
 };
 </script>
 

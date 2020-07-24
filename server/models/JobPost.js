@@ -57,6 +57,7 @@ module.exports = (sequelize, Sequelize) => {
         },
         post_faculty: {
             type: Sequelize.DataTypes.ENUM(
+                "All",
                 "FASS",
                 "Business",
                 "Computing",

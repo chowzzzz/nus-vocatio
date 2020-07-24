@@ -3,8 +3,8 @@
         <div class="search-container">
             <section id="search">
                 <h2 class="title">Find the best school job this summer!</h2>
-                <form method="get">
-                    <search-bar />
+                <form @submit.prevent>
+                    <student-search-bar @searching="search" />
                     <div class="btns">
                         <button class="btn" id="searchBtn">Search</button>
                         <router-link to="/jobPosts">
@@ -15,7 +15,7 @@
             </section>
             <img src="../../assets/job.jpg" alt="searching for jobs" class="jobPic" />
         </div>
-        <about />
+        <student-about />
     </div>
 </template>
 
@@ -27,9 +27,18 @@ import StudentSearchBar from "../../components/StudentSearchBar.vue";
 export default {
     name: "StudentHome",
     components: {
-        about: StudentAbout,
-        searchBar: StudentSearchBar
-    }
+        StudentAbout,
+        StudentSearchBar,
+    },
+    methods: {
+        search(searchKeyword) {
+            console.log(searchKeyword);
+            this.$router.push({
+                path: "/jobPosts",
+                query: { search: searchKeyword },
+            });
+        },
+    },
 };
 </script>
 

@@ -11,8 +11,7 @@
                 <i class="fas fa-search"></i>
             </h4>
             <div class="filter-content">
-                <!-- <input type="text" placeholder="Search..." /> -->
-                <searchBar />
+                <student-search-bar @searching="search" :searchKey="searchKey" />
             </div>
         </div>
         <div class="filter-block">
@@ -22,23 +21,43 @@
             </h4>
             <ul class="filter-content">
                 <li>
-                    <input type="checkbox" name="allTypes" id="allTypes" />
-                    <label for="allTypes">All types</label>
-                </li>
-                <li>
-                    <input type="checkbox" name="intern" id="intern" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedTypes"
+                        @change="checkTypes"
+                        value="Internship"
+                        id="intern"
+                    />
                     <label for="intern">Internship</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="part-time" id="part-time" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedTypes"
+                        @change="checkTypes"
+                        value="Part-time"
+                        id="part-time"
+                    />
                     <label for="part-time">Part-time</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="research" id="research" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedTypes"
+                        @change="checkTypes"
+                        value="Research studies"
+                        id="research"
+                    />
                     <label for="research">Research studies</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="surveys" id="surveys" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedTypes"
+                        @change="checkTypes"
+                        value="Surveys"
+                        id="surveys"
+                    />
                     <label for="surveys">Surveys</label>
                 </li>
             </ul>
@@ -50,67 +69,190 @@
             </h4>
             <ul class="filter-content">
                 <li>
-                    <input type="checkbox" name="fass" id="fass" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="All"
+                        name="all"
+                        id="all"
+                    />
+                    <label for="all">All</label>
+                </li>
+                <li>
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="FASS"
+                        name="fass"
+                        id="fass"
+                    />
                     <label for="fass">FASS</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="ba" id="ba" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Business"
+                        name="ba"
+                        id="ba"
+                    />
                     <label for="ba">Business</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="soc" id="soc" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Computing"
+                        name="soc"
+                        id="soc"
+                    />
                     <label for="soc">Computing</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="dentistry" id="dentistry" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Dentistry"
+                        name="dentistry"
+                        id="dentistry"
+                    />
                     <label for="soc">Dentistry</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="sde" id="sde" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Design and Environment"
+                        name="sde"
+                        id="sde"
+                    />
                     <label for="sde">Design and Environment</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="duke" id="duke" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Duke-NUS Medical School"
+                        name="duke"
+                        id="duke"
+                    />
                     <label for="duke">Duke-NUS Medical School</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="engin" id="engin" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Engineering"
+                        name="engin"
+                        id="engin"
+                    />
                     <label for="engin">Engineering</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="law" id="law" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Law"
+                        name="law"
+                        id="law"
+                    />
                     <label for="law">Law</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="med" id="med" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Medicine"
+                        name="med"
+                        id="med"
+                    />
                     <label for="med">Medicine</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="music" id="music" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Music"
+                        name="music"
+                        id="music"
+                    />
                     <label for="music">Music</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="publicHealth" id="publicHealth" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Public Health"
+                        name="publicHealth"
+                        id="publicHealth"
+                    />
                     <label for="publicHealth">Public Health</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="publicPolicy" id="publicPolicy" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Public Policy"
+                        name="publicPolicy"
+                        id="publicPolicy"
+                    />
                     <label for="publicPolicy">Public Policy</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="scle" id="scle" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="School of Continuing and Lifelong Education"
+                        name="scle"
+                        id="scle"
+                    />
                     <label for="scle">School of Continuing and Lifelong Education</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="fos" id="fos" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Science"
+                        name="fos"
+                        id="fos"
+                    />
                     <label for="fos">Science</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="usp" id="usp" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="University Scholars Programme"
+                        name="usp"
+                        id="usp"
+                    />
                     <label for="usp">University Scholars Programme</label>
                 </li>
                 <li>
-                    <input type="checkbox" name="yale" id="yale" />
+                    <input
+                        type="checkbox"
+                        v-model="checkedFac"
+                        @change="checkFac"
+                        value="Yale-NUS"
+                        name="yale"
+                        id="yale"
+                    />
                     <label for="yale">Yale-NUS</label>
                 </li>
             </ul>
@@ -121,19 +263,59 @@
                 <img src="../assets/down.svg" alt="Down" class="down" />
             </h4>
             <div class="filter-content">
-                <input type="range" name="salarySlider" id="salarySlider" min="0" max="3000" />
+                <vue-slider
+                    v-model="salary"
+                    :max="5000"
+                    :interval="100"
+                    :lazy="true"
+                    :absorb="true"
+                    :contained="true"
+                    :tooltip-formatter="formatter"
+                    :enable-cross="false"
+                    @change="filterSalary"
+                />
+                <!-- <input type="range" name="salarySlider" id="salarySlider" min="0" max="3000" /> -->
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import StudentSearchBarVue from "./StudentSearchBar.vue";
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/antd.css";
+import StudentSearchBar from "./StudentSearchBar.vue";
+
 export default {
     name: "SideFilterMenu",
     components: {
-        searchBar: StudentSearchBarVue
-    }
+        StudentSearchBar,
+        VueSlider,
+    },
+    props: ["searchKey"],
+    data() {
+        return {
+            salary: [0, 5000],
+            formatter: (v) =>
+                `$${("" + v).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
+            checkedTypes: [],
+            checkedFac: [],
+        };
+    },
+    methods: {
+        search(searchKeyword) {
+            this.$emit("searching", searchKeyword);
+        },
+        checkTypes() {
+            this.$emit("filteredTypes", this.checkedTypes);
+        },
+        checkFac() {
+            this.$emit("filteredFac", this.checkedFac);
+        },
+        filterSalary(value) {
+            console.log(value);
+            this.$emit("filteredSalary", this.salary);
+        },
+    },
 };
 </script>
 
@@ -177,7 +359,7 @@ li {
     font-size: 0.7em;
 }
 
-#salarySlider {
+vue-slider {
     width: 90%;
 }
 

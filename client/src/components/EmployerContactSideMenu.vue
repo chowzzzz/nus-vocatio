@@ -1,5 +1,5 @@
 <template>
-    <div class="side">
+    <div class="side" v-if="employer && job">
         <div class="employer-info">
             <div class="employer-title">
                 <img v-if="image" :src="image" alt="employer avatar" />

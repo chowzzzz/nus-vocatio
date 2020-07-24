@@ -270,6 +270,19 @@ const getters = {
         return state.jobposts.filter(
             (jobpost) => jobpost.employerId == employerId
         );
+    },
+    getJobsBySearch: (state) => (search, checkedTypes, checkedFac) => {
+        let jobposts = state.jobposts.filter((jobpost) =>
+            jobpost.post_title.toLowerCase().includes(search.toLowerCase())
+        );
+
+        jobposts = jobposts.filter(
+            (jobpost) =>
+                checkedTypes.includes(jobpost.post_type) ||
+                checkedFac.includes(jobpost.post_faculty)
+        );
+
+        return jobposts;
     }
 };
 const actions = {
