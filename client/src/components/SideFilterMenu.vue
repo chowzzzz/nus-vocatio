@@ -274,7 +274,6 @@
                     :enable-cross="false"
                     @change="filterSalary"
                 />
-                <!-- <input type="range" name="salarySlider" id="salarySlider" min="0" max="3000" /> -->
             </div>
         </div>
     </div>

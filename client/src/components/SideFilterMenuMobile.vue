@@ -9,7 +9,11 @@
             </span>
         </div>
         <div class="search">
-            <student-search-bar @searching="search" :style="{ display: searchBar }" />
+            <student-search-bar
+                @searching="search"
+                :searchKey="searchKey"
+                :style="{ display: searchBar }"
+            />
         </div>
 
         <div class="filterPopup" :style="{ display: popup }">
@@ -153,17 +157,17 @@
                 <div class="filter-slider-block">
                     <h4 class="filter-content-title">Salary</h4>
                     <div class="filter-slider-content">
-                        $0
-                        <input
-                            type="range"
-                            name="salarySlider"
-                            id="salarySlider"
-                            min="0"
-                            max="3000"
-                            value="3000"
-                            step="30"
+                        <vue-slider
+                            v-model="salary"
+                            :max="5000"
+                            :interval="100"
+                            :lazy="true"
+                            :absorb="true"
+                            :contained="true"
+                            :tooltip-formatter="formatter"
+                            :enable-cross="false"
+                            @change="filterSalary"
                         />
-                        $3000
                     </div>
                 </div>
             </form>
@@ -172,17 +176,24 @@
 </template>
 
 <script>
+import VueSlider from "vue-slider-component";
+import "vue-slider-component/theme/antd.css";
 import StudentSearchBar from "./StudentSearchBar.vue";
 export default {
     name: "SideFilterMenuMobile",
     components: {
         StudentSearchBar,
+        VueSlider,
     },
+    props: ["searchKey"],
     data() {
         return {
             searchBar: "none",
             popup: "none",
             align: "center",
+            salary: [0, 5000],
+            formatter: (v) =>
+                `$${("" + v).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`,
             checkedTypes: [],
             checkedFac: [],
         };
@@ -208,8 +219,8 @@ export default {
             this.$emit("filteredFac", this.checkedFac);
         },
         filterSalary(value) {
-            console.log(value);
-            this.$emit();
+            this.salary = value;
+            this.$emit("filteredSalary", this.salary);
         },
     },
 };

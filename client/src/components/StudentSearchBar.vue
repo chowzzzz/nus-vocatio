@@ -27,7 +27,6 @@ export default {
     },
     methods: {
         search() {
-            console.log(this.searchKeyword);
             this.$emit("searching", this.searchKeyword);
         },
     },

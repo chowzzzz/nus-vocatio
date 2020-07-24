@@ -276,15 +276,12 @@ const getters = {
             jobpost.post_title.toLowerCase().includes(search.toLowerCase())
         );
 
-        console.log(jobposts);
-
         if (checkedTypes.length > 0 || checkedFac.length > 0)
             jobposts = jobposts.filter(
                 (jobpost) =>
                     checkedTypes.includes(jobpost.post_type) ||
                     checkedFac.includes(jobpost.post_faculty)
             );
-        console.log(salary[0]);
         if (salary.length > 0)
             jobposts = jobposts.filter((jobpost) => {
                 return (

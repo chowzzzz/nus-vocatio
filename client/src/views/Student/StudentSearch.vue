@@ -14,7 +14,13 @@
                 <div class="job-header">
                     <h2>Job Listings</h2>
                     <show-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
-                        <sideFilterMenuMobile @searching="search" />
+                        <sideFilterMenuMobile
+                            @searching="search"
+                            @filteredTypes="filterTypes"
+                            @filteredFac="filterFac"
+                            @filteredSalary="filterSalary"
+                            :searchKey="searchKeyword"
+                        />
                     </show-at>
                     <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
                         <div class="select">
@@ -122,7 +128,6 @@ export default {
                     this.checkedFac,
                     this.salary
                 );
-                console.log(jobs);
             }
 
             if (this.sort == 2) {
