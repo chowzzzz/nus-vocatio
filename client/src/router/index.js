@@ -4,7 +4,6 @@ import store from "../store";
 
 // import StudentSearch from "../views/Student/StudentSearch.vue";
 // import StudentJobListing from "../views/Student/StudentJobListing.vue";
-import StudentNotification from "../views/Student/StudentNotification.vue";
 
 // import EmployerJobPosting from "../views/Employer/EmployerJobPosting.vue";
 import EmployerApp from "../views/Employer/EmployerApp.vue";
@@ -127,16 +126,6 @@ const routes = [
         }
     },
     {
-        path: "/notification",
-        name: "notification",
-        component: StudentNotification
-    },
-    /* {
-        path: "/employer-home/:jobID",
-        name: "post-details",
-        component: EmployerJobPosting
-    }, */
-    {
         path: "/applicants/:jobID",
         name: "applicants",
         component: EmployerApp
@@ -176,16 +165,6 @@ const routes = [
         name: "admin-emp-acc-indiv",
         component: AdminEmpAccIndiv
     },
-    /* {
-        path: "/admin-posts",
-        name: "admin-posts",
-        component: AdminPosts
-    }, */
-    /* {
-        path: "/admin-posts/:jobID",
-        name: "admin-post-edit",
-        component: AdminPostEdit
-    }, */
     {
         path: "/jobPostsPending",
         name: "admin-posts-pending",

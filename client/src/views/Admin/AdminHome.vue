@@ -8,13 +8,6 @@
                     <h4>Accounts</h4>
                 </div>
             </router-link>
-            <router-link to="#">
-                <div class="link">
-                    <img src="../../assets/alert.svg" alt="requests" />
-                    <br />
-                    <h4>Requests</h4>
-                </div>
-            </router-link>
             <router-link to="/jobPosts">
                 <div class="link">
                     <img src="../../assets/tasks.svg" alt="posts" />
@@ -27,6 +20,13 @@
                     <img src="../../assets/report.svg" alt="pending posts" />
                     <br />
                     <h4>Pending Posts</h4>
+                </div>
+            </router-link>
+            <router-link to="/logout">
+                <div class="link">
+                    <img src="../../assets/logout.svg" alt="logout" />
+                    <br />
+                    <h4>Logout</h4>
                 </div>
             </router-link>
         </div>
@@ -65,6 +65,7 @@ export default {};
 
 .link img {
     width: 70px;
+    margin-bottom: 0.3em;
 }
 
 .link:hover {

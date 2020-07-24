@@ -28,6 +28,15 @@
                 <hide-at :breakpoints="{small: 400, medium: 571}" breakpoint="mediumAndBelow">
                     <ul>
                         <li>
+                            <router-link to="/viewStudents">Accounts</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/jobPosts">Posts</router-link>
+                        </li>
+                        <li>
+                            <router-link to="/jobPostsPending">Pending posts</router-link>
+                        </li>
+                        <li>
                             <router-link to="/profile">
                                 <img src="../assets/selfmade/user.svg" alt="User" />
                             </router-link>
@@ -39,7 +48,7 @@
                         </li>
                         <li>
                             <router-link to="/logout">
-                                <img src="../assets/selfmade/logout.png" alt="Logout" />
+                                <img src="../assets/selfmade/logout.png" alt="logout" />
                             </router-link>
                         </li>
                     </ul>
@@ -55,6 +64,21 @@
                         <router-link to="/">
                             <li class="mobile-nav" @click="toggle">
                                 <span>Home</span>
+                            </li>
+                        </router-link>
+                        <router-link to="/viewStudents">
+                            <li class="mobile-nav" @click="toggle">
+                                <span>Accounts</span>
+                            </li>
+                        </router-link>
+                        <router-link to="/jobPosts">
+                            <li class="mobile-nav" @click="toggle">
+                                <span>Posts</span>
+                            </li>
+                        </router-link>
+                        <router-link to="/jobPostsPending">
+                            <li class="mobile-nav" @click="toggle">
+                                <span>Pending posts</span>
                             </li>
                         </router-link>
                         <router-link to="/profile">
@@ -84,7 +108,7 @@
 import { showAt, hideAt } from "vue-breakpoints";
 
 export default {
-    name: "NavBar",
+    name: "NavBarAdmin",
     components: {
         hideAt,
         showAt,
@@ -105,6 +129,7 @@ export default {
 </script>
 
 <style scoped>
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap");
 .nav-container {
     background: #eceff3;
     display: flex;
@@ -129,6 +154,8 @@ nav {
 }
 
 nav ul {
+    display: flex;
+    align-items: center;
     list-style-type: none;
     margin: 0;
     padding: 0.2em 0 0;
@@ -141,6 +168,20 @@ nav ul li {
 
 nav img {
     width: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: #636363;
+    font-size: 13px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    transition-duration: 0.4s;
+    margin-right: 0.5em;
+}
+
+a:hover {
+    color: #000;
 }
 
 @media screen and (max-width: 570px) {

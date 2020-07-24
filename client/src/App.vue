@@ -1,12 +1,14 @@
 <template>
     <div id="app">
-        <nav-bar v-if="isAuthenticated"></nav-bar>
-        <nav-bar-login v-else></nav-bar-login>
+        <nav-bar v-if="isAuthenticated && !isAdmin"></nav-bar>
+        <nav-bar-admin v-else-if="isAuthenticated && isAdmin"></nav-bar-admin>
+        <nav-bar-login v-else-if="!isAuthenticated"></nav-bar-login>
     </div>
 </template>
 
 <script>
 import NavBar from "./components/NavBar.vue";
+import NavBarAdmin from "./components/NavBarAdmin.vue";
 import NavBarLogin from "./components/NavBarLogin.vue";
 import { mapActions, mapState } from "vuex";
 
@@ -14,6 +16,7 @@ export default {
     name: "NusVocatio",
     components: {
         NavBar,
+        NavBarAdmin,
         NavBarLogin,
     },
     methods: {
@@ -27,6 +30,7 @@ export default {
     },
     computed: {
         ...mapState(["isAuthenticated"]),
+        ...mapState(["isAdmin"]),
     },
     async created() {
         this.fetchStudents();
