@@ -78,6 +78,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         post_max_applicants: {
             type: Sequelize.DataTypes.INTEGER
+        },
+        post_isPending: {
+            type: Sequelize.DataTypes.BOOLEAN
         }
     });
     return Jobpost;
