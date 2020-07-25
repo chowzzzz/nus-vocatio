@@ -125,7 +125,7 @@ export default {
             return moment(String(this.student.stu_dob)).format("YYYY-MM-DD");
         },
     },
-    watch: {
+    /* watch: {
         student: function (loadedStudent) {
             loadedStudent.forEach((student) => {
                 // change this
@@ -138,7 +138,7 @@ export default {
                     );
             });
         },
-    },
+    }, */
 };
 </script>
 

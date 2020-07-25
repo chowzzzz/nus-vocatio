@@ -257,6 +257,7 @@ export default {
 
 .stu-img img {
     height: 110px;
+    border: 1px solid #e2e2e2;
 }
 
 .stu-tags {

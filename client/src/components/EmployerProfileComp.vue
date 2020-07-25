@@ -172,15 +172,29 @@ export default {
     props: ["employer"],
     computed: {
         image() {
-            return (
-                //change this
-                "data:image/jpg;base64," +
-                btoa(
-                    this.employer.emp_picture.data
-                        .map((b) => String.fromCharCode(b))
-                        .join("")
-                )
-            );
+            let image;
+            if (
+                this.employer !== undefined &&
+                this.employer.emp_picture.data !== undefined
+                // && employer.emp_logo.data !== undefined
+            ) {
+                // change this
+                image =
+                    "data:image/jpeg;base64," +
+                    btoa(
+                        this.employer.emp_picture.data
+                            .map((b) => String.fromCharCode(b))
+                            .join("")
+                    );
+                /*  employer.emp_logo =
+                        "data:image/jpeg;base64," +
+                        btoa(
+                            employer.emp_logo.data
+                                .map((b) => String.fromCharCode(b))
+                                .join("")
+                        ); */
+            }
+            return image;
         },
     },
 };
@@ -226,8 +240,9 @@ h3 {
 
 .coLogo img,
 .empLogo img {
-    width: 100%;
-    /* border: 1px solid #b8b8b8; */
+    width: 80%;
+    border: 1px solid #e2e2e2;
+    padding: 1em;
     margin-top: 0.5em;
 }
 
