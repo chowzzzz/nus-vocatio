@@ -1,7 +1,7 @@
 <template>
     <div v-if="jobs && pairs">
         <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
-            <sideFilterMenu
+            <side-filter-menu
                 @searching="search"
                 @filteredTypes="filterTypes"
                 @filteredFac="filterFac"
@@ -14,7 +14,7 @@
                 <div class="job-header">
                     <h2>Job Listings</h2>
                     <show-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
-                        <sideFilterMenuMobile
+                        <side-filter-menu-mobile
                             @searching="search"
                             @filteredTypes="filterTypes"
                             @filteredFac="filterFac"
@@ -76,8 +76,8 @@ import { showAt, hideAt } from "vue-breakpoints";
 export default {
     name: "StudentSearch",
     components: {
-        sideFilterMenu: SideFilterMenu,
-        sideFilterMenuMobile: SideFilterMenuMobile,
+        SideFilterMenu,
+        SideFilterMenuMobile,
         ScrollToTopBtn,
         hideAt,
         showAt,
@@ -113,7 +113,7 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(["allJobs", "getJobsBySearch"]),
+        ...mapGetters(["allJobs", "getJobsBySearch", "getEmpById"]),
         jobs() {
             let jobs = this.allJobs;
             if (
@@ -157,7 +157,7 @@ export default {
         },
         pairs() {
             return this.jobs.map((job) => {
-                const employer = this.$store.getters.getEmpById(job.employerId);
+                const employer = this.getEmpById(job.employerId);
                 return {
                     job: job,
                     company: employer.emp_company,
@@ -241,7 +241,7 @@ export default {
     margin-left: 20%;
     padding: 2em 2em 4.5em;
     background: #f2f2f2;
-    height: calc(100vh + 5em);
+    min-height: 120vh;
 }
 
 .job-title {
@@ -328,7 +328,7 @@ li {
 @media screen and (max-width: 700px) {
     .jobListings {
         margin-left: 0;
-        height: 100vh;
+        min-height: 100vh;
     }
 
     .job-header {

@@ -23,7 +23,7 @@
                         <i class="fas fa-times"></i>
                     </span>
                     <h3>Filters</h3>
-                    <input type="reset" value="Reset" />
+                    <input type="reset" value="Reset" @click="reset" />
                 </div>
                 <div class="filter-block">
                     <h4 class="filter-content-title">Types</h4>
@@ -222,6 +222,14 @@ export default {
             this.salary = value;
             this.$emit("filteredSalary", this.salary);
         },
+        reset() {
+            this.salary = [0, 5000];
+            this.checkedTypes = [];
+            this.checkedFac = [];
+            this.checkTypes();
+            this.checkFac();
+            this.$emit("filteredSalary", []);
+        }
     },
 };
 </script>

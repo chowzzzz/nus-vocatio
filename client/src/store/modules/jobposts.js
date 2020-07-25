@@ -262,7 +262,10 @@ const state = {
     ]
 };
 const getters = {
-    allJobs: (state) => state.jobposts,
+    allJobs: (state) =>
+        state.jobposts.filter((jobpost) => !jobpost.post_isPending),
+    allPendingJobs: (state) =>
+        state.jobposts.filter((jobpost) => jobpost.post_isPending),
     getJobById: (state) => (id) => {
         return state.jobposts.find((jobpost) => jobpost.id == id);
     },
@@ -272,15 +275,50 @@ const getters = {
         );
     },
     getJobsBySearch: (state) => (search, checkedTypes, checkedFac, salary) => {
-        let jobposts = state.jobposts.filter((jobpost) =>
+        let jobposts = state.jobposts.filter(
+            (jobpost) => !jobpost.post_isPending
+        );
+        jobposts = jobposts.filter((jobpost) =>
             jobpost.post_title.toLowerCase().includes(search.toLowerCase())
         );
 
-        if (checkedTypes.length > 0 || checkedFac.length > 0)
-            jobposts = jobposts.filter(
-                (jobpost) =>
-                    checkedTypes.includes(jobpost.post_type) ||
-                    checkedFac.includes(jobpost.post_faculty)
+        if (checkedTypes.length > 0)
+            jobposts = jobposts.filter((jobpost) =>
+                checkedTypes.includes(jobpost.post_type)
+            );
+        if (checkedFac.length > 0)
+            jobposts = jobposts.filter((jobpost) =>
+                checkedFac.includes(jobpost.post_faculty)
+            );
+        if (salary.length > 0)
+            jobposts = jobposts.filter((jobpost) => {
+                return (
+                    parseInt(jobpost.post_pay) >= salary[0] &&
+                    parseInt(jobpost.post_pay) <= salary[1]
+                );
+            });
+
+        return jobposts;
+    },
+    getPendingJobsBySearch: (state) => (
+        search,
+        checkedTypes,
+        checkedFac,
+        salary
+    ) => {
+        let jobposts = state.jobposts.filter(
+            (jobpost) => jobpost.post_isPending
+        );
+        jobposts = jobposts.filter((jobpost) =>
+            jobpost.post_title.toLowerCase().includes(search.toLowerCase())
+        );
+        if (checkedTypes.length > 0)
+            jobposts = jobposts.filter((jobpost) =>
+                checkedTypes.includes(jobpost.post_type)
+            );
+        if (checkedFac.length > 0)
+            jobposts = jobposts.filter((jobpost) =>
+                checkedFac.includes(jobpost.post_faculty)
             );
         if (salary.length > 0)
             jobposts = jobposts.filter((jobpost) => {

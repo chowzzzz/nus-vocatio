@@ -59,8 +59,8 @@ body {
 
 .container {
     background: #f8fbff;
-    /* height: calc(100vh - 53px); */
     height: 100%;
+    min-height: calc(100vh - 53px);
     padding-bottom: 2em;
 }
 

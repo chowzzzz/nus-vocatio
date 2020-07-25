@@ -4,7 +4,7 @@
             <img :src="require(`../assets/selfmade/${employer.emp_logo}`)" alt="company logo" />
         </div>
         <div class="job-main-title-container job-title">
-            <h1>{{ job.title }}</h1>
+            <h1>{{ job.post_title }}</h1>
             <p>{{ employer.emp_company }}</p>
             <p class="filters">
                 <span id="type">{{ job.post_type }}</span>

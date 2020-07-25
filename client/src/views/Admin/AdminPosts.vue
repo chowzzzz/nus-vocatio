@@ -1,23 +1,33 @@
 <template>
-    <div>
+    <div v-if="pairs && jobs">
         <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
-            <sideFilterMenu />
+            <side-filter-menu
+                @searching="search"
+                @filteredTypes="filterTypes"
+                @filteredFac="filterFac"
+                @filteredSalary="filterSalary"
+                :searchKey="searchKeyword"
+            />
         </hide-at>
         <div class="jobListings">
             <div class="jobs">
                 <div class="job-header">
                     <h2>Job Listings</h2>
                     <show-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
-                        <sideFilterMenuMobile />
+                        <side-filter-menu-mobile
+                            @searching="search"
+                            @filteredTypes="filterTypes"
+                            @filteredFac="filterFac"
+                            @filteredSalary="filterSalary"
+                            :searchKey="searchKeyword" />
                     </show-at>
                     <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
                         <div class="select">
-                            <select id="sort">
-                                <option value="sortby">Sort by</option>
-                                <option value="apha">Alphabetical</option>
-                                <option value="high">Salary: High to Low</option>
-                                <option value="low">Salary: Low to High</option>
-                                <option value="recent">Most Recent</option>
+                            <select v-model="sort" id="sort">
+                                <option value="1">Most Recent</option>
+                                <option value="2">Title</option>
+                                <option value="3">Salary: High to Low</option>
+                                <option value="4">Salary: Low to High</option>
                             </select>
                         </div>
                     </hide-at>
@@ -36,7 +46,7 @@
                         </div>
                         <div class="job-title">
                             <h4>{{ pair.job.post_title }}</h4>
-                            <p>{{ pair.companyName }}</p>
+                            <p>{{ pair.company }}</p>
                             <p id="desc">{{ pair.job.post_short_des }}</p>
                             <p id="filters">
                                 <span id="type">{{ pair.job.post_type }}</span>
@@ -65,21 +75,69 @@ import { showAt, hideAt } from "vue-breakpoints";
 export default {
     name: "AdminPosts",
     components: {
-        sideFilterMenu: SideFilterMenu,
-        sideFilterMenuMobile: SideFilterMenuMobile,
+        SideFilterMenu,
+        SideFilterMenuMobile,
         ScrollToTopBtn,
         hideAt,
         showAt,
     },
+    data() {
+        return {
+            searchKeyword: "",
+            checkedTypes: [],
+            checkedFac: [],
+            salary: [],
+            sort: 1,
+        };
+    },
     computed: {
-        ...mapGetters(["allJobs"]),
+        ...mapGetters(["allJobs", "getJobsBySearch","getEmpById"]),
+        jobs() {
+            let jobs = this.allJobs;
+            if (
+                this.searchKeyword.length > 0 ||
+                this.checkedTypes.length > 0 ||
+                this.checkedFac.length > 0 ||
+                this.salary.length > 0
+            ) {
+                jobs = this.getJobsBySearch(
+                    this.searchKeyword,
+                    this.checkedTypes,
+                    this.checkedFac,
+                    this.salary
+                );
+            }
+            if (this.sort == 2) {
+                jobs.sort((a, b) => {
+                    const post1 = a.post_title.toUpperCase();
+                    const post2 = b.post_title.toUpperCase();
+                    if (post1 < post2) {
+                        return -1;
+                    }
+                    if (post1 > post2) {
+                        return 1;
+                    }
+
+                    return 0;
+                });
+            } else if (this.sort == 3) {
+                jobs.sort((a, b) => b.post_pay - a.post_pay);
+            } else if (this.sort == 4) {
+                jobs.sort((a, b) => a.post_pay - b.post_pay);
+            } else {
+                jobs.sort(
+                    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                );
+            }
+
+            return jobs;
+        },
         pairs() {
-            return this.allJobs.map((job) => {
-                const employer = this.$store.getters.getEmpById(job.employerId);
+            return this.jobs.map((job) => {
+                const employer = this.getEmpById(job.employerId);
                 return {
                     job: job,
-                    company: this.$store.getters.getEmpById(job.employerId)
-                        .emp_company,
+                    company: employer.emp_company,
                     coLogo: employer.emp_logo,
                 };
             });
@@ -88,6 +146,18 @@ export default {
     methods: {
         navigateTo(route) {
             this.$router.push(route);
+        },
+        search(searchKeyword) {
+            this.searchKeyword = searchKeyword;
+        },
+        filterTypes(checkedTypes) {
+            this.checkedTypes = checkedTypes;
+        },
+        filterFac(checkedFac) {
+            this.checkedFac = checkedFac;
+        },
+        filterSalary(salary) {
+            this.salary = salary;
         },
     },
 };
@@ -165,6 +235,7 @@ export default {
     margin-left: 20%;
     padding: 2em 2em 4.5em;
     background: #f2f2f2;
+    min-height: 120vh;
 }
 
 .job-title {
@@ -251,6 +322,7 @@ li {
 @media screen and (max-width: 700px) {
     .jobListings {
         margin-left: 0;
+        min-height: 100vh;
     }
 
     .job-header {
