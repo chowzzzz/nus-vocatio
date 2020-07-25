@@ -19,7 +19,8 @@
                             @filteredTypes="filterTypes"
                             @filteredFac="filterFac"
                             @filteredSalary="filterSalary"
-                            :searchKey="searchKeyword" />
+                            :searchKey="searchKeyword"
+                        />
                     </show-at>
                     <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
                         <div class="select">
@@ -91,10 +92,13 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["allPendingJobs", "getPendingJobsBySearch","getEmpById"]),
+        ...mapGetters([
+            "allPendingJobs",
+            "getPendingJobsBySearch",
+            "getEmpById",
+        ]),
         jobs() {
             let jobs = this.allPendingJobs;
-            console.log(this.salary)
             if (
                 this.searchKeyword.length > 0 ||
                 this.checkedTypes.length > 0 ||

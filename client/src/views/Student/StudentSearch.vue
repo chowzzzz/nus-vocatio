@@ -113,9 +113,9 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(["allJobs", "getJobsBySearch", "getEmpById"]),
+        ...mapGetters(["allAvailJobs", "getJobsBySearch", "getEmpById"]),
         jobs() {
-            let jobs = this.allJobs;
+            let jobs = this.allAvailJobs;
             if (
                 this.searchKeyword.length > 0 ||
                 this.checkedTypes.length > 0 ||
