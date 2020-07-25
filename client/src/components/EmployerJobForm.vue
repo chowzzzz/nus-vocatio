@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <job-form ref="newPost" @post="newPost" />
+        <job-form @post="newPost" />
 
         <div class="mobile-btns">
             <div v-if="edit" class="deleteBtn">
@@ -181,7 +181,7 @@ export default {
                                 },
                                 icon: "success",
                             }),
-                            this.$router.push("/")
+                            this.$router.h(-2)
                         );
                         break;
                 }

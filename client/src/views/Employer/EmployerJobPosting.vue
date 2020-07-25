@@ -81,7 +81,7 @@ export default {
         deletePost() {
             this.$swal({
                 title: "Delete",
-                text: "Are you sure you want to delete?",
+                text: "Are you sure you want to delete this post?",
                 buttons: {
                     no: {
                         value: "no",
@@ -96,8 +96,20 @@ export default {
             }).then((value) => {
                 switch (value) {
                     case "yes":
-                        this.deleteJobPost(this.jobID);
-                        this.$router.push("/");
+                        this.deleteJobPost(this.jobID).then(
+                            this.$swal({
+                                title: "Confirm",
+                                text: "Job post deleted",
+                                buttons: {
+                                    close: {
+                                        value: "close",
+                                        text: "Close",
+                                    },
+                                },
+                                icon: "success",
+                            }),
+                            this.$router.go(-1)
+                        );
                         break;
                 }
             });

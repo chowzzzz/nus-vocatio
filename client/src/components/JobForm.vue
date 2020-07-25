@@ -177,22 +177,19 @@ export default {
             };
 
             if (this.$route.params.jobID !== undefined) {
-                const jobpost = this.$store.getters.getJobById(
-                    this.$route.params.jobID
-                );
                 // console.log(jobpost);
-                post.post_title = jobpost.post_title;
-                post.post_short_des = jobpost.post_short_des;
-                post.post_long_des = jobpost.post_long_des;
-                post.post_type = jobpost.post_type;
-                post.post_pay = jobpost.post_pay;
-                post.post_max_applicants = jobpost.post_max_applicants;
-                post.post_expiry = moment(String(jobpost.post_expiry)).format(
-                    "YYYY-MM-DD"
-                );
-                post.post_industry = jobpost.post_industry;
-                post.post_faculty = jobpost.post_faculty;
-                post.post_requirements = jobpost.post_requirements
+                post.post_title = this.jobpost.post_title;
+                post.post_short_des = this.jobpost.post_short_des;
+                post.post_long_des = this.jobpost.post_long_des;
+                post.post_type = this.jobpost.post_type;
+                post.post_pay = this.jobpost.post_pay;
+                post.post_max_applicants = this.jobpost.post_max_applicants;
+                post.post_expiry = moment(
+                    String(this.jobpost.post_expiry)
+                ).format("YYYY-MM-DD");
+                post.post_industry = this.jobpost.post_industry;
+                post.post_faculty = this.jobpost.post_faculty;
+                post.post_requirements = this.jobpost.post_requirements
                     .split("\\n")
                     .join("\n");
             }
