@@ -146,6 +146,7 @@
                                 id="stu_faculty"
                             >
                                 <option value selected></option>
+                                <option value="All">All</option>
                                 <option value="FASS">FASS</option>
                                 <option value="Business">Business</option>
                                 <option value="Computing">Computing</option>

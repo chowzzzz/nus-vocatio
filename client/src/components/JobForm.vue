@@ -75,7 +75,6 @@
                 <br />
                 <div class="select">
                     <select v-model="post.post_type" name="type" id="type">
-                        <option value="default" selected></option>
                         <option value="Internship">Internship</option>
                         <option value="Part-time">Part-time</option>
                         <option value="Research studies">Research studies</option>
@@ -87,7 +86,7 @@
                 <br />
                 <div class="select">
                     <select v-model="post.post_faculty" name="faculty" id="faculty">
-                        <option value="default" selected></option>
+                        <option value="All">All</option>
                         <option value="FASS">FASS</option>
                         <option value="Business">Business</option>
                         <option value="Computing">Computing</option>
@@ -135,7 +134,7 @@
         <textarea v-model="post.post_long_des" name="desc" id="desc" cols="50" rows="10"></textarea>
         <br />
         <label for="requirements">Job Requirements</label>
-        <br />
+        <p>*Enter each new requirement on a new line</p>
         <textarea
             v-model="post.post_requirements"
             name="requirements"
@@ -166,15 +165,15 @@ export default {
         post() {
             let post = {
                 post_title: "",
-                post_industry: "",
-                post_pay: "",
-                post_max_applicants: "",
-                post_type: "",
-                post_faculty: "",
                 post_short_des: "",
                 post_long_des: "",
-                post_expiry: "",
                 post_requirements: "",
+                post_type: "",
+                post_pay: "",
+                post_expiry: "",
+                post_industry: "",
+                post_faculty: "",
+                post_max_applicants: "",
             };
 
             if (this.$route.params.jobID !== undefined) {
@@ -183,21 +182,21 @@ export default {
                 );
                 console.log(jobpost);
                 post.post_title = jobpost.post_title;
-                post.post_industry = jobpost.post_industry;
-                post.post_pay = jobpost.post_pay;
-                post.post_max_applicants = jobpost.post_max_applicants;
-                post.post_type = jobpost.post_type;
-                post.post_faculty = jobpost.post_faculty;
                 post.post_short_des = jobpost.post_short_des;
                 post.post_long_des = jobpost.post_long_des;
+                post.post_type = jobpost.post_type;
+                post.post_pay = jobpost.post_pay;
+                post.post_max_applicants = jobpost.post_max_applicants;
                 post.post_expiry = moment(String(jobpost.post_expiry)).format(
                     "YYYY-MM-DD"
                 );
+                post.post_industry = jobpost.post_industry;
+                post.post_faculty = jobpost.post_faculty;
                 post.post_requirements = jobpost.post_requirements.split("\\n");
                 post.post_requirements.pop();
-                console.log(post.post_expiry);
             }
 
+            this.$emit("post", post);
             return post;
         },
     },
@@ -331,6 +330,11 @@ input[type="file"] {
 textarea {
     width: 100%;
     resize: none;
+}
+
+p {
+    margin-bottom: 0.5em;
+    color: #888888;
 }
 
 @media screen and (max-width: 900px) {

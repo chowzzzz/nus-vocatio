@@ -29,6 +29,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         /*
+         * 0. Pending
          * 1: Accepting applicants
          * 2. Not accepting applicants (expired)
          * 3. Max applicants
@@ -84,9 +85,6 @@ module.exports = (sequelize, Sequelize) => {
         },
         post_max_applicants: {
             type: Sequelize.DataTypes.INTEGER
-        },
-        post_isPending: {
-            type: Sequelize.DataTypes.BOOLEAN
         }
     });
     return Jobpost;

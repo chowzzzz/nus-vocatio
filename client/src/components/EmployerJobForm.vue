@@ -23,7 +23,7 @@
             </div>
         </div>
 
-        <job-form ref="newPost" />
+        <job-form ref="newPost" @post="newPost" />
 
         <div class="mobile-btns">
             <div v-if="edit" class="deleteBtn">
@@ -49,7 +49,7 @@ import { mapActions } from "vuex";
 export default {
     name: "EmployerJobForm",
     components: {
-        JobForm
+        JobForm,
     },
     props: ["title", "edit"],
     data() {
@@ -60,11 +60,15 @@ export default {
             jobID = "";
         }
         return {
-            jobID: jobID
+            jobID: jobID,
+            post: {},
         };
     },
     methods: {
         ...mapActions(["addJobPost", "deleteJobPost", "updateJobPost"]),
+        newPost(post) {
+            this.post = post;
+        },
         deletePost() {
             this.$swal({
                 title: "Delete",
@@ -72,15 +76,15 @@ export default {
                 buttons: {
                     no: {
                         value: "no",
-                        text: "No"
+                        text: "No",
                     },
                     yes: {
                         value: "yes",
-                        text: "Yes"
-                    }
+                        text: "Yes",
+                    },
                 },
-                icon: "warning"
-            }).then(value => {
+                icon: "warning",
+            }).then((value) => {
                 switch (value) {
                     case "yes":
                         this.deleteJobPost(this.jobID).then(
@@ -106,7 +110,7 @@ export default {
             let req = this.$refs.newPost.$data.requirements;
             let temp = req.split("\n");
             let requirements = [];
-            temp.forEach(requirement => {
+            temp.forEach((requirement) => {
                 requirements.push({ req: requirement });
             });
 
@@ -126,7 +130,7 @@ export default {
                 applicants: 0,
                 maxApplicants: maxApplicants,
                 status: "Accepting applications",
-                expiry: date
+                expiry: date,
             };
 
             this.updateJobPost(post).then(
@@ -136,67 +140,54 @@ export default {
                     buttons: {
                         close: {
                             value: "close",
-                            text: "Close"
-                        }
+                            text: "Close",
+                        },
                     },
-                    icon: "success"
-                }).then(value => {
+                    icon: "success",
+                }).then((value) => {
                     if (value === "close") this.$router.go(-1);
                 })
             );
         },
         confirmAdd() {
-            let title = this.$refs.newPost.$data.title;
-            let industry = this.$refs.newPost.$data.industry;
-            let department = this.$refs.newPost.$data.department;
-            let salary = this.$refs.newPost.$data.salary;
-            let maxApplicants = this.$refs.newPost.$data.maxApplicants;
-            let type = this.$refs.newPost.$data.type;
-            let faculty = this.$refs.newPost.$data.faculty;
-            let shortdesc = this.$refs.newPost.$data.shortdesc;
-            let desc = this.$refs.newPost.$data.desc;
-            let date = this.$refs.newPost.$data.date;
-            let req = this.$refs.newPost.$data.requirements;
-            let temp = req.split("\n");
-            let requirements = [];
-            temp.forEach(requirement => {
-                requirements.push({ req: requirement });
-            });
-
-            const post = {
-                title: title,
-                empID: 1, // change to current employer
-                shortDescription: shortdesc,
-                description: desc,
-                requirements: requirements,
-                type: type,
-                faculty: faculty,
-                industry: industry,
-                department: department,
-                salary: salary,
-                date: new Date(),
-                applicants: 0,
-                maxApplicants: maxApplicants,
-                status: "Accepting applications",
-                expiry: date
-            };
-            // console.log(post);
-
-            this.addJobPost(post).then(
-                this.$swal({
-                    title: "Confirm",
-                    text: "New job created",
-                    buttons: {
-                        close: {
-                            value: "close",
-                            text: "Close"
-                        }
-                    },
-                    icon: "success"
-                }).then(value => {
-                    if (value === "close") this.$router.go(-1);
-                })
+            this.post.post_status = 0;
+            this.post.employerId = 1; // change this
+            this.post.post_requirements = this.post.post_requirements.replace(
+                /\n/gi,
+                "\\n"
             );
+
+            this.addJobPost(this.post)
+                .then(
+                    this.$swal({
+                        title: "Confirm",
+                        text: "New job created",
+                        buttons: {
+                            close: {
+                                value: "close",
+                                text: "Close",
+                            },
+                        },
+                        icon: "success",
+                    }).then((value) => {
+                        if (value === "close") this.$router.go(-1);
+                    })
+                )
+                .catch((err) => {
+                    console.log(err);
+                    this.$swal({
+                        text: "Error in creating new job",
+                        buttons: {
+                            close: {
+                                value: "close",
+                                text: "Close",
+                            },
+                        },
+                        icon: "warning",
+                    }).then((value) => {
+                        if (value === "close") this.$router.go(-1);
+                    });
+                });
         },
         cancel() {
             this.$swal({
@@ -204,23 +195,23 @@ export default {
                 buttons: {
                     no: {
                         value: "no",
-                        text: "No"
+                        text: "No",
                     },
                     yes: {
                         value: "yes",
-                        text: "Yes"
-                    }
+                        text: "Yes",
+                    },
                 },
-                icon: "warning"
-            }).then(value => {
+                icon: "warning",
+            }).then((value) => {
                 switch (value) {
                     case "yes":
                         this.$router.go(-1);
                         break;
                 }
             });
-        }
-    }
+        },
+    },
 };
 </script>
 

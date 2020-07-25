@@ -53,7 +53,7 @@ exports.createJobpost = (req, res) => {
     // Validate request
     if (!req.body.post_title) {
         res.status(400).send({
-            message: "Content can not be postty!"
+            message: "Content can not be empty!"
         });
         return;
     }
@@ -63,17 +63,17 @@ exports.createJobpost = (req, res) => {
         post_title: req.body.post_title,
         post_short_des: req.body.post_short_des,
         post_long_des: req.body.post_long_des,
-        post_requirements: req.post_requirements,
+        post_requirements: req.body.post_requirements,
         post_type: req.body.post_type,
         post_pay: req.body.post_pay,
         post_status: req.body.post_status,
         post_expiry: req.body.post_expiry,
         post_industry: req.body.post_industry,
         post_faculty: req.body.post_faculty,
-        post_max_applicants: post_max_applicants,
-        employerId: employerId
+        post_max_applicants: req.body.post_max_applicants,
+        employerId: req.body.employerId
     };
-
+    console.log(jobpost);
     // Save JobPost in the database
     Jobpost.create(jobpost)
         .then((data) => {

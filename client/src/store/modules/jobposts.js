@@ -263,9 +263,9 @@ const state = {
 };
 const getters = {
     allJobs: (state) =>
-        state.jobposts.filter((jobpost) => !jobpost.post_isPending),
+        state.jobposts.filter((jobpost) => jobpost.post_status != 0),
     allPendingJobs: (state) =>
-        state.jobposts.filter((jobpost) => jobpost.post_isPending),
+        state.jobposts.filter((jobpost) => jobpost.post_status == 0),
     getJobById: (state) => (id) => {
         return state.jobposts.find((jobpost) => jobpost.id == id);
     },
@@ -276,7 +276,7 @@ const getters = {
     },
     getJobsBySearch: (state) => (search, checkedTypes, checkedFac, salary) => {
         let jobposts = state.jobposts.filter(
-            (jobpost) => !jobpost.post_isPending
+            (jobpost) => jobpost.post_status != 0
         );
         jobposts = jobposts.filter((jobpost) =>
             jobpost.post_title.toLowerCase().includes(search.toLowerCase())
@@ -307,7 +307,7 @@ const getters = {
         salary
     ) => {
         let jobposts = state.jobposts.filter(
-            (jobpost) => jobpost.post_isPending
+            (jobpost) => jobpost.post_status == 0
         );
         jobposts = jobposts.filter((jobpost) =>
             jobpost.post_title.toLowerCase().includes(search.toLowerCase())
