@@ -4,13 +4,24 @@
             <div class="left">
                 <label for="job-title">Job Designation</label>
                 <br />
-                <input v-model="post.post_title" type="text" name="job-title" id="job-title" />
+                <input
+                    @change="sendPost"
+                    v-model="post.post_title"
+                    type="text"
+                    name="job-title"
+                    id="job-title"
+                />
                 <br />
 
                 <label for="industry">Industry</label>
                 <br />
                 <div class="select">
-                    <select v-model="post.post_industry" name="industry" id="industry">
+                    <select
+                        @change="sendPost"
+                        v-model="post.post_industry"
+                        name="industry"
+                        id="industry"
+                    >
                         <option value="default" selected></option>
                         <option value="Aerospace">Aerospace</option>
                         <option value="Consumer Business">Consumer Business</option>
@@ -47,6 +58,7 @@
                 <label for="salary">Salary amount</label>
                 <br />
                 <input
+                    @change="sendPost"
                     v-model.number="post.post_pay"
                     type="number"
                     name="salary"
@@ -60,6 +72,7 @@
                 <label for="max">Max. no. of applicants</label>
                 <br />
                 <input
+                    @change="sendPost"
                     v-model="post.post_max_applicants"
                     type="number"
                     name="max"
@@ -74,7 +87,7 @@
                 <label for="type">Type of job</label>
                 <br />
                 <div class="select">
-                    <select v-model="post.post_type" name="type" id="type">
+                    <select @change="sendPost" v-model="post.post_type" name="type" id="type">
                         <option value="Internship">Internship</option>
                         <option value="Part-time">Part-time</option>
                         <option value="Research studies">Research studies</option>
@@ -85,7 +98,12 @@
                 <label for="faculty">Faculty</label>
                 <br />
                 <div class="select">
-                    <select v-model="post.post_faculty" name="faculty" id="faculty">
+                    <select
+                        @change="sendPost"
+                        v-model="post.post_faculty"
+                        name="faculty"
+                        id="faculty"
+                    >
                         <option value="All">All</option>
                         <option value="FASS">FASS</option>
                         <option value="Business">Business</option>
@@ -120,22 +138,42 @@
 
                 <label for="expiry">Apply by:</label>
                 <br />
-                <input v-model="post.post_expiry" type="date" name="expiry" id="expiry" />
+                <input
+                    @change="sendPost"
+                    v-model="post.post_expiry"
+                    type="date"
+                    name="expiry"
+                    id="expiry"
+                />
                 <br />
             </div>
         </div>
 
         <label for="shortdesc">Short Job Description</label>
         <br />
-        <textarea v-model="post.post_short_des" name="shortdesc" id="shortdesc" rows="5"></textarea>
+        <textarea
+            @change="sendPost"
+            v-model="post.post_short_des"
+            name="shortdesc"
+            id="shortdesc"
+            rows="5"
+        ></textarea>
         <br />
         <label for="desc">Job Description</label>
         <br />
-        <textarea v-model="post.post_long_des" name="desc" id="desc" cols="50" rows="10"></textarea>
+        <textarea
+            @change="sendPost"
+            v-model="post.post_long_des"
+            name="desc"
+            id="desc"
+            cols="50"
+            rows="10"
+        ></textarea>
         <br />
         <label for="requirements">Job Requirements</label>
         <p>*Enter each new requirement on a new line</p>
         <textarea
+            @change="sendPost"
             v-model="post.post_requirements"
             name="requirements"
             id="requirements"
@@ -162,6 +200,12 @@ export default {
         };
     },
     computed: {
+        jobpost() {
+            const jobpost = this.$store.getters.getJobById(
+                this.$route.params.jobID
+            );
+            return jobpost;
+        },
         post() {
             let post = {
                 post_title: "",
@@ -194,8 +238,12 @@ export default {
                     .join("\n");
             }
 
-            this.$emit("post", post);
             return post;
+        },
+    },
+    methods: {
+        sendPost() {
+            this.$emit("post", this.post);
         },
     },
 };

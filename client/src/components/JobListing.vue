@@ -46,7 +46,6 @@ export default {
         },
         requirements() {
             let requirements = this.job.post_requirements.split("\\n");
-            requirements.pop();
             return requirements;
         },
         employer() {
