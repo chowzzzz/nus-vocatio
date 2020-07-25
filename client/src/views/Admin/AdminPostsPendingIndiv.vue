@@ -22,7 +22,7 @@
                 </span>
             </div>
 
-            <employerContact class="contact" user="student" />
+            <employerContact class="contact" user="admin" />
 
             <div class="mobileEditBtns">
                 <div
@@ -52,14 +52,14 @@ export default {
     components: {
         backBtn: BackBtn,
         jobListing: JobListing,
-        employerContact: EmployerContact
+        employerContact: EmployerContact,
     },
     data() {
         const jobID = this.$route.params.jobID;
         const post = this.$store.getters.getJobById(jobID);
         return {
             post: post,
-            jobID: jobID
+            jobID: jobID,
         };
     },
     methods: {
@@ -70,15 +70,15 @@ export default {
                 buttons: {
                     no: {
                         value: "no",
-                        text: "Cancel"
+                        text: "Cancel",
                     },
                     yes: {
                         value: "yes",
-                        text: "Yes"
-                    }
+                        text: "Yes",
+                    },
                 },
-                icon: "warning"
-            }).then(value => {
+                icon: "warning",
+            }).then((value) => {
                 switch (value) {
                     case "yes":
                         // this.deleteJobPost(this.jobID);
@@ -94,15 +94,15 @@ export default {
                 buttons: {
                     no: {
                         value: "no",
-                        text: "No"
+                        text: "No",
                     },
                     yes: {
                         value: "yes",
-                        text: "Yes"
-                    }
+                        text: "Yes",
+                    },
                 },
-                icon: "warning"
-            }).then(value => {
+                icon: "warning",
+            }).then((value) => {
                 switch (value) {
                     case "yes":
                         // this.deleteJobPost(this.jobID);
@@ -113,8 +113,8 @@ export default {
         },
         navigateTo(route) {
             this.$router.push(route);
-        }
-    }
+        },
+    },
 };
 </script>
 

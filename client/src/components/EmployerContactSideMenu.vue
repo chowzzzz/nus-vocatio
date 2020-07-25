@@ -34,38 +34,23 @@
                 <button>Edit contact details</button>
             </div>
         </div>
-        <div class="applyBtn" v-bind:class="{ 'student-view' : currentUser === 'employer' }">
+        <div
+            class="applyBtn"
+            v-bind:class="{ 'student-view' : currentUser === 'employer' || currentUser === 'admin'}"
+        >
             <button @click="apply">Apply now</button>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
     name: "EmployerContactSideMenu",
     data() {
         return {
             currentUser: this.user,
         };
-    },
-    methods: {
-        apply() {
-            this.$swal({
-                title: "Confirmation",
-                text: "Are you sure you wish to apply?",
-                buttons: ["No", "Yes"],
-            }).then((confirm) => {
-                if (confirm) {
-                    this.$swal({
-                        text: "Your application has been submitted!",
-                        icon: "success",
-                    });
-                }
-            });
-        },
-        navigateTo(route) {
-            this.$router.push(route);
-        },
     },
     props: ["user"],
     computed: {
@@ -90,6 +75,58 @@ export default {
                         .join("")
                 )
             );
+        },
+    },
+    methods: {
+        ...mapActions(["addApplication"]),
+        apply() {
+            this.$swal({
+                title: "Confirmation",
+                text: "Are you sure you wish to apply?",
+                buttons: ["No", "Yes"],
+            }).then((confirm) => {
+                if (confirm) {
+                    const application = {
+                        status: 2,
+                        //change this
+                        studentId: 30,
+                        jobpostId: this.job.id,
+                    };
+
+                    this.addApplication(application)
+                        .then(
+                            this.$swal({
+                                text: "Your application has been submitted!",
+                                buttons: {
+                                    close: {
+                                        value: "close",
+                                        text: "Close",
+                                    },
+                                },
+                                icon: "success",
+                            })
+                        )
+                        .catch((err) => {
+                            console.log(err);
+                            this.$swal({
+                                text:
+                                    "Your application was not submitted successfully",
+                                buttons: {
+                                    close: {
+                                        value: "close",
+                                        text: "Close",
+                                    },
+                                },
+                                icon: "warning",
+                            }).then((value) => {
+                                if (value === "close") this.$router.go(-1);
+                            });
+                        });
+                }
+            });
+        },
+        navigateTo(route) {
+            this.$router.push(route);
         },
     },
 };

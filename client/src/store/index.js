@@ -10,9 +10,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
     state: {
-        user: "admin",
+        user: "student",
         isAuthenticated: true,
-        isAdmin: true
+        isAdmin: false
     },
     mutations: {},
     actions: {},

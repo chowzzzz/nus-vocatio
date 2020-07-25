@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const url = "http://localhost:8081/api/application/";
-const create_url = "http://localhost:8081/api/student/application/";
+const create_url = "http://localhost:8081/api/application/";
 
 const state = {
     applications: [

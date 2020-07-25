@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 // Create and Save a new Application
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.adm_user) {
+    if (!req.body.status) {
         res.status(400).send({
             message: "Content can not be empty!"
         });
@@ -13,10 +13,10 @@ exports.create = (req, res) => {
     }
 
     // Create a application
-    const Application = {
-        applyDate: req.body.applyDate,
-        studentId: studentId,
-        jobpostId: jobpostId
+    const application = {
+        status: req.body.status,
+        studentId: req.body.studentId,
+        jobpostId: req.body.jobpostId
     };
 
     // Save Application in the database
