@@ -19,7 +19,8 @@
                             @filteredTypes="filterTypes"
                             @filteredFac="filterFac"
                             @filteredSalary="filterSalary"
-                            :searchKey="searchKeyword" />
+                            :searchKey="searchKeyword"
+                        />
                     </show-at>
                     <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
                         <div class="select">
@@ -39,6 +40,7 @@
                         @click="navigateTo({name: 'job-details', params: {jobID: pair.job.id}})"
                     >
                         <div class="job-img">
+                            <!-- change this -->
                             <img
                                 :src="require(`../../assets/selfmade/${pair.coLogo}`)"
                                 alt="company logo"
@@ -91,7 +93,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["allJobs", "getJobsBySearch","getEmpById"]),
+        ...mapGetters(["allJobs", "getJobsBySearch", "getEmpById"]),
         jobs() {
             let jobs = this.allJobs;
             if (

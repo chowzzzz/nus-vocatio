@@ -106,8 +106,8 @@ exports.update = (req, res) => {
     })
         .then((num) => {
             if (num == 1) {
-                res.send({
-                    message: "Admin was updated successfully."
+                Admin.findByPk(id).then((data) => {
+                    res.send(data);
                 });
             } else {
                 res.send({

@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         search(searchKeyword) {
-            console.log(searchKeyword);
+            // console.log(searchKeyword);
             this.$router.push({
                 path: "/jobPosts",
                 query: { search: searchKeyword },

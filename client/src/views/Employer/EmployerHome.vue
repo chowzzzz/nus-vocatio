@@ -35,7 +35,10 @@ export default {
                 const applicants = this.$store.getters.getNoOfAppByJobId(
                     post.id
                 );
+                const emp_logo = this.$store.getters.getEmpById(post.employerId)
+                    .emp_logo;
                 post.post_applicants = applicants;
+                post.emp_logo = emp_logo;
             });
             return posts;
         },

@@ -1,6 +1,7 @@
 <template>
     <div class="job-container" v-if="job && employer">
         <div class="img-box job-title">
+            <!-- change this -->
             <img :src="require(`../assets/selfmade/${employer.emp_logo}`)" alt="company logo" />
         </div>
         <div class="job-main-title-container job-title">

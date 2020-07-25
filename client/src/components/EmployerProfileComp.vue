@@ -173,6 +173,7 @@ export default {
     computed: {
         image() {
             return (
+                //change this
                 "data:image/jpg;base64," +
                 btoa(
                     this.employer.emp_picture.data

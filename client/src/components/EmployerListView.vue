@@ -31,7 +31,8 @@
                         @click="navigateTo({path: `/${path}/${post.id}`, query: { appID: post.appID }})"
                     >
                         <div class="post-img">
-                            <img src="../assets/selfmade/picture.svg" alt="company logo" />
+                            <img v-if="home" :src="post.emp_logo" alt="logo" />
+                            <img v-else :src="post.stu_picture" alt="student picture" />
                         </div>
                         <div class="post-title">
                             <div class="tags">
@@ -105,7 +106,23 @@ export default {
     computed: {
         posts() {
             let posts = this.allPosts;
+            // console.log(posts);
             if (this.home) {
+                posts.forEach((post) => {
+                    if (
+                        post !== undefined
+                        // && post.emp_logo.data !== undefined
+                    ) {
+                        /*  post.emp_logo =
+                        "data:image/jpeg;base64," +
+                        btoa(
+                            post.emp_logo.data
+                                .map((b) => String.fromCharCode(b))
+                                .join("")
+                        ); */
+                    }
+                });
+
                 if (this.sort == 2) {
                     posts.sort((a, b) => {
                         const post1 = a.post_title.toUpperCase();
@@ -129,6 +146,22 @@ export default {
                     );
                 }
             } else {
+                posts.forEach((post) => {
+                    if (
+                        post !== undefined &&
+                        post.stu_picture.data !== undefined
+                    ) {
+                        // change this
+                        post.stu_picture =
+                            "data:image/jpeg;base64," +
+                            btoa(
+                                post.stu_picture.data
+                                    .map((b) => String.fromCharCode(b))
+                                    .join("")
+                            );
+                    }
+                });
+
                 if (this.sort == 2) {
                     posts.sort((a, b) => {
                         const post1 = a.stu_name.toUpperCase();
@@ -152,6 +185,33 @@ export default {
             return posts;
         },
     },
+    /* watch: {
+        posts: function (loadedPosts) {
+            if (this.home) {
+                loadedPosts.forEach((post) => {
+                    // change this
+                    post.emp_logo =
+                        "data:image/jpeg;base64," +
+                        btoa(
+                            post.emp_logo.data
+                                .map((b) => String.fromCharCode(b))
+                                .join("")
+                        );
+                });
+            } else {
+                loadedPosts.forEach((post) => {
+                    // change this
+                    post.stu_picture =
+                        "data:image/jpeg;base64," +
+                        btoa(
+                            post.stu_picture.data
+                                .map((b) => String.fromCharCode(b))
+                                .join("")
+                        );
+                });
+            }
+        },
+    }, */
     filters: {
         postStatus(value) {
             let status;
@@ -311,9 +371,8 @@ li {
 }
 
 .post-img img {
-    width: 70px;
-    height: 70px;
-    border: 1px solid #b8b8b8;
+    height: 80px;
+    border: 1px solid #e2e2e2;
 }
 
 .post-title {

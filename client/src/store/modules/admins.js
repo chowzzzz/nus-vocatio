@@ -53,7 +53,8 @@ const mutations = {
         state.admins.unshift(admin);
     },
     DELETE_ADMIN: (state, id) => {
-        state.admins = state.admins.filter((admin) => admin.id !== id);
+        const index = state.admins.findIndex((admin) => admin.id == id);
+        state.admins.splice(index, 1);
     },
     UPDATE_ADMIN: (state, updAdmin) => {
         const index = state.admins.findIndex(

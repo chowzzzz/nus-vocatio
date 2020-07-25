@@ -163,9 +163,10 @@ const mutations = {
         state.applications.unshift(application);
     },
     DELETE_APPLICATION: (state, id) => {
-        state.applications = state.applications.filter(
-            (application) => application.id !== id
+        const index = state.applications.findIndex(
+            (application) => application.id == id
         );
+        state.applications.splice(index, 1);
     },
     UPDATE_APPLICATION: (state, updApp) => {
         const index = state.applications.findIndex(
@@ -173,7 +174,6 @@ const mutations = {
         );
         if (index !== -1) {
             state.applications.splice(index, 1, updApp);
-            // state.applications[index].status = payload.status;
         }
     }
 };

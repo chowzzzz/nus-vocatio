@@ -358,8 +358,6 @@ const mutations = {
     SET_JOBPOST: (state, jobposts) => (state.jobposts = jobposts),
 
     ADD_JOBPOST: (state, jobpost) => {
-        // jobpost.id = state.jobposts.length + 1;
-        // console.log(jobpost);
         state.jobposts.unshift(jobpost);
     },
     DELETE_JOBPOST: (state, id) => {
@@ -367,12 +365,6 @@ const mutations = {
         state.jobposts.splice(index, 1);
     },
     UPDATE_JOBPOST: (state, updJobpost) => {
-        /*  console.log(updJobpost);
-        const index = state.jobposts
-            .map((updJobpost) => updJobpost.id)
-            .indexOf(updJobpost.id);
-        // console.log(index);
-        state.jobposts.splice(index, 1, updJobpost); */
         const index = state.jobposts.findIndex(
             (jobpost) => jobpost.id === updJobpost.id
         );

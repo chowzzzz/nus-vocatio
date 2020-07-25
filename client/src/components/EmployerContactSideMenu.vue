@@ -2,7 +2,7 @@
     <div class="side" v-if="employer && job">
         <div class="employer-info">
             <div class="employer-title">
-                <img v-if="image" :src="image" alt="employer avatar" />
+                <img :src="employer.emp_picture" alt="employer avatar" />
                 <p>{{ employer.emp_name }}</p>
                 <p>{{ employer.emp_company }}</p>
             </div>
@@ -64,17 +64,27 @@ export default {
             const employer = this.$store.getters.getEmpById(
                 this.job.employerId
             );
+            if (
+                employer !== undefined &&
+                employer.emp_picture.data !== undefined
+                // && employer.emp_logo.data !== undefined
+            ) {
+                employer.emp_picture =
+                    "data:image/jpeg;base64," +
+                    btoa(
+                        employer.emp_picture.data
+                            .map((b) => String.fromCharCode(b))
+                            .join("")
+                    );
+                /*  employer.emp_logo =
+                        "data:image/jpeg;base64," +
+                        btoa(
+                            employer.emp_logo.data
+                                .map((b) => String.fromCharCode(b))
+                                .join("")
+                        ); */
+            }
             return employer;
-        },
-        image() {
-            return (
-                "data:image/jpg;base64," +
-                btoa(
-                    this.employer.emp_picture.data
-                        .map((b) => String.fromCharCode(b))
-                        .join("")
-                )
-            );
         },
     },
     methods: {

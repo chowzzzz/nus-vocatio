@@ -1,18 +1,12 @@
 <template>
-    <div v-if="student && application">
+    <div v-if="student && application" class="container">
         <back-btn title="applicants" />
 
         <div class="app-container">
-            <div class="prevNext" id="prev">
-                <router-link to="/">
-                    <img src="../../assets/left.svg" alt="previous" />
-                </router-link>
-            </div>
-
             <div class="stu-container">
                 <div class="stu-title">
                     <div class="stu-img">
-                        <img src="../../assets/selfmade/avatar.svg" alt="avatar" />
+                        <img :src="student.stu_picture" alt="logo" />
                     </div>
                     <div class="stu-tags">
                         <p id="app-id">Application ID#{{ application.id }}</p>
@@ -46,6 +40,7 @@
 
                 <div class="links">
                     <h4>Resume and Links</h4>
+                    <!-- change this -->
                     <p>
                         Resume: file.pdf
                         <span class="uploadFileBtn">
@@ -62,17 +57,6 @@
                     <button id="acceptBtn" @click="accept">Accept</button>
                     <button @click="reject">Reject</button>
                 </div>
-            </div>
-
-            <div class="prevNext" id="next">
-                <router-link to="/">
-                    <img src="../../assets/left.svg" alt="next" />
-                </router-link>
-            </div>
-
-            <div class="prevNextBtns">
-                <button id="prevBtn">Previous</button>
-                <button>Next</button>
             </div>
         </div>
     </div>
@@ -100,9 +84,38 @@ export default {
         student() {
             const stuID = this.$route.params.stuID;
             const student = this.$store.getters.getStuById(stuID);
+            if (
+                student !== undefined &&
+                student.stu_picture.data !== undefined
+            ) {
+                // change this
+                student.stu_picture =
+                    "data:image/jpeg;base64," +
+                    btoa(
+                        student.stu_picture.data
+                            .map((b) => String.fromCharCode(b))
+                            .join("")
+                    );
+            }
             return student;
         },
     },
+    /* watch: {
+        student: function (loadedStudent) {
+            console.log(loadedStudent);
+            if (loadedStudent.stu_picture.data !== undefined) {
+                // change this
+                console.log(loadedStudent);
+                loadedStudent.stu_picture =
+                    "data:image/jpeg;base64," +
+                    btoa(
+                        loadedStudent.stu_picture.data
+                            .map((b) => String.fromCharCode(b))
+                            .join("")
+                    );
+            }
+        },
+    }, */
     filters: {
         appStatus(value) {
             let status;
@@ -124,11 +137,13 @@ export default {
         },
     },
     methods: {
-        ...mapActions(["updateAppStatus"]),
+        ...mapActions(["updateApplication"]),
         accept() {
             let app = {
-                appID: this.appID,
-                status: "ACCEPTED",
+                id: this.appID,
+                status: 1,
+                studentId: this.student.id,
+                employerId: 1, //change this
             };
             this.$swal({
                 title: "Accept",
@@ -147,22 +162,28 @@ export default {
             }).then((value) => {
                 switch (value) {
                     case "yes":
-                        this.updateAppStatus(app)
+                        this.updateApplication(app)
                             .then(
+                                console.log("accepted"),
                                 this.$swal({
                                     text: "Student accepted",
                                     icon: "success",
                                 })
                             )
-                            .then(this.$router.go(-1));
+                            .then(this.$router.go(-1))
+                            .catch((err) => {
+                                console.log(err);
+                            });
                         break;
                 }
             });
         },
         reject() {
             let app = {
-                appID: this.appID,
-                status: "REJECTED",
+                id: this.appID,
+                status: 3,
+                studentId: this.student.id,
+                employerId: 1, //change this
             };
 
             this.$swal({
@@ -182,14 +203,18 @@ export default {
             }).then((value) => {
                 switch (value) {
                     case "yes":
-                        this.updateAppStatus(app)
+                        this.updateApplication(app)
                             .then(
+                                console.log("success"),
                                 this.$swal({
                                     text: "Student rejected",
                                     icon: "info",
                                 })
                             )
-                            .then(this.$router.go(-1));
+                            .then(this.$router.go(-1))
+                            .catch((err) => {
+                                console.log(err);
+                            });
                         break;
                 }
             });
@@ -200,30 +225,11 @@ export default {
 
 <style scoped>
 .app-container {
-    display: grid;
-    grid-template-columns: auto auto auto;
-    margin: 2em auto 3em;
-}
-
-.prevNext img {
-    width: 15px;
-    margin-top: 1em;
-}
-
-#prev {
-    justify-self: end;
-}
-
-#next img {
-    transform: rotate(180deg);
-}
-
-.prevNextBtns {
-    display: none;
+    margin: 2em 5em 3em;
 }
 
 .stu-container {
-    background: #f8fbff;
+    background: #fff;
     padding: 2em 3em;
     margin: 0 2em;
     display: grid;
@@ -250,7 +256,7 @@ export default {
 }
 
 .stu-img img {
-    width: 110px;
+    height: 110px;
 }
 
 .stu-tags {
@@ -323,8 +329,7 @@ h4 {
     align-self: center;
 }
 
-.btns button,
-.prevNextBtns button {
+.btns button {
     margin: 0.5em 0;
     border: none;
     padding: 1em;
@@ -349,12 +354,11 @@ h4 {
 }
 
 @media screen and (max-width: 800px) {
-    .prevNext {
-        display: none;
+    .app-container {
+        margin: 2em auto 3em;
     }
 
     .container {
-        margin: 2em auto;
         display: block;
     }
 
@@ -362,23 +366,16 @@ h4 {
         grid-template-columns: 50% 50%;
     }
 
-    .prevNextBtns {
-        display: flex;
-        justify-content: space-between;
-        margin: 1em 2em;
-    }
-
-    .prevNextBtns button {
-        width: 150px;
-        background: #eceef1;
-        color: #a3a3a3;
-    }
-
     .btns {
         width: 100%;
     }
 }
 @media screen and (max-width: 570px) {
+    .app-container {
+        margin: 0 auto 2em;
+        padding-top: 2em;
+    }
+
     .stu-container {
         grid-template-columns: 100%;
         grid-template-rows: auto auto auto auto auto;
@@ -434,11 +431,6 @@ h4 {
 
     p,
     button {
-        font-size: 12px;
-    }
-
-    .prevNextBtns button {
-        width: 100px;
         font-size: 12px;
     }
 }

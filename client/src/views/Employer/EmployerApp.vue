@@ -38,7 +38,7 @@ export default {
                     applicant.studentId
                 );
                 student.status = applicant.status;
-                student.applyDate = applicant.applyDate;
+                student.applyDate = applicant.createdAt;
                 student.appID = applicant.id;
                 students.push(student);
             });

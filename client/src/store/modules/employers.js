@@ -188,9 +188,10 @@ const mutations = {
         state.employers.unshift(employer);
     },
     DELETE_EMPLOYER: (state, id) => {
-        state.employers = state.employers.filter(
-            (employer) => employer.id !== id
+        const index = state.employers.findIndex(
+            (employer) => employer.id == id
         );
+        state.employers.splice(index, 1);
     },
     UPDATE_EMPLOYER: (state, updEmp) => {
         const index = state.employers.findIndex(

@@ -40,6 +40,7 @@
                         @click="navigateTo({name: 'job-details', params: {jobID: pair.job.id}})"
                     >
                         <div class="job-img">
+                            <!-- change this -->
                             <img
                                 :src="require(`../../assets/selfmade/${pair.coLogo}`)"
                                 alt="company logo"

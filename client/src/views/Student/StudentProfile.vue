@@ -3,7 +3,7 @@
         <div v-if="student" class="profile-info">
             <h1>Hello, {{ student.stu_name }}</h1>
             <div class="profile-img">
-                <img v-if="image" :src="image" alt="student profile picture" />
+                <img :src="student.stu_picture" alt="student profile picture" />
                 <button class="uploadBtn mobile-hide">
                     Upload
                     <i class="fas fa-camera"></i>
@@ -104,21 +104,39 @@ export default {
             getStuById: "getStuById",
         }),
         student() {
-            return this.getStuById(30);
+            // change this
+            const student = this.getStuById(30);
+            if (
+                student !== undefined &&
+                student.stu_picture.data !== undefined
+            ) {
+                // change this
+                student.stu_picture =
+                    "data:image/jpeg;base64," +
+                    btoa(
+                        student.stu_picture.data
+                            .map((b) => String.fromCharCode(b))
+                            .join("")
+                    );
+            }
+            return student;
         },
         dob() {
             return moment(String(this.student.stu_dob)).format("YYYY-MM-DD");
         },
-        image() {
-            console.log(this.student.stu_picture);
-            return (
-                "data:image/jpeg;base64," +
-                btoa(
-                    this.student.stu_picture.data
-                        .map((b) => String.fromCharCode(b))
-                        .join("")
-                )
-            );
+    },
+    watch: {
+        student: function (loadedStudent) {
+            loadedStudent.forEach((student) => {
+                // change this
+                student.stu_picture =
+                    "data:image/jpeg;base64," +
+                    btoa(
+                        student.stu_picture.data
+                            .map((b) => String.fromCharCode(b))
+                            .join("")
+                    );
+            });
         },
     },
 };

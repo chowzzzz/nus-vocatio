@@ -70,13 +70,14 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
+    console.log(req.body);
     Application.update(req.body, {
         where: { id: id }
     })
         .then((num) => {
             if (num == 1) {
-                res.send({
-                    message: "Application was updated successfully."
+                Application.findByPk(id).then((data) => {
+                    res.send(data);
                 });
             } else {
                 res.send({

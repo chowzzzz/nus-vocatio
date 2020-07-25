@@ -186,7 +186,8 @@ const mutations = {
         state.students.unshift(student);
     },
     DELETE_STUDENT: (state, id) => {
-        state.students = state.students.filter((student) => student.id !== id);
+        const index = state.students.findIndex((student) => student.id == id);
+        state.students.splice(index, 1);
     },
     UPDATE_STUDENT: (state, updStu) => {
         const index = state.students.findIndex(

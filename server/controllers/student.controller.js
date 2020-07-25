@@ -125,7 +125,7 @@ exports.createApplication = (req, res) => {
 
     // Create a application
     const Application = {
-        applyDate: req.body.applyDate,
+        status: 2,
         studentId: studentId,
         jobpostId: jobpostId
     };
@@ -168,8 +168,8 @@ exports.update = (req, res) => {
     })
         .then((num) => {
             if (num == 1) {
-                res.send({
-                    message: "Student was updated successfully."
+                Student.findByPk(id).then((data) => {
+                    res.send(data);
                 });
             } else {
                 res.send({

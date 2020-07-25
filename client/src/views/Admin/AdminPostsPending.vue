@@ -40,6 +40,7 @@
                         @click="navigateTo({name: 'admin-posts-pending-indiv', params: {jobID: pair.job.id}})"
                     >
                         <div class="job-img">
+                            <!-- change this -->
                             <img
                                 :src="require(`../../assets/selfmade/${pair.coLogo}`)"
                                 alt="company logo"

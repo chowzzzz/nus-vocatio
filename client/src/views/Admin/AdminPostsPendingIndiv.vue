@@ -67,7 +67,7 @@ export default {
         ...mapActions(["updateJobPost"]),
         confirmPost() {
             this.post.post_status = 1;
-            console.log(this.post);
+            // console.log(this.post);
 
             this.updateJobPost(this.post)
                 .then(
