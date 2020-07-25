@@ -1,8 +1,8 @@
 <template>
     <div class="indiv-setting" id="status">
-        <span>{{ info.title }}</span>
+        <span>{{ setting.title }}</span>
         <label class="switch">
-            <input type="checkbox" v-model="info.checked" />
+            <input type="checkbox" v-model="setting.checked" @change="checked" />
             <span class="slider"></span>
         </label>
     </div>
@@ -11,7 +11,16 @@
 <script>
 export default {
     name: "SettingBox",
-    props: ["info"]
+    props: ["setting"],
+    methods: {
+        checked() {
+            this.$emit(
+                "settingsChecked",
+                this.setting.checked,
+                this.setting.id
+            );
+        },
+    },
 };
 </script>
 
@@ -101,8 +110,13 @@ input:checked + .slider:before {
     }
 
     .indiv-setting {
-        width: 90%;
         margin: 0.5em 0;
+    }
+}
+
+@media screen and (max-width: 860px) {
+    .indiv-setting {
+        width: 90%;
     }
 }
 

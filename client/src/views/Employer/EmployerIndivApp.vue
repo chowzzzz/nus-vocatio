@@ -164,7 +164,7 @@ export default {
                     case "yes":
                         this.updateApplication(app)
                             .then(
-                                console.log("accepted"),
+                                // console.log("accepted"),
                                 this.$swal({
                                     text: "Student accepted",
                                     icon: "success",

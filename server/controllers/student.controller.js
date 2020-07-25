@@ -162,7 +162,7 @@ exports.findOne = (req, res) => {
 // Update a Student by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
-
+    console.log(req.body);
     Student.update(req.body, {
         where: { id: id }
     })

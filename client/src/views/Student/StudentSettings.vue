@@ -8,10 +8,13 @@
         <div v-if="student" class="settings-container">
             <p>Send me an email when:</p>
             <div class="settings">
-                <setting-box id="status" :info="statusChange"></setting-box>
-                <setting-box id="jobs" :info="newJobs"></setting-box>
-                <setting-box id="news" :info="newsletter"></setting-box>
-                <setting-box id="sub" :info="subscription"></setting-box>
+                <setting-box
+                    v-for="setting in settings"
+                    :key="setting.id"
+                    :setting="setting"
+                    v-bind:id="setting.id"
+                    @settingsChecked="checked"
+                ></setting-box>
             </div>
         </div>
     </div>
@@ -19,7 +22,7 @@
 
 <script>
 import SettingBox from "../../components/SettingBox.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
     name: "Settings",
@@ -31,31 +34,65 @@ export default {
             getStuById: "getStuById",
         }),
         student() {
-            return this.getStuById(30);
+            // change this
+            const student = this.getStuById(30);
+            return student;
         },
-        statusChange() {
-            return {
-                checked: this.student.stu_status_change,
-                title: "there is a status change in my application",
-            };
+        settings() {
+            let settings = [
+                {
+                    id: "status",
+                    checked: this.student.stu_status_change,
+                    title: "there is a status change in my application",
+                },
+                {
+                    id: "jobs",
+                    checked: this.student.stu_new_jobs,
+                    title: "there are new jobs",
+                },
+                {
+                    id: "news",
+                    checked: this.student.stu_news_letter,
+                    title: "there is newsletter",
+                },
+                {
+                    id: "subs",
+                    checked: this.student.stu_subscription,
+                    title: "Subscribe me to NUSVocatio newsletter",
+                },
+            ];
+            return settings;
         },
-        newJobs() {
-            return {
-                checked: this.student.stu_new_jobs,
-                title: "there are new jobs",
-            };
-        },
-        newsletter() {
-            return {
-                checked: this.student.stu_news_letter,
-                title: "there is newsletter",
-            };
-        },
-        subscription() {
-            return {
-                checked: this.student.stu_subscription,
-                title: "Subscribe me to NUSVocatio newsletter",
-            };
+    },
+    methods: {
+        ...mapActions(["updateStudent"]),
+        checked(checkedStatus, id) {
+            switch (id) {
+                case "status":
+                    this.student.stu_status_change = checkedStatus;
+                    this.updateStudent(this.student).catch((err) =>
+                        console.log(err)
+                    );
+                    break;
+                case "jobs":
+                    this.student.stu_new_jobs = checkedStatus;
+                    this.updateStudent(this.student).catch((err) =>
+                        console.log(err)
+                    );
+                    break;
+                case "news":
+                    this.student.stu_news_letter = checkedStatus;
+                    this.updateStudent(this.student).catch((err) =>
+                        console.log(err)
+                    );
+                    break;
+                case "subs":
+                    this.student.stu_subscription = checkedStatus;
+                    this.updateStudent(this.student).catch((err) =>
+                        console.log(err)
+                    );
+                    break;
+            }
         },
     },
 };

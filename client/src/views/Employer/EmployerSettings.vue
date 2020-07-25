@@ -8,10 +8,13 @@
         <div v-if="employer" class="settings-container">
             <p>Send me an email when:</p>
             <div class="settings">
-                <setting-box id="status" :info="newApplicants"></setting-box>
-                <setting-box id="jobs" :info="maxApplicants"></setting-box>
-                <setting-box id="news" :info="newsletter"></setting-box>
-                <setting-box id="sub" :info="subscription"></setting-box>
+                <setting-box
+                    v-for="setting in settings"
+                    :key="setting.id"
+                    :setting="setting"
+                    v-bind:id="setting.id"
+                    @settingsChecked="checked"
+                ></setting-box>
             </div>
         </div>
     </div>
@@ -19,6 +22,7 @@
 
 <script>
 import SettingBox from "../../components/SettingBox.vue";
+import { mapActions } from "vuex";
 
 export default {
     name: "EmployerSettings",
@@ -27,32 +31,65 @@ export default {
     },
     computed: {
         employer() {
+            // change this
             const employer = this.$store.getters.getEmpById(1);
             return employer;
         },
-        newApplicants() {
-            return {
-                checked: this.employer.emp_new_applicants,
-                title: "a new student has applied",
-            };
+        settings() {
+            let settings = [
+                {
+                    id: "status",
+                    checked: this.employer.emp_new_applicants,
+                    title: "a new student has applied",
+                },
+                {
+                    id: "jobs",
+                    checked: this.employer.emp_max_applicants,
+                    title: "my posting has reached maximum applicants",
+                },
+                {
+                    id: "news",
+                    checked: this.employer.emp_news_letter,
+                    title: "there is newsletter",
+                },
+                {
+                    id: "subs",
+                    checked: this.employer.emp_subscription,
+                    title: "Subscribe me to NUSVocatio newsletter",
+                },
+            ];
+            return settings;
         },
-        maxApplicants() {
-            return {
-                checked: this.employer.emp_max_applicants,
-                title: "my posting has reached maximum applicants",
-            };
-        },
-        newsletter() {
-            return {
-                checked: this.employer.emp_news_letter,
-                title: "there is newsletter",
-            };
-        },
-        subscription() {
-            return {
-                checked: this.employer.emp_subscription,
-                title: "Subscribe me to NUSVocatio newsletter",
-            };
+    },
+    methods: {
+        ...mapActions(["updateEmployer"]),
+        checked(checkedStatus, id) {
+            switch (id) {
+                case "status":
+                    this.employer.emp_new_applicants = checkedStatus;
+                    this.updateEmployer(this.employer).catch((err) =>
+                        console.log(err)
+                    );
+                    break;
+                case "jobs":
+                    this.employer.emp_max_applicants = checkedStatus;
+                    this.updateEmployer(this.employer).catch((err) =>
+                        console.log(err)
+                    );
+                    break;
+                case "news":
+                    this.employer.emp_news_letter = checkedStatus;
+                    this.updateEmployer(this.employer).catch((err) =>
+                        console.log(err)
+                    );
+                    break;
+                case "subs":
+                    this.employer.emp_subscription = checkedStatus;
+                    this.updateEmployer(this.employer).catch((err) =>
+                        console.log(err)
+                    );
+                    break;
+            }
         },
     },
 };
