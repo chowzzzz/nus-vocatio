@@ -29,16 +29,17 @@
             </div>
 
             <h5>Change Password</h5>
-            <div class="info">
+            <div class="info pwd">
                 <div class="inputs">
                     <label for="oldPwd">Old Password</label>
-                    <input type="password" name="oldPwd" id="oldPwd" />
+                    <input v-model="oldPwd" type="password" name="oldPwd" id="oldPwd" />
                 </div>
                 <div class="inputs">
                     <label for="newPwd">New Password</label>
-                    <input type="password" name="newPwd" id="newPwd" />
+                    <input v-model="newPwd" type="password" name="newPwd" id="newPwd" />
                 </div>
             </div>
+            <button @click="changePwd" class="pwdBtn">Change password</button>
         </div>
 
         <div class="mobile-btns">
@@ -53,8 +54,15 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
     name: "AdminProfile",
+    data() {
+        return {
+            oldPwd: "",
+            newPwd: "",
+        };
+    },
     computed: {
         admin() {
             const admin = this.$store.getters.getAdminById(1);
@@ -62,50 +70,48 @@ export default {
         },
     },
     methods: {
-        // ...mapActions(["addJobPost", "deleteJobPost", "updateJobPost"]),
+        ...mapActions(["updateAdmin"]),
         confirmEdit() {
-            /* let date = this.$refs.newPost.$data.date;
-            let req = this.$refs.newPost.$data.requirements;
-            let temp = req.split("\n");
-            let requirements = [];
-            temp.forEach(requirement => {
-                requirements.push({ req: requirement });
-            });
-
-            const admin = {
-                jobID: jobID,
-                title: title,
-                empID: 1, // change to current employer
-                shortDescription: shortdesc,
-                description: desc,
-                requirements: requirements,
-                type: type,
-                faculty: faculty,
-                industry: industry,
-                department: department,
-                salary: salary,
-                date: new Date(),
-                applicants: 0,
-                maxApplicants: maxApplicants,
-                status: "Accepting applications",
-                expiry: date
+            const updatedAdmin = {
+                // change this
+                id: 1,
+                adm_user: this.admin.adm_user,
+                adm_email: this.admin.adm_email,
+                adm_password: this.admin.adm_password,
             };
 
-            this.updateJobPost(post).then( */
-            this.$swal({
-                title: "Confirm",
-                text: "Job post edited",
-                buttons: {
-                    close: {
-                        value: "close",
-                        text: "Close",
+            this.updateAdmin(updatedAdmin).then(
+                this.$swal({
+                    title: "Confirm",
+                    text: "Admin details updated",
+                    buttons: {
+                        close: {
+                            value: "close",
+                            text: "Close",
+                        },
                     },
-                },
-                icon: "success",
-            }).then((value) => {
-                if (value === "close") this.$router.go(-1);
-            });
-            // );
+                    icon: "success",
+                })
+                    .then((value) => {
+                        if (value === "close") this.$router.go(-1);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        this.$swal({
+                            title: "Error",
+                            text: "Error in updating admin details",
+                            buttons: {
+                                close: {
+                                    value: "close",
+                                    text: "Close",
+                                },
+                            },
+                            icon: "warning",
+                        }).then((value) => {
+                            if (value === "close") this.$router.go(-1);
+                        });
+                    })
+            );
         },
         cancel() {
             this.$swal({
@@ -128,6 +134,34 @@ export default {
                         break;
                 }
             });
+        },
+        changePwd() {
+            const updatedAdmin = {
+                // change this
+                id: 1,
+                adm_user: this.admin.adm_user,
+                adm_email: this.admin.adm_email,
+                adm_password: this.admin.adm_password,
+            };
+            console.log(updatedAdmin);
+            // change this
+            // this.updateAdmin(updatedAdmin).then(
+            this.$swal({
+                title: "Confirm",
+                text: "Password changed",
+                buttons: {
+                    close: {
+                        value: "close",
+                        text: "Close",
+                    },
+                },
+                icon: "success",
+            })
+                .then((value) => {
+                    if (value === "close") this.$router.go(-1);
+                })
+                .catch((err) => console.log(err));
+            // );
         },
     },
 };
@@ -159,7 +193,7 @@ h2 {
 .info {
     display: grid;
     grid-template-columns: 50% 50%;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 
 h5 {
@@ -251,6 +285,15 @@ button {
     color: #7c7c7c;
 }
 
+.pwd {
+    margin-bottom: 0.5em;
+}
+
+.pwdBtn {
+    width: 40%;
+    margin: 0 0 1em;
+}
+
 @media screen and (max-width: 1150px) {
     .container {
         padding: 2em 8em 3em;
@@ -284,6 +327,10 @@ button {
     .inputs {
         width: 90%;
     }
+
+    .pwdBtn {
+        width: 45%;
+    }
 }
 
 @media screen and (max-width: 650px) {
@@ -297,6 +344,10 @@ button {
 
     .profile-container {
         padding: 1.2em 2em;
+    }
+
+    button {
+        font-size: 11px;
     }
 }
 
@@ -334,10 +385,14 @@ button {
     }
 
     .mobile-btns button {
-        font-size: 12px;
+        font-size: 11px;
+    }
+
+    .pwdBtn {
+        width: 100%;
     }
 }
-@media screen and (max-width: 570px) {
+@media screen and (max-width: 400px) {
     .profile-container {
         padding: 1em 1.5em;
     }

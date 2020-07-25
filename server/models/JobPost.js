@@ -28,6 +28,12 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.DataTypes.INTEGER,
             allowNull: false
         },
+        /*
+         * 1: Accepting applicants
+         * 2. Not accepting applicants (expired)
+         * 3. Max applicants
+         * 4. Removed
+         */
         post_status: {
             type: Sequelize.DataTypes.TINYINT(1)
         },
