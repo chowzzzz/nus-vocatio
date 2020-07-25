@@ -3,7 +3,7 @@
         <backBtn title="post"></backBtn>
         <employerListView
             title="Applicants"
-            v-bind:posts="posts"
+            v-bind:allPosts="posts"
             v-bind:path="path"
             v-bind:home="home"
             v-if="posts"

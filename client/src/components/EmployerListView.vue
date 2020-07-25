@@ -5,12 +5,12 @@
                 <h2>{{ title }}</h2>
                 <div class="side">
                     <div class="select">
-                        <select id="sort">
-                            <option value="sortby">Sort by</option>
-                            <option value="apha">Alphabetical</option>
-                            <option value="high">Salary: High to Low</option>
-                            <option value="low">Salary: Low to High</option>
-                            <option value="recent">Most Recent</option>
+                        <select v-model="sort" id="sort">
+                            <option value="1">Most Recent</option>
+                            <option v-if="home" value="2">Title</option>
+                            <option v-else value="2">Name</option>
+                            <option v-if="home" value="3">Salary: High to Low</option>
+                            <option v-if="home" value="4">Salary: Low to High</option>
                         </select>
                     </div>
                     <div id="add">
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div class="postings">
-                <ul>
+                <ul v-if="posts">
                     <li
                         v-for="post in posts"
                         :key="post.id"
@@ -96,7 +96,62 @@ export default {
     components: {
         ScrollToTopBtn,
     },
-    props: ["title", "posts", "path", "home"],
+    props: ["title", "allPosts", "path", "home"],
+    data() {
+        return {
+            sort: 1,
+        };
+    },
+    computed: {
+        posts() {
+            let posts = this.allPosts;
+            if (this.home) {
+                if (this.sort == 2) {
+                    posts.sort((a, b) => {
+                        const post1 = a.post_title.toUpperCase();
+                        const post2 = b.post_title.toUpperCase();
+                        if (post1 < post2) {
+                            return -1;
+                        }
+                        if (post1 > post2) {
+                            return 1;
+                        }
+
+                        return 0;
+                    });
+                } else if (this.sort == 3) {
+                    posts.sort((a, b) => b.post_pay - a.post_pay);
+                } else if (this.sort == 4) {
+                    posts.sort((a, b) => a.post_pay - b.post_pay);
+                } else {
+                    posts.sort(
+                        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    );
+                }
+            } else {
+                if (this.sort == 2) {
+                    posts.sort((a, b) => {
+                        const post1 = a.stu_name.toUpperCase();
+                        const post2 = b.stu_name.toUpperCase();
+                        if (post1 < post2) {
+                            return -1;
+                        }
+                        if (post1 > post2) {
+                            return 1;
+                        }
+
+                        return 0;
+                    });
+                } else {
+                    posts.sort(
+                        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    );
+                }
+            }
+
+            return posts;
+        },
+    },
     filters: {
         postStatus(value) {
             let status;
