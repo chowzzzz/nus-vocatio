@@ -180,7 +180,7 @@ export default {
                 const jobpost = this.$store.getters.getJobById(
                     this.$route.params.jobID
                 );
-                console.log(jobpost);
+                // console.log(jobpost);
                 post.post_title = jobpost.post_title;
                 post.post_short_des = jobpost.post_short_des;
                 post.post_long_des = jobpost.post_long_des;
@@ -192,8 +192,9 @@ export default {
                 );
                 post.post_industry = jobpost.post_industry;
                 post.post_faculty = jobpost.post_faculty;
-                post.post_requirements = jobpost.post_requirements.split("\\n");
-                post.post_requirements.pop();
+                post.post_requirements = jobpost.post_requirements
+                    .split("\\n")
+                    .join("\n");
             }
 
             this.$emit("post", post);

@@ -53,101 +53,22 @@ export default {
     },
     props: ["title", "edit"],
     data() {
-        let jobID;
-        if (this.$route.params.jobID !== undefined) {
-            jobID = this.$route.params.jobID;
-        } else {
-            jobID = "";
-        }
         return {
-            jobID: jobID,
             post: {},
         };
+    },
+    computed: {
+        currentPost() {
+            const jobpost = this.$store.getters.getJobById(
+                this.$route.params.jobID
+            );
+            return jobpost;
+        },
     },
     methods: {
         ...mapActions(["addJobPost", "deleteJobPost", "updateJobPost"]),
         newPost(post) {
             this.post = post;
-        },
-        deletePost() {
-            this.$swal({
-                title: "Delete",
-                text: "Are you sure you want to delete this post?",
-                buttons: {
-                    no: {
-                        value: "no",
-                        text: "No",
-                    },
-                    yes: {
-                        value: "yes",
-                        text: "Yes",
-                    },
-                },
-                icon: "warning",
-            }).then((value) => {
-                switch (value) {
-                    case "yes":
-                        this.deleteJobPost(this.jobID).then(
-                            this.$router.push("/employer-home")
-                        );
-
-                        break;
-                }
-            });
-        },
-        confirmEdit() {
-            let jobID = this.$refs.newPost.$data.jobID;
-            let title = this.$refs.newPost.$data.title;
-            let industry = this.$refs.newPost.$data.industry;
-            let department = this.$refs.newPost.$data.department;
-            let salary = this.$refs.newPost.$data.salary;
-            let maxApplicants = this.$refs.newPost.$data.maxApplicants;
-            let type = this.$refs.newPost.$data.type;
-            let faculty = this.$refs.newPost.$data.faculty;
-            let shortdesc = this.$refs.newPost.$data.shortdesc;
-            let desc = this.$refs.newPost.$data.desc;
-            let date = this.$refs.newPost.$data.date;
-            let req = this.$refs.newPost.$data.requirements;
-            let temp = req.split("\n");
-            let requirements = [];
-            temp.forEach((requirement) => {
-                requirements.push({ req: requirement });
-            });
-
-            const post = {
-                jobID: jobID,
-                title: title,
-                empID: 1, // change to current employer
-                shortDescription: shortdesc,
-                description: desc,
-                requirements: requirements,
-                type: type,
-                faculty: faculty,
-                industry: industry,
-                department: department,
-                salary: salary,
-                date: new Date(),
-                applicants: 0,
-                maxApplicants: maxApplicants,
-                status: "Accepting applications",
-                expiry: date,
-            };
-
-            this.updateJobPost(post).then(
-                this.$swal({
-                    title: "Confirm",
-                    text: "Job post edited",
-                    buttons: {
-                        close: {
-                            value: "close",
-                            text: "Close",
-                        },
-                    },
-                    icon: "success",
-                }).then((value) => {
-                    if (value === "close") this.$router.go(-1);
-                })
-            );
         },
         confirmAdd() {
             this.post.post_status = 0;
@@ -188,6 +109,83 @@ export default {
                         if (value === "close") this.$router.go(-1);
                     });
                 });
+        },
+        confirmEdit() {
+            this.post.id = this.currentPost.id;
+            this.post.post_status = this.currentPost.post_status;
+            this.post.employerId = this.currentPost.employerId; // change this
+            this.post.post_requirements = this.post.post_requirements.replace(
+                /\n/gi,
+                "\\n"
+            );
+
+            this.updateJobPost(this.post)
+                .then(
+                    this.$swal({
+                        title: "Confirm",
+                        text: "Job post edited",
+                        buttons: {
+                            close: {
+                                value: "close",
+                                text: "Close",
+                            },
+                        },
+                        icon: "success",
+                    }).then((value) => {
+                        if (value === "close") this.$router.go(-1);
+                    })
+                )
+                .catch((err) => {
+                    console.log(err);
+                    this.$swal({
+                        text: "Error in editing job post",
+                        buttons: {
+                            close: {
+                                value: "close",
+                                text: "Close",
+                            },
+                        },
+                        icon: "warning",
+                    }).then((value) => {
+                        if (value === "close") this.$router.go(-1);
+                    });
+                });
+        },
+        deletePost() {
+            this.$swal({
+                title: "Delete",
+                text: "Are you sure you want to delete this post?",
+                buttons: {
+                    no: {
+                        value: "no",
+                        text: "No",
+                    },
+                    yes: {
+                        value: "yes",
+                        text: "Yes",
+                    },
+                },
+                icon: "warning",
+            }).then((value) => {
+                switch (value) {
+                    case "yes":
+                        this.deleteJobPost(this.currentPost.id).then(
+                            this.$swal({
+                                title: "Confirm",
+                                text: "Job post deleted",
+                                buttons: {
+                                    close: {
+                                        value: "close",
+                                        text: "Close",
+                                    },
+                                },
+                                icon: "success",
+                            }),
+                            this.$router.push("/")
+                        );
+                        break;
+                }
+            });
         },
         cancel() {
             this.$swal({

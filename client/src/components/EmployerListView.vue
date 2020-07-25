@@ -26,7 +26,7 @@
                         v-for="post in posts"
                         :key="post.id"
                         v-bind:class="{
-                        removed: post.post_status === 'Removed' || post.post_status === 'REJECTED'
+                        removed: post.post_status === 4 || post.status === 3
                     }"
                         @click="navigateTo({path: `/${path}/${post.id}`, query: { appID: post.appID }})"
                     >
@@ -39,13 +39,13 @@
                                     id="post-id"
                                     v-if="home"
                                     v-bind:class="{
-                                        grey: post.post_status === 'Removed'} "
+                                        grey: post.post_status === 4} "
                                 >Posting ID#{{ post.id }}</span>
                                 <span
                                     id="post-id"
                                     v-else
                                     v-bind:class="{
-                                        grey: post.status === 'REJECTED'} "
+                                        grey: post.status === 3} "
                                 >Student ID#{{ post.id }}</span>
 
                                 <span
@@ -54,7 +54,7 @@
                                     v-bind:class="{
                                         green: post.post_status === 1,
                                         red: post.post_status === 2 || post.post_status === 3,
-                                        grey: post.post_status === 4
+                                        grey: post.post_status === 0 || post.post_status === 4
                             }"
                                 >{{ post.post_status | postStatus }}</span>
                                 <span
@@ -114,7 +114,7 @@ export default {
                     status = "REMOVED";
                     break;
                 default:
-                    status = "";
+                    status = "PENDING";
                     break;
             }
             return status;

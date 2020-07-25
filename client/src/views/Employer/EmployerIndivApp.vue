@@ -21,7 +21,8 @@
                             v-bind:class="{
                             green: application.status === 1,
                             blue: application.status === 2,
-                            grey: application.status === 3}"
+                            grey: application.status === 3
+                            }"
                         >{{ application.status | appStatus }}</p>
                     </div>
                     <div class="stu-name">
