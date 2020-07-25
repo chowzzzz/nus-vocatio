@@ -4,17 +4,26 @@
             <h4>{{ title }} Job Posting</h4>
 
             <div class="btns">
-                <span v-if="edit" class="delete" @click="deletePost">
+                <span v-if="edit && !pending" class="delete" @click="deletePost">
                     <img src="../assets/selfmade/delete.svg" alt="delete" />
                     <span class="tooltip" id="delete">Delete</span>
                 </span>
-                <span v-if="edit" class="confirm" @click="confirmEdit">
+                <span v-if="edit && !pending" class="confirm" @click="confirmEdit">
                     <img src="../assets/selfmade/confirm.svg" alt="confirm" />
                     <span class="tooltip" id="confirm">Confirm</span>
+                </span>
+                <span v-else-if="edit && pending" class="confirm" @click="confirmPost">
+                    <img src="../assets/selfmade/confirm.svg" alt="accept" />
+                    <span class="tooltip" id="confirm">Accept</span>
                 </span>
                 <span v-else class="confirm" @click="confirmAdd">
                     <img src="../assets/selfmade/confirm.svg" alt="confirm" />
                     <span class="tooltip" id="confirm">Confirm</span>
+                </span>
+
+                <span v-if="pending" class="cancel" @click="rejectPost">
+                    <img src="../assets/selfmade/cancel-red.svg" alt="reject" />
+                    <span class="tooltip" id="cancel">Reject</span>
                 </span>
                 <span class="cancel" @click="cancel">
                     <img src="../assets/selfmade/cancel.svg" alt="cancel" />
@@ -23,17 +32,23 @@
             </div>
         </div>
 
-        <job-form @post="newPost" />
+        <job-form ref="sendData" @post="newPost" />
 
         <div class="mobile-btns">
-            <div v-if="edit" class="deleteBtn">
+            <div v-if="edit && !pending" class="deleteBtn">
                 <button @click="deletePost">Delete</button>
             </div>
-            <div v-if="edit" class="confirmBtn">
+            <div v-if="edit && !pending" class="confirmBtn">
                 <button @click="confirmEdit">Save</button>
+            </div>
+            <div v-else-if="edit && pending" class="confirmBtn">
+                <button @click="confirmPost">Accept</button>
             </div>
             <div v-else class="confirmBtn">
                 <button @click="confirmAdd">Save</button>
+            </div>
+            <div v-if="pending" class="deleteBtn">
+                <button @click="rejectPost">Reject</button>
             </div>
             <div class="cancelBtn">
                 <button @click="cancel">Cancel</button>
@@ -51,7 +66,7 @@ export default {
     components: {
         JobForm,
     },
-    props: ["title", "edit"],
+    props: ["title", "edit", "pending"],
     data() {
         return {
             post: {},
@@ -71,6 +86,7 @@ export default {
             this.post = post;
         },
         confirmAdd() {
+            this.$refs.sendData.sendPost();
             this.post.post_status = 0;
             this.post.employerId = 1; // change this
             this.post.post_requirements = this.post.post_requirements.replace(
@@ -111,6 +127,7 @@ export default {
                 });
         },
         confirmEdit() {
+            this.$refs.sendData.sendPost();
             this.post.id = this.currentPost.id;
             this.post.post_status = this.currentPost.post_status;
             this.post.employerId = this.currentPost.employerId; // change this
@@ -181,8 +198,112 @@ export default {
                                 },
                                 icon: "success",
                             }),
-                            this.$router.h(-2)
+                            this.$router.go(-2)
                         );
+                        break;
+                }
+            });
+        },
+        confirmPost() {
+            this.$refs.sendData.sendPost();
+            this.post.id = this.currentPost.id;
+            this.post.post_status = 1;
+            this.post.employerId = this.currentPost.employerId; // change this
+            this.post.post_requirements = this.post.post_requirements.replace(
+                /\n/gi,
+                "\\n"
+            );
+            // console.log(this.post);
+
+            this.updateJobPost(this.post)
+                .then(
+                    this.$swal({
+                        title: "Confirm",
+                        text: "Job post approved",
+                        buttons: {
+                            close: {
+                                value: "close",
+                                text: "Close",
+                            },
+                        },
+                        icon: "success",
+                    }).then((value) => {
+                        if (value === "close") this.$router.go(-2);
+                    })
+                )
+                .catch((err) => {
+                    console.log(err);
+                    this.$swal({
+                        text: "Error in approving job post",
+                        buttons: {
+                            close: {
+                                value: "close",
+                                text: "Close",
+                            },
+                        },
+                        icon: "warning",
+                    }).then((value) => {
+                        if (value === "close") this.$router.go(-1);
+                    });
+                });
+        },
+        rejectPost() {
+            this.$refs.sendData.sendPost();
+
+            this.$swal({
+                text: "Are you sure you wish to reject this posting?",
+                buttons: {
+                    no: {
+                        value: "no",
+                        text: "No",
+                    },
+                    yes: {
+                        value: "yes",
+                        text: "Yes",
+                    },
+                },
+                icon: "warning",
+            }).then((value) => {
+                switch (value) {
+                    case "yes":
+                        this.post.id = this.currentPost.id;
+                        this.post.post_status = 4;
+                        this.post.employerId = this.currentPost.employerId; // change this
+                        this.post.post_requirements = this.post.post_requirements.replace(
+                            /\n/gi,
+                            "\\n"
+                        );
+                        this.updateJobPost(this.post)
+                            .then(
+                                this.$swal({
+                                    title: "Confirm",
+                                    text: "Job post rejected",
+                                    buttons: {
+                                        close: {
+                                            value: "close",
+                                            text: "Close",
+                                        },
+                                    },
+                                    icon: "success",
+                                }).then((value) => {
+                                    if (value === "close") this.$router.go(-2);
+                                })
+                            )
+                            .catch((err) => {
+                                console.log(err);
+                                this.$swal({
+                                    text: "Error in approving job post",
+                                    buttons: {
+                                        close: {
+                                            value: "close",
+                                            text: "Close",
+                                        },
+                                    },
+                                    icon: "warning",
+                                }).then((value) => {
+                                    if (value === "close") this.$router.go(-1);
+                                });
+                            });
                         break;
                 }
             });

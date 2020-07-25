@@ -263,7 +263,9 @@ const state = {
 };
 const getters = {
     allJobs: (state) =>
-        state.jobposts.filter((jobpost) => jobpost.post_status != 0),
+        state.jobposts.filter(
+            (jobpost) => jobpost.post_status != 0 && jobpost.post_status != 4
+        ),
     allAvailJobs: (state) =>
         state.jobposts.filter((jobpost) => jobpost.post_status == 1),
     allPendingJobs: (state) =>

@@ -80,8 +80,8 @@ exports.update = (req, res) => {
     })
         .then((num) => {
             if (num == 1) {
-                res.send({
-                    message: "JobPost was updated successfully."
+                Jobpost.findByPk(id).then((data) => {
+                    res.send(data);
                 });
             } else {
                 res.send({

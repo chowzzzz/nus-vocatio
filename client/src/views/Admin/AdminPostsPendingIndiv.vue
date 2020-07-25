@@ -7,16 +7,16 @@
             <div class="editBtns">
                 <span
                     class="edit"
-                    @click="navigateTo({name: 'admin-posts-pending-edit', params: {jobID: post.jobID}})"
+                    @click="navigateTo({name: 'admin-posts-pending-edit', params: {jobID: jobID}})"
                 >
                     <img src="../../assets/selfmade/edit-grey.svg" alt="edit" />
                     <span class="tooltip" id="edit">Edit</span>
                 </span>
                 <span class="confirm" @click="confirmPost">
-                    <img src="../../assets/selfmade/confirm.svg" alt="confirm" />
-                    <span class="tooltip" id="confirm">Confirm</span>
+                    <img src="../../assets/selfmade/confirm.svg" alt="accept" />
+                    <span class="tooltip" id="confirm">Accept</span>
                 </span>
-                <span class="cancel" @click="cancelPost">
+                <span class="cancel" @click="rejectPost">
                     <img src="../../assets/selfmade/cancel-red.svg" alt="reject post" />
                     <span class="tooltip" id="cancel">Reject post</span>
                 </span>
@@ -27,7 +27,7 @@
             <div class="mobileEditBtns">
                 <div
                     class="editBtn"
-                    @click="navigateTo({name: 'admin-posts-pending-edit', params: {jobID: post.jobID}})"
+                    @click="navigateTo({name: 'admin-posts-pending-edit', params: {jobID: jobID}})"
                 >
                     <button>Edit</button>
                 </div>
@@ -35,7 +35,7 @@
                     <button @click="confirmPost">Confirm</button>
                 </div>
                 <div class="cancelBtn">
-                    <button @click="cancelPost">Reject post</button>
+                    <button @click="rejectPost">Reject post</button>
                 </div>
             </div>
         </div>
@@ -46,6 +46,7 @@
 import BackBtn from "../../components/BackBtn.vue";
 import JobListing from "../../components/JobListing.vue";
 import EmployerContact from "../../components/EmployerContactSideMenu.vue";
+import { mapActions } from "vuex";
 
 export default {
     name: "AdminPostsPendingIndiv",
@@ -63,34 +64,46 @@ export default {
         };
     },
     methods: {
+        ...mapActions(["updateJobPost"]),
         confirmPost() {
-            this.$swal({
-                title: "Confirm",
-                text: "Do you wish to approve this post?",
-                buttons: {
-                    no: {
-                        value: "no",
-                        text: "Cancel",
-                    },
-                    yes: {
-                        value: "yes",
-                        text: "Yes",
-                    },
-                },
-                icon: "warning",
-            }).then((value) => {
-                switch (value) {
-                    case "yes":
-                        // this.deleteJobPost(this.jobID);
-                        this.$router.go(-1);
-                        break;
-                }
-            });
+            this.post.post_status = 1;
+            console.log(this.post);
+
+            this.updateJobPost(this.post)
+                .then(
+                    this.$swal({
+                        title: "Confirm",
+                        text: "Job post approved",
+                        buttons: {
+                            close: {
+                                value: "close",
+                                text: "Close",
+                            },
+                        },
+                        icon: "success",
+                    }).then((value) => {
+                        if (value === "close") this.$router.go(-1);
+                    })
+                )
+                .catch((err) => {
+                    console.log(err);
+                    this.$swal({
+                        text: "Error in approving job post",
+                        buttons: {
+                            close: {
+                                value: "close",
+                                text: "Close",
+                            },
+                        },
+                        icon: "warning",
+                    }).then((value) => {
+                        if (value === "close") this.$router.go(-1);
+                    });
+                });
         },
-        cancelPost() {
+        rejectPost() {
             this.$swal({
-                title: "Reject",
-                text: "Are you sure you want to reject this post?",
+                text: "Are you sure you wish to reject this posting?",
                 buttons: {
                     no: {
                         value: "no",
@@ -105,8 +118,38 @@ export default {
             }).then((value) => {
                 switch (value) {
                     case "yes":
-                        // this.deleteJobPost(this.jobID);
-                        this.$router.go(-1);
+                        this.post.post_status = 4;
+                        this.updateJobPost(this.post)
+                            .then(
+                                this.$swal({
+                                    title: "Confirm",
+                                    text: "Job post rejected",
+                                    buttons: {
+                                        close: {
+                                            value: "close",
+                                            text: "Close",
+                                        },
+                                    },
+                                    icon: "success",
+                                }).then((value) => {
+                                    if (value === "close") this.$router.go(-1);
+                                })
+                            )
+                            .catch((err) => {
+                                console.log(err);
+                                this.$swal({
+                                    text: "Error in approving job post",
+                                    buttons: {
+                                        close: {
+                                            value: "close",
+                                            text: "Close",
+                                        },
+                                    },
+                                    icon: "warning",
+                                }).then((value) => {
+                                    if (value === "close") this.$router.go(-1);
+                                });
+                            });
                         break;
                 }
             });

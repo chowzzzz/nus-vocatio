@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <employer-job-form title="Edit" v-bind:edit="true"></employer-job-form>
+        <employer-job-form title="Edit" v-bind:edit="true" v-bind:pending="false"></employer-job-form>
     </div>
 </template>
 
@@ -10,8 +10,8 @@ import EmployerJobForm from "../../components/EmployerJobForm.vue";
 export default {
     name: "AdminPostEdit",
     components: {
-        EmployerJobForm
-    }
+        EmployerJobForm,
+    },
 };
 </script>
 
