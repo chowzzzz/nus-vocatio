@@ -1,8 +1,45 @@
 <template>
     <div class="parent-container">
         <h2>Student Register</h2>
-        <form class="input-container" @submit.prevent="register">
+        <form enctype="multipart/form-data" class="input-container" @submit.prevent="register">
             <div class="info-container">
+                <div class="inputText">
+                    <div class="half">
+                        <label for="name">Full Name</label>
+                        <br />
+                        <input
+                            v-model.lazy="$v.student.stu_name.$model"
+                            type="text"
+                            name="name"
+                            id="name"
+                        />
+
+                        <div
+                            class="error"
+                            v-if="!$v.student.stu_name.required && $v.student.stu_name.$dirty"
+                        >*Field is required</div>
+                    </div>
+
+                    <div class="half">
+                        <label for="studID">Student ID</label>
+                        <br />
+                        <input
+                            v-model.lazy="$v.student.stu_id.$model"
+                            type="text"
+                            name="studID"
+                            id="studID"
+                        />
+
+                        <div
+                            class="error"
+                            v-if="!$v.student.stu_id.required && $v.student.stu_id.$dirty"
+                        >*Field is required</div>
+                        <div
+                            class="error"
+                            v-if="(!$v.student.stu_id.maxLength || !$v.student.stu_id.verifyId) && $v.student.stu_id.$dirty"
+                        >*Please enter valid student ID</div>
+                    </div>
+                </div>
                 <div class="inputText">
                     <div class="half">
                         <label for="email">NUS Email ID</label>
@@ -23,24 +60,25 @@
                             v-if="!$v.student.stu_email.email && $v.student.stu_email.$dirty"
                         >*Invalid email</div>
                     </div>
+
                     <div class="half">
-                        <label for="studID">Student ID</label>
+                        <label for="contact">Contact number</label>
                         <br />
                         <input
-                            v-model.lazy="$v.student.stu_id.$model"
+                            v-model.lazy="$v.student.stu_mobile.$model"
                             type="text"
-                            name="studID"
-                            id="studID"
+                            name="contact"
+                            id="contact"
                         />
 
                         <div
                             class="error"
-                            v-if="!$v.student.stu_id.required && $v.student.stu_id.$dirty"
+                            v-if="!$v.student.stu_mobile.required && $v.student.stu_mobile.$dirty"
                         >*Field is required</div>
                         <div
                             class="error"
-                            v-if="(!$v.student.stu_id.maxLength || !$v.student.stu_id.verifyId) && $v.student.stu_id.$dirty"
-                        >*Please enter valid student ID</div>
+                            v-if="!$v.student.stu_mobile.numeric && $v.student.stu_mobile.$dirty"
+                        >*Invalid number</div>
                     </div>
                 </div>
                 <div class="inputText">
@@ -81,43 +119,7 @@
                         >*Password needs to be the same</div>
                     </div>
                 </div>
-                <div class="inputText">
-                    <div class="half">
-                        <label for="name">Full Name</label>
-                        <br />
-                        <input
-                            v-model.lazy="$v.student.stu_name.$model"
-                            type="text"
-                            name="name"
-                            id="name"
-                        />
 
-                        <div
-                            class="error"
-                            v-if="!$v.student.stu_name.required && $v.student.stu_name.$dirty"
-                        >*Field is required</div>
-                    </div>
-
-                    <div class="half">
-                        <label for="contact">Contact number</label>
-                        <br />
-                        <input
-                            v-model.lazy="$v.student.stu_mobile.$model"
-                            type="text"
-                            name="contact"
-                            id="contact"
-                        />
-
-                        <div
-                            class="error"
-                            v-if="!$v.student.stu_mobile.required && $v.student.stu_mobile.$dirty"
-                        >*Field is required</div>
-                        <div
-                            class="error"
-                            v-if="!$v.student.stu_mobile.numeric && $v.student.stu_mobile.$dirty"
-                        >*Invalid number</div>
-                    </div>
-                </div>
                 <div class="inputText">
                     <div class="half singleHalf">
                         <label for="dob">Date of birth</label>
@@ -146,7 +148,6 @@
                                 id="stu_faculty"
                             >
                                 <option value selected></option>
-                                <option value="All">All</option>
                                 <option value="FASS">FASS</option>
                                 <option value="Business">Business</option>
                                 <option value="Computing">Computing</option>
@@ -398,8 +399,12 @@ export default {
                 stu.append("stu_resume", this.student.stu_resume);
                 stu.append("stu_picture", this.student.stu_picture);
 
+                console.log("registering");
                 this.addStudent(stu)
-                    .then(() => this.$router.push("/"))
+                    .then(() => {
+                        console.log("success");
+                        // this.$router.push("/");
+                    })
                     .catch((err) => console.log(err));
             }
         },

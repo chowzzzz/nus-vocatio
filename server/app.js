@@ -28,6 +28,20 @@ require("./routes/employer.routes")(app);
 require("./routes/jobpost.routes")(app);
 require("./routes/application.routes")(app);
 
+app.use(function (err, req, res, next) {
+    if (err.code === "LIMIT_FILE_TYPES") {
+        res.status(422).json({ error: "Only images are allowed" });
+        return;
+    }
+
+    if (err.code === "LIMIT_FILE_SIZE") {
+        res.status(422).json({
+            error: `Image is too large. Max size is ${MAX_SIZE / 1000}KB`
+        });
+        return;
+    }
+});
+
 // set port, listen for requests
 const PORT = process.env.PORT || 8081;
 app.listen(PORT, () => {

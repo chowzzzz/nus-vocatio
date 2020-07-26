@@ -3,7 +3,10 @@ module.exports = (sequelize, Sequelize) => {
         stu_id: {
             type: Sequelize.DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique: {
+                args: true,
+                msg: "Student ID already registered"
+            }
         },
         stu_name: {
             type: Sequelize.DataTypes.STRING,
@@ -14,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: false
         },
         stu_picture: {
-            type: Sequelize.DataTypes.BLOB("medium"),
+            type: Sequelize.DataTypes.STRING,
             allowNull: true
         },
         stu_mobile: {
@@ -24,7 +27,13 @@ module.exports = (sequelize, Sequelize) => {
         stu_email: {
             type: Sequelize.DataTypes.STRING,
             allowNull: false,
-            unique: true
+            validate: {
+                isEmail: true
+            },
+            unique: {
+                args: true,
+                msg: "Email address already in use"
+            }
         },
         stu_faculty: {
             type: Sequelize.DataTypes.ENUM(
@@ -60,7 +69,7 @@ module.exports = (sequelize, Sequelize) => {
             allowNull: true
         },
         stu_resume: {
-            type: Sequelize.DataTypes.BLOB("long"),
+            type: Sequelize.DataTypes.STRING,
             allowNull: true
         },
         stu_password: {

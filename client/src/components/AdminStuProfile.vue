@@ -1,91 +1,103 @@
 <template>
     <div class="form-container">
-        <div class="input-container">
-            <div class="info-container">
-                <h3>Personal Information</h3>
-                <div class="inputText">
-                    <div class="half">
-                        <label for="name">Full Name</label>
-                        <br />
-                        <input v-model="student.stu_name" type="text" name="name" id="name" />
+        <form enctype="multipart/form-data" @submit.prevent>
+            <div class="input-container">
+                <div class="info-container">
+                    <h3>Personal Information</h3>
+                    <div class="inputText">
+                        <div class="half">
+                            <label for="name">Full Name</label>
+                            <br />
+                            <input v-model="student.stu_name" type="text" name="name" id="name" />
+                        </div>
+                        <div class="half">
+                            <label for="studID">Student ID</label>
+                            <br />
+                            <input v-model="student.stu_id" type="text" name="studID" id="studID" />
+                        </div>
                     </div>
-                    <div class="half">
-                        <label for="studID">Student ID</label>
-                        <br />
-                        <input v-model="student.stu_id" type="text" name="studID" id="studID" />
+                    <div class="inputText">
+                        <div class="half">
+                            <label for="dob">Date of birth</label>
+                            <br />
+                            <input v-model="dob" type="date" name="dob" id="dob" />
+                        </div>
+                        <div class="half">
+                            <label for="degree">Degree</label>
+                            <br />
+                            <input
+                                v-model="student.stu_degree"
+                                type="text"
+                                name="degree"
+                                id="degree"
+                            />
+                        </div>
+                    </div>
+                    <div class="inputText">
+                        <div class="half year">
+                            <label for="year">Current Year</label>
+                            <br />
+                            <input v-model="student.stu_year" type="text" name="year" id="year" />
+                        </div>
                     </div>
                 </div>
-                <div class="inputText">
-                    <div class="half">
-                        <label for="dob">Date of birth</label>
-                        <br />
-                        <input v-model="dob" type="date" name="dob" id="dob" />
+
+                <div class="contact-container">
+                    <h3>Contact Information</h3>
+                    <div class="inputText">
+                        <div class="half">
+                            <label for="email">Email</label>
+                            <br />
+                            <input v-model="student.stu_email" type="email" name="email" id="email" />
+                        </div>
+                        <div class="half">
+                            <label for="contact">Contact number</label>
+                            <br />
+                            <input
+                                v-model="student.stu_mobile"
+                                type="text"
+                                name="contact"
+                                id="contact"
+                            />
+                        </div>
                     </div>
-                    <div class="half">
-                        <label for="degree">Degree</label>
-                        <br />
-                        <input v-model="student.stu_degree" type="text" name="degree" id="degree" />
+                    <div class="inputText">
+                        <div class="half">
+                            <label>Resume</label>
+                            <br />
+                            <label for="resume" id="uploadFileInput">
+                                <span id="uploadFileBtn">
+                                    <i class="fas fa-file-upload"></i> Upload file
+                                </span>
+                            </label>
+                            <br />
+                            <input type="file" name="resume" id="resume" />
+                        </div>
+                        <div class="half link">
+                            <label for="linkedin">Linkedin link</label>
+                            <br />
+                            <input
+                                v-model="student.stu_linkedin"
+                                type="text"
+                                name="linkedin"
+                                id="linked"
+                            />
+                        </div>
                     </div>
                 </div>
-                <div class="inputText">
-                    <div class="half year">
-                        <label for="year">Current Year</label>
-                        <br />
-                        <input v-model="student.stu_year" type="text" name="year" id="year" />
-                    </div>
+
+                <div class="profile-img">
+                    <h5>Profile photo</h5>
+                    <!-- <img v-if="image" :src="image" alt="profile pic" /> -->
+                    <img :src="student.stu_picture" alt="profile pic" />
+
+                    <button class="uploadBtn">
+                        Upload
+                        <i class="fas fa-camera"></i>
+                    </button>
                 </div>
             </div>
-
-            <div class="contact-container">
-                <h3>Contact Information</h3>
-                <div class="inputText">
-                    <div class="half">
-                        <label for="email">Email</label>
-                        <br />
-                        <input v-model="student.stu_email" type="email" name="email" id="email" />
-                    </div>
-                    <div class="half">
-                        <label for="contact">Contact number</label>
-                        <br />
-                        <input v-model="student.stu_mobile" type="text" name="contact" id="contact" />
-                    </div>
-                </div>
-                <div class="inputText">
-                    <div class="half">
-                        <label>Resume</label>
-                        <br />
-                        <label for="resume" id="uploadFileInput">
-                            <span id="uploadFileBtn">
-                                <i class="fas fa-file-upload"></i> Upload file
-                            </span>
-                        </label>
-                        <br />
-                        <input type="file" name="resume" id="resume" />
-                    </div>
-                    <div class="half link">
-                        <label for="linkedin">Linkedin link</label>
-                        <br />
-                        <input
-                            v-model="student.stu_linkedin"
-                            type="text"
-                            name="linkedin"
-                            id="linked"
-                        />
-                    </div>
-                </div>
-            </div>
-
-            <div class="profile-img">
-                <h5>Profile photo</h5>
-                <!-- <img v-if="image" :src="image" alt="profile pic" /> -->
-                <img :src="student.stu_picture" alt="profile pic" />
-
-                <button class="uploadBtn">
-                    Upload
-                    <i class="fas fa-camera"></i>
-                </button>
-            </div>
-        </div>
+        </form>
     </div>
 </template>
 

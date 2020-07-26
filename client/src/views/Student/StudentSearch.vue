@@ -41,10 +41,7 @@
                     >
                         <div class="job-img">
                             <!-- change this -->
-                            <img
-                                :src="require(`../../assets/selfmade/${pair.coLogo}`)"
-                                alt="company logo"
-                            />
+                            <img :src="pair.coLogo" alt="company logo" />
                         </div>
                         <div class="job-title">
                             <h4>{{ pair.job.post_title }}</h4>

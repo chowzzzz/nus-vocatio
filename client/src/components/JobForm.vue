@@ -1,148 +1,152 @@
 <template>
     <div v-if="post" class="form-container">
-        <div class="input-container">
-            <div class="left">
-                <label for="job-title">Job Designation</label>
-                <br />
-                <input v-model="post.post_title" type="text" name="job-title" id="job-title" />
-                <br />
+        <form enctype="multipart/form-data" @submit.prevent>
+            <div class="input-container">
+                <div class="left">
+                    <label for="job-title">Job Designation</label>
+                    <br />
+                    <input v-model="post.post_title" type="text" name="job-title" id="job-title" />
+                    <br />
 
-                <label for="industry">Industry</label>
-                <br />
-                <div class="select">
-                    <select v-model="post.post_industry" name="industry" id="industry">
-                        <option value="default" selected></option>
-                        <option value="Aerospace">Aerospace</option>
-                        <option value="Consumer Business">Consumer Business</option>
-                        <option value="Creative Industries">Creative Industries</option>
-                        <option value="Education">Education</option>
-                        <option value="Electronics">Electronics</option>
-                        <option value="Energy &amp; Chemicals">Energy &amp; Chemicals</option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="Healthcare">Healthcare</option>
-                        <option
-                            value="Information &amp; Communications Technology"
-                        >Information &amp; Communications Technology</option>
-                        <option value="Law">Law</option>
-                        <option
-                            value="Logistics &amp; Supply Chain Management"
-                        >Logistics &amp; Supply Chain Management</option>
-                        <option
-                            value="Oil &amp; Gas Equipment and Services"
-                        >Oil &amp; Gas Equipment and Services</option>
-                        <option value="Medical Technology">Medical Technology</option>
-                        <option value="Natural Resources">Natural Resources</option>
-                        <option
-                            value="Pharmaceuticals and Biotechnology"
-                        >Pharmaceuticals and Biotechnology</option>
-                        <option value="Professional Services">Professional Services</option>
-                        <option value="Transport">Transport</option>
-                        <option
-                            value="Urban Solutions &amp; Sustainability"
-                        >Urban Solutions &amp; Sustainability</option>
-                        <option value="Others">Others</option>
-                    </select>
+                    <label for="industry">Industry</label>
+                    <br />
+                    <div class="select">
+                        <select v-model="post.post_industry" name="industry" id="industry">
+                            <option value="default" selected></option>
+                            <option value="Aerospace">Aerospace</option>
+                            <option value="Consumer Business">Consumer Business</option>
+                            <option value="Creative Industries">Creative Industries</option>
+                            <option value="Education">Education</option>
+                            <option value="Electronics">Electronics</option>
+                            <option value="Energy &amp; Chemicals">Energy &amp; Chemicals</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option
+                                value="Information &amp; Communications Technology"
+                            >Information &amp; Communications Technology</option>
+                            <option value="Law">Law</option>
+                            <option
+                                value="Logistics &amp; Supply Chain Management"
+                            >Logistics &amp; Supply Chain Management</option>
+                            <option
+                                value="Oil &amp; Gas Equipment and Services"
+                            >Oil &amp; Gas Equipment and Services</option>
+                            <option value="Medical Technology">Medical Technology</option>
+                            <option value="Natural Resources">Natural Resources</option>
+                            <option
+                                value="Pharmaceuticals and Biotechnology"
+                            >Pharmaceuticals and Biotechnology</option>
+                            <option value="Professional Services">Professional Services</option>
+                            <option value="Transport">Transport</option>
+                            <option
+                                value="Urban Solutions &amp; Sustainability"
+                            >Urban Solutions &amp; Sustainability</option>
+                            <option value="Others">Others</option>
+                        </select>
+                    </div>
+
+                    <label for="salary">Salary amount</label>
+                    <br />
+                    <input
+                        v-model.number="post.post_pay"
+                        type="number"
+                        name="salary"
+                        id="salary"
+                        min="0.00"
+                        step="1"
+                        max="10000.00"
+                    />
+                    <br />
+
+                    <label for="max">Max. no. of applicants</label>
+                    <br />
+                    <input
+                        v-model="post.post_max_applicants"
+                        type="number"
+                        name="max"
+                        id="max"
+                        min="1"
+                        step="1"
+                    />
+                    <br />
                 </div>
 
-                <label for="salary">Salary amount</label>
-                <br />
-                <input
-                    v-model.number="post.post_pay"
-                    type="number"
-                    name="salary"
-                    id="salary"
-                    min="0.00"
-                    step="1"
-                    max="10000.00"
-                />
-                <br />
+                <div class="right">
+                    <label for="type">Type of job</label>
+                    <br />
+                    <div class="select">
+                        <select v-model="post.post_type" name="type" id="type">
+                            <option value="Internship">Internship</option>
+                            <option value="Part-time">Part-time</option>
+                            <option value="Research studies">Research studies</option>
+                            <option value="Surveys">Surveys</option>
+                        </select>
+                    </div>
 
-                <label for="max">Max. no. of applicants</label>
-                <br />
-                <input
-                    v-model="post.post_max_applicants"
-                    type="number"
-                    name="max"
-                    id="max"
-                    min="1"
-                    step="1"
-                />
-                <br />
+                    <label for="faculty">Faculty</label>
+                    <br />
+                    <div class="select">
+                        <select v-model="post.post_faculty" name="faculty" id="faculty">
+                            <option value="All">All</option>
+                            <option value="FASS">FASS</option>
+                            <option value="Business">Business</option>
+                            <option value="Computing">Computing</option>
+                            <option value="Dentistry">Dentistry</option>
+                            <option value="Design and Environment">Design and Environment</option>
+                            <option value="Duke-NUS Medical School">Duke-NUS Medical School</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Law">Law</option>
+                            <option value="Medicine">Medicine</option>
+                            <option value="Music">Music</option>
+                            <option value="Public Health">Public Health</option>
+                            <option value="Public Policy">Public Policy</option>
+                            <option
+                                value="School of Continuing and Lifelong Education"
+                            >School of Continuing and Lifelong Education</option>
+                            <option value="Science">Science</option>
+                            <option
+                                value="University Scholars Programme"
+                            >University Scholars Programme</option>
+                            <option value="Yale-NUS">Yale-NUS</option>
+                        </select>
+                    </div>
+
+                    <label>Contract Terms</label>
+                    <label for="contract" id="uploadFileInput">
+                        <span id="uploadFileBtn">
+                            <i class="fas fa-file-upload"></i> Upload file
+                        </span>
+                    </label>
+                    <br />
+                    <input type="file" name="contract" id="contract" />
+                    <br />
+
+                    <label for="expiry">Apply by:</label>
+                    <br />
+                    <input v-model="post.post_expiry" type="date" name="expiry" id="expiry" />
+                    <br />
+                </div>
             </div>
 
-            <div class="right">
-                <label for="type">Type of job</label>
-                <br />
-                <div class="select">
-                    <select v-model="post.post_type" name="type" id="type">
-                        <option value="Internship">Internship</option>
-                        <option value="Part-time">Part-time</option>
-                        <option value="Research studies">Research studies</option>
-                        <option value="Surveys">Surveys</option>
-                    </select>
-                </div>
-
-                <label for="faculty">Faculty</label>
-                <br />
-                <div class="select">
-                    <select v-model="post.post_faculty" name="faculty" id="faculty">
-                        <option value="All">All</option>
-                        <option value="FASS">FASS</option>
-                        <option value="Business">Business</option>
-                        <option value="Computing">Computing</option>
-                        <option value="Dentistry">Dentistry</option>
-                        <option value="Design and Environment">Design and Environment</option>
-                        <option value="Duke-NUS Medical School">Duke-NUS Medical School</option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="Law">Law</option>
-                        <option value="Medicine">Medicine</option>
-                        <option value="Music">Music</option>
-                        <option value="Public Health">Public Health</option>
-                        <option value="Public Policy">Public Policy</option>
-                        <option
-                            value="School of Continuing and Lifelong Education"
-                        >School of Continuing and Lifelong Education</option>
-                        <option value="Science">Science</option>
-                        <option value="University Scholars Programme">University Scholars Programme</option>
-                        <option value="Yale-NUS">Yale-NUS</option>
-                    </select>
-                </div>
-
-                <label>Contract Terms</label>
-                <label for="contract" id="uploadFileInput">
-                    <span id="uploadFileBtn">
-                        <i class="fas fa-file-upload"></i> Upload file
-                    </span>
-                </label>
-                <br />
-                <input type="file" name="contract" id="contract" />
-                <br />
-
-                <label for="expiry">Apply by:</label>
-                <br />
-                <input v-model="post.post_expiry" type="date" name="expiry" id="expiry" />
-                <br />
-            </div>
-        </div>
-
-        <label for="shortdesc">Short Job Description</label>
-        <br />
-        <textarea v-model="post.post_short_des" name="shortdesc" id="shortdesc" rows="5"></textarea>
-        <br />
-        <label for="desc">Job Description</label>
-        <br />
-        <textarea v-model="post.post_long_des" name="desc" id="desc" cols="50" rows="10"></textarea>
-        <br />
-        <label for="requirements">Job Requirements</label>
-        <p>*Enter each new requirement on a new line</p>
-        <textarea
-            v-model="post.post_requirements"
-            name="requirements"
-            id="requirements"
-            cols="50"
-            rows="10"
-        ></textarea>
-        <br />
+            <label for="shortdesc">Short Job Description</label>
+            <br />
+            <textarea v-model="post.post_short_des" name="shortdesc" id="shortdesc" rows="5"></textarea>
+            <br />
+            <label for="desc">Job Description</label>
+            <br />
+            <textarea v-model="post.post_long_des" name="desc" id="desc" cols="50" rows="10"></textarea>
+            <br />
+            <label for="requirements">Job Requirements</label>
+            <p>*Enter each new requirement on a new line</p>
+            <textarea
+                v-model="post.post_requirements"
+                name="requirements"
+                id="requirements"
+                cols="50"
+                rows="10"
+            ></textarea>
+            <br />
+        </form>
     </div>
 </template>
 

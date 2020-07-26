@@ -1,95 +1,102 @@
 <template>
     <div class="profile">
-        <div v-if="student" class="profile-info">
-            <h1>Hello, {{ student.stu_name }}</h1>
-            <div class="profile-img">
-                <img :src="student.stu_picture" alt="student profile picture" />
-                <button class="uploadBtn mobile-hide">
-                    Upload
-                    <i class="fas fa-camera"></i>
-                </button>
-                <button class="mobile-show">
-                    <i class="fas fa-camera"></i>
-                </button>
-            </div>
-
-            <div class="personal-info">
-                <form>
-                    <h4>Personal Information</h4>
-                    <label for="name">Full name</label>
-                    <br />
-                    <input v-model="student.stu_name" type="text" name="name" id="name" />
-                    <br />
-
-                    <label for="studID">Student ID</label>
-                    <br />
-                    <input v-model="student.stu_id" type="text" name="studID" id="studID" />
-                    <br />
-
-                    <label for="dob">Date of birth</label>
-                    <br />
-                    <input v-model="dob" type="date" name="dob" id="dob" />
-                    <br />
-
-                    <label for="degree">Degree</label>
-                    <br />
-                    <input v-model="student.stu_degree" type="text" name="degree" id="degree" />
-                    <br />
-
-                    <label for="year">Current Year</label>
-                    <br />
-                    <input v-model="student.stu_year" type="text" name="year" id="year" />
-                    <br />
-
-                    <h4>Contact Information</h4>
-                    <label for="email">Email</label>
-                    <br />
-                    <input v-model="student.stu_email" type="email" name="email" id="email" />
-                    <br />
-
-                    <label for="contact">Contact number</label>
-                    <br />
-                    <input v-model="student.stu_mobile" type="text" name="contact" id="contact" />
-                    <br />
-
-                    <h4>Resume and links</h4>
-                    <label>Resume file</label>
-                    <br />
-                    <label for="resume" id="uploadFileInput">
-                        <span id="uploadFileBtn">
-                            <i class="fas fa-file-upload"></i> Upload file
-                        </span>
-                    </label>
-                    <br />
-                    <input type="file" name="resume" id="resume" />
-                    <br />
-
-                    <label for="linkedin">Linkedin link</label>
-                    <br />
-                    <input v-model="student.stu_linkedin" type="text" name="linkedin" id="linked" />
-                    <br />
-
-                    <button type="submit" class="updateBtn">Update Information</button>
-                </form>
-            </div>
-
-            <div class="side">
-                <div class="pwd">
-                    <h4>Password Management</h4>
-                    <label for="oldPwd">Old Password</label>
-                    <br />
-                    <input type="password" name="oldPwd" id="oldPwd" placeholder="Old password" />
-                    <label for="newPwd">New Password</label>
-                    <br />
-                    <input type="password" name="newPwd" id="newPwd" placeholder="New password" />
-
-                    <button type="submit" class="updateBtn">Update Password</button>
+        <form enctype="multipart/form-data" @submit.prevent>
+            <div v-if="student" class="profile-info">
+                <h1>Hello, {{ student.stu_name }}</h1>
+                <div class="profile-img">
+                    <img :src="student.stu_picture" alt="student profile picture" />
+                    <button class="uploadBtn mobile-hide">
+                        Upload
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <button class="mobile-show">
+                        <i class="fas fa-camera"></i>
+                    </button>
                 </div>
-                <!-- <div class="status">
+
+                <div class="personal-info">
+                    <form>
+                        <h4>Personal Information</h4>
+                        <label for="name">Full name</label>
+                        <br />
+                        <input v-model="student.stu_name" type="text" name="name" id="name" />
+                        <br />
+
+                        <label for="studID">Student ID</label>
+                        <br />
+                        <input v-model="student.stu_id" type="text" name="studID" id="studID" />
+                        <br />
+
+                        <label for="dob">Date of birth</label>
+                        <br />
+                        <input v-model="dob" type="date" name="dob" id="dob" />
+                        <br />
+
+                        <label for="degree">Degree</label>
+                        <br />
+                        <input v-model="student.stu_degree" type="text" name="degree" id="degree" />
+                        <br />
+
+                        <label for="year">Current Year</label>
+                        <br />
+                        <input v-model="student.stu_year" type="text" name="year" id="year" />
+                        <br />
+
+                        <h4>Contact Information</h4>
+                        <label for="email">Email</label>
+                        <br />
+                        <input v-model="student.stu_email" type="email" name="email" id="email" />
+                        <br />
+
+                        <label for="contact">Contact number</label>
+                        <br />
+                        <input v-model="student.stu_mobile" type="text" name="contact" id="contact" />
+                        <br />
+
+                        <h4>Resume and links</h4>
+                        <label>Resume file</label>
+                        <br />
+                        <label for="resume" id="uploadFileInput">
+                            <span id="uploadFileBtn">
+                                <i class="fas fa-file-upload"></i> Upload file
+                            </span>
+                        </label>
+                        <br />
+                        <input type="file" name="resume" id="resume" />
+                        <br />
+
+                        <label for="linkedin">Linkedin link</label>
+                        <br />
+                        <input
+                            v-model="student.stu_linkedin"
+                            type="text"
+                            name="linkedin"
+                            id="linked"
+                        />
+                        <br />
+
+                        <button type="submit" class="updateBtn">Update Information</button>
+                    </form>
+                </div>
+
+                <div class="side">
+                    <div class="pwd">
+                        <h4>Password Management</h4>
+                        <label for="oldPwd">Old Password</label>
+                        <br />
+                        <input type="password" name="oldPwd" id="oldPwd" placeholder="Old password" />
+                        <label for="newPwd">New Password</label>
+                        <br />
+                        <input type="password" name="newPwd" id="newPwd" placeholder="New password" />
+
+                        <button type="submit" class="updateBtn">Update Password</button>
+                    </div>
+                    <!-- <div class="status">
                     <h4>Current status</h4>
-                </div>-->
+                    </div>-->
+                </div>
             </div>
-        </div>
+        </form>
     </div>
 </template>
 
@@ -106,7 +113,7 @@ export default {
         student() {
             // change this
             const student = this.getStuById(30);
-            if (
+            /* if (
                 student !== undefined &&
                 student.stu_picture.data !== undefined
             ) {
@@ -118,7 +125,7 @@ export default {
                             .map((b) => String.fromCharCode(b))
                             .join("")
                     );
-            }
+            } */
             return student;
         },
         dob() {

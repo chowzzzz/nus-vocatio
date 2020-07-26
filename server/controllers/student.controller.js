@@ -1,6 +1,9 @@
-const db = require("../models");
 const fs = require("fs");
 const bcrypt = require("bcrypt");
+const aws = require("../config/aws.config.js");
+
+const db = require("../models");
+const sharp = require("sharp");
 const Student = db.student;
 const Application = db.application;
 const Op = db.Sequelize.Op;
@@ -15,82 +18,120 @@ exports.createStudent = (req, res) => {
         return;
     }
 
-    let stu_resume, stu_resume_name, stu_picture, stu_picture_name;
-    req.files.forEach((object) => {
-        if (object.fieldname == "stu_resume") {
-            stu_resume_name = object.originalname;
-            stu_resume = fs.readFileSync(
-                __basedir + "/assets/uploads/" + object.filename
-            );
-        } else if (object.fieldname == "stu_picture") {
-            stu_picture_name = object.originalname;
-            stu_picture = fs.readFileSync(
-                __basedir + "/assets/uploads/" + object.filename
-            );
-        }
-    });
+    const s3 = new aws.S3();
 
-    // Create a student
-    const student = {
-        stu_id: req.body.stu_id,
-        stu_name: req.body.stu_name,
-        stu_dob: req.body.stu_dob,
-        stu_picture: stu_picture,
-        stu_mobile: req.body.stu_mobile,
-        stu_email: req.body.stu_email,
-        stu_faculty: req.body.stu_faculty,
-        stu_degree: req.body.stu_degree,
-        stu_year: req.body.stu_year,
-        stu_linkedin: req.body.stu_linkedin,
-        stu_resume: stu_resume,
-        stu_password: bcrypt.hashSync(req.body.stu_password, 8),
-        stu_status_change: 1,
-        stu_new_jobs: 1,
-        stu_news_letter: 1,
-        stu_subscription: 1
-    };
+    try {
+        let pictureURL, resumeURL;
 
-    console.log(student);
+        const files = req.files;
 
-    // Save Student in the database
-    Student.create(student)
-        .then((data) => {
-            fs.writeFileSync(
-                __basedir + "/assets/tmp/" + stu_resume_name,
-                stu_resume
-            );
-            fs.writeFileSync(
-                __basedir + "/assets/tmp/" + stu_picture_name,
-                stu_picture
-            );
-            res.send(data);
+        async function uploadFiles(files) {
+            for (const file of files) {
+                if (file.fieldname == "stu_picture") {
+                    const buffer = await sharp(file.path)
+                        .resize(200)
+                        .toBuffer();
+                    const s3res = await s3
+                        .upload({
+                            Bucket: "nusvocatio-bucket",
+                            Key: file.filename,
+                            Body: buffer,
+                            ACL: "public-read"
+                        })
+                        .promise();
 
-            /*  console.log(data.toJSON());
-            const id = data.toJSON().id;
-            Student.findByPk(id)
-                .then((user) => {
-                    let token = jwt.sign({ id: user.id }, config.secret, {
-                        expiresIn: 86400
+                    pictureURL = s3res.Location;
+                    fs.unlink(file.path, (err) => {
+                        if (err) console.log(err);
                     });
-                    res.status(200).send({
-                        auth: true,
-                        token: token,
-                        user: user
+                }
+
+                if (file.fieldname == "stu_resume") {
+                    const resumeFile = fs.readFileSync(file.path);
+                    const s3res = await s3
+                        .upload({
+                            Bucket: "nusvocatio-bucket",
+                            Key: file.filename,
+                            Body: resumeFile,
+                            ACL: "public-read"
+                        })
+                        .promise();
+
+                    resumeURL = s3res.Location;
+
+                    fs.unlink(file.path, (err) => {
+                        // console.log(resumeURL);
+                        if (err) console.log(err);
                     });
+                }
+            }
+
+            const student = {
+                stu_id: req.body.stu_id,
+                stu_name: req.body.stu_name,
+                stu_password: bcrypt.hashSync(req.body.stu_password, 8),
+                stu_email: req.body.stu_email,
+                stu_mobile: req.body.stu_mobile,
+                stu_dob: req.body.stu_dob,
+                stu_faculty: req.body.stu_faculty,
+                stu_degree: req.body.stu_degree,
+                stu_picture: pictureURL,
+                stu_year: req.body.stu_year,
+                stu_linkedin: req.body.stu_linkedin,
+                stu_resume: resumeURL,
+                stu_status_change: 1,
+                stu_new_jobs: 1,
+                stu_news_letter: 1,
+                stu_subscription: 1
+            };
+
+            // Create a student
+
+            // Save Student in the database
+            Student.create(student)
+                .then((data) => {
+                    res.send(data);
+                    //  console.log(data.toJSON());
+                    // const id = data.toJSON().id;
+                    // Student.findByPk(id)
+                    //     .then((user) => {
+                    //         let token = jwt.sign({ id: user.id }, config.secret, {
+                    //             expiresIn: 86400
+                    //         });
+                    //         res.status(200).send({
+                    //             auth: true,
+                    //             token: token,
+                    //             user: user
+                    //         });
+                    //     })
+                    //     .catch((err) => {
+                    //         res.status(500).send({
+                    //             message: "Error retrieving Student with id=" + id
+                    //         });
+                    //     });
                 })
                 .catch((err) => {
                     res.status(500).send({
-                        message: "Error retrieving Student with id=" + id
+                        message:
+                            err.message ||
+                            "There was a problem registering the user."
                     });
-                }); */
-        })
-        .catch((err) => {
-            console.log("error");
-            res.status(500).send({
-                message:
-                    err.message || "There was a problem registering the user."
+                });
+        }
+
+        uploadFiles(files);
+
+        /* const uploadFiles = new Promise((resolve, reject) => {
+            req.files.forEach(async (file, index, array) => {
+                if (index === array.length - 1) resolve();
             });
-        });
+        }); */
+
+        // uploadFiles.then(() => {
+        // });
+    } catch (err) {
+        res.status(422).json({ err });
+    }
 };
 
 // Retrieve all Students from the database.
