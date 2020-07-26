@@ -1,3 +1,8 @@
+const fs = require("fs");
+const bcrypt = require("bcrypt");
+const aws = require("../config/aws.config.js");
+const sharp = require("sharp");
+
 const db = require("../models");
 const Employer = db.employer;
 const Jobpost = db.jobpost;
@@ -13,39 +18,77 @@ exports.createEmployer = (req, res) => {
         return;
     }
 
-    // Create a employer
-    const employer = {
-        emp_name: req.body.emp_name,
-        emp_mobile: req.body.emp_mobile,
-        emp_email: req.body.emp_email,
-        emp_company: req.body.emp_company,
-        emp_logo: req.body.emp_logo,
-        emp_coRegNo: req.body.emp_coRegNo,
-        emp_coContact: req.body.emp_coContact,
-        emp_coEmail: req.body.emp_coEmail,
-        emp_coAddress: req.body.emp_coAddress,
-        emp_coCountry: req.body.emp_coCountry,
-        emp_website: req.body.emp_website,
-        emp_linkedin: req.body.emp_linkedin,
-        emp_password: req.body.emp_password,
-        emp_new_applicants: req.body.emp_new_applicants,
-        emp_max_applicants: req.body.emp_max_applicants,
-        emp_news_letter: req.body.emp_news_letter,
-        emp_subscription: req.body.emp_subscription
-    };
+    const s3 = new aws.S3();
 
-    // Save Employer in the database
-    Employer.create(employer)
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message:
-                    err.message ||
-                    "Some error occurred while creating the Employer."
-            });
-        });
+    try {
+        const files = req.files;
+
+        async function uploadFiles(files) {
+            let logoURL, pictureURL;
+            for (const file of files) {
+                const buffer = await sharp(file.path).resize(200).toBuffer();
+                const s3res = await s3
+                    .upload({
+                        Bucket: "nusvocatio-bucket",
+                        Key: file.filename,
+                        Body: buffer,
+                        ACL: "public-read"
+                    })
+                    .promise();
+
+                fs.unlink(file.path, (err) => {
+                    if (err) console.log(err);
+                });
+                if (file.fieldname == "emp_logo") {
+                    logoURL = s3res.Location;
+                } else {
+                    pictureURL = s3res.Location;
+                }
+            }
+            // Create a employer
+            const employer = {
+                emp_company: req.body.emp_company,
+                emp_coRegNo: req.body.emp_coRegNo,
+                emp_coContact: req.body.emp_coContact,
+                emp_coEmail: req.body.emp_coEmail,
+                emp_coAddress: req.body.emp_coAddress,
+                emp_coCountry: req.body.emp_coCountry,
+                emp_website: req.body.emp_website,
+                emp_logo: logoURL,
+                emp_coDes: req.body.emp_coDes,
+                emp_name: req.body.emp_name,
+                emp_salutation: req.body.emp_salutation,
+                emp_mobile: req.body.emp_mobile,
+                emp_email: req.body.emp_email,
+                emp_linkedin: req.body.emp_linkedin,
+                emp_picture: pictureURL,
+                emp_password: bcrypt.hashSync(req.body.emp_password, 8),
+                emp_new_applicants: 1,
+                emp_max_applicants: 1,
+                emp_news_letter: 1,
+                emp_subscription: 1
+            };
+            console.log(employer);
+            res.json(employer);
+
+            // Save Employer in the database
+            Employer.create(employer)
+                .then((data) => {
+                    res.send(data);
+                })
+                .catch((err) => {
+                    res.status(500).send({
+                        message:
+                            err.message ||
+                            "Some error occurred while creating the Employer."
+                    });
+                });
+        }
+
+        uploadFiles(files);
+    } catch (err) {
+        res.status(422).json({ err });
+    }
 };
 
 //Create a jobpost

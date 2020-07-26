@@ -371,6 +371,7 @@ export default {
             }
         },
         selectPicture() {
+            console.log(this.$refs.picture.files[0]);
             this.student.stu_picture = this.$refs.picture.files[0];
             const reader = new FileReader();
             reader.onload = (e) => {
@@ -403,9 +404,33 @@ export default {
                 this.addStudent(stu)
                     .then(() => {
                         console.log("success");
-                        // this.$router.push("/");
+                        this.$swal({
+                            text: "Registered successfully!",
+                            buttons: {
+                                close: {
+                                    value: "close",
+                                    text: "Close",
+                                },
+                            },
+                            icon: "success",
+                        }).then((value) => {
+                            if (value === "close")
+                                this.$router.push("/login/student");
+                        });
                     })
-                    .catch((err) => console.log(err));
+                    .catch((err) => {
+                        console.log(err.response.data.error);
+                        this.$swal({
+                            text: err.response.data.error,
+                            buttons: {
+                                close: {
+                                    value: "close",
+                                    text: "Close",
+                                },
+                            },
+                            icon: "warning",
+                        });
+                    });
             }
         },
     },
@@ -418,7 +443,7 @@ h2 {
 }
 
 .parent-container {
-    margin: 1em 13em 3em;
+    margin: 1em 15em 3em;
 }
 .input-container {
     display: grid;
@@ -461,7 +486,7 @@ h3 {
 
 .profile-img img {
     width: 100%;
-    /* border: 1px solid #b8b8b8; */
+    border: 1px solid #e2e2e2;
     margin-top: 0.5em;
 }
 
@@ -566,7 +591,7 @@ h5 {
 
     .profile-img {
         grid-area: img;
-        width: 40%;
+        width: 35%;
         padding-bottom: 1em;
         text-align: center;
         justify-self: center;
@@ -593,6 +618,9 @@ h5 {
 @media screen and (max-width: 450px) {
     h3 {
         text-align: center;
+    }
+    .profile-img {
+        width: 40%;
     }
 }
 </style>

@@ -11,7 +11,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         user: "student",
-        isAuthenticated: true,
+        isAuthenticated: false,
         isAdmin: false
     },
     mutations: {},

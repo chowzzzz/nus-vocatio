@@ -50,17 +50,17 @@
                                 <i class="fas fa-times"></i>
                             </span>
                         </li>
-                        <router-link to="/student-login">
+                        <router-link to="/login/student">
                             <li class="mobile-nav" @click="toggle" v-if="studentShow">
                                 <span>Student Login</span>
                             </li>
                         </router-link>
-                        <router-link to="/employer-login">
+                        <router-link to="/login/employer">
                             <li class="mobile-nav" @click="toggle" v-if="employerShow">
                                 <span>Employer Login</span>
                             </li>
                         </router-link>
-                        <router-link to="/admin-login">
+                        <router-link to="/login/admin">
                             <li class="mobile-nav" @click="toggle" v-if="adminShow">
                                 <span id="admin">Admin Login</span>
                             </li>
@@ -80,14 +80,14 @@ export default {
     name: "NavBarLogin",
     components: {
         hideAt,
-        showAt
+        showAt,
     },
     data() {
         return {
             toggleDisplay: "none",
             studentShow: false,
             employerShow: false,
-            adminShow: false
+            adminShow: false,
         };
     },
     methods: {
@@ -95,10 +95,10 @@ export default {
             this.toggleDisplay == "none"
                 ? (this.toggleDisplay = "block")
                 : (this.toggleDisplay = "none");
-        }
+        },
     },
     watch: {
-        $route: function() {
+        $route: function () {
             if (
                 this.$route.path === "/login/student" ||
                 this.$route.path === "/register/student"
@@ -122,8 +122,8 @@ export default {
                 this.employerShow = false;
                 this.adminShow = true;
             }
-        }
-    }
+        },
+    },
 };
 </script>
 

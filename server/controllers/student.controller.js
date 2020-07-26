@@ -1,9 +1,9 @@
 const fs = require("fs");
 const bcrypt = require("bcrypt");
 const aws = require("../config/aws.config.js");
+const sharp = require("sharp");
 
 const db = require("../models");
-const sharp = require("sharp");
 const Student = db.student;
 const Application = db.application;
 const Op = db.Sequelize.Op;
@@ -120,15 +120,6 @@ exports.createStudent = (req, res) => {
         }
 
         uploadFiles(files);
-
-        /* const uploadFiles = new Promise((resolve, reject) => {
-            req.files.forEach(async (file, index, array) => {
-                if (index === array.length - 1) resolve();
-            });
-        }); */
-
-        // uploadFiles.then(() => {
-        // });
     } catch (err) {
         res.status(422).json({ err });
     }
