@@ -1,8 +1,9 @@
 // import moment from "moment";
 import axios from "axios";
 
-const url = "http://localhost:8081/api/jobpost/";
-const create_url = "http://localhost:8081/api/employer/jobpost";
+const url = "https://nusvocatio-server.herokuapp.com/api/jobpost/";
+const create_url =
+    "https://nusvocatio-server.herokuapp.com/api/employer/jobpost";
 
 const state = {
     jobposts: [

@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default () => {
     return axios.create({
-        baseURL: `http://localhost:8081/`,
+        baseURL: `https://nusvocatio-server.herokuapp.com/`,
         headers: {
             "Content-type": "application/json"
         }

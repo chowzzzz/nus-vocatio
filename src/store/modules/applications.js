@@ -1,7 +1,7 @@
 import axios from "axios";
 
-const url = "http://localhost:8081/api/application/";
-const create_url = "http://localhost:8081/api/application/";
+const url = "https://nusvocatio-server.herokuapp.com/api/application/";
+const create_url = "https://nusvocatio-server.herokuapp.com/api/application/";
 
 const state = {
     applications: [

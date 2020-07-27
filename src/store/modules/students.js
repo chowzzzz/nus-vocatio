@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://localhost:8081/api/student/";
+const url = "https://nusvocatio-server.herokuapp.com/api/student/";
 
 const namespaced = true;
 
