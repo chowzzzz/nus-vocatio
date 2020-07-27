@@ -1,2 +1,0 @@
-(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["chunk-2d216eb1"],{c509:function(t,e,n){"use strict";n.r(e);var o=function(){var t=this,e=t.$createElement,n=t._self._c||e;return n("div",{staticClass:"container"},[n("employer-job-form",{attrs:{title:"Edit",edit:!0,pending:!1}})],1)},i=[],r=n("d927"),s={name:"AdminPostEdit",components:{EmployerJobForm:r["a"]}},a=s,c=n("2877"),l=Object(c["a"])(a,o,i,!1,null,null,null);e["default"]=l.exports}}]);
-//# sourceMappingURL=chunk-2d216eb1.e63801d6.js.map
