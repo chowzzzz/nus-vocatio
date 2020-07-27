@@ -40,7 +40,6 @@
                         @click="navigateTo({name: 'job-details', params: {jobID: pair.job.id}})"
                     >
                         <div class="job-img">
-                            <!-- change this -->
                             <img :src="pair.coLogo" alt="company logo" />
                         </div>
                         <div class="job-title">
@@ -58,6 +57,7 @@
                         </div>
                     </li>
                 </ul>
+                <p v-else class="error">There are no job posts</p>
             </div>
         </div>
         <ScrollToTopBtn />
@@ -312,6 +312,10 @@ li {
     margin-top: 0.5em;
     display: flex;
     flex-wrap: wrap;
+}
+
+.error {
+    text-align: center;
 }
 
 @media screen and (max-width: 900px) {

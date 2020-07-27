@@ -61,6 +61,9 @@ export default {
             let password = this.password;
             this.loginStudent({ email, password })
                 .then(() => {
+                    this.$router.go(0);
+                })
+                .then(() => {
                     this.$router.push("/");
                 })
                 .catch((err) => console.log(err));

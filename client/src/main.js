@@ -31,7 +31,7 @@ if (token) {
 }
 
 new Vue({
-    router,
     store,
+    router,
     render: (h) => h(App)
 }).$mount("#app");

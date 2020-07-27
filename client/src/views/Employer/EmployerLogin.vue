@@ -17,7 +17,7 @@
                     placeholder="Password"
                 />
             </div>
-            <button>Login</button>
+            <button @click="login()">Login</button>
             <div class="register">
                 <p>Don't have an account yet?</p>
                 <router-link to="/register/employer">
@@ -29,15 +29,30 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
     name: "EmployerLogin",
     data() {
         return {
             email: "",
-            password: ""
+            password: "",
         };
     },
-    methods: {}
+    methods: {
+        ...mapActions("employers", ["loginEmployer"]),
+        login() {
+            let email = this.email;
+            let password = this.password;
+            this.loginEmployer({ email, password })
+                .then(() => {
+                    this.$router.go(0);
+                })
+                .then(() => {
+                    this.$router.push("/");
+                })
+                .catch((err) => console.log(err));
+        },
+    },
 };
 </script>
 

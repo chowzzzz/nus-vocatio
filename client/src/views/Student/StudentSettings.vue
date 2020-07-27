@@ -30,10 +30,10 @@ export default {
         SettingBox,
     },
     computed: {
+        ...mapGetters(["getCurrentUser"]),
         ...mapGetters("students", ["getStuById"]),
         student() {
-            // change this
-            const student = this.getStuById(30);
+            const student = this.getStuById(this.getCurrentUser.id);
             return student;
         },
         settings() {

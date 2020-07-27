@@ -9,7 +9,7 @@ module.exports = (app) => {
     router.post("/", upload.any(), Employer.createEmployer);
 
     // Employer Admin
-    // router.post("/login", Employer.login);
+    router.post("/login", Employer.login);
 
     // Create a new JobPost
     router.post(

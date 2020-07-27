@@ -88,7 +88,6 @@
 
                 <div class="profile-img">
                     <h5>Profile photo</h5>
-                    <!-- <img v-if="image" :src="image" alt="profile pic" /> -->
                     <img :src="student.stu_picture" alt="profile pic" />
 
                     <button class="uploadBtn">
@@ -109,32 +108,6 @@ export default {
     computed: {
         dob() {
             return moment(String(this.student.stu_dob)).format("YYYY-MM-DD");
-        },
-        image() {
-            let image;
-            if (
-                this.student !== undefined &&
-                this.student.stu_picture.data !== undefined
-            ) {
-                // change this
-                image =
-                    "data:image/jpeg;base64," +
-                    btoa(
-                        this.student.stu_picture.data
-                            .map((b) => String.fromCharCode(b))
-                            .join("")
-                    );
-            }
-            return image;
-            /* (
-                // change this
-                "data:image/jpeg;base64," +
-                btoa(
-                    this.student.stu_picture.data
-                        .map((b) => String.fromCharCode(b))
-                        .join("")
-                )
-            ); */
         },
     },
 };

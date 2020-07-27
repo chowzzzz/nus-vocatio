@@ -200,6 +200,33 @@ const actions = {
     async updateEmployer({ commit }, updEmp) {
         const response = await axios.put(`${url}${updEmp.id}`, updEmp);
         commit("UPDATE_EMPLOYER", response.data);
+    },
+    loginEmployer({ commit }, user) {
+        console.log("HIHIHI");
+        return new Promise((resolve, reject) => {
+            console.log("logging in");
+            commit("auth_request", null, { root: true });
+            axios
+                .post(`${url}login`, user)
+                .then((res) => {
+                    console.log("logged in");
+                    const token = res.data.token;
+                    const user = res.data.user;
+                    localStorage.setItem("token", token);
+                    axios.defaults.headers.common["Authorization"] = token;
+                    commit(
+                        "auth_success",
+                        { token, user, currentUser: "employer" },
+                        { root: true }
+                    );
+                    resolve(res);
+                })
+                .catch((err) => {
+                    commit("auth_error", null, { root: true });
+                    localStorage.removeItem("token");
+                    reject(err);
+                });
+        });
     }
 };
 

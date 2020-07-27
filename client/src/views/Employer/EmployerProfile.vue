@@ -44,9 +44,13 @@ export default {
     },
     computed: {
         ...mapGetters("employers", ["getEmpById"]),
+        ...mapGetters(["getCurrentUser"]),
+        currentUser() {
+            const currentUser = this.getCurrentUser;
+            return currentUser;
+        },
         employer() {
-            // change this
-            const employer = this.getEmpById(8);
+            const employer = this.getEmpById(this.currentUser.id);
             return employer;
         },
     },

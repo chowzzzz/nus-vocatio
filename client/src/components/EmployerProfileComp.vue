@@ -71,7 +71,7 @@
 
             <div class="coLogo">
                 <h5>Company Logo</h5>
-                <img :src="require(`../assets/${employer.emp_logo}`)" alt="company logo" />
+                <img :src="employer.emp_logo" alt="company logo" />
                 <button class="uploadBtn">
                     Upload
                     <i class="fas fa-camera"></i>
@@ -154,9 +154,9 @@
                 </div>
             </div>
 
-            <div class="empLogo">
+            <div class="empPicture">
                 <h5>Profile Photo</h5>
-                <img :src="image" alt="profile photo" />
+                <img :src="employer.emp_picture" alt="profile photo" />
                 <button class="uploadBtn">
                     Upload
                     <i class="fas fa-camera"></i>
@@ -170,33 +170,6 @@
 export default {
     name: "EmployerProfileComp",
     props: ["employer"],
-    computed: {
-        image() {
-            let image;
-            if (
-                this.employer !== undefined &&
-                this.employer.emp_picture.data !== undefined
-                // && employer.emp_logo.data !== undefined
-            ) {
-                // change this
-                image =
-                    "data:image/jpeg;base64," +
-                    btoa(
-                        this.employer.emp_picture.data
-                            .map((b) => String.fromCharCode(b))
-                            .join("")
-                    );
-                /*  employer.emp_logo =
-                        "data:image/jpeg;base64," +
-                        btoa(
-                            employer.emp_logo.data
-                                .map((b) => String.fromCharCode(b))
-                                .join("")
-                        ); */
-            }
-            return image;
-        },
-    },
 };
 </script>
 
@@ -234,12 +207,12 @@ h3 {
 }
 
 .coLogo,
-.empLogo {
+.empPicture {
     margin: 0 0 0 1em;
 }
 
 .coLogo img,
-.empLogo img {
+.empPicture img {
     width: 80%;
     border: 1px solid #e2e2e2;
     padding: 1em;
@@ -253,7 +226,7 @@ h3 {
 
 @media screen and (max-width: 1150px) {
     .coLogo,
-    .empLogo {
+    .empPicture {
         margin: 0;
     }
 }
@@ -276,7 +249,7 @@ h3 {
     }
 
     .coLogo,
-    .empLogo {
+    .empPicture {
         grid-area: img;
         width: 30%;
         padding-bottom: 1em;
@@ -314,7 +287,7 @@ h3 {
     }
 
     .coLogo,
-    .empLogo {
+    .empPicture {
         text-align: center;
         justify-self: center;
         width: 40%;

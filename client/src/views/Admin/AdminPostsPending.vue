@@ -1,5 +1,5 @@
 <template>
-    <div v-if="pairs && jobs">
+    <div>
         <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
             <side-filter-menu
                 @searching="search"
@@ -33,18 +33,14 @@
                         </div>
                     </hide-at>
                 </div>
-                <ul>
+                <ul v-if="pairs && jobs">
                     <li
                         v-for="pair in pairs"
                         :key="pair.job.id"
                         @click="navigateTo({name: 'admin-posts-pending-indiv', params: {jobID: pair.job.id}})"
                     >
                         <div class="job-img">
-                            <!-- change this -->
-                            <img
-                                :src="require(`../../assets/selfmade/${pair.coLogo}`)"
-                                alt="company logo"
-                            />
+                            <img :src="pair.coLogo" alt="company logo" />
                         </div>
                         <div class="job-title">
                             <h4>{{ pair.job.post_title }}</h4>
@@ -61,6 +57,7 @@
                         </div>
                     </li>
                 </ul>
+                <p v-else class="error">There are no job posts</p>
             </div>
         </div>
         <ScrollToTopBtn />
@@ -136,14 +133,20 @@ export default {
             return jobs;
         },
         pairs() {
-            return this.jobs.map((job) => {
-                const employer = this.getEmpById(job.employerId);
-                return {
-                    job: job,
-                    company: employer.emp_company,
-                    coLogo: employer.emp_logo,
-                };
+            const pairs = this.jobs.map((job) => {
+                if (job.employerId) {
+                    const employer = this.getEmpById(job.employerId);
+                    return {
+                        job: job,
+                        company: employer.emp_company,
+                        coLogo: employer.emp_logo,
+                    };
+                } else {
+                    return null;
+                }
             });
+            if (pairs) return pairs;
+            else return null;
         },
     },
     methods: {
@@ -305,6 +308,10 @@ li {
     margin-top: 0.5em;
     display: flex;
     flex-wrap: wrap;
+}
+
+.error {
+    text-align: center;
 }
 
 @media screen and (max-width: 900px) {

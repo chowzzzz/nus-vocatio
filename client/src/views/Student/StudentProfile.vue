@@ -107,43 +107,16 @@ import { mapGetters } from "vuex";
 export default {
     name: "StudentProfile",
     computed: {
+        ...mapGetters(["getCurrentUser"]),
         ...mapGetters("students", ["getStuById"]),
         student() {
-            // change this
-            const student = this.getStuById(30);
-            /* if (
-                student !== undefined &&
-                student.stu_picture.data !== undefined
-            ) {
-                // change this
-                student.stu_picture =
-                    "data:image/jpeg;base64," +
-                    btoa(
-                        student.stu_picture.data
-                            .map((b) => String.fromCharCode(b))
-                            .join("")
-                    );
-            } */
+            const student = this.getStuById(this.getCurrentUser.id);
             return student;
         },
         dob() {
             return moment(String(this.student.stu_dob)).format("YYYY-MM-DD");
         },
     },
-    /* watch: {
-        student: function (loadedStudent) {
-            loadedStudent.forEach((student) => {
-                // change this
-                student.stu_picture =
-                    "data:image/jpeg;base64," +
-                    btoa(
-                        student.stu_picture.data
-                            .map((b) => String.fromCharCode(b))
-                            .join("")
-                    );
-            });
-        },
-    }, */
 };
 </script>
 

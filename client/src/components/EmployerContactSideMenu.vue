@@ -55,7 +55,7 @@ export default {
     props: ["user"],
     computed: {
         ...mapGetters("employers", ["getEmpById"]),
-        ...mapGetters(["getJobById"]),
+        ...mapGetters(["getJobById", "getCurrentUser"]),
         job() {
             const job = this.getJobById(this.$route.params.jobID);
             return job;
@@ -63,6 +63,10 @@ export default {
         employer() {
             const employer = this.getEmpById(this.job.employerId);
             return employer;
+        },
+        student() {
+            const student = this.getCurrentUser;
+            return student;
         },
     },
     methods: {
@@ -74,10 +78,10 @@ export default {
                 buttons: ["No", "Yes"],
             }).then((confirm) => {
                 if (confirm) {
+                    const studentId = this.student.id;
                     const application = {
                         status: 2,
-                        //change this
-                        studentId: 30,
+                        studentId: studentId,
                         jobpostId: this.job.id,
                     };
 

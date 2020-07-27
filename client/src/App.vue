@@ -11,7 +11,6 @@ import NavBar from "./components/NavBar.vue";
 import NavBarAdmin from "./components/NavBarAdmin.vue";
 import NavBarLogin from "./components/NavBarLogin.vue";
 import { mapGetters, mapActions } from "vuex";
-import axios from "axios";
 
 export default {
     name: "NusVocatio",
@@ -35,19 +34,6 @@ export default {
         this.fetchJobPosts();
         this.fetchApplications();
         this.fetchAdmins();
-
-        axios.interceptors.response.use(undefined, function (err) {
-            return new Promise(function () {
-                if (
-                    err.status === 401 &&
-                    err.config &&
-                    !err.config.__isRetryRequest
-                ) {
-                    this.$store.dispatch("logout");
-                }
-                throw err;
-            });
-        });
     },
 };
 </script>

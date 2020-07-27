@@ -1,9 +1,9 @@
 const fs = require("fs");
 const bcrypt = require("bcrypt");
-const config = require("../config/config");
-const jwt = require("jsonwebtoken");
 const aws = require("../config/aws.config.js");
 const sharp = require("sharp");
+const jwt = require("jsonwebtoken");
+const config = require("../config/config");
 
 const db = require("../models");
 const Employer = db.employer;
@@ -103,6 +103,33 @@ exports.createEmployer = (req, res) => {
     } catch (err) {
         res.status(422).json({ err });
     }
+};
+
+// Login user
+exports.login = (req, res) => {
+    console.log(req.body);
+    Employer.findOne({ where: { emp_email: req.body.email } })
+        .then((data) => {
+            const user = data.toJSON();
+            // console.log(user);
+            let passwordIsValid = bcrypt.compareSync(
+                req.body.password,
+                user.emp_password
+            );
+            if (!passwordIsValid) {
+                return res.status(401).send({ auth: false, token: null });
+            }
+
+            const token = jwt.sign({ id: user.id }, config.secret, {
+                expiresIn: 86400 // expires in 24 hours
+            });
+            res.send({ auth: true, token: token, user: user });
+        })
+        .catch((err) => {
+            res.status(404).send({
+                message: err.message || "No user found."
+            });
+        });
 };
 
 //Create a jobpost

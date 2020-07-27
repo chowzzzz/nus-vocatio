@@ -13,9 +13,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     plugins: [createPersistedState()],
     state: {
-        /* user: "admin",
-        isAuthenticated: true,
-        isAdmin: true */
         status: "",
         token: localStorage.getItem("token") || "",
         user: {},
@@ -31,6 +28,7 @@ export default new Vuex.Store({
             state.token = payload.token;
             state.user = payload.user;
             state.currentUser = payload.currentUser;
+            console.log(state.currentUser);
         },
         auth_error(state) {
             state.status = "error";
@@ -55,7 +53,9 @@ export default new Vuex.Store({
     getters: {
         isLoggedIn: (state) => !!state.token,
         isAdmin: (state) => state.currentUser == "admin",
-        authStatus: (state) => state.status
+        authStatus: (state) => state.status,
+        getUser: (state) => state.currentUser,
+        getCurrentUser: (state) => state.user
     },
     modules: {
         jobposts,

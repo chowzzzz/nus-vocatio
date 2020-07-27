@@ -22,10 +22,11 @@ const routes = [
         path: "/",
         name: "home",
         component: () => {
-            switch (store.state.currentUser) {
+            switch (store.getters.getUser) {
                 case "admin":
                     return import("../views/Admin/AdminHome.vue");
                 case "employer":
+                    console.log("no");
                     return import("../views/Employer/EmployerHome.vue");
                 case "student":
                     console.log("ya");
@@ -197,6 +198,7 @@ const routes = [
 ];
 
 const router = new VueRouter({
+    mode: "history",
     routes,
     scrollBehavior() {
         return { x: 0, y: 0 };

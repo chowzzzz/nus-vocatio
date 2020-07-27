@@ -102,25 +102,6 @@ exports.createStudent = (req, res) => {
                         token: token,
                         user: user
                     });
-                    // res.send(data);
-                    //  console.log(data.toJSON());
-                    // const id = data.toJSON().id;
-                    // Student.findByPk(id)
-                    //     .then((user) => {
-                    //         let token = jwt.sign({ id: user.id }, config.secret, {
-                    //             expiresIn: 86400
-                    //         });
-                    //         res.status(200).send({
-                    //             auth: true,
-                    //             token: token,
-                    //             user: user
-                    //         });
-                    //     })
-                    //     .catch((err) => {
-                    //         res.status(500).send({
-                    //             message: "Error retrieving Student with id=" + id
-                    //         });
-                    //     });
                 })
                 .catch((err) => {
                     res.status(500).send({
@@ -151,12 +132,10 @@ exports.login = (req, res) => {
             if (!passwordIsValid) {
                 return res.status(401).send({ auth: false, token: null });
             }
-            console.log("HMM?????????");
 
             const token = jwt.sign({ id: user.id }, config.secret, {
                 expiresIn: 86400 // expires in 24 hours
             });
-            console.log("HMM?????????");
             res.send({ auth: true, token: token, user: user });
         })
         .catch((err) => {

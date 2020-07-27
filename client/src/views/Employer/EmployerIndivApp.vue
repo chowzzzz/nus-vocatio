@@ -78,6 +78,7 @@ export default {
     },
     computed: {
         ...mapGetters("students", ["getStuById"]),
+        ...mapGetters(["getCurrentUser"]),
         application() {
             const application = this.$store.getters.getAppById(this.appID);
             return application;
@@ -85,38 +86,13 @@ export default {
         student() {
             const stuID = this.$route.params.stuID;
             const student = this.$store.getters.getStuById(stuID);
-            if (
-                student !== undefined &&
-                student.stu_picture.data !== undefined
-            ) {
-                // change this
-                student.stu_picture =
-                    "data:image/jpeg;base64," +
-                    btoa(
-                        student.stu_picture.data
-                            .map((b) => String.fromCharCode(b))
-                            .join("")
-                    );
-            }
             return student;
         },
-    },
-    /* watch: {
-        student: function (loadedStudent) {
-            console.log(loadedStudent);
-            if (loadedStudent.stu_picture.data !== undefined) {
-                // change this
-                console.log(loadedStudent);
-                loadedStudent.stu_picture =
-                    "data:image/jpeg;base64," +
-                    btoa(
-                        loadedStudent.stu_picture.data
-                            .map((b) => String.fromCharCode(b))
-                            .join("")
-                    );
-            }
+        currentUser() {
+            const currentUser = this.getCurrentUser;
+            return currentUser;
         },
-    }, */
+    },
     filters: {
         appStatus(value) {
             let status;
@@ -144,7 +120,7 @@ export default {
                 id: this.appID,
                 status: 1,
                 studentId: this.student.id,
-                employerId: 1, //change this
+                employerId: this.currentUser.id,
             };
             this.$swal({
                 title: "Accept",

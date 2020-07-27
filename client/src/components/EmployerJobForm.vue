@@ -59,7 +59,7 @@
 
 <script>
 import JobForm from "./JobForm.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
     name: "EmployerJobForm",
@@ -73,11 +73,16 @@ export default {
         };
     },
     computed: {
+        ...mapGetters(["getCurrentUser"]),
         currentPost() {
             const jobpost = this.$store.getters.getJobById(
                 this.$route.params.jobID
             );
             return jobpost;
+        },
+        currentUser() {
+            const user = this.getCurrentUser;
+            return user;
         },
     },
     methods: {
@@ -88,7 +93,7 @@ export default {
         confirmAdd() {
             this.$refs.sendData.sendPost();
             this.post.post_status = 0;
-            this.post.employerId = 8; // change this
+            this.post.employerId = this.currentUser.id;
             this.post.post_requirements = this.post.post_requirements.replace(
                 /\n/gi,
                 "\\n"
@@ -148,7 +153,7 @@ export default {
             this.$refs.sendData.sendPost();
             this.post.id = this.currentPost.id;
             this.post.post_status = this.currentPost.post_status;
-            this.post.employerId = this.currentPost.employerId; // change this
+            this.post.employerId = this.currentPost.employerId;
             this.post.post_requirements = this.post.post_requirements.replace(
                 /\n/gi,
                 "\\n"
@@ -245,7 +250,7 @@ export default {
             this.$refs.sendData.sendPost();
             this.post.id = this.currentPost.id;
             this.post.post_status = 1;
-            this.post.employerId = this.currentPost.employerId; // change this
+            this.post.employerId = this.currentPost.employerId;
             this.post.post_requirements = this.post.post_requirements.replace(
                 /\n/gi,
                 "\\n"
@@ -305,7 +310,7 @@ export default {
                     case "yes":
                         this.post.id = this.currentPost.id;
                         this.post.post_status = 4;
-                        this.post.employerId = this.currentPost.employerId; // change this
+                        this.post.employerId = this.currentPost.employerId;
                         this.post.post_requirements = this.post.post_requirements.replace(
                             /\n/gi,
                             "\\n"

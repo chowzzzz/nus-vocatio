@@ -245,7 +245,7 @@ export default {
         };
     },
     methods: {
-        ...mapActions(["addEmployer"]),
+        ...mapActions("employers", ["addEmployer"]),
         selectLogo() {
             console.log(this.$refs.logo.files[0]);
             this.employer.emp_logo = this.$refs.logo.files[0];
@@ -301,10 +301,9 @@ export default {
                             },
                         },
                         icon: "success",
-                    }) /* .then((value) => {
-                        if (value === "close")
-                            this.$router.push("/login/employer");
-                    }) */;
+                    }).then((value) => {
+                        if (value === "close") this.$router.push("/");
+                    });
                 })
                 .catch((err) => {
                     console.log(err.response.data.error);
