@@ -38,6 +38,7 @@
                         v-for="pair in pairs"
                         :key="pair.job.id"
                         @click="navigateTo({name: 'job-details', params: {jobID: pair.job.id}})"
+                        :class="{ remove: pair.job.removed }"
                     >
                         <div class="job-img">
                             <img :src="pair.coLogo" alt="company logo" />
@@ -129,6 +130,14 @@ export default {
                     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
                 );
             }
+
+            jobs.forEach((job) => {
+                if (job.post_status == 4) {
+                    job.removed = false;
+                } else {
+                    job.removed = true;
+                }
+            });
 
             return jobs;
         },
@@ -312,6 +321,10 @@ li {
 
 .error {
     text-align: center;
+}
+
+.remove {
+    filter: grayscale(100%);
 }
 
 @media screen and (max-width: 900px) {

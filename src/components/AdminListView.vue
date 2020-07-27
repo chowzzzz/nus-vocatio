@@ -8,7 +8,7 @@
                     @click="navigateTo({ name: 'admin-stu-acc-indiv', params: { id: account.id }})"
                 >
                     <div class="account-img">
-                        <img src="../assets/selfmade/picture.svg" alt="account image" />
+                        <img :src="account.stu_picture" alt="account image" />
                     </div>
                     <div class="account-title">
                         <h3>{{ account.stu_name }}</h3>
@@ -28,7 +28,7 @@
                     @click="navigateTo({ name: 'admin-emp-acc-indiv', params: { id: account.id }})"
                 >
                     <div class="account-img">
-                        <img src="../assets/selfmade/picture.svg" alt="account image" />
+                        <img :src="account.emp_logo" alt="account image" />
                     </div>
                     <div class="account-title">
                         <h3>{{ account.emp_name }}</h3>

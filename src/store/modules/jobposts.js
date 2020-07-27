@@ -281,7 +281,7 @@ const getters = {
     },
     getJobsBySearch: (state) => (search, checkedTypes, checkedFac, salary) => {
         let jobposts = state.jobposts.filter(
-            (jobpost) => jobpost.post_status != 0
+            (jobpost) => jobpost.post_status != 0 && jobpost.post_status != 4
         );
         jobposts = jobposts.filter((jobpost) =>
             jobpost.post_title.toLowerCase().includes(search.toLowerCase())
