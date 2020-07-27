@@ -85,7 +85,7 @@ export default {
         },
         student() {
             const stuID = this.$route.params.stuID;
-            const student = this.$store.getters.getStuById(stuID);
+            const student = this.getStuById(stuID);
             return student;
         },
         currentUser() {
