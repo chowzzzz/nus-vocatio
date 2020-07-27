@@ -1,3 +1,6 @@
+const jwt = require("jsonwebtoken");
+const config = require("../config/config");
+
 const db = require("../models");
 const Admin = db.admin;
 const Op = db.Sequelize.Op;
@@ -29,6 +32,34 @@ exports.create = (req, res) => {
                 message:
                     err.message ||
                     "Some error occurred while creating the Admin."
+            });
+        });
+};
+
+// Login user
+exports.login = (req, res) => {
+    console.log(req.body);
+    Admin.findOne({ where: { adm_email: req.body.email } })
+        .then((data) => {
+            const user = data.toJSON();
+            console.log(user);
+            /* let passwordIsValid = bcrypt.compareSync(
+                req.body.password,
+                user.adm_password
+            ); */
+            let passwordIsValid = req.body.password === user.adm_password;
+            if (!passwordIsValid) {
+                return res.status(401).send({ auth: false, token: null });
+            }
+
+            const token = jwt.sign({ id: user.id }, config.secret, {
+                expiresIn: 86400 // expires in 24 hours
+            });
+            res.send({ auth: true, token: token, user: user });
+        })
+        .catch((err) => {
+            res.status(404).send({
+                message: err.message || "No user found."
             });
         });
 };

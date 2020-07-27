@@ -42,14 +42,9 @@
                             </router-link>
                         </li>
                         <li>
-                            <router-link to="/settings">
-                                <img src="../assets/selfmade/settings.svg" alt="Settings" />
-                            </router-link>
-                        </li>
-                        <li>
-                            <router-link to="/logout">
-                                <img src="../assets/selfmade/logout.png" alt="logout" />
-                            </router-link>
+                            <a @click="logout">
+                                <img src="../assets/selfmade/logout.png" alt="Logout" />
+                            </a>
                         </li>
                     </ul>
                 </hide-at>
@@ -86,11 +81,6 @@
                                 <span>User</span>
                             </li>
                         </router-link>
-                        <router-link to="/settings">
-                            <li class="mobile-nav" @click="toggle">
-                                <span id="settings">Settings</span>
-                            </li>
-                        </router-link>
                         <router-link to="/logout">
                             <li class="mobile-nav" @click="toggle">
                                 <span id="logout">Logout</span>
@@ -106,6 +96,7 @@
 
 <script>
 import { showAt, hideAt } from "vue-breakpoints";
+import axios from "axios";
 
 export default {
     name: "NavBarAdmin",
@@ -124,6 +115,31 @@ export default {
                 ? (this.toggleDisplay = "block")
                 : (this.toggleDisplay = "none");
         },
+        logout() {
+            console.log("logging out");
+            this.$store
+                .dispatch("logout")
+                .then(() => {
+                    console.log("logged out");
+                    this.$router.push("/login");
+                })
+                .catch((err) => console.log(err));
+        },
+    },
+
+    created() {
+        axios.interceptors.response.use(undefined, function (err) {
+            return new Promise(function () {
+                if (
+                    err.status === 401 &&
+                    err.config &&
+                    !err.config.__isRetryRequest
+                ) {
+                    this.$store.dispatch("logout");
+                }
+                throw err;
+            });
+        });
     },
 };
 </script>

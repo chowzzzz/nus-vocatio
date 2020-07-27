@@ -160,7 +160,7 @@ export default {
                 id: this.appID,
                 status: 3,
                 studentId: this.student.id,
-                employerId: 1, //change this
+                employerId: this.currentUser.id,
             };
 
             this.$swal({

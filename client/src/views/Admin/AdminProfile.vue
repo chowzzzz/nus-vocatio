@@ -65,17 +65,21 @@ export default {
     },
     computed: {
         ...mapGetters("admins", ["getAdminById"]),
+        ...mapGetters(["getCurrentUser"]),
         admin() {
             const admin = this.getAdminById(1);
             return admin;
+        },
+        currentUser() {
+            const currentUser = this.getCurrentUser;
+            return currentUser;
         },
     },
     methods: {
         ...mapActions("admins", ["updateAdmin"]),
         confirmEdit() {
             const updatedAdmin = {
-                // change this
-                id: 1,
+                id: this.currentUser.id,
                 adm_user: this.admin.adm_user,
                 adm_email: this.admin.adm_email,
                 adm_password: this.admin.adm_password,
@@ -138,8 +142,7 @@ export default {
         },
         changePwd() {
             const updatedAdmin = {
-                // change this
-                id: 1,
+                id: this.currentUser.id,
                 adm_user: this.admin.adm_user,
                 adm_email: this.admin.adm_email,
                 adm_password: this.admin.adm_password,

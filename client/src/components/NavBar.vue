@@ -80,6 +80,7 @@
 
 <script>
 import { showAt, hideAt } from "vue-breakpoints";
+import axios from "axios";
 
 export default {
     name: "NavBar",
@@ -108,9 +109,21 @@ export default {
                 })
                 .catch((err) => console.log(err));
         },
-        test() {
-            console.log("test");
-        },
+    },
+
+    created() {
+        axios.interceptors.response.use(undefined, function (err) {
+            return new Promise(function () {
+                if (
+                    err.status === 401 &&
+                    err.config &&
+                    !err.config.__isRetryRequest
+                ) {
+                    this.$store.dispatch("logout");
+                }
+                throw err;
+            });
+        });
     },
 };
 </script>

@@ -28,8 +28,15 @@
             </div>
             <div
                 class="editBtn"
-                v-bind:class="{ 'employer-view' : currentUser === 'student' }"
+                v-bind:class="{ 'employer-view' : currentUser === 'student' || currentUser === 'admin' }"
                 @click="navigateTo({name: 'profile'})"
+            >
+                <button>Edit contact details</button>
+            </div>
+            <div
+                class="editBtn"
+                v-bind:class="{ 'employer-view' : currentUser === 'student' || currentUser === 'employer' }"
+                @click="navigateTo({name: 'admin-emp-acc-indiv', params: {id: employer.id}})"
             >
                 <button>Edit contact details</button>
             </div>

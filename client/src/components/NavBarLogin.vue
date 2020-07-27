@@ -75,7 +75,6 @@
 
 <script>
 import { showAt, hideAt } from "vue-breakpoints";
-import axios from "axios";
 
 export default {
     name: "NavBarLogin",
@@ -124,20 +123,6 @@ export default {
                 this.adminShow = true;
             }
         },
-    },
-    created() {
-        axios.interceptors.response.use(undefined, function (err) {
-            return new Promise(function () {
-                if (
-                    err.status === 401 &&
-                    err.config &&
-                    !err.config.__isRetryRequest
-                ) {
-                    this.$store.dispatch("logout");
-                }
-                throw err;
-            });
-        });
     },
 };
 </script>

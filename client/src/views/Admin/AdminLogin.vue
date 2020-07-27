@@ -4,14 +4,8 @@
             <img src="../../assets/selfmade/user.svg" alt="Admin Login" id="admin-img" />
             <h2>Admin Login</h2>
             <div class="input-container">
-                <img src="../../assets/user.svg" alt="username" />
-                <input
-                    type="username"
-                    v-model="username"
-                    name="username"
-                    id="username"
-                    placeholder="Username"
-                />
+                <img src="../../assets/user.svg" alt="email" />
+                <input type="email" v-model="email" name="email" id="email" placeholder="Email" />
             </div>
             <div class="input-container">
                 <img src="../../assets/lock.svg" alt="Password" />
@@ -23,21 +17,36 @@
                     placeholder="Password"
                 />
             </div>
-            <button>Login</button>
+            <button @click="login()">Login</button>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
     name: "AdminLogin",
     data() {
         return {
             email: "",
-            password: ""
+            password: "",
         };
     },
-    methods: {}
+    methods: {
+        ...mapActions("admins", ["loginAdmin"]),
+        login() {
+            let email = this.email;
+            let password = this.password;
+            this.loginAdmin({ email, password })
+                .then(() => {
+                    this.$router.go(0);
+                })
+                .then(() => {
+                    this.$router.push("/");
+                })
+                .catch((err) => console.log(err));
+        },
+    },
 };
 </script>
 

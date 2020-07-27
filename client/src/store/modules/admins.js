@@ -68,6 +68,32 @@ const actions = {
     async updateAdmin({ commit }, updAdmin) {
         const response = await axios.put(`${url}${updAdmin.id}`, updAdmin);
         commit("UPDATE_ADMIN", response.data);
+    },
+    loginAdmin({ commit }, user) {
+        return new Promise((resolve, reject) => {
+            console.log("logging in");
+            commit("auth_request", null, { root: true });
+            axios
+                .post(`${url}login`, user)
+                .then((res) => {
+                    console.log("logged in");
+                    const token = res.data.token;
+                    const user = res.data.user;
+                    localStorage.setItem("token", token);
+                    axios.defaults.headers.common["Authorization"] = token;
+                    commit(
+                        "auth_success",
+                        { token, user, currentUser: "admin" },
+                        { root: true }
+                    );
+                    resolve(res);
+                })
+                .catch((err) => {
+                    commit("auth_error", null, { root: true });
+                    localStorage.removeItem("token");
+                    reject(err);
+                });
+        });
     }
 };
 
