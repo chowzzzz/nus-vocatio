@@ -182,7 +182,7 @@ exports.createJobpost = async (req, res) => {
             };
             console.log(jobpost);
             res.json(jobpost);
-            // Save JobPost in the database
+            // Save Jobpost in the database
             Jobpost.create(jobpost)
                 .then((data) => {
                     res.send(data);
@@ -191,7 +191,7 @@ exports.createJobpost = async (req, res) => {
                     res.status(500).send({
                         message:
                             err.message ||
-                            "Some error occurred while creating the JobPost."
+                            "Some error occurred while creating the Jobpost."
                     });
                 });
         }
