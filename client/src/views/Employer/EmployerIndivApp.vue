@@ -64,7 +64,7 @@
 
 <script>
 import BackBtn from "../../components/BackBtn.vue";
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
     name: "EmployerIndivApp",
     components: {
@@ -77,6 +77,7 @@ export default {
         };
     },
     computed: {
+        ...mapGetters("students", ["getStuById"]),
         application() {
             const application = this.$store.getters.getAppById(this.appID);
             return application;

@@ -38,9 +38,9 @@
                             </router-link>
                         </li>
                         <li>
-                            <router-link to="/logout">
+                            <a @click="logout">
                                 <img src="../assets/selfmade/logout.png" alt="Logout" />
-                            </router-link>
+                            </a>
                         </li>
                     </ul>
                 </hide-at>
@@ -67,11 +67,9 @@
                                 <span id="settings">Settings</span>
                             </li>
                         </router-link>
-                        <router-link to="/logout">
-                            <li class="mobile-nav" @click="toggle">
-                                <span id="logout">Logout</span>
-                            </li>
-                        </router-link>
+                        <li class="mobile-nav" @click="toggle">
+                            <span id="logout" @click="logout">Logout</span>
+                        </li>
                     </ul>
                 </show-at>
             </nav>
@@ -99,6 +97,19 @@ export default {
             this.toggleDisplay == "none"
                 ? (this.toggleDisplay = "block")
                 : (this.toggleDisplay = "none");
+        },
+        logout() {
+            console.log("logging out");
+            this.$store
+                .dispatch("logout")
+                .then(() => {
+                    console.log("logged out");
+                    this.$router.push("/login");
+                })
+                .catch((err) => console.log(err));
+        },
+        test() {
+            console.log("test");
         },
     },
 };
@@ -141,6 +152,7 @@ nav ul li {
 
 nav img {
     width: 30px;
+    cursor: pointer;
 }
 
 @media screen and (max-width: 570px) {

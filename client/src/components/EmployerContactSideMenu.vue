@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
     name: "EmployerContactSideMenu",
     data() {
@@ -54,36 +54,14 @@ export default {
     },
     props: ["user"],
     computed: {
+        ...mapGetters("employers", ["getEmpById"]),
+        ...mapGetters(["getJobById"]),
         job() {
-            const job = this.$store.getters.getJobById(
-                this.$route.params.jobID
-            );
+            const job = this.getJobById(this.$route.params.jobID);
             return job;
         },
         employer() {
-            const employer = this.$store.getters.getEmpById(
-                this.job.employerId
-            );
-            if (
-                employer !== undefined &&
-                employer.emp_picture.data !== undefined
-                // && employer.emp_logo.data !== undefined
-            ) {
-                employer.emp_picture =
-                    "data:image/jpeg;base64," +
-                    btoa(
-                        employer.emp_picture.data
-                            .map((b) => String.fromCharCode(b))
-                            .join("")
-                    );
-                /*  employer.emp_logo =
-                        "data:image/jpeg;base64," +
-                        btoa(
-                            employer.emp_logo.data
-                                .map((b) => String.fromCharCode(b))
-                                .join("")
-                        ); */
-            }
+            const employer = this.getEmpById(this.job.employerId);
             return employer;
         },
     },

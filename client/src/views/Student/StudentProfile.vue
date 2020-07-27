@@ -107,9 +107,7 @@ import { mapGetters } from "vuex";
 export default {
     name: "StudentProfile",
     computed: {
-        ...mapGetters({
-            getStuById: "getStuById",
-        }),
+        ...mapGetters("students", ["getStuById"]),
         student() {
             // change this
             const student = this.getStuById(30);

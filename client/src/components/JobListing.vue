@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapGetters } from "vuex";
 
 export default {
     name: "JobListing",
@@ -39,10 +39,10 @@ export default {
     },
     computed: {
         ...mapState(["jobposts"]),
+        ...mapGetters("employers", ["getEmpById"]),
+        ...mapGetters(["getJobById"]),
         job() {
-            const job = this.$store.getters.getJobById(
-                this.$route.params.jobID
-            );
+            const job = this.getJobById(this.$route.params.jobID);
             return job;
         },
         requirements() {
@@ -50,9 +50,7 @@ export default {
             return requirements;
         },
         employer() {
-            const employer = this.$store.getters.getEmpById(
-                this.job.employerId
-            );
+            const employer = this.getEmpById(this.job.employerId);
             return employer;
         },
     },

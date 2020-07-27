@@ -2,6 +2,8 @@ import axios from "axios";
 
 const url = "http://localhost:8081/api/admin/";
 
+const namespaced = true;
+
 const state = {
     admins: [
         /* {
@@ -32,9 +34,32 @@ const actions = {
         const response = await axios.get(url);
         commit("SET_ADMINS", response.data);
     },
-    async addAdmin({ commit }, admin) {
-        const response = await axios.post(url, admin);
-        commit("ADD_ADMIN", response.data);
+    addAdmin({ commit }, user) {
+        return new Promise((resolve, reject) => {
+            commit("auth_request", { root: true });
+            axios
+                .post(url, user)
+                .then((res) => {
+                    const token = res.data.token;
+                    const user = res.data.user;
+                    localStorage.setItem("token", token);
+                    axios.defaults.headers.common["Authorization"] = token;
+                    commit(
+                        "auth_success",
+                        { token, user, currentUser: "admin" },
+                        { root: true }
+                    );
+                    commit("ADD_ADMIN", res.data);
+                    resolve(res);
+                })
+                .catch((err) => {
+                    commit("auth_error", { root: true });
+                    localStorage.removeItem("token");
+                    reject(err);
+                });
+        });
+        /* const response = await axios.post(url, admin);
+        commit("ADD_ADMIN", response.data); */
     },
     async deleteAdmin(context, id) {
         await axios.delete(`${url}${id}`);
@@ -67,6 +92,7 @@ const mutations = {
 };
 
 export default {
+    namespaced,
     state,
     getters,
     actions,

@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { required, minLength } from "vuelidate/lib/validators";
+// import { required, minLength } from "vuelidate/lib/validators";
 import { mapActions } from "vuex";
 
 export default {
@@ -43,22 +43,29 @@ export default {
     data() {
         return {
             email: "",
-            password: ""
+            password: "",
         };
     },
-    validations: {
+    /* validations: {
         email: {
             required
         },
         password: {
-            required,
-            minLength: minLength(8)
+            required
         }
-    },
+    }, */
     methods: {
-        ...mapActions(["addStudent"]),
-        login() {}
-    }
+        ...mapActions("students", ["loginStudent"]),
+        login() {
+            let email = this.email;
+            let password = this.password;
+            this.loginStudent({ email, password })
+                .then(() => {
+                    this.$router.push("/");
+                })
+                .catch((err) => console.log(err));
+        },
+    },
 };
 </script>
 

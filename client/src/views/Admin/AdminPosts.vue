@@ -93,7 +93,8 @@ export default {
         };
     },
     computed: {
-        ...mapGetters(["allJobs", "getJobsBySearch", "getEmpById"]),
+        ...mapGetters(["allJobs", "getJobsBySearch"]),
+        ...mapGetters("employers", ["getEmpById"]),
         jobs() {
             let jobs = this.allJobs;
             if (

@@ -2,6 +2,8 @@ import axios from "axios";
 
 const url = "http://localhost:8081/api/employer/";
 
+const namespaced = true;
+
 const state = {
     employers: [
         /* {
@@ -155,7 +157,6 @@ const state = {
 const getters = {
     allEmployers: (state) => state.employers,
     getEmpById: (state) => (id) => {
-        // console.log(id);
         return state.employers.find((employer) => employer.id == id);
     }
 };
@@ -165,9 +166,32 @@ const actions = {
         const response = await axios.get(url);
         commit("SET_EMPLOYERS", response.data);
     },
-    async addEmployer({ commit }, employer) {
-        const response = await axios.post(url, employer);
-        commit("ADD_EMPLOYER", response.data);
+    addEmployer({ commit }, user) {
+        return new Promise((resolve, reject) => {
+            commit("auth_request", { root: true });
+            axios
+                .post(url, user)
+                .then((res) => {
+                    const token = res.data.token;
+                    const user = res.data.user;
+                    localStorage.setItem("token", token);
+                    axios.defaults.headers.common["Authorization"] = token;
+                    commit(
+                        "auth_success",
+                        { token, user, currentUser: "employer" },
+                        { root: true }
+                    );
+                    commit("ADD_EMPLOYER", res.data);
+                    resolve(res);
+                })
+                .catch((err) => {
+                    commit("auth_error", { root: true });
+                    localStorage.removeItem("token");
+                    reject(err);
+                });
+        });
+        /* const response = await axios.post(url, employer);
+        commit("ADD_EMPLOYER", response.data); */
     },
     async deleteEmployer({ commit }, id) {
         await axios.delete(`${url}${id}`);
@@ -204,6 +228,7 @@ const mutations = {
 };
 
 export default {
+    namespaced,
     state,
     getters,
     actions,

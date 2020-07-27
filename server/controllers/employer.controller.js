@@ -1,5 +1,7 @@
 const fs = require("fs");
 const bcrypt = require("bcrypt");
+const config = require("../config/config");
+const jwt = require("jsonwebtoken");
 const aws = require("../config/aws.config.js");
 const sharp = require("sharp");
 
@@ -68,19 +70,31 @@ exports.createEmployer = (req, res) => {
                 emp_news_letter: 1,
                 emp_subscription: 1
             };
-            console.log(employer);
-            res.json(employer);
+            // console.log(employer);
+            // res.json(employer);
 
             // Save Employer in the database
             Employer.create(employer)
                 .then((data) => {
-                    res.send(data);
+                    const user = data.toJSON();
+                    let token = jwt.sign({ id: user.id }, config.secret, {
+                        expiresIn: 86400 // expires in 24 hours
+                    });
+
+                    res.status(200).send({
+                        auth: true,
+                        token: token,
+                        user: user
+                    });
+                    /* console.log(data);
+                    console.log(data.toJSON());
+                    res.send(data); */
                 })
                 .catch((err) => {
                     res.status(500).send({
                         message:
                             err.message ||
-                            "Some error occurred while creating the Employer."
+                            "There was a problem registering the user."
                     });
                 });
         }

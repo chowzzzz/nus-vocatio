@@ -2,6 +2,8 @@ import axios from "axios";
 
 const url = "http://localhost:8081/api/student/";
 
+const namespaced = true;
+
 const state = {
     students: [
         /* {
@@ -158,14 +160,33 @@ const actions = {
         const response = await axios.get(url);
         commit("SET_STUDENTS", response.data);
     },
-    async addStudent({ commit }, student) {
-        const response = await axios.post(url, student, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
+    addStudent({ commit }, user) {
+        return new Promise((resolve, reject) => {
+            commit("auth_request", { root: true });
+            axios
+                .post(url, user)
+                .then((res) => {
+                    const token = res.data.token;
+                    const user = res.data.user;
+                    localStorage.setItem("token", token);
+                    axios.defaults.headers.common["Authorization"] = token;
+                    commit(
+                        "auth_success",
+                        { token, user, currentUser: "student" },
+                        { root: true }
+                    );
+                    commit("ADD_STUDENT", res.data);
+                    resolve(res);
+                })
+                .catch((err) => {
+                    commit("auth_error", { root: true });
+                    localStorage.removeItem("token");
+                    reject(err);
+                });
         });
+        /* const response = await axios.post(url, student);
 
-        commit("ADD_STUDENT", response.data);
+        commit("ADD_STUDENT", response.data); */
     },
     async deleteStudent(context, id) {
         await axios.delete(`${url}${id}`);
@@ -174,6 +195,32 @@ const actions = {
     async updateStudent({ commit }, updStu) {
         const response = await axios.put(`${url}${updStu.id}`, updStu);
         commit("UPDATE_STUDENT", response.data);
+    },
+    loginStudent({ commit }, user) {
+        return new Promise((resolve, reject) => {
+            console.log("logging in");
+            commit("auth_request", null, { root: true });
+            axios
+                .post(`${url}login`, user)
+                .then((res) => {
+                    console.log("logged in");
+                    const token = res.data.token;
+                    const user = res.data.user;
+                    localStorage.setItem("token", token);
+                    axios.defaults.headers.common["Authorization"] = token;
+                    commit(
+                        "auth_success",
+                        { token, user, currentUser: "student" },
+                        { root: true }
+                    );
+                    resolve(res);
+                })
+                .catch((err) => {
+                    commit("auth_error", null, { root: true });
+                    localStorage.removeItem("token");
+                    reject(err);
+                });
+        });
     }
 };
 
@@ -200,6 +247,7 @@ const mutations = {
 };
 
 export default {
+    namespaced,
     state,
     getters,
     actions,

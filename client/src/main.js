@@ -2,12 +2,12 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-// import { sync } from "vuex-router-sync";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 import moment from "moment";
 import VueSwal from "vue-swal";
 import Vuelidate from "vuelidate";
+import axios from "axios";
 
 Vue.config.productionTip = false;
 
@@ -18,13 +18,17 @@ Vue.filter("formatDate", function(value) {
     }
 });
 
-// sync(store, router);
-
 // vue sweet alert
 Vue.use(VueSwal);
 
 // vuelidate
 Vue.use(Vuelidate);
+
+// token for user auth
+const token = localStorage.getItem("token");
+if (token) {
+    axios.defaults.headers.common["Authorization"] = token;
+}
 
 new Vue({
     router,

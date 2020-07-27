@@ -8,6 +8,9 @@ module.exports = (app) => {
     // Create a new student
     router.post("/", upload.any(), Student.createStudent);
 
+    // Login Student
+    router.post("/login", Student.login);
+
     //Create a new application
     router.post("/application", Student.createApplication);
 

@@ -22,7 +22,7 @@
 
 <script>
 import SettingBox from "../../components/SettingBox.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
     name: "EmployerSettings",
@@ -30,9 +30,10 @@ export default {
         SettingBox,
     },
     computed: {
+        ...mapGetters("employers", ["getEmpById"]),
         employer() {
             // change this
-            const employer = this.$store.getters.getEmpById(8);
+            const employer = this.getEmpById(8);
             return employer;
         },
         settings() {

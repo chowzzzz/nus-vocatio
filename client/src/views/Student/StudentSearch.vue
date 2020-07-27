@@ -1,5 +1,5 @@
 <template>
-    <div v-if="jobs && pairs">
+    <div>
         <hide-at :breakpoints="{small: 400, medium: 701}" breakpoint="mediumAndBelow">
             <side-filter-menu
                 @searching="search"
@@ -33,7 +33,7 @@
                         </div>
                     </hide-at>
                 </div>
-                <ul>
+                <ul v-if="jobs && pairs">
                     <li
                         v-for="pair in pairs"
                         :key="pair.job.id"
@@ -111,7 +111,8 @@ export default {
         },
     },
     computed: {
-        ...mapGetters(["allAvailJobs", "getJobsBySearch", "getEmpById"]),
+        ...mapGetters(["allAvailJobs", "getJobsBySearch"]),
+        ...mapGetters("employers", ["getEmpById"]),
         jobs() {
             let jobs = this.allAvailJobs;
             if (
@@ -150,18 +151,23 @@ export default {
                     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
                 );
             }
-
             return jobs;
         },
         pairs() {
-            return this.jobs.map((job) => {
-                const employer = this.getEmpById(job.employerId);
-                return {
-                    job: job,
-                    company: employer.emp_company,
-                    coLogo: employer.emp_logo,
-                };
+            const pairs = this.jobs.map((job) => {
+                if (job.employerId) {
+                    const employer = this.getEmpById(job.employerId);
+                    return {
+                        job: job,
+                        company: employer.emp_company,
+                        coLogo: employer.emp_logo,
+                    };
+                } else {
+                    return null;
+                }
             });
+            if (pairs) return pairs;
+            else return null;
         },
     },
 };

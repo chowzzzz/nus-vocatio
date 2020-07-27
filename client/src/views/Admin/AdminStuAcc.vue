@@ -13,6 +13,7 @@
 
 <script>
 import AdminListView from "../../components/AdminListView.vue";
+import { mapGetters } from "vuex";
 
 export default {
     name: "AdminStuAcc",
@@ -25,8 +26,10 @@ export default {
         };
     },
     computed: {
+        ...mapGetters("students", ["allStudents"]),
         students() {
-            const students = this.$store.getters.allStudents;
+            const students = this.allStudents;
+            console.log(students);
             return students;
         },
     },

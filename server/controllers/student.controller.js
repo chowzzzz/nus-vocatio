@@ -2,6 +2,8 @@ const fs = require("fs");
 const bcrypt = require("bcrypt");
 const aws = require("../config/aws.config.js");
 const sharp = require("sharp");
+const jwt = require("jsonwebtoken");
+const config = require("../config/config");
 
 const db = require("../models");
 const Student = db.student;
@@ -90,7 +92,17 @@ exports.createStudent = (req, res) => {
             // Save Student in the database
             Student.create(student)
                 .then((data) => {
-                    res.send(data);
+                    const user = data.toJSON();
+                    let token = jwt.sign({ id: user.id }, config.secret, {
+                        expiresIn: 86400 // expires in 24 hours
+                    });
+
+                    res.status(200).send({
+                        auth: true,
+                        token: token,
+                        user: user
+                    });
+                    // res.send(data);
                     //  console.log(data.toJSON());
                     // const id = data.toJSON().id;
                     // Student.findByPk(id)
@@ -123,6 +135,35 @@ exports.createStudent = (req, res) => {
     } catch (err) {
         res.status(422).json({ err });
     }
+};
+
+// Login user
+exports.login = (req, res) => {
+    console.log(req.body);
+    Student.findOne({ where: { stu_email: req.body.email } })
+        .then((data) => {
+            const user = data.toJSON();
+            // console.log(user);
+            let passwordIsValid = bcrypt.compareSync(
+                req.body.password,
+                user.stu_password
+            );
+            if (!passwordIsValid) {
+                return res.status(401).send({ auth: false, token: null });
+            }
+            console.log("HMM?????????");
+
+            const token = jwt.sign({ id: user.id }, config.secret, {
+                expiresIn: 86400 // expires in 24 hours
+            });
+            console.log("HMM?????????");
+            res.send({ auth: true, token: token, user: user });
+        })
+        .catch((err) => {
+            res.status(404).send({
+                message: err.message || "No user found."
+            });
+        });
 };
 
 // Retrieve all Students from the database.

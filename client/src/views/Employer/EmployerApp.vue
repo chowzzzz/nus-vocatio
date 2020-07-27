@@ -14,6 +14,7 @@
 <script>
 import BackBtn from "../../components/BackBtn.vue";
 import EmployerListView from "../../components/EmployerListView.vue";
+import { mapGetters } from "vuex";
 
 export default {
     name: "EmployerApp",
@@ -30,13 +31,12 @@ export default {
         };
     },
     computed: {
+        ...mapGetters("students", ["getStuById"]),
         posts() {
             const applicants = this.$store.getters.getAppByJobId(this.jobID);
             let students = [];
             applicants.forEach((applicant) => {
-                let student = this.$store.getters.getStuById(
-                    applicant.studentId
-                );
+                let student = this.getStuById(applicant.studentId);
                 student.status = applicant.status;
                 student.applyDate = applicant.createdAt;
                 student.appID = applicant.id;

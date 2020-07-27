@@ -93,11 +93,8 @@ export default {
         };
     },
     computed: {
-        ...mapGetters([
-            "allPendingJobs",
-            "getPendingJobsBySearch",
-            "getEmpById",
-        ]),
+        ...mapGetters(["allPendingJobs", "getPendingJobsBySearch"]),
+        ...mapGetters("employers", ["getEmpById"]),
         jobs() {
             let jobs = this.allPendingJobs;
             if (

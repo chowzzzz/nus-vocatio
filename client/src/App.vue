@@ -1,8 +1,8 @@
 <template>
     <div id="app">
-        <nav-bar v-if="isAuthenticated && !isAdmin"></nav-bar>
-        <nav-bar-admin v-else-if="isAuthenticated && isAdmin"></nav-bar-admin>
-        <nav-bar-login v-else-if="!isAuthenticated"></nav-bar-login>
+        <nav-bar v-if="isLoggedIn && !isAdmin"></nav-bar>
+        <nav-bar-admin v-else-if="isLoggedIn && isAdmin"></nav-bar-admin>
+        <nav-bar-login v-else-if="!isLoggedIn"></nav-bar-login>
     </div>
 </template>
 
@@ -10,7 +10,8 @@
 import NavBar from "./components/NavBar.vue";
 import NavBarAdmin from "./components/NavBarAdmin.vue";
 import NavBarLogin from "./components/NavBarLogin.vue";
-import { mapActions, mapState } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import axios from "axios";
 
 export default {
     name: "NusVocatio",
@@ -20,17 +21,13 @@ export default {
         NavBarLogin,
     },
     methods: {
-        ...mapActions([
-            "fetchStudents",
-            "fetchEmployers",
-            "fetchJobPosts",
-            "fetchApplications",
-            "fetchAdmins",
-        ]),
+        ...mapActions(["fetchJobPosts", "fetchApplications"]),
+        ...mapActions("students", ["fetchStudents"]),
+        ...mapActions("admins", ["fetchAdmins"]),
+        ...mapActions("employers", ["fetchEmployers"]),
     },
     computed: {
-        ...mapState(["isAuthenticated"]),
-        ...mapState(["isAdmin"]),
+        ...mapGetters(["isLoggedIn", "isAdmin"]),
     },
     async created() {
         this.fetchStudents();
@@ -38,6 +35,19 @@ export default {
         this.fetchJobPosts();
         this.fetchApplications();
         this.fetchAdmins();
+
+        axios.interceptors.response.use(undefined, function (err) {
+            return new Promise(function () {
+                if (
+                    err.status === 401 &&
+                    err.config &&
+                    !err.config.__isRetryRequest
+                ) {
+                    this.$store.dispatch("logout");
+                }
+                throw err;
+            });
+        });
     },
 };
 </script>

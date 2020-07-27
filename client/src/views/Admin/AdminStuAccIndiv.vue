@@ -41,6 +41,7 @@
 <script>
 import AdminStuProfile from "../../components/AdminStuProfile.vue";
 import ChangePassword from "../../components/ChangePassword.vue";
+import { mapGetters } from "vuex";
 
 export default {
     name: "AdminStuAccIndiv",
@@ -49,10 +50,9 @@ export default {
         ChangePassword,
     },
     computed: {
+        ...mapGetters("students", ["getStuById"]),
         student() {
-            const student = this.$store.getters.getStuById(
-                this.$route.params.id
-            );
+            const student = this.getStuById(this.$route.params.id);
             return student;
         },
     },

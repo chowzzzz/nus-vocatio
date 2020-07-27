@@ -13,6 +13,7 @@
 
 <script>
 import AdminListView from "../../components/AdminListView.vue";
+import { mapGetters } from "vuex";
 
 export default {
     name: "AdminEmpAcc",
@@ -25,8 +26,9 @@ export default {
         };
     },
     computed: {
+        ...mapGetters("employers", ["allEmployers"]),
         employers() {
-            const employers = this.$store.getters.allEmployers;
+            const employers = this.allEmployers;
             return employers;
         },
     },

@@ -357,7 +357,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions(["addStudent"]),
+        ...mapActions("students", ["addStudent"]),
         selectFile() {
             if (this.$refs.file.files[0].type.match("application.*")) {
                 this.errorColor = "#000";
@@ -414,8 +414,7 @@ export default {
                             },
                             icon: "success",
                         }).then((value) => {
-                            if (value === "close")
-                                this.$router.push("/login/student");
+                            if (value === "close") this.$router.push("/");
                         });
                     })
                     .catch((err) => {

@@ -12,7 +12,7 @@
 
 <script>
 import EmployerListView from "../../components/EmployerListView.vue";
-// import { mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
     name: "EmployerHome",
@@ -28,15 +28,14 @@ export default {
         };
     },
     computed: {
+        ...mapGetters(["getJobByEmpId", "getNoOfAppByJobId"]),
+        ...mapGetters("employers", ["getEmpById"]),
         posts() {
             // change this
-            let posts = this.$store.getters.getJobByEmpId(8);
+            let posts = this.getJobByEmpId(8);
             posts.forEach((post) => {
-                const applicants = this.$store.getters.getNoOfAppByJobId(
-                    post.id
-                );
-                const emp_logo = this.$store.getters.getEmpById(post.employerId)
-                    .emp_logo;
+                const applicants = this.getNoOfAppByJobId(post.id);
+                const emp_logo = this.getEmpById(post.employerId).emp_logo;
                 post.post_applicants = applicants;
                 post.emp_logo = emp_logo;
             });

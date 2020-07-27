@@ -2,16 +2,16 @@ const dbConfig = require("../config/database.js");
 //DB
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-  host: dbConfig.HOST,
-  dialect: dbConfig.dialect,
-  operatorsAliases: false,
+    host: dbConfig.HOST,
+    dialect: dbConfig.dialect,
+    operatorsAliases: false,
 
-  pool: {
-    max: dbConfig.pool.max,
-    min: dbConfig.pool.min,
-    acquire: dbConfig.pool.acquire,
-    idle: dbConfig.pool.idle
-  }
+    pool: {
+        max: dbConfig.pool.max,
+        min: dbConfig.pool.min,
+        acquire: dbConfig.pool.acquire,
+        idle: dbConfig.pool.idle
+    }
 });
 
 const db = {};
@@ -28,22 +28,28 @@ db.application = require("./Applications.js")(sequelize, Sequelize);
 
 //Relations
 //One - to - many
-db.employer.hasMany(db.jobpost, { as: "jobpost"});
+db.employer.hasMany(db.jobpost, { as: "jobpost" });
 db.jobpost.belongsTo(db.employer, {
-  foreignKey: "employerId",
-  as: "employer",
+    foreignKey: "employerId",
+    as: "employer",
+    onDelete: "cascade",
+    hooks: true
 });
 
-db.student.hasMany(db.application, { as: "application"});
+db.student.hasMany(db.application, { as: "application" });
 db.application.belongsTo(db.student, {
-  foreignKey: "studentId",
-  as: 'student',
+    foreignKey: "studentId",
+    as: "student",
+    onDelete: "cascade",
+    hooks: true
 });
 
-db.jobpost.hasMany(db.application, { as: "applications"});
+db.jobpost.hasMany(db.application, { as: "applications" });
 db.application.belongsTo(db.jobpost, {
-  foreignKey: "jobpostId",
-  as: "jobpost",
+    foreignKey: "jobpostId",
+    as: "jobpost",
+    onDelete: "cascade",
+    hooks: true
 });
 
 module.exports = db;

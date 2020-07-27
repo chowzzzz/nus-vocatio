@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 export default {
     name: "AdminProfile",
     data() {
@@ -64,13 +64,14 @@ export default {
         };
     },
     computed: {
+        ...mapGetters("admins", ["getAdminById"]),
         admin() {
-            const admin = this.$store.getters.getAdminById(1);
+            const admin = this.getAdminById(1);
             return admin;
         },
     },
     methods: {
-        ...mapActions(["updateAdmin"]),
+        ...mapActions("admins", ["updateAdmin"]),
         confirmEdit() {
             const updatedAdmin = {
                 // change this

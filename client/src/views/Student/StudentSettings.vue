@@ -30,9 +30,7 @@ export default {
         SettingBox,
     },
     computed: {
-        ...mapGetters({
-            getStuById: "getStuById",
-        }),
+        ...mapGetters("students", ["getStuById"]),
         student() {
             // change this
             const student = this.getStuById(30);
@@ -65,7 +63,7 @@ export default {
         },
     },
     methods: {
-        ...mapActions(["updateStudent"]),
+        ...mapActions("students", ["updateStudent"]),
         checked(checkedStatus, id) {
             switch (id) {
                 case "status":

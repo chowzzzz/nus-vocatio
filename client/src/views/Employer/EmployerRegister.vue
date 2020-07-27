@@ -301,15 +301,15 @@ export default {
                             },
                         },
                         icon: "success",
-                    }).then((value) => {
+                    }) /* .then((value) => {
                         if (value === "close")
                             this.$router.push("/login/employer");
-                    });
+                    }) */;
                 })
                 .catch((err) => {
                     console.log(err.response.data.error);
                     this.$swal({
-                        text: err.response.data.error,
+                        text: "Error registering employer",
                         buttons: {
                             close: {
                                 value: "close",

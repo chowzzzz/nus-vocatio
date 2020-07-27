@@ -34,6 +34,7 @@
 <script>
 import EmployerProfileComp from "../../components/EmployerProfileComp.vue";
 import ChangePassword from "../../components/ChangePassword.vue";
+import { mapGetters } from "vuex";
 
 export default {
     name: "EmployerProfile",
@@ -42,9 +43,10 @@ export default {
         ChangePassword,
     },
     computed: {
+        ...mapGetters("employers", ["getEmpById"]),
         employer() {
             // change this
-            const employer = this.$store.getters.getEmpById(8);
+            const employer = this.getEmpById(8);
             return employer;
         },
     },
