@@ -25,7 +25,7 @@ app.get("/", (req, res) => {
 require("./routes/student.routes")(app);
 require("./routes/admin.routes")(app);
 require("./routes/employer.routes")(app);
-require("./routes/jobpost.routes")(app);
+require("./routes/jobPost.routes")(app);
 require("./routes/application.routes")(app);
 
 app.use(function (err, req, res, next) {

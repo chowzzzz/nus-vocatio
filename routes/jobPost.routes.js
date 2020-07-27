@@ -1,7 +1,7 @@
 const upload = require("../config/upload.config.js");
 
 module.exports = (app) => {
-    const Jobpost = require("../controllers/jobpost.controller.js");
+    const Jobpost = require("../controllers/jobPost.controller.js");
 
     var router = require("express").Router();
 

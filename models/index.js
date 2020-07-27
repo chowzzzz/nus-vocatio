@@ -23,7 +23,7 @@ db.sequelize = sequelize;
 db.student = require("./Student.js")(sequelize, Sequelize);
 db.admin = require("./Admin.js")(sequelize, Sequelize);
 db.employer = require("./Employer.js")(sequelize, Sequelize);
-db.jobpost = require("./Jobpost.js")(sequelize, Sequelize);
+db.jobpost = require("./JobPost.js")(sequelize, Sequelize);
 db.application = require("./Applications.js")(sequelize, Sequelize);
 
 //Relations
