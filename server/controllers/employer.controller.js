@@ -92,7 +92,7 @@ exports.createEmployer = (req, res) => {
 };
 
 //Create a jobpost
-exports.createJobpost = (req, res) => {
+exports.createJobpost = async (req, res) => {
     // Validate request
     if (!req.body.post_title) {
         res.status(400).send({
@@ -101,34 +101,63 @@ exports.createJobpost = (req, res) => {
         return;
     }
 
-    // Create a jobPost
-    const jobpost = {
-        post_title: req.body.post_title,
-        post_short_des: req.body.post_short_des,
-        post_long_des: req.body.post_long_des,
-        post_requirements: req.body.post_requirements,
-        post_type: req.body.post_type,
-        post_pay: req.body.post_pay,
-        post_status: req.body.post_status,
-        post_expiry: req.body.post_expiry,
-        post_industry: req.body.post_industry,
-        post_faculty: req.body.post_faculty,
-        post_max_applicants: req.body.post_max_applicants,
-        employerId: req.body.employerId
-    };
-    console.log(jobpost);
-    // Save JobPost in the database
-    Jobpost.create(jobpost)
-        .then((data) => {
-            res.send(data);
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message:
-                    err.message ||
-                    "Some error occurred while creating the JobPost."
+    const s3 = new aws.S3();
+
+    try {
+        const file = req.file;
+        // console.log(file);
+
+        async function uploadFile(file) {
+            const contractFile = fs.readFileSync(file.path);
+            const s3res = await s3
+                .upload({
+                    Bucket: "nusvocatio-bucket",
+                    Key: file.filename,
+                    Body: contractFile,
+                    ACL: "public-read"
+                })
+                .promise();
+
+            fs.unlink(file.path, (err) => {
+                if (err) console.log(err);
             });
-        });
+            const contractURL = s3res.Location;
+
+            // Create a jobPost
+            const jobpost = {
+                post_title: req.body.post_title,
+                post_short_des: req.body.post_short_des,
+                post_long_des: req.body.post_long_des,
+                post_requirements: req.body.post_requirements,
+                post_type: req.body.post_type,
+                post_pay: req.body.post_pay,
+                post_status: req.body.post_status,
+                post_expiry: req.body.post_expiry,
+                post_industry: req.body.post_industry,
+                post_faculty: req.body.post_faculty,
+                post_max_applicants: req.body.post_max_applicants,
+                post_contract: contractURL,
+                employerId: req.body.employerId
+            };
+            console.log(jobpost);
+            res.json(jobpost);
+            // Save JobPost in the database
+            Jobpost.create(jobpost)
+                .then((data) => {
+                    res.send(data);
+                })
+                .catch((err) => {
+                    res.status(500).send({
+                        message:
+                            err.message ||
+                            "Some error occurred while creating the JobPost."
+                    });
+                });
+        }
+        uploadFile(file);
+    } catch (err) {
+        res.status(422).json({ err });
+    }
 };
 
 // Retrieve all Employers from the database.

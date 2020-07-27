@@ -85,6 +85,9 @@ module.exports = (sequelize, Sequelize) => {
         },
         post_max_applicants: {
             type: Sequelize.DataTypes.INTEGER
+        },
+        post_contract: {
+            type: Sequelize.DataTypes.STRING
         }
     });
     return Jobpost;

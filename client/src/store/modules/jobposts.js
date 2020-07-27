@@ -349,7 +349,8 @@ const actions = {
         context.commit("DELETE_JOBPOST", id);
     },
     async updateJobPost({ commit }, updJobpost) {
-        const response = await axios.put(`${url}${updJobpost.id}`, updJobpost);
+        const id = updJobpost.get("id");
+        const response = await axios.put(`${url}${id}`, updJobpost);
         commit("UPDATE_JOBPOST", response.data);
     }
 };

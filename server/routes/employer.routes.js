@@ -9,7 +9,11 @@ module.exports = (app) => {
     router.post("/", upload.any(), Employer.createEmployer);
 
     // Create a new JobPost
-    router.post("/jobpost", Employer.createJobpost);
+    router.post(
+        "/jobpost",
+        upload.single("post_contract"),
+        Employer.createJobpost
+    );
 
     // Retrieve all Employer
     router.get("/", Employer.findAll);

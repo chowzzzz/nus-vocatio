@@ -1,40 +1,10 @@
+const fs = require("fs");
+const aws = require("../config/aws.config.js");
+
 const db = require("../models");
 const Jobpost = db.jobpost;
 const Application = db.application;
 const Op = db.Sequelize.Op;
-
-/*/ Create and Save a new JobPost
-exports.create = (req, res) => {
-	// Validate request
-	if (!req.body.post_title) {
-		res.status(400).send({
-			message: "Content can not be postty!",
-		});
-		return;
-	}
-
-	// Create a jobPost
-	const jobpost = {
-		post_title: req.body.post_title,
-		post_description: req.body.post_description,
-		post_requirements: req.post_requirements,
-		post_pay: req.body.post_pay,
-		employerId: employerId,
-	};
-
-	// Save JobPost in the database
-	Jobpost.create(jobpost)
-		.then((data) => {
-			res.send(data);
-		})
-		.catch((err) => {
-			res.status(500).send({
-				message:
-					err.message ||
-					"Some error occurred while creating the JobPost.",
-			});
-		});
-};*/
 
 // Retrieve all JobPosts from the database.
 exports.findAll = (req, res) => {
@@ -73,27 +43,76 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
     const id = req.params.id;
 
-    console.log(req.body);
+    const s3 = new aws.S3();
 
-    Jobpost.update(req.body, {
-        where: { id: id }
-    })
-        .then((num) => {
-            if (num == 1) {
-                Jobpost.findByPk(id).then((data) => {
-                    res.send(data);
+    try {
+        const file = req.file;
+
+        async function uploadFile(file) {
+            let contractURL;
+            if (file !== undefined) {
+                const contractFile = fs.readFileSync(file.path);
+                const s3res = await s3
+                    .upload({
+                        Bucket: "nusvocatio-bucket",
+                        Key: file.filename,
+                        Body: contractFile,
+                        ACL: "public-read"
+                    })
+                    .promise();
+
+                fs.unlink(file.path, (err) => {
+                    if (err) console.log(err);
                 });
+                contractURL = s3res.Location;
             } else {
-                res.send({
-                    message: `Cannot update JobPost with id=${id}. Maybe JobPost was not found or req.body is postty!`
-                });
+                contractURL = req.body.post_contract;
             }
-        })
-        .catch((err) => {
-            res.status(500).send({
-                message: "Error updating JobPost with id=" + id
-            });
-        });
+
+            // Create a jobPost
+            const jobpost = {
+                post_title: req.body.post_title,
+                post_short_des: req.body.post_short_des,
+                post_long_des: req.body.post_long_des,
+                post_requirements: req.body.post_requirements,
+                post_type: req.body.post_type,
+                post_pay: req.body.post_pay,
+                post_status: req.body.post_status,
+                post_expiry: req.body.post_expiry,
+                post_industry: req.body.post_industry,
+                post_faculty: req.body.post_faculty,
+                post_max_applicants: req.body.post_max_applicants,
+                post_contract: contractURL,
+                employerId: req.body.employerId
+            };
+            // console.log(jobpost);
+            // res.json(jobpost);
+            // Save JobPost in the database
+            Jobpost.update(jobpost, {
+                where: { id: id }
+            })
+                .then((num) => {
+                    if (num == 1) {
+                        Jobpost.findByPk(id).then((data) => {
+                            res.send(data);
+                        });
+                    } else {
+                        res.send({
+                            message: `Cannot update JobPost with id=${id}. Maybe JobPost was not found or req.body is empty!`
+                        });
+                    }
+                })
+                .catch((err) => {
+                    res.status(500).send({
+                        message: "Error updating JobPost with id=" + id
+                    });
+                });
+        }
+
+        uploadFile(file);
+    } catch (err) {
+        res.status(422).json({ err });
+    }
 };
 
 exports.delete = (req, res) => {

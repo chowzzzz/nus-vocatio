@@ -30,7 +30,7 @@ export default {
     computed: {
         posts() {
             // change this
-            let posts = this.$store.getters.getJobByEmpId(1);
+            let posts = this.$store.getters.getJobByEmpId(8);
             posts.forEach((post) => {
                 const applicants = this.$store.getters.getNoOfAppByJobId(
                     post.id
@@ -40,6 +40,7 @@ export default {
                 post.post_applicants = applicants;
                 post.emp_logo = emp_logo;
             });
+            console.log(posts);
             return posts;
         },
     },

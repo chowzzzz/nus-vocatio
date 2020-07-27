@@ -88,13 +88,33 @@ export default {
         confirmAdd() {
             this.$refs.sendData.sendPost();
             this.post.post_status = 0;
-            this.post.employerId = 1; // change this
+            this.post.employerId = 8; // change this
             this.post.post_requirements = this.post.post_requirements.replace(
                 /\n/gi,
                 "\\n"
             );
 
-            this.addJobPost(this.post)
+            const jobpost = new FormData();
+            jobpost.append("post_title", this.post.post_title);
+            jobpost.append("post_short_des", this.post.post_short_des);
+            jobpost.append("post_long_des", this.post.post_long_des);
+            jobpost.append("post_requirements", this.post.post_requirements);
+            jobpost.append("post_type", this.post.post_type);
+            jobpost.append("post_pay", this.post.post_pay);
+            jobpost.append("post_status", this.post.post_status);
+            jobpost.append("post_expiry", this.post.post_expiry);
+            jobpost.append("post_industry", this.post.post_industry);
+            jobpost.append("post_faculty", this.post.post_faculty);
+            jobpost.append(
+                "post_max_applicants",
+                this.post.post_max_applicants
+            );
+            jobpost.append("post_contract", this.post.post_contract);
+            jobpost.append("employerId", this.post.employerId);
+
+            // console.log(jobpost);
+
+            this.addJobPost(jobpost)
                 .then(
                     this.$swal({
                         title: "Confirm",
@@ -121,8 +141,6 @@ export default {
                             },
                         },
                         icon: "warning",
-                    }).then((value) => {
-                        if (value === "close") this.$router.go(-1);
                     });
                 });
         },
@@ -136,7 +154,26 @@ export default {
                 "\\n"
             );
 
-            this.updateJobPost(this.post)
+            const jobpost = new FormData();
+            jobpost.append("id", this.post.id);
+            jobpost.append("post_title", this.post.post_title);
+            jobpost.append("post_short_des", this.post.post_short_des);
+            jobpost.append("post_long_des", this.post.post_long_des);
+            jobpost.append("post_requirements", this.post.post_requirements);
+            jobpost.append("post_type", this.post.post_type);
+            jobpost.append("post_pay", this.post.post_pay);
+            jobpost.append("post_status", this.post.post_status);
+            jobpost.append("post_expiry", this.post.post_expiry);
+            jobpost.append("post_industry", this.post.post_industry);
+            jobpost.append("post_faculty", this.post.post_faculty);
+            jobpost.append(
+                "post_max_applicants",
+                this.post.post_max_applicants
+            );
+            jobpost.append("post_contract", this.post.post_contract);
+            jobpost.append("employerId", this.post.employerId);
+
+            this.updateJobPost(jobpost)
                 .then(
                     this.$swal({
                         title: "Confirm",

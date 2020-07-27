@@ -113,12 +113,22 @@
 
                     <label>Contract Terms</label>
                     <label for="contract" id="uploadFileInput">
+                        <span>{{ fileName }}</span>
+
                         <span id="uploadFileBtn">
                             <i class="fas fa-file-upload"></i> Upload file
                         </span>
                     </label>
                     <br />
-                    <input type="file" name="contract" id="contract" />
+                    <span id="error">{{ errorMsg }}</span>
+
+                    <input
+                        type="file"
+                        name="contract"
+                        ref="file"
+                        @change="selectFile"
+                        id="contract"
+                    />
                     <br />
 
                     <label for="expiry">Apply by:</label>
@@ -163,6 +173,8 @@ export default {
         }
         return {
             jobID: jobID,
+            fileName: "",
+            errorMsg: "",
         };
     },
     computed: {
@@ -184,6 +196,7 @@ export default {
                 post_industry: "",
                 post_faculty: "",
                 post_max_applicants: "",
+                post_contract: "",
             };
 
             if (this.$route.params.jobID !== undefined) {
@@ -202,14 +215,32 @@ export default {
                 post.post_requirements = this.jobpost.post_requirements
                     .split("\\n")
                     .join("\n");
+                post.post_contract = this.jobpost.post_contract;
             }
 
             return post;
         },
     },
+    mounted() {
+        if (typeof this.post.post_contract === "string") {
+            this.fileName = this.post.post_contract.substring(71);
+        }
+    },
     methods: {
         sendPost() {
             this.$emit("post", this.post);
+        },
+        selectFile() {
+            if (this.$refs.file.files[0].type.match("application.*")) {
+                this.errorMsg = "";
+                this.post.post_contract = this.$refs.file.files.item(0);
+                // console.log(this.post.post_contract);
+                this.fileName = this.post.post_contract.name;
+            } else {
+                this.fileName = "";
+                this.errorMsg =
+                    "File type not supported. Only upload pdf/doc files.";
+            }
         },
     },
 };
@@ -273,6 +304,7 @@ input[type="file"] {
     text-align: left;
     width: 100%;
     box-sizing: border-box;
+    cursor: pointer;
 }
 
 #uploadFileBtn {
@@ -347,6 +379,12 @@ textarea {
 p {
     margin-bottom: 0.5em;
     color: #888888;
+}
+
+#error {
+    font-size: 12px;
+    display: block;
+    color: red;
 }
 
 @media screen and (max-width: 900px) {

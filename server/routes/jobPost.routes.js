@@ -1,29 +1,31 @@
+const upload = require("../config/upload.config.js");
+
 module.exports = (app) => {
-	const Jobpost = require("../controllers/jobpost.controller.js");
+    const Jobpost = require("../controllers/jobpost.controller.js");
 
-	var router = require("express").Router();
+    var router = require("express").Router();
 
-	/* Create a new JobPost
+    /* Create a new JobPost
 	router.post("/", Jobpost.create);
 	*/
-	
-	// Retrieve all JobPost
-	router.get("/", Jobpost.findAll);
 
-	// Retrieve a single Stdeunt with id
-	router.get("/:id", Jobpost.findOne);
+    // Retrieve all JobPost
+    router.get("/", Jobpost.findAll);
 
-	// Update a JobPost with id
-	router.put("/:id", Jobpost.update);
+    // Retrieve a single Stdeunt with id
+    router.get("/:id", Jobpost.findOne);
 
-	// Delete a JobPost with id
-	router.delete("/:id", Jobpost.delete);
+    // Update a JobPost with id
+    router.put("/:id", upload.single("post_contract"), Jobpost.update);
 
-	// Create a new JobPost
-	router.delete("/", Jobpost.deleteAll);
+    // Delete a JobPost with id
+    router.delete("/:id", Jobpost.delete);
 
-	//Find all applications from jobpost ID
-	router.get("/application/:id",Jobpost.findApplicationByJobId);
+    // Create a new JobPost
+    router.delete("/", Jobpost.deleteAll);
 
-	app.use("/api/jobpost", router);
+    //Find all applications from jobpost ID
+    router.get("/application/:id", Jobpost.findApplicationByJobId);
+
+    app.use("/api/jobpost", router);
 };

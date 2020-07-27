@@ -26,7 +26,7 @@
                         v-for="post in posts"
                         :key="post.id"
                         v-bind:class="{
-                        removed: post.post_status === 4 || post.status === 3
+                        removed: post.post_status == 4 || post.status == 3
                     }"
                         @click="navigateTo({path: `/${path}/${post.id}`, query: { appID: post.appID }})"
                     >
@@ -40,31 +40,31 @@
                                     id="post-id"
                                     v-if="home"
                                     v-bind:class="{
-                                        grey: post.post_status === 4} "
+                                        grey: post.post_status == 4} "
                                 >Posting ID#{{ post.id }}</span>
                                 <span
                                     id="post-id"
                                     v-else
                                     v-bind:class="{
-                                        grey: post.status === 3} "
+                                        grey: post.status == 3} "
                                 >Student ID#{{ post.id }}</span>
 
                                 <span
                                     id="status"
                                     v-if="home"
                                     v-bind:class="{
-                                        green: post.post_status === 1,
-                                        red: post.post_status === 2 || post.post_status === 3,
-                                        grey: post.post_status === 0 || post.post_status === 4
+                                        green: post.post_status == 1,
+                                        red: post.post_status == 2 || post.post_status == 3,
+                                        grey: post.post_status == 0 || post.post_status == 4
                             }"
                                 >{{ post.post_status | postStatus }}</span>
                                 <span
                                     id="status"
                                     v-else
                                     v-bind:class="{
-                                        green: post.status === 1,
-                                        blue: post.status === 2,
-                                        grey: post.status === 3
+                                        green: post.status == 1,
+                                        blue: post.status == 2,
+                                        grey: post.status == 3
                             }"
                                 >{{ post.status | appStatus }}</span>
                             </div>
@@ -106,23 +106,7 @@ export default {
     computed: {
         posts() {
             let posts = this.allPosts;
-            // console.log(posts);
             if (this.home) {
-                posts.forEach((post) => {
-                    if (
-                        post !== undefined
-                        // && post.emp_logo.data !== undefined
-                    ) {
-                        /*  post.emp_logo =
-                        "data:image/jpeg;base64," +
-                        btoa(
-                            post.emp_logo.data
-                                .map((b) => String.fromCharCode(b))
-                                .join("")
-                        ); */
-                    }
-                });
-
                 if (this.sort == 2) {
                     posts.sort((a, b) => {
                         const post1 = a.post_title.toUpperCase();
@@ -146,22 +130,6 @@ export default {
                     );
                 }
             } else {
-                posts.forEach((post) => {
-                    if (
-                        post !== undefined &&
-                        post.stu_picture.data !== undefined
-                    ) {
-                        // change this
-                        post.stu_picture =
-                            "data:image/jpeg;base64," +
-                            btoa(
-                                post.stu_picture.data
-                                    .map((b) => String.fromCharCode(b))
-                                    .join("")
-                            );
-                    }
-                });
-
                 if (this.sort == 2) {
                     posts.sort((a, b) => {
                         const post1 = a.stu_name.toUpperCase();
@@ -182,36 +150,10 @@ export default {
                 }
             }
 
+            console.log(posts);
             return posts;
         },
     },
-    /* watch: {
-        posts: function (loadedPosts) {
-            if (this.home) {
-                loadedPosts.forEach((post) => {
-                    // change this
-                    post.emp_logo =
-                        "data:image/jpeg;base64," +
-                        btoa(
-                            post.emp_logo.data
-                                .map((b) => String.fromCharCode(b))
-                                .join("")
-                        );
-                });
-            } else {
-                loadedPosts.forEach((post) => {
-                    // change this
-                    post.stu_picture =
-                        "data:image/jpeg;base64," +
-                        btoa(
-                            post.stu_picture.data
-                                .map((b) => String.fromCharCode(b))
-                                .join("")
-                        );
-                });
-            }
-        },
-    }, */
     filters: {
         postStatus(value) {
             let status;
@@ -371,7 +313,8 @@ li {
 }
 
 .post-img img {
-    height: 80px;
+    max-height: 80px;
+    max-width: 70px;
     border: 1px solid #e2e2e2;
 }
 
@@ -489,8 +432,8 @@ h3 {
     }
 
     .post-img img {
-        width: 65px;
-        height: 65px;
+        max-width: 65px;
+        max-height: 65px;
     }
 
     li {
@@ -522,8 +465,8 @@ h3 {
     }
 
     .post-img img {
-        width: 50px;
-        height: 50px;
+        max-width: 50px;
+        max-height: 50px;
     }
 
     li {
