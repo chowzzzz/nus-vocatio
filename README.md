@@ -59,17 +59,19 @@ This application was written for NUS CP2106 Independent Software Development Pro
         };
         ```
 4. In your project directory, run
-  ```
-  cd/server
-  npm install
-  npm start 
+```
+cd/server
+npm install
+npm start 
+```
+   
+   and on another terminal, run
    ```
-    and on another terminal, run
-     ```
-    cd/client
-    npm install
-    npm run serve 
-     ```
+   cd/client
+   npm install
+   npm run serve 
+   ```
+
 5. Open the application on your browser on [http://localhost:8080](http://localhost:8080)
 
 ## Links :link:
