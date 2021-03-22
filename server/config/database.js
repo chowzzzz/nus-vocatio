@@ -1,15 +1,15 @@
 module.exports = {
-    HOST: 'sql12.freemysqlhosting.net',
-    USER:'sql12352722',
-    PASSWORD: 'YxZJk1M6Xf',
-    DB: 'sql12352722',
-    dialect: 'mysql',
+	HOST: "sql109.epizy.com",
+	USER: "epiz_28203338",
+	PASSWORD: "H5QxGY9jFrq4U",
+	DB: "epiz_28203338_nusVocatioDB",
+	dialect: "mysql",
 
-    pool: {
-        max: 5,
-        min: 0,
-        acquire: 30000,
-        idle: 10000
-    },
+	pool: {
+		max: 15,
+		min: 5,
+		idle: 1,
+		evict: 15000,
+		acquire: 30000
+	}
 };
-
