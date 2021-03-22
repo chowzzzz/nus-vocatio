@@ -58,7 +58,7 @@ This application was written for NUS CP2106 Independent Software Development Pro
             },
         };
         ```
-5. In your project directory, run
+4. In your project directory, run
   ```
   cd/server
   npm install
@@ -70,7 +70,7 @@ This application was written for NUS CP2106 Independent Software Development Pro
     npm install
     npm run serve 
      ```
-6. Open the application on your browser on [http://localhost:8080](http://localhost:8080)
+5. Open the application on your browser on [http://localhost:8080](http://localhost:8080)
 
 ## Links :link:
 Check out our initial mockup: https://marvelapp.com/23aa2j96
